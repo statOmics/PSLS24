@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lieven Clement" />
+
+
+<title>10. Categorical Data Analysis</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Topics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-intro.html">1. Introduction</a>
+    </li>
+    <li>
+      <a href="02-concepts.html">2. Concepts</a>
+    </li>
+    <li>
+      <a href="03-experimentalDesign.html">3. Experimental Design I</a>
+    </li>
+    <li>
+      <a href="04-dataExploration.html">4. Data Exploration</a>
+    </li>
+    <li>
+      <a href="05-statisticalInference.html">5.1 Statistical Inference 1</a>
+    </li>
+    <li>
+      <a href="05-statisticalInference-twosampleT.html">5.2 Statistical Inference 2</a>
+    </li>
+    <li>
+      <a href="06-linearRegression.html">6. Linear Regression</a>
+    </li>
+    <li>
+      <a href="07-Anova.html">7. Analysis of Variance</a>
+    </li>
+    <li>
+      <a href="08-MultipleRegression.html">8. Multiple Regression</a>
+    </li>
+    <li>
+      <a href="08-MultipleRegression-SpecificDesigns.html">8.2 Multiple Regression: Factorial Designs</a>
+    </li>
+    <li>
+      <a href="08-experimentalDesign2.html">8.3. Experimental Design II</a>
+    </li>
+    <li>
+      <a href="08-experimentalDesign3.html">8.4. Experimental Design III</a>
+    </li>
+    <li>
+      <a href="09-NonparametericStatistics-WilcoxonMannWithney.html">9.1. Nonparametric Statistics 1</a>
+    </li>
+    <li>
+      <a href="09-NonparametericStatistics-KruskalWallis.html">9.2. Nonparametric Statistics 2</a>
+    </li>
+    <li>
+      <a href="10-categoricalDataAnalysis.html">10. Categorical Data Analysis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-laptop"></span>
+     
+    Exercises
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="04_exercises.html">4. Data Exploration</a>
+    </li>
+    <li>
+      <a href="05_exercises.html">5. Statistical inference</a>
+    </li>
+    <li>
+      <a href="06_exercises.html">6. Simple linear regression</a>
+    </li>
+    <li>
+      <a href="07_exercises.html">7. ANOVA</a>
+    </li>
+    <li>
+      <a href="08_exercises.html">8. Multiple linear regression</a>
+    </li>
+    <li>
+      <a href="09_exercises.html">9. Non-parametric statistics</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://statomics.github.io/">statOmics</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">10. Categorical Data Analysis</h1>
+<h4 class="author">Lieven Clement</h4>
+<h4 class="date">statOmics, Ghent University (<a
+href="https://statomics.github.io"
+class="uri">https://statomics.github.io</a>)</h4>
+
+</div>
+
+
+<p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(Rmisc)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(NHANES)</span></code></pre></div>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>Until now we used models for a continuous response in function of
+categorical or continuous predictor. Here we will focus on a categorical
+response.</p>
+<ul>
+<li>we study the association of a categorical outcome and a categorical
+predictor and</li>
+<li>touch upon methods to model a categorical outcome with a continuous
+response.</li>
+</ul>
+<hr />
+</div>
+<div id="test-for-a-proportion" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Test for a
+proportion</h1>
+<div id="saksen-study" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Saksen-study</h2>
+<ul>
+<li>Fairly closed population (few migration)</li>
+<li>Probability that an unborn child is male?</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>boys <span class="ot">&lt;-</span> <span class="dv">3175</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">6155</span></span></code></pre></div>
+<ul>
+<li>On 6155 unborn children 3175 boys are observed.</li>
+<li>Is there a difference in the probability on the gender of an unborn
+child?</li>
+</ul>
+<hr />
+<ul>
+<li><p>The data are derived from a binary random variable <span
+class="math inline">\(X\)</span></p>
+<ul>
+<li><span class="math inline">\(X=1\)</span> for a boy and</li>
+<li><span class="math inline">\(X=0\)</span> for a girl.</li>
+</ul></li>
+<li><p>Note: count problem: the outcome is a count (number of
+boys)</p></li>
+<li><p>Formally we have considered a population of unborn children where
+each individual is characterized by a 0 or 1.</p></li>
+</ul>
+<hr />
+</div>
+<div id="bernoulli-probability-mass-distribution" class="section level2"
+number="2.2">
+<h2><span class="header-section-number">2.2</span> Bernoulli Probability
+Mass Distribution</h2>
+<ul>
+<li><p>Binary data can be modelled using a Bernoulli distribution: <span
+class="math display">\[\begin{eqnarray*}
+X_i &amp;\sim&amp; B(\pi) \text{ with}\\
+B(\pi)&amp;=&amp;\pi^{X_i}(1-\pi)^{(1-X_i)},
+\end{eqnarray*}\]</span></p></li>
+<li><p>It has one model parameter <span
+class="math inline">\(\pi\)</span></p>
+<ul>
+<li>Expected value of <span class="math inline">\(X_i\)</span>: <span
+class="math inline">\(\text{E}[X_i]=\pi,\)</span></li>
+<li>Proportion of unborn boys (children with <span
+class="math inline">\(X=1\)</span>) in the population.</li>
+<li>Hence <span class="math inline">\(\pi\)</span> is the probability
+that a random individual from the population is a boy (an observation
+with <span class="math inline">\(X=1\)</span>).</li>
+</ul></li>
+<li><p>The variance of Bernoulli data is also related to <span
+class="math inline">\(\pi\)</span>. <span
+class="math display">\[\text{Var}[X_i]=\pi (1-\pi).\]</span></p></li>
+</ul>
+<hr />
+<p>Some Bernoulli probability mass functions</p>
+<p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<hr />
+<ul>
+<li>In the Saksen study 6155 observaties were sampled at random from the
+population.</li>
+<li>We can estimate <span class="math inline">\(\pi\)</span> using the
+sample mean: <span class="math display">\[\hat \pi = \bar X =
+\frac{\sum\limits_{i=1}^n X_i}{n},\]</span></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>pi <span class="ot">&lt;-</span> boys <span class="sc">/</span> n</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>pi</span></code></pre></div>
+<pre><code>[1] 0.5158408</code></pre>
+<p>In our example <span class="math inline">\(\bar x =\)</span> 3175 /
+6155 = 51.6%.</p>
+<hr />
+</div>
+<div id="binomial-test" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Binomial test</h2>
+<ul>
+<li><p>Is the observed probability 51.6% that an unborn child is male,
+sufficient evidence to conclude that there is a higher chance on a boy
+than on a girl?</p></li>
+<li><p>Statistical test for <span class="math display">\[H_0: \pi=1/2
+\text{ versus } H_1: \pi\neq 1/2,\]</span></p></li>
+<li><p>We need known the distribution of</p>
+<ul>
+<li><span class="math inline">\(X\)</span> and <span
+class="math inline">\(\bar X\)</span></li>
+<li>or of the sum <span class="math inline">\(S=n\bar X\)</span>.</li>
+</ul></li>
+</ul>
+<hr />
+<ul>
+<li><p>Suppose that <span class="math inline">\(H_0:\pi=1/2\)</span> is
+true (boys and girls have an equal frequency in the population)</p></li>
+<li><p>A random individual from the population has a probability of
+<span class="math display">\[P(X=1)=\pi=1/2.\]</span> to be a
+boy</p></li>
+<li><p>Two children that are drawn independently :</p>
+<ul>
+<li>Probability of <span class="math inline">\(\pi=1/2\)</span> on a boy
+for the first and second child (independent from each other)</li>
+<li>Outcomes <span class="math inline">\((x_1, x_2)\)</span> for both
+children have 4 possible combinations: <span
+class="math inline">\((0,0),(0,1),(1,0)\text{ en }(1,1).\)</span></li>
+<li>Each of them has a probability of <span class="math inline">\(1/4 =
+1/2 \times 1/2\)</span>.</li>
+</ul></li>
+<li><p>Random variable <span class="math inline">\(S\)</span> is the sum
+of the outcomes :</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\((x_1,x_2)\)</span></th>
+<th align="center"><span class="math inline">\(s\)</span></th>
+<th align="center"><span class="math inline">\(P(S = s)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">(0,0)</td>
+<td align="center">0</td>
+<td align="center">1/4</td>
+</tr>
+<tr class="even">
+<td align="center">(0,1), (1,0)</td>
+<td align="center">1</td>
+<td align="center">1/2</td>
+</tr>
+<tr class="odd">
+<td align="center">(1,1)</td>
+<td align="center">2</td>
+<td align="center">1/4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div id="general-n-independent-samples" class="section level3"
+number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> General: <span
+class="math inline">\(n\)</span> independent samples</h3>
+<ul>
+<li><p>Probability for <span class="math inline">\(\pi\)</span> on
+success (<span class="math inline">\(X=1\)</span>)</p></li>
+<li><p>Total number of successes <span class="math inline">\(S\)</span>
+(sum of all values of 1) can take <span
+class="math inline">\(n+1\)</span> possible values <span
+class="math display">\[S=k\text{, met }k=0,\ldots,n\]</span></p></li>
+<li><p>Distribution of <span class="math inline">\(S\)</span>? <span
+class="math display">\[\begin{equation}
+P(S=k) = \left (
+\begin{array}{c}
+n \\
+k \\
+\end{array}
+\right ) \pi^k (1-\pi)^{n-k}
+\end{equation}\]</span></p></li>
+<li><p><span class="math inline">\(1-\pi\)</span>: probability on 0 for
+individual observation and</p></li>
+<li><p>binomial coefficient <span
+class="math display">\[\begin{equation*}
+\left (
+\begin{array}{c}
+n \\
+k \\
+\end{array}
+\right ) = \frac{n \times (n-1) \times ...\times (n-k+1) }{ k!} = \frac{
+n!}{ k!(n-k)! }
+\end{equation*}\]</span></p></li>
+<li><p>In R you can calculate the probabilities on each <span
+class="math inline">\(S=k\)</span> with the function
+<code>dbinom(k,n,p)</code></p></li>
+</ul>
+<hr />
+</div>
+<div id="binomial-distribution" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Binomial
+Distribution</h3>
+<p>S is a:</p>
+<ul>
+<li><p><em>Binomial distributed random variable</em> with <em>Binomial
+probability mass function</em></p></li>
+<li><p>Parameters</p>
+<ul>
+<li><span class="math inline">\(n\)</span> (total number of draws from
+the population, is equivalent to maximal value of the outcome)</li>
+<li><span class="math inline">\(\pi\)</span> (probability on
+<code>success</code> for each draw).</li>
+</ul></li>
+<li><p>Calculate probability on <span class="math inline">\(k\)</span>
+successes on <span class="math inline">\(n\)</span> independent draws
+each with a succes probability of <span
+class="math inline">\(\pi\)</span>.</p></li>
+<li><p>For binary data X.</p></li>
+<li><p>e.g.: wild type vs mutant of a gene, infected or not infected
+with HIV, …</p></li>
+<li><p>Use: Compare proportions or risks on a particular event between
+groups.</p></li>
+</ul>
+<hr />
+</div>
+<div id="some-binomial-probability-mass-functions."
+class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Some Binomial
+probability mass functions.</h3>
+<div class="figure" style="text-align: center">
+<img src="10-categoricalDataAnalysis_files/figure-html/binoms-1.png" alt="Binomial distributions." width="80%" />
+<p class="caption">
+Binomial distributions.
+</p>
+</div>
+<hr />
+<p>Test statistic <span class="math display">\[H_0:\pi=1/2\text{ vs
+}H_1:\pi\neq 1/2\]</span></p>
+<ul>
+<li><span class="math inline">\(\bar X-1/2\)</span> or, equivalent,</li>
+<li><span class="math inline">\(\Delta=n(\bar
+X-\pi_0)=S-s_0\)</span>.</li>
+<li>Distribution of the latter test statistic can be derived immediately
+from the Binomial distribution:
+<ul>
+<li>We observe <span class="math inline">\(s=\)</span> 3175 and thus
+<span class="math inline">\(\delta=s-s_0=\)</span> 3175 <span
+class="math inline">\(-\)</span> 6155 <span class="math inline">\(\times
+0.5=\)</span> 97.5.</li>
+<li>When boys and girls are equally likely, i.e. under <span
+class="math inline">\(H_0:\pi=1/2\)</span>, we will get following
+two-sided p-value: <span
+class="math display">\[p=\text{P}_0\left[S-s_0\geq \vert \delta\vert
+\right] + \text{P}_0\left[S-s_0\leq - \vert \delta\vert
+\right].\]</span></li>
+</ul></li>
+<li>Note, that we can rewrite it in terms of S. <span
+class="math display">\[p=\text{P}_0\left[S\geq s_0+ \vert \delta\vert
+\right] + \text{P}_0\left[S \leq s_0 - \vert \delta\vert
+\right].\]</span></li>
+</ul>
+<hr />
+<ul>
+<li>For the Saksen study we calculate:</li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+\text{P}_0\left[S\geq s_0+ \vert \delta\vert \right] &amp;=&amp; P(S
+\geq 6155 \times 0.5 + \vert 3175 - 6155 \times 0.5\vert ) \\&amp;=&amp;
+P(S \geq 3175)\\
+&amp;= &amp;P(S= 3175) + P(S=3176) + ... + P(S=6155)\\
+&amp; =&amp; 0.0067\\\\
+\text{P}_0\left[S \leq s_0 - \vert \delta\vert \right] &amp;=&amp; P(S
+\leq  6155 \times 0.5 - \vert 3175- 6155 \times 0.5\vert) \\&amp;=&amp;
+P(S \leq 2980)\\ &amp;= &amp;P(S=0) + ... + P(S=2980) \\
+&amp;=&amp;0.0067
+\end{eqnarray*}\]</span></p>
+<ul>
+<li>The Binomial distribution is symmetric for<span
+class="math inline">\(\pi=1/2\)</span>: <span
+class="math display">\[\text{P}_0\left[S\geq s_0+ \vert \delta\vert
+\right] = \text{P}_0\left[S \leq s_0 - \vert \delta\vert
+\right]\]</span></li>
+<li>This is no longer the case when <span
+class="math inline">\(\pi\)</span> deviate from 0.5.</li>
+</ul>
+<hr />
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>pi0 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>s0 <span class="ot">&lt;-</span> pi0 <span class="sc">*</span> n</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fu">abs</span>(boys <span class="sc">-</span> s0)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>delta</span></code></pre></div>
+<pre><code>[1] 97.5</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>sUp <span class="ot">&lt;-</span> s0 <span class="sc">+</span> delta</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>sDown <span class="ot">&lt;-</span> s0 <span class="sc">-</span> delta</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">c</span>(sDown, sUp)</span></code></pre></div>
+<pre><code>[1] 2980 3175</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>pUp <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(sUp <span class="sc">-</span> <span class="dv">1</span>, n, pi0)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>pDown <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(sDown, n, pi0)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> pUp <span class="sc">+</span> pDown</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="fu">c</span>(pUp, pDown, p)</span></code></pre></div>
+<pre><code>[1] 0.006699883 0.006699883 0.013399766</code></pre>
+<hr />
+<ul>
+<li>If <span class="math inline">\(\pi= 1/2\)</span>, the probability to
+observe at least <span class="math inline">\(\delta=\)</span> 97.5 boys
+more or less than the mean under <span class="math inline">\(H_0:
+s_0=\)</span> 3077.5 in a random sample under H_0 is only 1.34% is:
+<strong><span class="math inline">\(p\)</span>-value of binomial
+test.</strong></li>
+<li>Very unlikely to observe such a large number of boys in a random
+sample when boys and girls have the same frequency in the population
+(under <span class="math inline">\(H_0\)</span>).</li>
+<li>Hence the hypothesis that the frequency of boys and girls is the
+same is not supported by the data.</li>
+</ul>
+<hr />
+<p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<hr />
+<p>The test can immediately be conducted using the
+<code>binomial.test</code> function in R.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> boys, <span class="at">n =</span> n, <span class="at">p =</span> pi0)</span></code></pre></div>
+<pre><code>
+    Exact binomial test
+
+data:  boys and n
+number of successes = 3175, number of trials = 6155, p-value = 0.0134
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.5032696 0.5283969
+sample estimates:
+probability of success 
+             0.5158408 </code></pre>
+<p>On the 5% significance-level we conclude that there is on average a
+higher probability on a unborn male child than an unborn female
+child.</p>
+<hr />
+</div>
+<div id="confidence-interval-on-a-proportion" class="section level3"
+number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Confidence interval
+on a proportion</h3>
+<ul>
+<li>Estimator of the proportion of boys in the population is the sample
+mean <span class="math inline">\(\hat \pi=\bar x=\)</span> 0.516</li>
+<li>The standard error is <span class="math display">\[SE_{\bar
+x}=\sqrt{\frac{\text{Var}[X]}{n}}=\sqrt{\frac{\pi(1-\pi)}{n}}\]</span></li>
+<li>We can estimate this based on the sample: <span
+class="math inline">\(SE_{\bar
+x}=\sqrt{\frac{\hat\pi(1-\hat\pi)}{n}}=\)</span> 0.0064.</li>
+<li>95% CI via CLT: <span class="math inline">\(\hat\pi \pm 1.96
+SE_{\hat\pi}.\)</span></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> n)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>pi <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se</span></code></pre></div>
+<pre><code>[1] 0.5033559 0.5283257</code></pre>
+<hr />
+</div>
+<div id="ci-on-proportion-in-small-sample" class="section level3"
+number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> CI on proportion in
+small sample?</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>CI <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> boys, <span class="at">n =</span> n, <span class="at">p =</span> pi0)<span class="sc">$</span>conf.int</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>CI</span></code></pre></div>
+<pre><code>[1] 0.5032696 0.5283969
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
+<hr />
+</div>
+<div id="conclusion" class="section level3" number="2.3.6">
+<h3><span class="header-section-number">2.3.6</span> Conclusion</h3>
+<ul>
+<li><p>Note that the test for a proportion is equivalent to a one-sample
+t-test for binary data.</p></li>
+<li><p>For the Saksen population we conclude at the 5% significance
+level that the gender of unborn children is more likely to be male than
+female (<span class="math inline">\(p=\)</span> 0.013). The probability
+that an unborn child is male equals 51.6% (95% CI
+[50.3,52.8]%).</p></li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
+<div id="test-for-association-between-two-qualitative-variables"
+class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Test for association
+between two qualitative variables</h1>
+<div id="paired-observations" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Paired
+observations</h2>
+<ul>
+<li>2 measurements on same individual</li>
+<li>e.g. before and after exposure to a chemical substance</li>
+<li>observe a categorical outcome before and after.</li>
+<li><em>paired binary responses</em></li>
+<li>Statistical analysis has to account for paired design.</li>
+</ul>
+<hr />
+<div
+id="example-females-choose-gentle-but-not-healthy-or-macho-males-in-campbell-dwarf-hamsters-rogovin-et-al.-2017"
+class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Example: Females
+choose gentle, but not healthy or macho males in Campbell dwarf hamsters
+(Rogovin et al. 2017)</h3>
+<p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<hr />
+<ul>
+<li><p>The gate is opened upon 3 minutes</p></li>
+<li><p>aggressive vs non-agressive male</p></li>
+<li><p>Each female undergoes the test twice:</p>
+<ul>
+<li>once upon stay in hostile environment (high population density,
+shortage of feed, a lot of competition)</li>
+<li>and once upon stay in gentle evironment.</li>
+</ul></li>
+</ul>
+<table style="width:100%;">
+<colgroup>
+<col width="31%" />
+<col width="27%" />
+<col width="32%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">friendly_agressive</th>
+<th align="left">friendly_non-agressive</th>
+<th align="left">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hostile_agressive</td>
+<td align="left">3 (e)</td>
+<td align="left">17 (f)</td>
+<td align="left">20</td>
+</tr>
+<tr class="even">
+<td align="left">hostile_non-agressive</td>
+<td align="left">1 (g)</td>
+<td align="left">13 (h)</td>
+<td align="left">14</td>
+</tr>
+<tr class="odd">
+<td align="left">total</td>
+<td align="left">4</td>
+<td align="left">30</td>
+<td align="left">34</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="absolute-risk-difference-ard" class="section level3"
+number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Absolute risk
+difference (ARD)</h3>
+<ul>
+<li><p><span class="math inline">\(\pi_1=P[\text{agressive male } \vert
+\text{hostile}]\)</span></p></li>
+<li><p><span class="math inline">\(\hat \pi_1=(e+f)/n\)</span>, with
+<span class="math inline">\(n=e+f+g+h\)</span>.</p></li>
+<li><p><span class="math inline">\(\pi_0=P[\text{agressive male } \vert
+\text{ friendly}]\)</span></p></li>
+<li><p><span class="math inline">\(\hat \pi_0=(e+g)/n\)</span> <span
+class="math display">\[\begin{equation*}
+\widehat{\text{ARD}}=\hat\pi_1-\hat\pi_0=\frac{e+f}{n}-\frac{e+g}{n}=\frac{f-g}{n}
+\end{equation*}\]</span></p></li>
+<li><p>Only affected by discordant pairs <span
+class="math inline">\(f\)</span> en <span
+class="math inline">\(g\)</span></p></li>
+</ul>
+<hr />
+<ul>
+<li><p>Standard error on ARD <span
+class="math display">\[\begin{equation*}
+\text{SE}_{\widehat{\text{ARD}}}=\frac{1}{n}\sqrt{f+g-\frac{(f-g)^2}{n}}
+\end{equation*}\]</span></p></li>
+<li><p>If we have large number of observations we can use the CLT to
+establish an <span class="math inline">\((1-\alpha)100\%\)</span> CI on
+the ARD <span
+class="math display">\[\left[\widehat{\text{ARD}}-z_{\alpha/2}\text{SE}_{\widehat{\text{ARD}}},\widehat{\text{ARD}}-z_{\alpha/2}\text{SE}_{\widehat{\text{ARD}}}\right]\]</span>
+or <span
+class="math display">\[\left[\frac{f-g}{n}-\frac{z_{\alpha/2}}{n}\sqrt{f+g-\frac{(f-g)^2}{n}},\frac{f-g}{n}+\frac{z_{\alpha/2}}{n}\sqrt{f+g-\frac{(f-g)^2}{n}}\right]
+\]</span></p></li>
+</ul>
+<hr />
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>hamster <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>, <span class="dv">1</span>, <span class="dv">13</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">rownames</span>(hamster) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hostile-agressive&quot;</span>, <span class="st">&quot;hostile-non-agressive&quot;</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="fu">colnames</span>(hamster) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;friendly-agressive&quot;</span>, <span class="st">&quot;friendly-non-agressive&quot;</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>f <span class="ot">&lt;-</span> hamster[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>g <span class="ot">&lt;-</span> hamster[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(hamster)</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>riskdiff <span class="ot">&lt;-</span> (f <span class="sc">-</span> g) <span class="sc">/</span> n</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>riskdiff</span></code></pre></div>
+<pre><code>[1] 0.4705882</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(f <span class="sc">+</span> g <span class="sc">-</span> (f <span class="sc">-</span> g)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n) <span class="sc">/</span> n</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>se</span></code></pre></div>
+<pre><code>[1] 0.09517144</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>ci <span class="ot">&lt;-</span> riskdiff <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>ci</span></code></pre></div>
+<pre><code>[1] 0.2840556 0.6571208</code></pre>
+<hr />
+<p><span class="math display">\[\begin{equation*}
+\widehat{\text{ARD}}=\frac{17-1}{34}=0.471
+\end{equation*}\]</span> The absolute risk difference on choosing for an
+agressive male is 47.1% larger upon staying in a hostile environment
+that when residing in a gentle environment. - The standard error <span
+class="math display">\[\begin{equation*}
+\text{SE}_{\widehat{\text{ARD}}}=\frac{1}{34}\sqrt{17+1-\frac{(17-1)^2}{34}}=0.0952
+\end{equation*}\]</span> - A 95% confidence interval on this absolute
+risk difference is <span class="math display">\[\begin{equation*}
+\left[0.471-1.96\times 0.0952,0.471+1.96\times
+0.0952\right]=[0.284,0.658]
+\end{equation*}\]</span></p>
+<hr />
+</div>
+</div>
+<div id="mcnemar-test" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> McNemar test</h2>
+<table style="width:100%;">
+<colgroup>
+<col width="31%" />
+<col width="27%" />
+<col width="32%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">friendly_agressive</th>
+<th align="left">friendly_non-agressive</th>
+<th align="left">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hostile_agressive</td>
+<td align="left">3 (e)</td>
+<td align="left">17 (f)</td>
+<td align="left">20</td>
+</tr>
+<tr class="even">
+<td align="left">hostile_non-agressive</td>
+<td align="left">1 (g)</td>
+<td align="left">13 (h)</td>
+<td align="left">14</td>
+</tr>
+<tr class="odd">
+<td align="left">total</td>
+<td align="left">4</td>
+<td align="left">30</td>
+<td align="left">34</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Assess if risk on choice for agressive male differs between residing
+in hostile and friendly environment.</li>
+<li>Only discordant pairs give information.</li>
+<li><span class="math inline">\(f&gt;g\)</span> indication against <span
+class="math inline">\(H_0\)</span>: choice of partner not associated
+with environment.</li>
+<li>Evaluate probability that in a random discordant pair, a female
+chooses an agressive male upon a stay in a hostile environment.</li>
+<li>We estimate the probability as <span
+class="math display">\[\frac{f}{f+g}\]</span></li>
+</ul>
+<hr />
+<p><span class="math display">\[\begin{eqnarray*}
+  \text{E}\left[f/(f+g)\right]&amp;\stackrel{H_0}{=}&amp; 0.5\\
+  f &amp; \stackrel{H_0}{\sim}&amp; \text{Binom}(n=f+g,\pi=0.5)\\
+  \text{SE}_{\frac{f}{f+g}} &amp; \stackrel{H_0}{=}&amp;
+\sqrt{(f+g)\times 0.5\times 0.5}=\frac{\sqrt{f+g}}{2}
+\end{eqnarray*}\]</span></p>
+<hr />
+<ul>
+<li>Asymptotically a one-sample z-test (based on the Normal
+distribution)</li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+z=\frac{f-(f+g)/2}{\sqrt{f+g}/2}=\frac{f-g}{\sqrt{f+g}}
+\end{equation*}\]</span></p>
+<ul>
+<li>Normal approximation is good if <span class="math display">\[f
+\times g/(f+g) \geq 5\]</span></li>
+</ul>
+<p>The <strong>Mc Nemar test</strong> is the analogon of the paired
+t-test for binary qualitative variables.</p>
+<hr />
+<p>In R we can conduct the analysis using the <code>mcnemar.test</code>
+function</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">mcnemar.test</span>(hamster)</span></code></pre></div>
+<pre><code>
+    McNemar&#39;s Chi-squared test with continuity correction
+
+data:  hamster
+McNemar&#39;s chi-squared = 12.5, df = 1, p-value = 0.000407</code></pre>
+<ul>
+<li>We reject the null hypothesis at the 5% significance level</li>
+<li>We conclude that the choice of partner is extremely significantly
+associated with the environment.</li>
+</ul>
+<hr />
+<ul>
+<li>Normale approximation is not optimal and we can perform an exact
+test using the binomial test</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> f, <span class="at">n =</span> f <span class="sc">+</span> g, <span class="at">p =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>
+    Exact binomial test
+
+data:  f and f + g
+number of successes = 17, number of trials = 18, p-value = 0.000145
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.7270564 0.9985944
+sample estimates:
+probability of success 
+             0.9444444 </code></pre>
+<hr />
+<div id="conclusion-1" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Conclusion</h3>
+<ul>
+<li>We conclude that the partner choice is extremely signficantly
+associated with the environment (<span
+class="math inline">\(p&lt;0.001\)</span>).</li>
+<li>The probability on choosing an agressive male is on average 47.1%
+higher when a female hamster resides in a hostile environment than when
+she resides in a friendly environment (95% CI [28.4,65.7]%).</li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
+<div id="unpaired-observations" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Unpaired
+observations</h1>
+<div id="genetic-association-study" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Genetic association
+study</h2>
+<ul>
+<li>Are genetic polymorphisms in the BRCA1 gene associated with breast
+cancer?</li>
+<li>Retrospective case-control study with 800 breast cancer cases en 572
+controls</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>brca <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/GTPB/PSLS20/master/data/brca.csv&quot;</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">head</span>(brca)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["cancer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["variant"],"name":[2],"type":["chr"],"align":["left"]},{"label":["variant2"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"control","2":"pro/pro","3":"other"},{"1":"control","2":"pro/pro","3":"other"},{"1":"control","2":"pro/pro","3":"other"},{"1":"control","2":"pro/pro","3":"other"},{"1":"control","2":"pro/pro","3":"other"},{"1":"control","2":"pro/pro","3":"other"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">summary</span>(brca)</span></code></pre></div>
+<pre><code>    cancer            variant            variant2        
+ Length:1372        Length:1372        Length:1372       
+ Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character  </code></pre>
+<hr />
+<table>
+<thead>
+<tr class="header">
+<th align="left">Genotype</th>
+<th align="left">Control</th>
+<th align="left">Cases</th>
+<th align="left">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pro/Pro</td>
+<td align="left">266 (a)</td>
+<td align="left">342 (d)</td>
+<td align="left">608 (a+d)</td>
+</tr>
+<tr class="even">
+<td align="left">Pro/Leu</td>
+<td align="left">250 (b)</td>
+<td align="left">369 (e)</td>
+<td align="left">619 (b+e)</td>
+</tr>
+<tr class="odd">
+<td align="left">Leu/Leu</td>
+<td align="left">56 (c)</td>
+<td align="left">89 (f)</td>
+<td align="left">145 (c+f)</td>
+</tr>
+<tr class="even">
+<td align="left">Totaal</td>
+<td align="left">572 (a+b+c)</td>
+<td align="left">800 (d+e+f)</td>
+<td align="left">1372 (n)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>In case-control study one chooses a fixed number of cases and
+controls and registers which exposures they had in the past.</li>
+<li>Retrospective study</li>
+<li>Impossible to assess risks and risk-differences on breast cancer
+because the proportion of cases and controls does not reflect that in
+the population!</li>
+</ul>
+<hr />
+<table>
+<thead>
+<tr class="header">
+<th align="left">Genotype</th>
+<th align="left">Controls</th>
+<th align="left">Cases</th>
+<th align="left">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pro/Pro</td>
+<td align="left">266 (a)</td>
+<td align="left">342 (d)</td>
+<td align="left">608 (a+d)</td>
+</tr>
+<tr class="even">
+<td align="left">Pro/Leu</td>
+<td align="left">250 (b)</td>
+<td align="left">369 (e)</td>
+<td align="left">619 (b+e)</td>
+</tr>
+<tr class="odd">
+<td align="left">Leu/Leu</td>
+<td align="left">56 (c)</td>
+<td align="left">89 (f)</td>
+<td align="left">145 (c+f)</td>
+</tr>
+<tr class="even">
+<td align="left">Totaal</td>
+<td align="left">572 (a+b+c)</td>
+<td align="left">800 (d+e+f)</td>
+<td align="left">1372 (n)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Is possible to assess probability on allel Leu/Leu
+<ul>
+<li>cases: <span
+class="math inline">\(\pi_1=f/(d+e+f)=89/800=11.1\%\)</span></li>
+<li>controls:<span
+class="math inline">\(\pi_0=c/(a+b+c)=56/572=9.8\%\)</span></li>
+</ul></li>
+<li>Relative risk on exposure for cases versus controls is <span
+class="math inline">\(11.1/9.8=1.14\)</span>.</li>
+<li>The probability on the Leu/Leu genotype is 14% higher for women with
+breast cancer than for women without borstkanker.</li>
+<li>It suggests an association, but it does not let us conclude how much
+higher the risk is on breast cancer for women with the Leu/Leu genotype
+as compared to the other women.</li>
+<li>Other statistic?</li>
+</ul>
+<hr />
+<p><span class="math display">\[\begin{equation*}
+Odds=\frac{p}{1-p}
+\end{equation*}\]</span> with <span class="math inline">\(p\)</span> the
+probability on the event.</p>
+<p>Transformation of risk with following properties:</p>
+<ul>
+<li><p>odds has value between 1 and <span
+class="math inline">\(\infty\)</span>.</p></li>
+<li><p>odds only equals 1 for probability <span
+class="math inline">\(p=1/2\)</span>.</p></li>
+<li><p>de odds increases if probability increases.</p></li>
+<li><p>popular in gambling: how much more likely is it to win than to
+loose</p></li>
+</ul>
+<hr />
+<table>
+<thead>
+<tr class="header">
+<th align="left">Genotype</th>
+<th align="left">Controls</th>
+<th align="left">Cases</th>
+<th align="left">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pro/Pro</td>
+<td align="left">266 (a)</td>
+<td align="left">342 (d)</td>
+<td align="left">608 (a+d)</td>
+</tr>
+<tr class="even">
+<td align="left">Pro/Leu</td>
+<td align="left">250 (b)</td>
+<td align="left">369 (e)</td>
+<td align="left">619 (b+e)</td>
+</tr>
+<tr class="odd">
+<td align="left">Leu/Leu</td>
+<td align="left">56 (c)</td>
+<td align="left">89 (f)</td>
+<td align="left">145 (c+f)</td>
+</tr>
+<tr class="even">
+<td align="left">Totaal</td>
+<td align="left">572 (a+b+c)</td>
+<td align="left">800 (d+e+f)</td>
+<td align="left">1372 (n)</td>
+</tr>
+</tbody>
+</table>
+<p>Odds on allel Leu/Leu</p>
+<ul>
+<li><p>Cases: <span class="math inline">\(\mbox{odds}_1=\frac{
+f/(d+e+f)}{(d+e)/(d+e+f)}=f/(d+e)=89/711=0.125\)</span>. The double
+Leu/Leu variant is 8 times less likely than other allele combinations in
+the breast cancer cases</p></li>
+<li><p>Controls: <span
+class="math inline">\(\mbox{odds}_2=c/(a+b)=56/516=0.109\)</span>.</p></li>
+<li><p>Association between exposure and outcome: <span
+class="math display">\[
+OR_{Leu/Leu}=\frac{\mbox{odds}_T}{\mbox{odds}_C}=
+\frac{f/(d+e)}{c/(a+b)}=\frac{f/(d+e)}{c/(a+b)}=1.15
+\]</span></p></li>
+</ul>
+<hr />
+<table>
+<thead>
+<tr class="header">
+<th align="left">Genotype</th>
+<th align="left">Controls</th>
+<th align="left">Cases</th>
+<th align="left">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pro/Pro</td>
+<td align="left">266 (a)</td>
+<td align="left">342 (d)</td>
+<td align="left">608 (a+d)</td>
+</tr>
+<tr class="even">
+<td align="left">Pro/Leu</td>
+<td align="left">250 (b)</td>
+<td align="left">369 (e)</td>
+<td align="left">619 (b+e)</td>
+</tr>
+<tr class="odd">
+<td align="left">Leu/Leu</td>
+<td align="left">56 (c)</td>
+<td align="left">89 (f)</td>
+<td align="left">145 (c+f)</td>
+</tr>
+<tr class="even">
+<td align="left">Totaal</td>
+<td align="left">572 (a+b+c)</td>
+<td align="left">800 (d+e+f)</td>
+<td align="left">1372 (n)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>If the study would have been a random sample of the population
+(number of cases and controls not fixed by design) then we would be able
+to calculate the odds ratio on breast cancer for people with and without
+the double Leu/leu variant. <span
+class="math display">\[\begin{equation*}
+OR_{case}=\frac{ \frac{ f}{c}}{ \frac{(d+e)}{(a+b)}} =
+\frac{f(a+b)}{c(d+e)}=OR_{Leu/Leu}=1.15,
+\end{equation*}\]</span></li>
+<li>OR is a symmetric statistic!</li>
+<li>OR on borstcancer can be estimated!</li>
+<li>The odds on borstcancer is 15% higher for women with this specific
+allele combination.</li>
+</ul>
+<hr />
+<ul>
+<li><p>Is the difference large enough to generalize the effect in the
+sample towards the population?</p></li>
+<li><p>We will first rewrite the data in a 2x2 table</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Genotype</th>
+<th align="left">Controls</th>
+<th align="left">Cases</th>
+<th align="left">Totaal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">other</td>
+<td align="left">516 (a)</td>
+<td align="left">711 (c)</td>
+<td align="left">1227 (a+c)</td>
+</tr>
+<tr class="even">
+<td align="left">Leu/Leu</td>
+<td align="left">56 (b)</td>
+<td align="left">89 (d)</td>
+<td align="left">145 (b+d)</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left">572 (a+b)</td>
+<td align="left">800 (c+d)</td>
+<td align="left">1372 (n)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="pearson-chi-square-test-for-independent-samples"
+class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Pearson Chi-square
+test for independent samples</h2>
+<ul>
+<li><p>Test association between categorical exposure(e.g. variant, X) en
+categorical response (e.g. disease, Y). <span
+class="math display">\[H_0: \text{There is no association between } X
+\text{ and } Y \text{ vs } H_1: X \text{ and } Y \text{ are
+associated}\]</span></p></li>
+<li><p>Consider row totals <span
+class="math inline">\(n_\text{other}=a+c\)</span>, <span
+class="math inline">\(n_\text{leu,leu}=b+d\)</span> and</p></li>
+<li><p>column totals <span
+class="math inline">\(n_\text{contr}=a+b\)</span> en <span
+class="math inline">\(n_\text{case}=c+d\)</span>.</p></li>
+<li><p>They give information on <em>marginal distribution</em> of the
+exposure (variant, X) and outcome (disease, Y), but not on the
+association between these variables.</p></li>
+<li><p>Under <span class="math inline">\(H_0\)</span> <span
+class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> are independent and one expects that
+<span class="math inline">\((b+d)/n\)</span> of the <span
+class="math inline">\(a+b\)</span> controls have a Leu/Leu variant, or
+that <span class="math inline">\((a+b)(b+d)/n\)</span> of them has a
+Leu/Leu variant</p></li>
+<li><p>We can calculate this expected number <span
+class="math inline">\(E_{ij}\)</span> under the null hypothesis for
+<em>each cell</em> of the <span class="math inline">\(2 \times
+2\)</span> table.</p></li>
+</ul>
+<hr />
+<ul>
+<li><p><span class="math inline">\(E_{11}\)</span> = Expected number
+under <span class="math inline">\(H_0\)</span> in (1,1)-cell = 1227
+<span class="math inline">\(\times\)</span> 800/1372 = 715.5 ;</p></li>
+<li><p><span class="math inline">\(E_{12}\)</span> = Expected number
+under <span class="math inline">\(H_0\)</span> in (1,2)-cell = 1227
+<span class="math inline">\(\times\)</span> 572/1372 = 511.5 ;</p></li>
+<li><p><span class="math inline">\(E_{21}\)</span> = Expected number
+under <span class="math inline">\(H_0\)</span> in (2,1)-cell = 145 <span
+class="math inline">\(\times\)</span> 800/1372 = 84.55 ;</p></li>
+<li><p><span class="math inline">\(E_{22}\)</span> = Expected number
+under <span class="math inline">\(H_0\)</span> in (2,2)-cell = 145 <span
+class="math inline">\(\times\)</span> 572/1372 = 60.45 ;</p></li>
+</ul>
+<p>Test-statistic: <span class="math display">\[\begin{eqnarray*}
+X^2 &amp;=&amp; \frac{\left (|O_{11} - E_{11}| - .5 \right)^2 }{ E_{11}}
++ \frac{
+\left ( |O_{12} - E_{12}| - .5 \right)^2 }{E_{12} }+ \\
+&amp;&amp;\quad\quad
+\frac{ \left ( |O_{21}
+- E_{21}| - .5 \right)^2 }{E_{21}}+ \frac{ \left ( |O_{22} - E_{22}| -
+.5
+\right)^2 }{E_{22} }\\
+X^2 &amp;\stackrel{H_0}{\longrightarrow}&amp; \chi^2(df=1)
+\end{eqnarray*}\]</span></p>
+<hr />
+<p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<hr />
+<ul>
+<li>A large value of the test statistic gives an indication that the
+null hypothesis is false.</li>
+<li>The test will reject <span class="math inline">\(H_0\)</span> at the
+<span class="math inline">\(\alpha 100\%\)</span> significance level as
+soon as the observed test-statistic is larger than the <span
+class="math inline">\(100\%(1-\alpha)\)</span>-quantile, <span
+class="math inline">\(\chi^2_{1, \alpha}\)</span>, of the <span
+class="math inline">\(\chi^2_1\)</span>-distribution.</li>
+<li>Otherwise we do not reject <span
+class="math inline">\(H_0\)</span>.</li>
+<li>The p-value of a 2-sided test is the probability to observe a larger
+test-statistic in a random sample under the null than what we observed
+in our sample. <span class="math display">\[p=P_0[\chi^2_1 \geq
+x^2]\]</span>.</li>
+</ul>
+<hr />
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>    expected[i, j] <span class="ot">&lt;-</span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>      <span class="fu">sum</span>(brcaTab2[i, ]) <span class="sc">*</span> <span class="fu">sum</span>(brcaTab2[, j]) <span class="sc">/</span> <span class="fu">sum</span>(brcaTab2)</span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>  }</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>}</span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>expected</span></code></pre></div>
+<pre><code>         [,1]     [,2]
+[1,] 715.4519 511.5481
+[2,]  84.5481  60.4519</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="fu">abs</span>(brcaTab2 <span class="sc">-</span> expected) <span class="sc">-</span> .<span class="dv">5</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(x2, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>[1] 0.481519</code></pre>
+<hr />
+<ul>
+<li>Because <span class="math inline">\(O_{ij}\)</span> are discrete
+values, the <span class="math inline">\(X^2\)</span> can only take
+discrete values and the continuouss <span
+class="math inline">\(\chi^2_1\)</span>-distribution is only an
+approximation of the real distribution.</li>
+<li>To improve the approximation one substracts 0.5 from the value in
+each cell: <em>continuity-correction</em></li>
+<li>We refer to this test as <em>Pearson Chi-squared test with Yates
+correction</em>.</li>
+<li>When the correction is not used (i.e. when the values of `0.5’ in
+the estimator <span class="math inline">\(X^2\)</span> are replaced) we
+use the <em>Pearson Chi-squared test</em>.</li>
+</ul>
+<hr />
+<p>In R you can switch the correction on or off by setting the argument
+<code>correct</code> on TRUE or FALSE, respectively:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">chisq.test</span>(brcaTab2)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+
+data:  brcaTab2
+X-squared = 0.49542, df = 1, p-value = 0.4815</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">chisq.test</span>(brcaTab2, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test
+
+data:  brcaTab2
+X-squared = 0.62871, df = 1, p-value = 0.4278</code></pre>
+<hr />
+<ul>
+<li>Even with the <span class="math inline">\(\chi^2_1\)</span>
+correction the approximation is only valid if non of the cells has an
+expected count below 5 under <span
+class="math inline">\(H_0\)</span>.</li>
+<li>When the <span class="math inline">\(\chi^2\)</span>-approximation
+is invalid we will use <em>Fisher’s exact test</em>.</li>
+<li>Null hypothesis is also that <span class="math inline">\(X\)</span>
+and <span class="math inline">\(Y\)</span> are independent, and, the
+alternative hypothesis that <span class="math inline">\(X\)</span> and
+<span class="math inline">\(Y\)</span> are dependent.</li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">fisher.test</span>(brcaTab2)</span></code></pre></div>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  brcaTab2
+p-value = 0.4764
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.5974269 1.2501878
+sample estimates:
+odds ratio 
+ 0.8670925 </code></pre>
+<hr />
+</div>
+<div id="extension-to-categorical-variables-with-multiple-levels"
+class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Extension to
+categorical variables with multiple levels</h2>
+<ul>
+<li><p>The <span class="math inline">\(\chi^2\)</span>-test can also be
+used if one of the categorical variables <span
+class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> has more than 2 levels</p></li>
+<li><p>Again: the null hypothesis <span
+class="math inline">\(H_0\)</span>: <span
+class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> are independent (not associated),
+against the alternative <span class="math inline">\(H_A: X\)</span> and
+<span class="math inline">\(Y\)</span> are associated.</p></li>
+<li><p>Let the variable in the rows have <span
+class="math inline">\(r\)</span> different possible outcomes and the one
+in the columns <span class="math inline">\(c\)</span> possible outcomes,
+then we obtain an <span class="math inline">\(r \times c\)</span>
+table.</p></li>
+<li><p>Again we will compare the observed values in cell <span
+class="math inline">\((i,j)\)</span>, referred to as <span
+class="math inline">\(O_{ij}\)</span>, with the expected number under
+<span class="math inline">\(H_0\)</span>, <span
+class="math inline">\(E_{ij}\)</span></p></li>
+<li><p>Again <span class="math inline">\(E_{ij}\)</span> is the product
+of the <span class="math inline">\(i^\text{th}\)</span> row-total and
+the <span class="math inline">\(j^\text{th}\)</span> column total
+devided by the overall total.</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+X^2 = \sum_{ij} \frac{\left (O_{ij} - E_{ij}\right)^2 }{ E_{ij}}
+\end{equation*}\]</span></p>
+<hr />
+<ul>
+<li>We can show that the statistic follows a <span
+class="math inline">\(\chi^2\)</span> distribution with <span
+class="math inline">\((r-1) \times (c-1)\)</span> degrees of freedom
+under <span class="math inline">\(H_0\)</span>.</li>
+<li>No continuity correction</li>
+<li><strong>Pearson <span class="math inline">\(\chi^2\)</span>
+test</strong> is analogon of one-way ANOVA for qualitative
+variables.</li>
+</ul>
+<hr />
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>brcaTab <span class="ot">&lt;-</span> <span class="fu">table</span>(brca<span class="sc">$</span>variant, brca<span class="sc">$</span>cancer)</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">chisq.test</span>(brcaTab)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test
+
+data:  brcaTab
+X-squared = 2.0551, df = 2, p-value = 0.3579</code></pre>
+<ul>
+<li>To assess if the variant of the BRCA1 gene is associated with breast
+cancer we conducted a Pearson <span
+class="math inline">\(\chi^2\)</span>test for the <span
+class="math inline">\(3 \times 2\)</span> table.</li>
+<li>The statistic is now 2.055 and follows a <span
+class="math inline">\(\chi^2\)</span> distribution with 2 degrees of
+freedom under <span class="math inline">\(H_0\)</span>. The probability
+to obtain a <span class="math inline">\(\chi^2\)</span>-test statistic
+in a random sample under <span class="math inline">\(H_0\)</span> that
+is more extreme than 2.055, is 36%.</li>
+<li>On the 5% level of significance we conclude that the variant of the
+BRCA-gene is not associated with breast cancer.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="logistic-regression" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Logistic
+regression</h1>
+<ul>
+<li><p>Framework to model binary data (e.g cancer vs no cancer):
+<em>logistic regression model</em>.</p></li>
+<li><p>Model binary data with continuous and/or dummy
+variables.</p></li>
+<li><p>The model assumes that observations for subject <span
+class="math inline">\(i=1,\ldots,n\)</span> are independent and follow a
+Bernoulli distribution.</p></li>
+<li><p>The logarithm of the odds is modelled using a linear model, also
+referred to as linear predictor: <span
+class="math display">\[\begin{equation}
+\left\{
+\begin{array}{ccl}
+Y_i&amp;\sim&amp;B(\pi_i)\\\\
+\log \frac{\pi_i}{1-\pi_i}&amp;=&amp;\beta_0 + \beta_1X_{i1} + \ldots +
+\beta_p X_{ip}
+\end{array}\right.
+\end{equation}\]</span></p></li>
+</ul>
+<hr />
+<div id="categorical-predictor" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Categorical
+predictor</h2>
+<ul>
+<li><p>breast cancer example: is BRCA 1 variant associated with breast
+cancer.</p></li>
+<li><p>As in the Anova context, a factor in logistic regression is coded
+using dummy variables.</p></li>
+<li><p>1 dummy variable less than the number of groups.</p></li>
+<li><p>For BRCA 1 we need two dummy variables and obtain the following
+linear predictor:</p></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+  \log \frac{\pi_i}{1-\pi_i} &amp;=&amp; \beta_0+\beta_1 x_{i1} +\beta_2
+x_{i2}
+\end{eqnarray*}\]</span></p>
+<ul>
+<li><p>with : <span class="math display">\[x_{i1} = \left\{
+\begin{array}{ll}
+1 &amp; \text{ if subject $i$ is heterozygous, Pro/Leu variant} \\
+0 &amp; \text{if subject $i$ is homozygous, (Pro/Pro or Leu/Leu
+variant)} \end{array}\right. .\]</span> <span
+class="math display">\[x_{i2} = \left\{ \begin{array}{ll}
+1 &amp; \text{ if subject $i$ is homozygous is the Leucine mutation:
+Leu/Leu } \\
+0 &amp; \text{ of subject $i$ is not homozygous in the Leu/Leu variant}
+\end{array}\right. .\]</span></p></li>
+<li><p>Homozygosity in the wild type allele Pro/Pro is the
+<strong>reference group</strong>.</p></li>
+</ul>
+<hr />
+<p>We fit the model in R.</p>
+<ul>
+<li>Note that we use the function <code>as.factor</code> to convert the
+cancer variable to a factor variable. - We further use the function
+<code>relevel</code> to specify the control treatment as the reference
+group.</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>brca<span class="sc">$</span>cancer <span class="ot">&lt;-</span> brca<span class="sc">$</span>cancer <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="fu">as.factor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>  <span class="fu">relevel</span>(<span class="st">&quot;control&quot;</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>brca<span class="sc">$</span>variant <span class="ot">&lt;-</span> brca<span class="sc">$</span>variant <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>  <span class="fu">as.factor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a>  <span class="fu">relevel</span>(<span class="st">&quot;pro/pro&quot;</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a>brcaLogit <span class="ot">&lt;-</span> <span class="fu">glm</span>(cancer <span class="sc">~</span> variant, <span class="at">data =</span> brca, <span class="at">family =</span> binomial)</span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a><span class="fu">summary</span>(brcaLogit)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = cancer ~ variant, family = binomial, data = brca)
+
+Coefficients:
+               Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept)     0.25131    0.08175   3.074  0.00211 **
+variantleu/leu  0.21197    0.18915   1.121  0.26243   
+variantpro/leu  0.13802    0.11573   1.193  0.23302   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1863.9  on 1371  degrees of freedom
+Residual deviance: 1861.9  on 1369  degrees of freedom
+AIC: 1867.9
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<p>The intercept is the log-odds on cancer in the reference class
+(Pro/Pro) and the slope terms are log odds ratios between treatment and
+reference class: <span class="math display">\[\begin{eqnarray*}
+\log \text{ODDS}_\text{Pro/Pro}&amp;=&amp;\beta_0\\\\
+\log \text{ODDS}_\text{Pro/Leu}&amp;=&amp;\beta_0+\beta_1\\\\
+\log \text{ODDS}_\text{Leu/Leu}&amp;=&amp;\beta_0+\beta_2\\\\
+\log  \frac{\text{ODDS}_\text{Pro/Leu}}{\text{ODDS}_\text{Pro/Pro}}&amp;=&amp;\log
+\text{ODDS}_\text{Pro/Leu}-\log ODDS_{Pro/Pro}\\
+&amp;=&amp;\beta_0+\beta_1-\beta_0=\beta_1\\\\
+\log  \frac{\text{ODDS}_\text{Leu/Leu}}{\text{ODDS}_\text{Pro/Pro}}&amp;=&amp;\beta_2
+\end{eqnarray*}\]</span></p>
+<ul>
+<li>The analysis allows us to interpret the result immediately in oddses
+and odds ratios!</li>
+</ul>
+<hr />
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">anova</span>(brcaLogit, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["Deviance"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Resid. Df"],"name":[3],"type":["int"],"align":["right"]},{"label":["Resid. Dev"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Pr(>Chi)"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"NA","2":"NA","3":"1371","4":"1863.930","5":"NA","_rn_":"NULL"},{"1":"2","2":"2.05616","3":"1369","4":"1861.874","5":"0.3576931","_rn_":"variant"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The <span class="math inline">\(\chi^2\)</span>-test on the logsitic
+regression model also indicates that there is no significant association
+between cancer status and the genetic variant of the BRCA gene (<span
+class="math inline">\(p=\)</span> 0.358). De p-value is almost
+equivalent to the one of the <span
+class="math inline">\(\chi^2\)</span>-test (see previous section).</p>
+<hr />
+<ul>
+<li><p>Significant association?</p>
+<ul>
+<li>Post-hoc tests to evaluate which of the odds ratios are different
+from 1.</li>
+<li>For BRCA1 example we did not reject the omnibus hypothesis so no
+post-hoc analysis</li>
+<li>For your reference we include the post hoc analysis so that you
+would have the code.</li>
+</ul></li>
+</ul>
+<hr />
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>  <span class="fu">library</span>(multcomp)</span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>})</span>
+<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a>posthoc <span class="ot">&lt;-</span> <span class="fu">glht</span>(brcaLogit, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">variant =</span> <span class="st">&quot;Tukey&quot;</span>))</span>
+<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a>posthocTests <span class="ot">&lt;-</span> <span class="fu">summary</span>(posthoc)</span>
+<span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a>posthocTests</span></code></pre></div>
+<pre><code>
+     Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: glm(formula = cancer ~ variant, family = binomial, data = brca)
+
+Linear Hypotheses:
+                       Estimate Std. Error z value Pr(&gt;|z|)
+leu/leu - pro/pro == 0  0.21197    0.18915   1.121    0.493
+pro/leu - pro/pro == 0  0.13802    0.11573   1.193    0.449
+pro/leu - leu/leu == 0 -0.07395    0.18922  -0.391    0.917
+(Adjusted p values reported -- single-step method)</code></pre>
+<hr />
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>posthocCI <span class="ot">&lt;-</span> <span class="fu">confint</span>(posthoc)</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>posthocCI</span></code></pre></div>
+<pre><code>
+     Simultaneous Confidence Intervals
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: glm(formula = cancer ~ variant, family = binomial, data = brca)
+
+Quantile = 2.3252
+95% family-wise confidence level
+ 
+
+Linear Hypotheses:
+                       Estimate lwr      upr     
+leu/leu - pro/pro == 0  0.21197 -0.22783  0.65177
+pro/leu - pro/pro == 0  0.13802 -0.13107  0.40711
+pro/leu - leu/leu == 0 -0.07395 -0.51391  0.36601</code></pre>
+<ul>
+<li>With the <code>confint</code> function CI are obtained on the
+log-odds ratios corrected for multiple testing.</li>
+</ul>
+<hr />
+<ul>
+<li>CI’s can be backtransformed to odds ratios:</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(posthocCI<span class="sc">$</span>confint)</span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>OR</span></code></pre></div>
+<pre><code>                   Estimate       lwr      upr
+leu/leu - pro/pro 1.2361111 0.7962633 1.918926
+pro/leu - pro/pro 1.1480000 0.8771575 1.502471
+pro/leu - leu/leu 0.9287191 0.5981532 1.441970
+attr(,&quot;conf.level&quot;)
+[1] 0.95
+attr(,&quot;calpha&quot;)
+[1] 2.325156</code></pre>
+<ul>
+<li><p>De odds ratios that we obtain is exactly equal to the one we
+calculated based on the contingency table:</p></li>
+<li><p>e.g <span
+class="math inline">\(\text{OR}_\text{Leu/Leu-Pro/Pro}=89\times
+266/(56\times 342)=\)</span> 1.236.</p></li>
+<li><p>Note, that statistical inference for logistic regression relies
+on asymptotic theory.</p></li>
+</ul>
+<hr />
+</div>
+<div id="continuous-predictor" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Continuous
+Predictor</h2>
+<ul>
+<li>Toxicolocal effect of carbon disulfite (CS<span
+class="math inline">\(_2\)</span>) on beetles.</li>
+<li>Research hypothesis is there an effect of the CS<span
+class="math inline">\(_2\)</span> concentration on the mortality of
+beetles?</li>
+</ul>
+<p>Design:</p>
+<ul>
+<li>32 independent experiments</li>
+<li>Each time 1 beatle is exposed to one of 8 CS<span
+class="math inline">\(_2\)</span> concentrations (mg/l).</li>
+<li>The outcome: mortality (<span class="math inline">\(y=1\)</span>) or
+survival (<span class="math inline">\(y=0\)</span>).</li>
+</ul>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a>beetles <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/GTPB/PSLS20/master/data/beetles.csv&quot;</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a><span class="fu">head</span>(beetles)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["dose"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["status"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"169.07","2":"1"},{"1":"169.07","2":"0"},{"1":"169.07","2":"0"},{"1":"169.07","2":"0"},{"1":"172.42","2":"1"},{"1":"172.42","2":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">table</span>(beetles<span class="sc">$</span>dose, beetles<span class="sc">$</span>status)</span></code></pre></div>
+<pre><code>        
+         0 1
+  169.07 3 1
+  172.42 3 1
+  175.52 3 1
+  178.42 2 2
+  181.13 1 3
+  183.69 0 4
+  186.1  0 4
+  188.39 0 4</code></pre>
+<hr />
+<p>We build a model for the log odds in function of the dose <span
+class="math inline">\(x_i\)</span>: <span class="math display">\[\log
+\frac{\pi_i}{1-\pi_i}=\beta_0+\beta_1 \times x_i.\]</span></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>beatleModel <span class="ot">&lt;-</span> <span class="fu">glm</span>(status <span class="sc">~</span> dose, <span class="at">data =</span> beetles, <span class="at">family =</span> binomial)</span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">summary</span>(beatleModel)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = status ~ dose, family = binomial, data = beetles)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept) -53.1928    18.0046  -2.954  0.00313 **
+dose          0.3013     0.1014   2.972  0.00296 **
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 42.340  on 31  degrees of freedom
+Residual deviance: 26.796  on 30  degrees of freedom
+AIC: 30.796
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<hr />
+<ul>
+<li><p>Intercept has an interpretation of a log odds on mortality when
+no <span class="math inline">\(\text{CS}_2\)</span> gas is
+applied.</p></li>
+<li><p>Very small odds on mortality (<span
+class="math inline">\(\pi/(1-\pi)=\exp(-53.2)\)</span>) so the
+probability is almost 0.</p></li>
+<li><p>Note that this is a very large extrapolation: minimum dose in
+dataset is 169.07 mg/l.</p></li>
+<li><p>Estimated odds ratio for the effect of dose on the mortality
+probability is <span
+class="math inline">\(\exp(0.3013)=1.35\)</span>.</p></li>
+<li><p>So a beatle exposed to a CS<span
+class="math inline">\(_2\)</span> concentration that is 1 mg/l larger
+than another beatle, will on average have an odds ratio on mortality of
+<span class="math inline">\(1.35\)</span>.</p></li>
+</ul>
+<hr />
+<ul>
+<li>We conclude that this effect is very significant (<span
+class="math inline">\(p=\)</span> 0.003).</li>
+<li>Increasing the CS<span class="math inline">\(_2\)</span> dose
+increases the mortality.</li>
+</ul>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>beetlesTab <span class="ot">&lt;-</span> <span class="fu">table</span>(beetles) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">grid =</span> <span class="fu">seq</span>(<span class="fu">min</span>(beetles<span class="sc">$</span>dose), <span class="fu">max</span>(beetles<span class="sc">$</span>dose), .<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">piHat =</span> <span class="fu">predict</span>(beatleModel,</span>
+<span id="cb56-5"><a href="#cb56-5" tabindex="-1"></a>    <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">dose =</span> grid),</span>
+<span id="cb56-6"><a href="#cb56-6" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;response&quot;</span></span>
+<span id="cb56-7"><a href="#cb56-7" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb56-8"><a href="#cb56-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(grid, piHat)) <span class="sc">+</span></span>
+<span id="cb56-9"><a href="#cb56-9" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb56-10"><a href="#cb56-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;dose&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-11"><a href="#cb56-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;probability (dead)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-12"><a href="#cb56-12" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> dose <span class="sc">%&gt;%</span> <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> <span class="fu">as.double</span>(), <span class="at">y =</span> status <span class="sc">%&gt;%</span> <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> <span class="fu">as.double</span>(), <span class="at">label =</span> Freq), beetlesTab <span class="sc">%&gt;%</span> <span class="fu">filter</span>(status <span class="sc">==</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb56-13"><a href="#cb56-13" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> dose <span class="sc">%&gt;%</span> <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> <span class="fu">as.double</span>(), <span class="at">y =</span> status <span class="sc">%&gt;%</span> <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> <span class="fu">as.double</span>(), <span class="at">label =</span> Freq), beetlesTab <span class="sc">%&gt;%</span> <span class="fu">filter</span>(status <span class="sc">==</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiMTAuIENhdGVnb3JpY2FsIERhdGEgQW5hbHlzaXMiCmF1dGhvcjogIkxpZXZlbiBDbGVtZW50IgpkYXRlOiAic3RhdE9taWNzLCBHaGVudCBVbml2ZXJzaXR5IChodHRwczovL3N0YXRvbWljcy5naXRodWIuaW8pIgotLS0KCjxhIHJlbD0ibGljZW5zZSIgaHJlZj0iaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMCI+PGltZyBhbHQ9IkNyZWF0aXZlIENvbW1vbnMgTGljZW5zZSIgc3R5bGU9ImJvcmRlci13aWR0aDowIiBzcmM9Imh0dHBzOi8vaS5jcmVhdGl2ZWNvbW1vbnMub3JnL2wvYnktbmMtc2EvNC4wLzg4eDMxLnBuZyIgLz48L2E+CgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRSwgY2FjaGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldCgKICBpbmNsdWRlID0gVFJVRSwgY29tbWVudCA9IE5BLCBlY2hvID0gVFJVRSwKICBtZXNzYWdlID0gRkFMU0UsIHdhcm5pbmcgPSBGQUxTRSwgY2FjaGUgPSBUUlVFCikKYGBgCgpgYGB7ciBsaWJyYXJpZXMsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGNhY2hlPUZBTFNFfQpsaWJyYXJ5KFJtaXNjKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShOSEFORVMpCmBgYAoKCgojIEludHJvZHVjdGlvbgoKVW50aWwgbm93IHdlIHVzZWQgbW9kZWxzIGZvciBhIGNvbnRpbnVvdXMgcmVzcG9uc2UgaW4gZnVuY3Rpb24gb2YgY2F0ZWdvcmljYWwgb3IgY29udGludW91cyBwcmVkaWN0b3IuIEhlcmUgd2Ugd2lsbCBmb2N1cyBvbiBhIGNhdGVnb3JpY2FsIHJlc3BvbnNlLgoKLSB3ZSBzdHVkeSB0aGUgYXNzb2NpYXRpb24gb2YgYSBjYXRlZ29yaWNhbCBvdXRjb21lIGFuZCBhIGNhdGVnb3JpY2FsIHByZWRpY3RvciBhbmQKLSB0b3VjaCB1cG9uIG1ldGhvZHMgdG8gbW9kZWwgYSBjYXRlZ29yaWNhbCBvdXRjb21lIHdpdGggYSBjb250aW51b3VzIHJlc3BvbnNlLgoKCi0tLQoKIyBUZXN0IGZvciBhIHByb3BvcnRpb24KCiMjIFNha3Nlbi1zdHVkeQoKLSBGYWlybHkgY2xvc2VkIHBvcHVsYXRpb24gKGZldyBtaWdyYXRpb24pCi0gUHJvYmFiaWxpdHkgdGhhdCBhbiB1bmJvcm4gY2hpbGQgaXMgbWFsZT8KCmBgYHtyfQpib3lzIDwtIDMxNzUKbiA8LSA2MTU1CmBgYAoKLSBPbiBgciBuYCB1bmJvcm4gY2hpbGRyZW4gYHIgYm95c2AgYm95cyBhcmUgb2JzZXJ2ZWQuCi0gSXMgdGhlcmUgYSBkaWZmZXJlbmNlIGluIHRoZSBwcm9iYWJpbGl0eSBvbiB0aGUgZ2VuZGVyIG9mIGFuIHVuYm9ybiBjaGlsZD8KCi0tLQoKLSBUaGUgZGF0YSBhcmUgZGVyaXZlZCBmcm9tIGEgYmluYXJ5IHJhbmRvbSB2YXJpYWJsZSAkWCQKCiAgLSAkWD0xJCBmb3IgYSBib3kgYW5kCiAgLSAkWD0wJCBmb3IgYSBnaXJsLgoKLSBOb3RlOiBjb3VudCBwcm9ibGVtOiB0aGUgb3V0Y29tZSBpcyBhIGNvdW50IChudW1iZXIgb2YgYm95cykKCi0gRm9ybWFsbHkgd2UgaGF2ZSBjb25zaWRlcmVkIGEgcG9wdWxhdGlvbiBvZiB1bmJvcm4gY2hpbGRyZW4gd2hlcmUgZWFjaCBpbmRpdmlkdWFsIGlzIGNoYXJhY3Rlcml6ZWQgYnkgYSAwIG9yIDEuCgotLS0KCiMjIEJlcm5vdWxsaSBQcm9iYWJpbGl0eSBNYXNzIERpc3RyaWJ1dGlvbgoKLSBCaW5hcnkgZGF0YSBjYW4gYmUgbW9kZWxsZWQgdXNpbmcgYSBCZXJub3VsbGkgZGlzdHJpYnV0aW9uOgogIFxiZWdpbntlcW5hcnJheSp9ClhfaSAmXHNpbSYgQihccGkpIFx0ZXh0eyB3aXRofVxcCkIoXHBpKSY9JlxwaV57WF9pfSgxLVxwaSleeygxLVhfaSl9LApcZW5ke2VxbmFycmF5Kn0KCi0gSXQgaGFzIG9uZSBtb2RlbCBwYXJhbWV0ZXIgJFxwaSQKCiAgICAtIEV4cGVjdGVkIHZhbHVlIG9mICRYX2kkOiAkXHRleHR7RX1bWF9pXT1ccGksJAogICAgLSBQcm9wb3J0aW9uIG9mIHVuYm9ybiBib3lzIChjaGlsZHJlbiB3aXRoICRYPTEkKSBpbiB0aGUgcG9wdWxhdGlvbi4KICAgIC0gSGVuY2UgJFxwaSQgaXMgdGhlIHByb2JhYmlsaXR5IHRoYXQgYSByYW5kb20gaW5kaXZpZHVhbCBmcm9tIHRoZSBwb3B1bGF0aW9uIGlzIGEgYm95IChhbiBvYnNlcnZhdGlvbiB3aXRoICRYPTEkKS4KCi0gVGhlIHZhcmlhbmNlIG9mIEJlcm5vdWxsaSBkYXRhIGlzIGFsc28gcmVsYXRlZCB0byAkXHBpJC4KJCRcdGV4dHtWYXJ9W1hfaV09XHBpICgxLVxwaSkuJCQKCi0tLQoKU29tZSBCZXJub3VsbGkgcHJvYmFiaWxpdHkgbWFzcyBmdW5jdGlvbnMKCmBgYHtyLCBvdXQud2lkdGg9JzEwMCUnLCBmaWcuYXNwPTEsIGZpZy5hbGlnbj0nY2VudGVyJyxlY2hvPUZBTFNFfQpwYXIobWZyb3cgPSBjKDEsIDMpLCBwdHkgPSAicyIpCnByb2JzIDwtIGMoMC4yNSwgLjUsIC43NSkKZm9yIChpIGluIDE6bGVuZ3RoKHByb2JzKSkKewogIHBsb3QoYygwLCAxKSwgYygxIC0gcHJvYnNbaV0sIHByb2JzW2ldKSwgeWxpbSA9IGMoMCwgMSksIHR5cGUgPSAiaCIsIHhheHQgPSAibiIsIHhsYWIgPSAiWCIsIHlsYWIgPSAiUHJvYmFiaWxpdHkiLCBtYWluID0gYXMuZXhwcmVzc2lvbihzdWJzdGl0dXRlKHBpID09IHZhbCwgbGlzdCh2YWwgPSBwcm9ic1tpXSkpKSwgbHdkID0gMykKICBheGlzKDEsIGF0ID0gYygwLCAxKSkKfQpgYGAKCi0tLQoKLSBJbiB0aGUgU2Frc2VuIHN0dWR5ICA2MTU1IG9ic2VydmF0aWVzIHdlcmUgc2FtcGxlZCBhdCByYW5kb20gZnJvbSB0aGUgcG9wdWxhdGlvbi4KLSBXZSBjYW4gZXN0aW1hdGUgJFxwaSQgIHVzaW5nIHRoZSBzYW1wbGUgbWVhbjoKJCRcaGF0IFxwaSA9IFxiYXIgWCA9IFxmcmFje1xzdW1cbGltaXRzX3tpPTF9Xm4gWF9pfXtufSwkJAoKYGBge3J9CnBpIDwtIGJveXMgLyBuCnBpCmBgYAoKSW4gb3VyIGV4YW1wbGUgJFxiYXIgeCA9JCBgciBib3lzYCAvIGByIG5gID0gYHIgZm9ybWF0KHBpKjEwMCxkaWdpdHM9MylgJS4KCi0tLQoKIyMgQmlub21pYWwgdGVzdAoKLSBJcyB0aGUgb2JzZXJ2ZWQgcHJvYmFiaWxpdHkgYHIgZm9ybWF0KHBpKjEwMCxkaWdpdD0zKWAlIHRoYXQgYW4gdW5ib3JuIGNoaWxkIGlzIG1hbGUsIHN1ZmZpY2llbnQgZXZpZGVuY2UgdG8gY29uY2x1ZGUgdGhhdCB0aGVyZSBpcyBhIGhpZ2hlciBjaGFuY2Ugb24gYSBib3kgdGhhbiBvbiBhIGdpcmw/CgotIFN0YXRpc3RpY2FsIHRlc3QgZm9yCiAgJCRIXzA6IFxwaT0xLzIgXHRleHR7IHZlcnN1cyB9IEhfMTogXHBpXG5lcSAxLzIsJCQKCi0gV2UgbmVlZCBrbm93biB0aGUgZGlzdHJpYnV0aW9uIG9mCgogICAgLSAkWCQgYW5kICRcYmFyIFgkCiAgICAtIG9yIG9mIHRoZSBzdW0gJFM9blxiYXIgWCQuCgotLS0KCgotIFN1cHBvc2UgdGhhdCAkSF8wOlxwaT0xLzIkIGlzIHRydWUgKGJveXMgYW5kIGdpcmxzIGhhdmUgYW4gZXF1YWwgZnJlcXVlbmN5IGluIHRoZSBwb3B1bGF0aW9uKQotIEEgcmFuZG9tIGluZGl2aWR1YWwgZnJvbSB0aGUgcG9wdWxhdGlvbiBoYXMgYSBwcm9iYWJpbGl0eSBvZiAkJFAoWD0xKT1ccGk9MS8yLiQkIHRvIGJlIGEgYm95CgotIFR3byBjaGlsZHJlbiB0aGF0IGFyZSBkcmF3biBpbmRlcGVuZGVudGx5IDoKCiAgICAtIFByb2JhYmlsaXR5IG9mICRccGk9MS8yJCBvbiBhIGJveSBmb3IgdGhlIGZpcnN0IGFuZCBzZWNvbmQgY2hpbGQgKGluZGVwZW5kZW50IGZyb20gZWFjaCBvdGhlcikKICAgIC0gT3V0Y29tZXMgJCh4XzEsIHhfMikkIGZvciBib3RoIGNoaWxkcmVuIGhhdmUgNCBwb3NzaWJsZSBjb21iaW5hdGlvbnM6CiAgICAkKDAsMCksKDAsMSksKDEsMClcdGV4dHsgZW4gfSgxLDEpLiQKICAgIC0gRWFjaCBvZiB0aGVtIGhhcyBhIHByb2JhYmlsaXR5IG9mICQxLzQgPSAxLzIgXHRpbWVzIDEvMiQuCgotIFJhbmRvbSB2YXJpYWJsZSAkUyQgaXMgdGhlIHN1bSBvZiB0aGUgb3V0Y29tZXMgOgoKJCh4XzEseF8yKSR8JHMkfCRQKFMgPSBzKSR8Cnw6LS0tOnw6LS0tOnw6LS0tOnwKKDAsMCl8MHwxLzR8CigwLDEpLCAoMSwwKXwxfDEvMnwKKDEsMSl8MnwxLzR8CgotLS0KCiMjIyBHZW5lcmFsOiAkbiQgaW5kZXBlbmRlbnQgc2FtcGxlcwoKLSBQcm9iYWJpbGl0eSBmb3IgJFxwaSQgb24gc3VjY2VzcyAoJFg9MSQpCi0gVG90YWwgbnVtYmVyIG9mIHN1Y2Nlc3NlcyAkUyQgKHN1bSBvZiBhbGwgdmFsdWVzIG9mIDEpIGNhbiB0YWtlICRuKzEkIHBvc3NpYmxlIHZhbHVlcwogICQkUz1rXHRleHR7LCBtZXQgfWs9MCxcbGRvdHMsbiQkCi0gRGlzdHJpYnV0aW9uIG9mICRTJD8KXGJlZ2lue2VxdWF0aW9ufQpQKFM9aykgPSBcbGVmdCAoClxiZWdpbnthcnJheX17Y30KbiBcXAprIFxcClxlbmR7YXJyYXl9ClxyaWdodCApIFxwaV5rICgxLVxwaSlee24ta30KXGVuZHtlcXVhdGlvbn0KLSAkMS1ccGkkOiBwcm9iYWJpbGl0eSBvbiAwIGZvciBpbmRpdmlkdWFsIG9ic2VydmF0aW9uIGFuZAotICBiaW5vbWlhbCBjb2VmZmljaWVudApcYmVnaW57ZXF1YXRpb24qfQpcbGVmdCAoClxiZWdpbnthcnJheX17Y30KbiBcXAprIFxcClxlbmR7YXJyYXl9ClxyaWdodCApID0gXGZyYWN7biBcdGltZXMgKG4tMSkgXHRpbWVzIC4uLlx0aW1lcyAobi1rKzEpIH17IGshfSA9IFxmcmFjeyBuIX17IGshKG4taykhIH0KXGVuZHtlcXVhdGlvbip9CgotIEluIFIgeW91IGNhbiBjYWxjdWxhdGUgdGhlIHByb2JhYmlsaXRpZXMgb24gZWFjaCAkUz1rJCB3aXRoIHRoZSBmdW5jdGlvbiBgZGJpbm9tKGssbixwKWAKCgotLS0KCiMjIyBCaW5vbWlhbCBEaXN0cmlidXRpb24KClMgaXMgYToKCi0gICpCaW5vbWlhbCBkaXN0cmlidXRlZCByYW5kb20gIHZhcmlhYmxlKiB3aXRoICpCaW5vbWlhbCBwcm9iYWJpbGl0eSBtYXNzIGZ1bmN0aW9uKgoKLSBQYXJhbWV0ZXJzCgogICAgLSAkbiQgKHRvdGFsIG51bWJlciBvZiBkcmF3cyBmcm9tIHRoZSBwb3B1bGF0aW9uLCBpcyBlcXVpdmFsZW50IHRvIG1heGltYWwgdmFsdWUgb2YgdGhlIG91dGNvbWUpCiAgICAtICRccGkkIChwcm9iYWJpbGl0eSBvbiBgc3VjY2Vzc2AgZm9yIGVhY2ggZHJhdykuCgotIENhbGN1bGF0ZSBwcm9iYWJpbGl0eSBvbiAkayQgc3VjY2Vzc2VzIG9uICRuJCBpbmRlcGVuZGVudCBkcmF3cyBlYWNoIHdpdGggYSBzdWNjZXMgcHJvYmFiaWxpdHkgb2YgJFxwaSQuCi0gRm9yIGJpbmFyeSBkYXRhIFguCi0gZS5nLjogd2lsZCB0eXBlIHZzIG11dGFudCBvZiBhIGdlbmUsIGluZmVjdGVkIG9yIG5vdCBpbmZlY3RlZCB3aXRoIEhJViwgLi4uCi0gVXNlOiBDb21wYXJlIHByb3BvcnRpb25zIG9yIHJpc2tzIG9uIGEgcGFydGljdWxhciBldmVudCBiZXR3ZWVuIGdyb3Vwcy4KCi0tLQoKIyMjIFNvbWUgQmlub21pYWwgcHJvYmFiaWxpdHkgbWFzcyBmdW5jdGlvbnMuCgpgYGB7ciBiaW5vbXMsZmlnLmNhcD0nQmlub21pYWwgZGlzdHJpYnV0aW9ucy4nLCBvdXQud2lkdGg9JzgwJScsIGZpZy5hc3A9LjgsIGZpZy5hbGlnbj0nY2VudGVyJyxlY2hvPUZBTFNFfQpwYXIobWZyb3cgPSBjKDIsIDIpKQpwcm9icyA8LSBjKDAuMjUsIC41LCAuNzUpCmZvciAoaSBpbiAxOmxlbmd0aChwcm9icykpCnsKICBwbG90KDA6MTAsIGRiaW5vbSgwOjEwLCBwcm9iID0gcHJvYnNbaV0sIHNpemUgPSAxMCksIHlsaW0gPSBjKDAsIDEpLCB0eXBlID0gImgiLCB4bGFiID0gIlgiLCB5bGFiID0gIkthbnMgKERpY2h0aGVpZCkiLCBtYWluID0gYXMuZXhwcmVzc2lvbihzdWJzdGl0dXRlKHBpID09IHZhbCwgbGlzdCh2YWwgPSBwYXN0ZShwcm9ic1tpXSwgIiwgbm9icz0xMCIpKSkpLCBsd2QgPSAzKQp9CnBsb3QoMjkyNTozMjI1LCBkYmlub20oMjkyNTozMjI1LCBwcm9iID0gLjUsIHNpemUgPSBuKSwgdHlwZSA9ICJoIiwgeGxhYiA9ICJYIiwgeWxhYiA9ICJLYW5zIChEaWNodGhlaWQpIiwgbWFpbiA9IGFzLmV4cHJlc3Npb24oc3Vic3RpdHV0ZShwaSA9PSB2YWwsIGxpc3QodmFsID0gcGFzdGUwKCIwLjUsIG5vYnM9IiwgbikpKSkpCmBgYAoKLS0tCgpUZXN0IHN0YXRpc3RpYyAkJEhfMDpccGk9MS8yXHRleHR7IHZzIH1IXzE6XHBpXG5lcSAxLzIkJAoKCi0gJFxiYXIgWC0xLzIkIG9yLCBlcXVpdmFsZW50LAotICRcRGVsdGE9bihcYmFyIFgtXHBpXzApPVMtc18wJC4KLSBEaXN0cmlidXRpb24gb2YgdGhlIGxhdHRlciB0ZXN0IHN0YXRpc3RpYyBjYW4gYmUgZGVyaXZlZCBpbW1lZGlhdGVseSBmcm9tIHRoZSBCaW5vbWlhbCBkaXN0cmlidXRpb246CiAgLSBXZSBvYnNlcnZlICRzPSQgYHIgYm95c2AgYW5kIHRodXMgJFxkZWx0YT1zLXNfMD0kIGByIGJveXNgICQtJCBgciBuYCAkXHRpbWVzIDAuNT0kIGByIGJveXMtbi8yYC4KICAtIFdoZW4gYm95cyBhbmQgZ2lybHMgYXJlIGVxdWFsbHkgbGlrZWx5LCBpLmUuIHVuZGVyICRIXzA6XHBpPTEvMiQsIHdlIHdpbGwgZ2V0IGZvbGxvd2luZyB0d28tc2lkZWQgcC12YWx1ZToKICAgICQkcD1cdGV4dHtQfV8wXGxlZnRbUy1zXzBcZ2VxIFx2ZXJ0IFxkZWx0YVx2ZXJ0IFxyaWdodF0gKyBcdGV4dHtQfV8wXGxlZnRbUy1zXzBcbGVxIC0gXHZlcnQgXGRlbHRhXHZlcnQgXHJpZ2h0XS4kJAoKLSBOb3RlLCB0aGF0IHdlIGNhbiByZXdyaXRlIGl0IGluIHRlcm1zIG9mIFMuCiQkcD1cdGV4dHtQfV8wXGxlZnRbU1xnZXEgc18wKyBcdmVydCBcZGVsdGFcdmVydCBccmlnaHRdICsgXHRleHR7UH1fMFxsZWZ0W1MgXGxlcSBzXzAgLSBcdmVydCBcZGVsdGFcdmVydCBccmlnaHRdLiQkCgotLS0KCi0gRm9yIHRoZSBTYWtzZW4gc3R1ZHkgd2UgY2FsY3VsYXRlOgoKXGJlZ2lue2VxbmFycmF5Kn0KXHRleHR7UH1fMFxsZWZ0W1NcZ2VxIHNfMCsgXHZlcnQgXGRlbHRhXHZlcnQgXHJpZ2h0XSAmPSYgUChTIFxnZXEgNjE1NSBcdGltZXMgMC41ICsgXHZlcnQgMzE3NSAtIDYxNTUgXHRpbWVzIDAuNVx2ZXJ0ICkgXFwmPSYgUChTIFxnZXEgMzE3NSlcXAomPSAmUChTPSAzMTc1KSArIFAoUz0zMTc2KSArIC4uLiArIFAoUz02MTU1KVxcCiYgPSYgMC4wMDY3XFxcXApcdGV4dHtQfV8wXGxlZnRbUyBcbGVxIHNfMCAtIFx2ZXJ0IFxkZWx0YVx2ZXJ0IFxyaWdodF0gJj0mIFAoUyBcbGVxICA2MTU1IFx0aW1lcyAwLjUgLSBcdmVydCAzMTc1LSA2MTU1IFx0aW1lcyAwLjVcdmVydCkgXFwmPSYgUChTIFxsZXEgMjk4MClcXCAmPSAmUChTPTApICsgLi4uICsgUChTPTI5ODApIFxcCiY9JjAuMDA2NwpcZW5ke2VxbmFycmF5Kn0KCi0gVGhlIEJpbm9taWFsIGRpc3RyaWJ1dGlvbiBpcyBzeW1tZXRyaWMgZm9yJFxwaT0xLzIkOgokJFx0ZXh0e1B9XzBcbGVmdFtTXGdlcSBzXzArIFx2ZXJ0IFxkZWx0YVx2ZXJ0IFxyaWdodF0gPSBcdGV4dHtQfV8wXGxlZnRbUyBcbGVxIHNfMCAtIFx2ZXJ0IFxkZWx0YVx2ZXJ0IFxyaWdodF0kJAotIFRoaXMgaXMgbm8gbG9uZ2VyIHRoZSBjYXNlIHdoZW4gJFxwaSQgZGV2aWF0ZSBmcm9tIDAuNS4KCi0tLQoKCmBgYHtyfQpwaTAgPC0gMC41CnMwIDwtIHBpMCAqIG4KZGVsdGEgPC0gYWJzKGJveXMgLSBzMCkKZGVsdGEKCnNVcCA8LSBzMCArIGRlbHRhCnNEb3duIDwtIHMwIC0gZGVsdGEKYyhzRG93biwgc1VwKQoKcFVwIDwtIDEgLSBwYmlub20oc1VwIC0gMSwgbiwgcGkwKQpwRG93biA8LSBwYmlub20oc0Rvd24sIG4sIHBpMCkKcCA8LSBwVXAgKyBwRG93bgpjKHBVcCwgcERvd24sIHApCmBgYAoKLS0tCgoKLSBJZiAkXHBpPSAxLzIkLCB0aGUgcHJvYmFiaWxpdHkgdG8gb2JzZXJ2ZSBhdCBsZWFzdCAgJFxkZWx0YT0kIGByIGRlbHRhYCBib3lzIG1vcmUgb3IgbGVzcyB0aGFuIHRoZSBtZWFuIHVuZGVyICRIXzA6IHNfMD0kIGByIHMwYCBpbiBhIHJhbmRvbSBzYW1wbGUgdW5kZXIgSF8wIGlzIG9ubHkgYHIgZm9ybWF0KHAqMTAwLGRpZ2l0cz0zKWAlIGlzOiAqKiRwJC12YWx1ZSBvZiBiaW5vbWlhbCB0ZXN0LioqCi0gVmVyeSB1bmxpa2VseSB0byBvYnNlcnZlIHN1Y2ggYSBsYXJnZSBudW1iZXIgb2YgYm95cyBpbiBhIHJhbmRvbSBzYW1wbGUgd2hlbiBib3lzIGFuZCBnaXJscyBoYXZlIHRoZSBzYW1lICBmcmVxdWVuY3kgaW4gdGhlIHBvcHVsYXRpb24gKHVuZGVyICRIXzAkKS4KLSBIZW5jZSB0aGUgaHlwb3RoZXNpcyB0aGF0IHRoZSBmcmVxdWVuY3kgb2YgYm95cyBhbmQgZ2lybHMgaXMgdGhlIHNhbWUgaXMgbm90IHN1cHBvcnRlZCBieSB0aGUgZGF0YS4KCi0tLQoKYGBge3IsIG91dC53aWR0aD0nMTAwJScsIGZpZy5hc3A9LjgsIGZpZy5hbGlnbj0nY2VudGVyJyxlY2hvPUZBTFNFfQpwbG90KHMwICsgc2VxKC0xNTAuNSwgMTUwLjUsIDEpLCBkYmlub20oczAgKyBzZXEoLTE1MC41LCAxNTAuNSwgMSksIHByb2IgPSAuNSwgc2l6ZSA9IG4pLCB0eXBlID0gImgiLCB4bGFiID0gIlgiLCB5bGFiID0gIlByb2JhYmlsaXR5IiwgbWFpbiA9IGFzLmV4cHJlc3Npb24oc3Vic3RpdHV0ZShwaSA9PSB2YWwsIGxpc3QodmFsID0gcGFzdGUwKCIwLjUsIG5vYnM9IiwgbikpKSksIHlsaW0gPSBjKC0uMDAwOSwgMC4wMTEpKQphYmxpbmUodiA9IHMwLCBsd2QgPSAyLCBjb2wgPSA0KQphYmxpbmUodiA9IGJveXMsIGx3ZCA9IDIsIGNvbCA9IDIpCmFibGluZSh2ID0gc0Rvd24sIGx3ZCA9IDEsIGNvbCA9IDIsIGx0eSA9IDIpCnRleHQoYyhzRG93biwgczAsIGJveXMsIGJveXMpLCBjKHJlcCgwLjAxMSwgMyksIDAuMDEpLCBsYWJlbHMgPSBjKGV4cHJlc3Npb24ocGFzdGUoc1swXSAtIGRlbHRhKSksIGV4cHJlc3Npb24oc1swXSksIGV4cHJlc3Npb24ocyA9PSBzWzBdICsgZGVsdGEpLCBhcy5leHByZXNzaW9uKHN1YnN0aXR1dGUocyA9PSB2YWwsIGxpc3QodmFsID0gYm95cykpKSksIHBvcyA9IDQsIGNvbCA9IGMoMiwgNCwgMikpCnRleHQoc0Rvd24gLSA1MCwgLS4wMDA1LCBsYWJlbCA9ICJwLXZhbHVlIiwgY29sID0gMiwgcG9zID0gNCkKdGV4dChzVXAsIC0uMDAwNSwgbGFiZWwgPSAicC12YWx1ZSIsIGNvbCA9IDIsIHBvcyA9IDQpCmFycm93cyhzMCArIDE1MDAuNSwgLS4wMDA5LCBzVXAsIC0uMDAwOSwgY29sID0gMiwgbHdkID0gMiwgYW5nbGUgPSAyMCwgbGVuZ3RoID0gLjEpCmFycm93cyhzMCAtIDE1MDAuNSwgLS4wMDA5LCBzRG93biwgLS4wMDA5LCBjb2wgPSAyLCBsd2QgPSAyLCBhbmdsZSA9IDIwLCBsZW5ndGggPSAuMSkKYGBgCgotLS0KClRoZSB0ZXN0IGNhbiBpbW1lZGlhdGVseSBiZSBjb25kdWN0ZWQgdXNpbmcgdGhlIGBiaW5vbWlhbC50ZXN0YCBmdW5jdGlvbiBpbiBSLgoKYGBge3J9CmJpbm9tLnRlc3QoeCA9IGJveXMsIG4gPSBuLCBwID0gcGkwKQpgYGAKCk9uIHRoZSA1JSBzaWduaWZpY2FuY2UtbGV2ZWwgd2UgY29uY2x1ZGUgdGhhdCB0aGVyZSBpcyBvbiBhdmVyYWdlIGEgaGlnaGVyIHByb2JhYmlsaXR5IG9uIGEgdW5ib3JuIG1hbGUgY2hpbGQgdGhhbiBhbiB1bmJvcm4gZmVtYWxlIGNoaWxkLgoKLS0tCgojIyMgQ29uZmlkZW5jZSBpbnRlcnZhbCBvbiBhIHByb3BvcnRpb24KCi0gRXN0aW1hdG9yIG9mIHRoZSBwcm9wb3J0aW9uIG9mIGJveXMgaW4gdGhlIHBvcHVsYXRpb24gIGlzIHRoZSBzYW1wbGUgbWVhbiAkXGhhdCBccGk9XGJhciB4PSQgYHIgZm9ybWF0KHBpLGRpZ2l0cz0zKWAKLSBUaGUgc3RhbmRhcmQgZXJyb3IgaXMKJCRTRV97XGJhciB4fT1cc3FydHtcZnJhY3tcdGV4dHtWYXJ9W1hdfXtufX09XHNxcnR7XGZyYWN7XHBpKDEtXHBpKX17bn19JCQKLSBXZSBjYW4gZXN0aW1hdGUgdGhpcyBiYXNlZCBvbiB0aGUgc2FtcGxlOiAkU0Vfe1xiYXIgeH09XHNxcnR7XGZyYWN7XGhhdFxwaSgxLVxoYXRccGkpfXtufX09JCBgciBmb3JtYXQoc3FydChwaSooMS1waSkvbiksZGlnaXRzPTIpYC4KLSA5NSUgQ0kgdmlhIENMVDogJFxoYXRccGkgXHBtIDEuOTYgU0Vfe1xoYXRccGl9LiQKCmBgYHtyfQpzZSA8LSBzcXJ0KHBpICogKDEgLSBwaSkgLyBuKQpwaSArIGMoLTEsIDEpICogcW5vcm0oMC45NzUpICogc2UKYGBgCgotLS0KCiMjIyBDSSBvbiBwcm9wb3J0aW9uIGluIHNtYWxsIHNhbXBsZT8KCmBgYHtyfQpDSSA8LSBiaW5vbS50ZXN0KHggPSBib3lzLCBuID0gbiwgcCA9IHBpMCkkY29uZi5pbnQKQ0kKYGBgCgotLS0KCgojIyMgQ29uY2x1c2lvbgoKLSBOb3RlIHRoYXQgdGhlIHRlc3QgZm9yIGEgcHJvcG9ydGlvbiBpcyBlcXVpdmFsZW50IHRvIGEgb25lLXNhbXBsZSB0LXRlc3QgZm9yIGJpbmFyeSBkYXRhLgoKLSBGb3IgdGhlIFNha3NlbiBwb3B1bGF0aW9uIHdlIGNvbmNsdWRlIGF0IHRoZSA1JSBzaWduaWZpY2FuY2UgbGV2ZWwgdGhhdCB0aGUgZ2VuZGVyIG9mIHVuYm9ybiBjaGlsZHJlbiBpcyBtb3JlIGxpa2VseSB0byBiZSBtYWxlIHRoYW4gZmVtYWxlICgkcD0kIGByIHJvdW5kKGJpbm9tLnRlc3QoeD1ib3lzLG49bixwPXBpMCkkcC52YWx1ZSwzKWApLgpUaGUgcHJvYmFiaWxpdHkgdGhhdCBhbiB1bmJvcm4gY2hpbGQgaXMgbWFsZSBlcXVhbHMgYHIgZm9ybWF0KHBpKjEwMCxkaWdpdHM9MylgJSAoOTUlIENJIFtgciBwYXN0ZShmb3JtYXQoQ0kqMTAwLGRpZ2l0cz0zKSxjb2xsYXBzZT0iLCIpYF0lKS4KCi0tLQoKIyBUZXN0IGZvciBhc3NvY2lhdGlvbiBiZXR3ZWVuIHR3byBxdWFsaXRhdGl2ZSB2YXJpYWJsZXMKIyMgUGFpcmVkIG9ic2VydmF0aW9ucwoKLSAyIG1lYXN1cmVtZW50cyBvbiBzYW1lIGluZGl2aWR1YWwKLSBlLmcuIGJlZm9yZSBhbmQgYWZ0ZXIgZXhwb3N1cmUgdG8gYSBjaGVtaWNhbCBzdWJzdGFuY2UKLSBvYnNlcnZlIGEgY2F0ZWdvcmljYWwgb3V0Y29tZSBiZWZvcmUgYW5kIGFmdGVyLgotICpwYWlyZWQgYmluYXJ5IHJlc3BvbnNlcyoKLSBTdGF0aXN0aWNhbCBhbmFseXNpcyBoYXMgdG8gYWNjb3VudCBmb3IgcGFpcmVkIGRlc2lnbi4KCi0tLQoKIyMjIEV4YW1wbGU6ICBGZW1hbGVzIGNob29zZSBnZW50bGUsIGJ1dCBub3QgaGVhbHRoeSBvciBtYWNobyBtYWxlcyBpbiBDYW1wYmVsbCBkd2FyZiBoYW1zdGVycyAoUm9nb3ZpbiBldCBhbC4gMjAxNykKCmBgYHtyLCBvdXQud2lkdGg9JzcwJScsIGZpZy5hc3A9MSwgZmlnLmFsaWduPSdjZW50ZXInLGVjaG89RkFMU0V9CmxpYnJhcnkocGxvdHJpeCkKcGFyKG1hciA9IGMoMCwgMCwgMCwgMCksIG1haSA9IGMoMCwgMCwgMCwgMCkpCnBsb3QoMCwgMCwgYXhlcyA9IEZBTFNFLCB4bGFiID0gIiIsIHlsYWIgPSAiIiwgY29sID0gMCwgeGxpbSA9IGMoMCwgMyksIHlsaW0gPSBjKDAsIDMpKQpyZWN0KDAsIDAsIDMsIDMpCmxpbmVzKGMoMSwgMSksIGMoMCwgMykpCmxpbmVzKGMoMiwgMiksIGMoMCwgMykpCmxpbmVzKGMoMSwgMSksIGMoMSwgMiksIGx3ZCA9IDIpCmxpbmVzKGMoMSwgMSksIGMoMSwgMiksIGx3ZCA9IDQpCmxpbmVzKGMoMiwgMiksIGMoMSwgMiksIGx3ZCA9IDQpCnJlY3QoMS40NSwgMSwgMS41NSwgMS4zKQpkcmF3LmNpcmNsZSgxLjUsIDEuMzYsIDAuMDUpCmxpbmVzKGMoMS41LCAxLjUpLCBjKDEsIC44NSkpCnRleHQoMS41LCAxLjE1LCAiXFxWRSIsIHZmb250ID0gYygic2FucyBzZXJpZiIsICJib2xkIiksIGNleCA9IDEuMykKcmVjdCgwLjUsIDEuMDUsIDAuOCwgMS4xNSkKZHJhdy5jaXJjbGUoMC44NiwgMS4xLCAwLjA1KQpsaW5lcyhjKDAuNSwgMC4zNSksIGMoMS4xLCAxLjEpKQpsaW5lcyhjKDAuOCwgMCksIGMoMS4xLCAxLjUpLCBsdHkgPSAyKQp0ZXh0KDAuNjUsIDEuMSwgIlxcTUEiLCB2Zm9udCA9IGMoInNhbnMgc2VyaWYiLCAiYm9sZCIpLCBjZXggPSAxLjMpCnJlY3QoMi41LCAxLjk1LCAyLjIsIDEuODUpCmRyYXcuY2lyY2xlKDIuMTQsIDEuOSwgMC4wNSkKbGluZXMoYygyLjUsIDIuNjUpLCBjKDEuOSwgMS45KSkKbGluZXMoYygyLjIsIDMpLCBjKDEuOSwgMS41KSwgbHR5ID0gMikKdGV4dCgyLjM1LCAxLjksICJcXE1BIiwgdmZvbnQgPSBjKCJzYW5zIHNlcmlmIiwgImJvbGQiKSwgY2V4ID0gMS4zKQpgYGAKCi0tLQoKLSBUaGUgZ2F0ZSBpcyBvcGVuZWQgdXBvbiAzIG1pbnV0ZXMKLSBhZ2dyZXNzaXZlIHZzIG5vbi1hZ3Jlc3NpdmUgbWFsZQotIEVhY2ggZmVtYWxlIHVuZGVyZ29lcyB0aGUgdGVzdCB0d2ljZToKCiAgICAtIG9uY2UgdXBvbiBzdGF5IGluIGhvc3RpbGUgZW52aXJvbm1lbnQgKGhpZ2ggcG9wdWxhdGlvbiBkZW5zaXR5LCBzaG9ydGFnZSBvZiBmZWVkLCBhIGxvdCBvZiBjb21wZXRpdGlvbikKICAgIC0gYW5kIG9uY2UgdXBvbiBzdGF5IGluIGdlbnRsZSBldmlyb25tZW50LgoKCmBgYHtyIGNhdEhhbXN0ZXIsIGVjaG89RkFMU0V9CmhhbXN0ZXIgPC0gbWF0cml4KGMoMywgMTcsIDEsIDEzKSwgbmNvbCA9IDIsIGJ5cm93ID0gVFJVRSkKcm93bmFtZXMoaGFtc3RlcikgPC0gYygiaG9zdGlsZV9hZ3Jlc3NpdmUiLCAiaG9zdGlsZV9ub24tYWdyZXNzaXZlIikKY29sbmFtZXMoaGFtc3RlcikgPC0gYygiZnJpZW5kbHlfYWdyZXNzaXZlIiwgImZyaWVuZGx5X25vbi1hZ3Jlc3NpdmUiKQpoYW1zdGVyVG90IDwtIG1hdHJpeCgwLCBucm93ID0gMywgbmNvbCA9IDMpCmhhbXN0ZXJUb3RbMToyLCAxOjJdIDwtIGhhbXN0ZXIKaGFtc3RlclRvdFszLCAxOjJdIDwtIGNvbFN1bXMoaGFtc3RlcikKaGFtc3RlclRvdFssIDNdIDwtIHJvd1N1bXMoaGFtc3RlclRvdFssIDE6Ml0pCmhhbXN0ZXJMZXR0ZXJzIDwtIG1hdHJpeChjKCIgKGUpIiwgIiAoZikiLCAiIiwgIiAoZykiLCAiIChoKSIsICIiLCAiIiwgIiIsICIiKSwgbmNvbCA9IDMsIGJ5cm93ID0gVFJVRSkKaGFtc3RlclRvdCA8LSBtYXRyaXgocGFzdGUwKGhhbXN0ZXJUb3QsIGhhbXN0ZXJMZXR0ZXJzKSwgYnlyb3cgPSBGQUxTRSwgbmNvbCA9IDMpCmNvbG5hbWVzKGhhbXN0ZXJUb3QpIDwtIGMoY29sbmFtZXMoaGFtc3RlciksICJ0b3RhbCIpCnJvd25hbWVzKGhhbXN0ZXJUb3QpIDwtIGMocm93bmFtZXMoaGFtc3RlciksICJ0b3RhbCIpCmtuaXRyOjprYWJsZShoYW1zdGVyVG90LCBib29rdGFicyA9IFRSVUUpCmBgYAoKLS0tCgojIyMgQWJzb2x1dGUgcmlzayBkaWZmZXJlbmNlIChBUkQpCgotICRccGlfMT1QW1x0ZXh0e2FncmVzc2l2ZSBtYWxlIH0gXHZlcnQgXHRleHR7aG9zdGlsZX1dJAotICRcaGF0IFxwaV8xPShlK2YpL24kLCB3aXRoICRuPWUrZitnK2gkLgoKLSAkXHBpXzA9UFtcdGV4dHthZ3Jlc3NpdmUgbWFsZSB9IFx2ZXJ0IFx0ZXh0eyBmcmllbmRseX1dJAotICRcaGF0IFxwaV8wPShlK2cpL24kClxiZWdpbntlcXVhdGlvbip9Clx3aWRlaGF0e1x0ZXh0e0FSRH19PVxoYXRccGlfMS1caGF0XHBpXzA9XGZyYWN7ZStmfXtufS1cZnJhY3tlK2d9e259PVxmcmFje2YtZ317bn0KXGVuZHtlcXVhdGlvbip9Ci0gT25seSBhZmZlY3RlZCBieSBkaXNjb3JkYW50IHBhaXJzICRmJCBlbiAkZyQKCi0tLQoKLSBTdGFuZGFyZCBlcnJvciBvbiBBUkQKXGJlZ2lue2VxdWF0aW9uKn0KXHRleHR7U0V9X3tcd2lkZWhhdHtcdGV4dHtBUkR9fX09XGZyYWN7MX17bn1cc3FydHtmK2ctXGZyYWN7KGYtZyleMn17bn19ClxlbmR7ZXF1YXRpb24qfQoKLSBJZiB3ZSBoYXZlIGxhcmdlIG51bWJlciBvZiBvYnNlcnZhdGlvbnMgd2UgY2FuIHVzZSB0aGUgQ0xUIHRvIGVzdGFibGlzaCBhbiAkKDEtXGFscGhhKTEwMFwlJCBDSSBvbiB0aGUgQVJECiQkXGxlZnRbXHdpZGVoYXR7XHRleHR7QVJEfX0tel97XGFscGhhLzJ9XHRleHR7U0V9X3tcd2lkZWhhdHtcdGV4dHtBUkR9fX0sXHdpZGVoYXR7XHRleHR7QVJEfX0tel97XGFscGhhLzJ9XHRleHR7U0V9X3tcd2lkZWhhdHtcdGV4dHtBUkR9fX1ccmlnaHRdJCQKb3IKJCRcbGVmdFtcZnJhY3tmLWd9e259LVxmcmFje3pfe1xhbHBoYS8yfX17bn1cc3FydHtmK2ctXGZyYWN7KGYtZyleMn17bn19LFxmcmFje2YtZ317bn0rXGZyYWN7el97XGFscGhhLzJ9fXtufVxzcXJ0e2YrZy1cZnJhY3soZi1nKV4yfXtufX1ccmlnaHRdICQkCgotLS0KCmBgYHtyfQpoYW1zdGVyIDwtIG1hdHJpeChjKDMsIDE3LCAxLCAxMyksIG5jb2wgPSAyLCBieXJvdyA9IFRSVUUpCnJvd25hbWVzKGhhbXN0ZXIpIDwtIGMoImhvc3RpbGUtYWdyZXNzaXZlIiwgImhvc3RpbGUtbm9uLWFncmVzc2l2ZSIpCmNvbG5hbWVzKGhhbXN0ZXIpIDwtIGMoImZyaWVuZGx5LWFncmVzc2l2ZSIsICJmcmllbmRseS1ub24tYWdyZXNzaXZlIikKCmYgPC0gaGFtc3RlclsxLCAyXQpnIDwtIGhhbXN0ZXJbMiwgMV0KbiA8LSBzdW0oaGFtc3RlcikKcmlza2RpZmYgPC0gKGYgLSBnKSAvIG4Kcmlza2RpZmYKc2UgPC0gc3FydChmICsgZyAtIChmIC0gZyleMiAvIG4pIC8gbgpzZQpjaSA8LSByaXNrZGlmZiArIGMoLTEsIDEpICogcW5vcm0oMC45NzUpICogc2UKY2kKYGBgCgotLS0KClxiZWdpbntlcXVhdGlvbip9Clx3aWRlaGF0e1x0ZXh0e0FSRH19PVxmcmFjezE3LTF9ezM0fT0wLjQ3MQpcZW5ke2VxdWF0aW9uKn0KVGhlIGFic29sdXRlIHJpc2sgZGlmZmVyZW5jZSBvbiBjaG9vc2luZyBmb3IgYW4gYWdyZXNzaXZlIG1hbGUgaXMgNDcuMSUgbGFyZ2VyIHVwb24gc3RheWluZyBpbiBhIGhvc3RpbGUgZW52aXJvbm1lbnQgdGhhdCB3aGVuIHJlc2lkaW5nIGluIGEgZ2VudGxlIGVudmlyb25tZW50LgotIFRoZSBzdGFuZGFyZCBlcnJvcgpcYmVnaW57ZXF1YXRpb24qfQpcdGV4dHtTRX1fe1x3aWRlaGF0e1x0ZXh0e0FSRH19fT1cZnJhY3sxfXszNH1cc3FydHsxNysxLVxmcmFjeygxNy0xKV4yfXszNH19PTAuMDk1MgpcZW5ke2VxdWF0aW9uKn0KLSBBIDk1XCUgY29uZmlkZW5jZSBpbnRlcnZhbCBvbiB0aGlzIGFic29sdXRlIHJpc2sgZGlmZmVyZW5jZSBpcwpcYmVnaW57ZXF1YXRpb24qfQpcbGVmdFswLjQ3MS0xLjk2XHRpbWVzIDAuMDk1MiwwLjQ3MSsxLjk2XHRpbWVzIDAuMDk1MlxyaWdodF09WzAuMjg0LDAuNjU4XQpcZW5ke2VxdWF0aW9uKn0KCi0tLQoKIyMgTWNOZW1hciB0ZXN0CmBgYHtyLGVjaG89RkFMU0V9CmtuaXRyOjprYWJsZShoYW1zdGVyVG90LCBib29rdGFicyA9IFRSVUUpCmBgYAoKLSBBc3Nlc3MgaWYgcmlzayBvbiBjaG9pY2UgZm9yIGFncmVzc2l2ZSBtYWxlIGRpZmZlcnMgYmV0d2VlbiByZXNpZGluZyBpbiBob3N0aWxlIGFuZCBmcmllbmRseSBlbnZpcm9ubWVudC4KLSBPbmx5IGRpc2NvcmRhbnQgcGFpcnMgZ2l2ZSBpbmZvcm1hdGlvbi4KLSAkZj5nJCBpbmRpY2F0aW9uIGFnYWluc3QgJEhfMCQ6IGNob2ljZSBvZiBwYXJ0bmVyIG5vdCBhc3NvY2lhdGVkIHdpdGggZW52aXJvbm1lbnQuCi0gRXZhbHVhdGUgcHJvYmFiaWxpdHkgdGhhdCBpbiBhIHJhbmRvbSBkaXNjb3JkYW50IHBhaXIsIGEgZmVtYWxlIGNob29zZXMgYW4gYWdyZXNzaXZlIG1hbGUgdXBvbiBhIHN0YXkgaW4gYSBob3N0aWxlIGVudmlyb25tZW50LgotIFdlIGVzdGltYXRlIHRoZSBwcm9iYWJpbGl0eSBhcwogICQkXGZyYWN7Zn17ZitnfSQkCgotLS0KCiAgXGJlZ2lue2VxbmFycmF5Kn0KICBcdGV4dHtFfVxsZWZ0W2YvKGYrZylccmlnaHRdJlxzdGFja3JlbHtIXzB9ez19JiAwLjVcXAogIGYgJiBcc3RhY2tyZWx7SF8wfXtcc2ltfSYgXHRleHR7Qmlub219KG49ZitnLFxwaT0wLjUpXFwKICBcdGV4dHtTRX1fe1xmcmFje2Z9e2YrZ319ICYgXHN0YWNrcmVse0hfMH17PX0mIFxzcXJ0eyhmK2cpXHRpbWVzIDAuNVx0aW1lcyAwLjV9PVxmcmFje1xzcXJ0e2YrZ319ezJ9ClxlbmR7ZXFuYXJyYXkqfQoKLS0tCgotIEFzeW1wdG90aWNhbGx5IGEgb25lLXNhbXBsZSB6LXRlc3QgKGJhc2VkIG9uIHRoZSBOb3JtYWwgZGlzdHJpYnV0aW9uKQoKXGJlZ2lue2VxdWF0aW9uKn0Kej1cZnJhY3tmLShmK2cpLzJ9e1xzcXJ0e2YrZ30vMn09XGZyYWN7Zi1nfXtcc3FydHtmK2d9fQpcZW5ke2VxdWF0aW9uKn0KCi0gTm9ybWFsIGFwcHJveGltYXRpb24gaXMgZ29vZCBpZiAkJGYgXHRpbWVzIGcvKGYrZykgXGdlcSA1JCQKClRoZSAqKk1jIE5lbWFyIHRlc3QqKiBpcyB0aGUgYW5hbG9nb24gb2YgdGhlIHBhaXJlZCB0LXRlc3QgZm9yIGJpbmFyeSBxdWFsaXRhdGl2ZSB2YXJpYWJsZXMuCgotLS0KCkluIFIgd2UgY2FuIGNvbmR1Y3QgdGhlIGFuYWx5c2lzIHVzaW5nIHRoZSAgYG1jbmVtYXIudGVzdGAgZnVuY3Rpb24KYGBge3J9Cm1jbmVtYXIudGVzdChoYW1zdGVyKQpgYGAKCgotIFdlIHJlamVjdCB0aGUgbnVsbCBoeXBvdGhlc2lzIGF0IHRoZSA1JSBzaWduaWZpY2FuY2UgbGV2ZWwKLSBXZSBjb25jbHVkZSB0aGF0IHRoZSBjaG9pY2Ugb2YgcGFydG5lciBpcyBleHRyZW1lbHkgc2lnbmlmaWNhbnRseSBhc3NvY2lhdGVkIHdpdGggdGhlIGVudmlyb25tZW50LgoKLS0tCgotIE5vcm1hbGUgYXBwcm94aW1hdGlvbiBpcyBub3Qgb3B0aW1hbCBhbmQgd2UgY2FuIHBlcmZvcm0gYW4gZXhhY3QgdGVzdCB1c2luZyB0aGUgYmlub21pYWwgdGVzdAoKYGBge3J9CmJpbm9tLnRlc3QoeCA9IGYsIG4gPSBmICsgZywgcCA9IDAuNSkKYGBgCgotLS0KCiMjIyBDb25jbHVzaW9uCgotIFdlIGNvbmNsdWRlIHRoYXQgdGhlIHBhcnRuZXIgY2hvaWNlIGlzIGV4dHJlbWVseSBzaWduZmljYW50bHkgYXNzb2NpYXRlZCB3aXRoIHRoZSBlbnZpcm9ubWVudCAoJHA8MC4wMDEkKS4KLSBUaGUgcHJvYmFiaWxpdHkgb24gY2hvb3NpbmcgYW4gYWdyZXNzaXZlIG1hbGUgaXMgb24gYXZlcmFnZSBgciBmb3JtYXQocmlza2RpZmYqMTAwLGRpZ2l0cz0zKWAlIGhpZ2hlciB3aGVuIGEgZmVtYWxlIGhhbXN0ZXIgcmVzaWRlcyBpbiBhIGhvc3RpbGUgZW52aXJvbm1lbnQgdGhhbiB3aGVuIHNoZSByZXNpZGVzIGluIGEgZnJpZW5kbHkgZW52aXJvbm1lbnQgKDk1JSBDSSBbYHIgcGFzdGUoZm9ybWF0KGNpKjEwMCxkaWdpdHM9MyksY29sbGFwc2U9IiwiKWBdJSkuCgotLS0KCiMgVW5wYWlyZWQgb2JzZXJ2YXRpb25zCiMjIEdlbmV0aWMgYXNzb2NpYXRpb24gc3R1ZHkKCi0gQXJlIGdlbmV0aWMgcG9seW1vcnBoaXNtcyBpbiB0aGUgQlJDQTEgZ2VuZSBhc3NvY2lhdGVkIHdpdGggYnJlYXN0IGNhbmNlcj8KLSBSZXRyb3NwZWN0aXZlIGNhc2UtY29udHJvbCBzdHVkeSB3aXRoIDgwMCBicmVhc3QgY2FuY2VyIGNhc2VzIGVuIDU3MiBjb250cm9scwoKYGBge3J9CmJyY2EgPC0gcmVhZF9jc3YoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9HVFBCL1BTTFMyMC9tYXN0ZXIvZGF0YS9icmNhLmNzdiIpCmhlYWQoYnJjYSkKc3VtbWFyeShicmNhKQpgYGAKCi0tLQoKYGBge3IgZWNobz1GQUxTRX0KYnJjYUhscCA8LSBkYXRhLmZyYW1lKEdlbm90eXBlID0gYygiUHJvL1BybyIsICJQcm8vTGV1IiwgIkxldS9MZXUiLCAiVG90YWFsIiksIENvbnRyb2wgPSBjKCIyNjYgKGEpIiwgIjI1MCAoYikiLCAiNTYgKGMpIiwgIjU3MiAoYStiK2MpIiksIENhc2VzID0gYygiMzQyIChkKSIsICIzNjkgKGUpIiwgIjg5IChmKSIsICI4MDAgKGQrZStmKSIpLCBUb3RhbCA9IGMoIjYwOCAoYStkKSIsICI2MTkgKGIrZSkiLCAiMTQ1IChjK2YpIiwgIjEzNzIgKG4pIikpCmtuaXRyOjprYWJsZShicmNhSGxwLAogIGJvb2t0YWJzID0gVFJVRQopCmBgYAoKLSBJbiBjYXNlLWNvbnRyb2wgc3R1ZHkgb25lIGNob29zZXMgYSBmaXhlZCBudW1iZXIgb2YgY2FzZXMgYW5kIGNvbnRyb2xzIGFuZCByZWdpc3RlcnMgd2hpY2ggZXhwb3N1cmVzIHRoZXkgaGFkIGluIHRoZSBwYXN0LgotIFJldHJvc3BlY3RpdmUgc3R1ZHkKLSBJbXBvc3NpYmxlIHRvIGFzc2VzcyByaXNrcyBhbmQgcmlzay1kaWZmZXJlbmNlcyBvbiBicmVhc3QgY2FuY2VyIGJlY2F1c2UgdGhlIHByb3BvcnRpb24gb2YgY2FzZXMgYW5kIGNvbnRyb2xzIGRvZXMgbm90IHJlZmxlY3QgdGhhdCBpbiB0aGUgcG9wdWxhdGlvbiEKCi0tLQoKYGBge3IsIHRpZHk9RkFMU0UsZWNobz1GQUxTRX0KYnJjYUhscD1kYXRhLmZyYW1lKEdlbm90eXBlPWMoIlByby9Qcm8iLCJQcm8vTGV1IiwiTGV1L0xldSIsIlRvdGFhbCIpLENvbnRyb2xzPWMoIjI2NiAoYSkiLCIyNTAgKGIpIiwiNTYgKGMpIiwiNTcyIChhK2IrYykiKSxDYXNlcz1jKCIzNDIgKGQpIiwiMzY5IChlKSIsIjg5IChmKSIsIjgwMCAoZCtlK2YpIiksVG90YWw9YygiNjA4IChhK2QpIiwiNjE5IChiK2UpIiwiMTQ1IChjK2YpIiwiMTM3MiAobikiKSkKa25pdHI6OmthYmxlKGJyY2FIbHAsCiAgYm9va3RhYnMgPSBUUlVFCikKYGBgCgotIElzIHBvc3NpYmxlIHRvIGFzc2VzcyBwcm9iYWJpbGl0eSBvbiBhbGxlbCBMZXUvTGV1CiAgICAtIGNhc2VzOiAkXHBpXzE9Zi8oZCtlK2YpPTg5LzgwMD0xMS4xXCUkCiAgICAtIGNvbnRyb2xzOiRccGlfMD1jLyhhK2IrYyk9NTYvNTcyPTkuOFwlJAotIFJlbGF0aXZlIHJpc2sgb24gZXhwb3N1cmUgZm9yIGNhc2VzIHZlcnN1cyBjb250cm9scyBpcyAkMTEuMS85Ljg9MS4xNCQuCi0gVGhlIHByb2JhYmlsaXR5IG9uIHRoZSBMZXUvTGV1IGdlbm90eXBlIGlzIDE0JSBoaWdoZXIgZm9yIHdvbWVuIHdpdGggYnJlYXN0IGNhbmNlciB0aGFuIGZvciB3b21lbiB3aXRob3V0IGJvcnN0a2Fua2VyLgotIEl0IHN1Z2dlc3RzIGFuIGFzc29jaWF0aW9uLCBidXQgaXQgZG9lcyBub3QgbGV0IHVzIGNvbmNsdWRlIGhvdyBtdWNoIGhpZ2hlciB0aGUgcmlzayBpcyBvbiBicmVhc3QgY2FuY2VyIGZvciB3b21lbiB3aXRoIHRoZSBMZXUvTGV1IGdlbm90eXBlIGFzIGNvbXBhcmVkIHRvIHRoZSBvdGhlciB3b21lbi4KLSBPdGhlciBzdGF0aXN0aWM/CgotLS0KClxiZWdpbntlcXVhdGlvbip9Ck9kZHM9XGZyYWN7cH17MS1wfQpcZW5ke2VxdWF0aW9uKn0Kd2l0aCAkcCQgdGhlIHByb2JhYmlsaXR5IG9uIHRoZSBldmVudC4KClRyYW5zZm9ybWF0aW9uIG9mIHJpc2sgd2l0aCBmb2xsb3dpbmcgcHJvcGVydGllczoKCiAgLSBvZGRzIGhhcyB2YWx1ZSBiZXR3ZWVuIDEgYW5kICRcaW5mdHkkLgoKICAtIG9kZHMgb25seSBlcXVhbHMgMSBmb3IgcHJvYmFiaWxpdHkgJHA9MS8yJC4KCiAgLSBkZSBvZGRzIGluY3JlYXNlcyBpZiBwcm9iYWJpbGl0eSBpbmNyZWFzZXMuCgotIHBvcHVsYXIgaW4gZ2FtYmxpbmc6IGhvdyBtdWNoIG1vcmUgbGlrZWx5IGlzIGl0IHRvIHdpbiB0aGFuIHRvIGxvb3NlCgotLS0KCmBgYHtyLCB0aWR5PUZBTFNFLGVjaG89RkFMU0V9CmJyY2FIbHA9ZGF0YS5mcmFtZShHZW5vdHlwZT1jKCJQcm8vUHJvIiwiUHJvL0xldSIsIkxldS9MZXUiLCJUb3RhYWwiKSxDb250cm9scz1jKCIyNjYgKGEpIiwiMjUwIChiKSIsIjU2IChjKSIsIjU3MiAoYStiK2MpIiksQ2FzZXM9YygiMzQyIChkKSIsIjM2OSAoZSkiLCI4OSAoZikiLCI4MDAgKGQrZStmKSIpLFRvdGFsPWMoIjYwOCAoYStkKSIsIjYxOSAoYitlKSIsIjE0NSAoYytmKSIsIjEzNzIgKG4pIikpCmtuaXRyOjprYWJsZShicmNhSGxwLAogIGJvb2t0YWJzID0gVFJVRQopCmBgYAoKT2RkcyBvbiBhbGxlbCBMZXUvTGV1CgotIENhc2VzOiAkXG1ib3h7b2Rkc31fMT1cZnJhY3sgZi8oZCtlK2YpfXsoZCtlKS8oZCtlK2YpfT1mLyhkK2UpPTg5LzcxMT0wLjEyNSQuIFRoZSBkb3VibGUgTGV1L0xldSB2YXJpYW50IGlzIDggdGltZXMgbGVzcyBsaWtlbHkgdGhhbiBvdGhlciBhbGxlbGUgY29tYmluYXRpb25zIGluIHRoZSBicmVhc3QgY2FuY2VyIGNhc2VzCi0gQ29udHJvbHM6ICRcbWJveHtvZGRzfV8yPWMvKGErYik9NTYvNTE2PTAuMTA5JC4KCi0gQXNzb2NpYXRpb24gYmV0d2VlbiBleHBvc3VyZSBhbmQgb3V0Y29tZToKJCQKT1Jfe0xldS9MZXV9PVxmcmFje1xtYm94e29kZHN9X1R9e1xtYm94e29kZHN9X0N9PSBcZnJhY3tmLyhkK2UpfXtjLyhhK2IpfT1cZnJhY3tmLyhkK2UpfXtjLyhhK2IpfT0xLjE1CiQkCgotLS0KCgpgYGB7ciwgdGlkeT1GQUxTRSxlY2hvPUZBTFNFfQpicmNhSGxwPWRhdGEuZnJhbWUoR2Vub3R5cGU9YygiUHJvL1BybyIsIlByby9MZXUiLCJMZXUvTGV1IiwiVG90YWFsIiksQ29udHJvbHM9YygiMjY2IChhKSIsIjI1MCAoYikiLCI1NiAoYykiLCI1NzIgKGErYitjKSIpLENhc2VzPWMoIjM0MiAoZCkiLCIzNjkgKGUpIiwiODkgKGYpIiwiODAwIChkK2UrZikiKSxUb3RhbD1jKCI2MDggKGErZCkiLCI2MTkgKGIrZSkiLCIxNDUgKGMrZikiLCIxMzcyIChuKSIpKQprbml0cjo6a2FibGUoYnJjYUhscCwKICBib29rdGFicyA9IFRSVUUKKQpgYGAKCi0gSWYgdGhlIHN0dWR5IHdvdWxkIGhhdmUgYmVlbiBhIHJhbmRvbSBzYW1wbGUgb2YgdGhlIHBvcHVsYXRpb24gKG51bWJlciBvZiBjYXNlcyBhbmQgY29udHJvbHMgbm90IGZpeGVkIGJ5IGRlc2lnbikgdGhlbiB3ZSB3b3VsZCBiZSBhYmxlIHRvIGNhbGN1bGF0ZSB0aGUgb2RkcyByYXRpbyBvbiBicmVhc3QgY2FuY2VyIGZvciBwZW9wbGUgd2l0aCBhbmQgd2l0aG91dCB0aGUgZG91YmxlIExldS9sZXUgdmFyaWFudC4KXGJlZ2lue2VxdWF0aW9uKn0KT1Jfe2Nhc2V9PVxmcmFjeyBcZnJhY3sgZn17Y319eyBcZnJhY3soZCtlKX17KGErYil9fSA9IFxmcmFje2YoYStiKX17YyhkK2UpfT1PUl97TGV1L0xldX09MS4xNSwKXGVuZHtlcXVhdGlvbip9Ci0gT1IgaXMgYSBzeW1tZXRyaWMgc3RhdGlzdGljIQotIE9SIG9uIGJvcnN0Y2FuY2VyIGNhbiBiZSBlc3RpbWF0ZWQhCi0gVGhlIG9kZHMgb24gYm9yc3RjYW5jZXIgaXMgMTUlIGhpZ2hlciBmb3Igd29tZW4gd2l0aCB0aGlzIHNwZWNpZmljIGFsbGVsZSBjb21iaW5hdGlvbi4KCi0tLQoKLSBJcyB0aGUgZGlmZmVyZW5jZSBsYXJnZSBlbm91Z2ggdG8gZ2VuZXJhbGl6ZSB0aGUgZWZmZWN0IGluIHRoZSBzYW1wbGUgdG93YXJkcyB0aGUgcG9wdWxhdGlvbj8KCi0gV2Ugd2lsbCBmaXJzdCByZXdyaXRlIHRoZSBkYXRhIGluIGEgMngyIHRhYmxlCgpgYGB7ciBsZXU0LCB0aWR5PUZBTFNFLGVjaG89RkFMU0V9CmJyY2FUYWIyIDwtIHRhYmxlKGJyY2EkdmFyaWFudDIsYnJjYSRjYW5jZXIpCmJyY2FUYWIyIDwtIGJyY2FUYWIyWzI6MSxdCmJyY2FIbHAyIDwtIGRhdGEuZnJhbWUoR2Vub3R5cGU9Yygib3RoZXIiLCJMZXUvTGV1IiwiVG90YWwiKSxDb250cm9scz1jKCI1MTYgKGEpIiwiNTYgKGIpIiwiNTcyIChhK2IpIiksQ2FzZXM9YygiNzExIChjKSIsIjg5IChkKSIsIjgwMCAoYytkKSIpLFRvdGFhbD1jKCIxMjI3IChhK2MpIiwiMTQ1IChiK2QpIiwiMTM3MiAobikiKSkKa25pdHI6OmthYmxlKGJyY2FIbHAyLAogIGJvb2t0YWJzID0gVFJVRQopCmBgYAoKLS0tCgojIyBQZWFyc29uIENoaS1zcXVhcmUgdGVzdCBmb3IgaW5kZXBlbmRlbnQgc2FtcGxlcwoKLSBUZXN0IGFzc29jaWF0aW9uIGJldHdlZW4gY2F0ZWdvcmljYWwgZXhwb3N1cmUoZS5nLiB2YXJpYW50LCBYKSBlbiBjYXRlZ29yaWNhbCByZXNwb25zZSAoZS5nLiBkaXNlYXNlLCBZKS4KJCRIXzA6IFx0ZXh0e1RoZXJlIGlzIG5vIGFzc29jaWF0aW9uIGJldHdlZW4gfSBYIFx0ZXh0eyBhbmQgfSBZIFx0ZXh0eyB2cyB9IEhfMTogWCBcdGV4dHsgYW5kIH0gWSBcdGV4dHsgYXJlIGFzc29jaWF0ZWR9JCQKCi0gQ29uc2lkZXIgcm93IHRvdGFscyAkbl9cdGV4dHtvdGhlcn09YStjJCwgJG5fXHRleHR7bGV1LGxldX09YitkJCBhbmQKLSBjb2x1bW4gdG90YWxzICRuX1x0ZXh0e2NvbnRyfT1hK2IkIGVuICRuX1x0ZXh0e2Nhc2V9PWMrZCQuCi0gVGhleSBnaXZlIGluZm9ybWF0aW9uIG9uICptYXJnaW5hbCBkaXN0cmlidXRpb24qIG9mIHRoZSBleHBvc3VyZSAodmFyaWFudCwgWCkgYW5kIG91dGNvbWUgKGRpc2Vhc2UsIFkpLApidXQgbm90IG9uIHRoZSBhc3NvY2lhdGlvbiBiZXR3ZWVuIHRoZXNlIHZhcmlhYmxlcy4KLSBVbmRlciAkSF8wJCAkWCQgYW5kICRZJCBhcmUgaW5kZXBlbmRlbnQgYW5kIG9uZSBleHBlY3RzICB0aGF0ICQoYitkKS9uJApvZiB0aGUgJGErYiQgY29udHJvbHMgaGF2ZSBhIExldS9MZXUgdmFyaWFudCwgb3IgdGhhdCAkKGErYikoYitkKS9uJCBvZiB0aGVtIGhhcyBhIExldS9MZXUgdmFyaWFudAotIFdlIGNhbiBjYWxjdWxhdGUgdGhpcyBleHBlY3RlZCBudW1iZXIgJEVfe2lqfSQgdW5kZXIgdGhlIG51bGwgaHlwb3RoZXNpcyBmb3IgKmVhY2ggY2VsbCogb2YgdGhlICQyClx0aW1lcyAyJCB0YWJsZS4KCi0tLQoKLSAkRV97MTF9JCA9IEV4cGVjdGVkIG51bWJlciB1bmRlciAkSF8wJCBpbiAgKDEsMSktY2VsbCA9IGByIHN1bShicmNhVGFiMlsxLF0pYCAkXHRpbWVzJCBgciBzdW0oYnJjYVRhYjJbLDFdKWAvYHIgc3VtKGJyY2FUYWIyKWAgPSBgciBmb3JtYXQoc3VtKGJyY2FUYWIyWzEsXSkqc3VtKGJyY2FUYWIyWywxXSkvc3VtKGJyY2FUYWIyKSxkaWdpdHM9NClgIDsKCi0gJEVfezEyfSQgPSBFeHBlY3RlZCBudW1iZXIgdW5kZXIgJEhfMCQgaW4gICgxLDIpLWNlbGwgPSBgciBzdW0oYnJjYVRhYjJbMSxdKWAgJFx0aW1lcyQgYHIgc3VtKGJyY2FUYWIyWywyXSlgL2ByIHN1bShicmNhVGFiMilgID0gYHIgZm9ybWF0KHN1bShicmNhVGFiMlsxLF0pKnN1bShicmNhVGFiMlssMl0pL3N1bShicmNhVGFiMiksZGlnaXRzPTQpYCA7CgotICRFX3syMX0kID0gRXhwZWN0ZWQgbnVtYmVyIHVuZGVyICRIXzAkIGluICAoMiwxKS1jZWxsID0gYHIgc3VtKGJyY2FUYWIyWzIsXSlgICRcdGltZXMkIGByIHN1bShicmNhVGFiMlssMV0pYC9gciBzdW0oYnJjYVRhYjIpYCA9IGByIGZvcm1hdChzdW0oYnJjYVRhYjJbMixdKSpzdW0oYnJjYVRhYjJbLDFdKS9zdW0oYnJjYVRhYjIpLGRpZ2l0cz00KWAgOwoKLSAkRV97MjJ9JCA9IEV4cGVjdGVkIG51bWJlciB1bmRlciAkSF8wJCBpbiAgKDIsMiktY2VsbCA9IGByIHN1bShicmNhVGFiMlsyLF0pYCAkXHRpbWVzJCBgciBzdW0oYnJjYVRhYjJbLDJdKWAvYHIgc3VtKGJyY2FUYWIyKWAgPSBgciBmb3JtYXQoc3VtKGJyY2FUYWIyWzIsXSkqc3VtKGJyY2FUYWIyWywyXSkvc3VtKGJyY2FUYWIyKSxkaWdpdHM9NClgIDsKClRlc3Qtc3RhdGlzdGljOgpcYmVnaW57ZXFuYXJyYXkqfQpYXjIgJj0mIFxmcmFje1xsZWZ0ICh8T197MTF9IC0gRV97MTF9fCAtIC41IFxyaWdodCleMiB9eyBFX3sxMX19ICsgXGZyYWN7ClxsZWZ0ICggfE9fezEyfSAtIEVfezEyfXwgLSAuNSBccmlnaHQpXjIgfXtFX3sxMn0gfSsgXFwKJiZccXVhZFxxdWFkClxmcmFjeyBcbGVmdCAoIHxPX3syMX0KLSBFX3syMX18IC0gLjUgXHJpZ2h0KV4yIH17RV97MjF9fSsgXGZyYWN7IFxsZWZ0ICggfE9fezIyfSAtIEVfezIyfXwgLSAuNQpccmlnaHQpXjIgfXtFX3syMn0gfVxcCiBYXjIgJlxzdGFja3JlbHtIXzB9e1xsb25ncmlnaHRhcnJvd30mIFxjaGleMihkZj0xKQpcZW5ke2VxbmFycmF5Kn0KCi0tLQoKYGBge3IgZWNobz1GQUxTRX0KZ3JpZCA8LSBzZXEoMCwgMTAsIC4xKQpwbG90KGdyaWQsIGRjaGlzcShncmlkLCAxKSwgdHlwZSA9ICJsIiwgbHdkID0gMikKZGZzIDwtIGMoMSwgMiwgNSkKZm9yIChpIGluIDI6MykgewogIGxpbmVzKGdyaWQsIGRjaGlzcShncmlkLCBkZnNbaV0pLCBjb2wgPSBpLCBsd2QgPSAyKQp9CmxlZ2VuZCgidG9wcmlnaHQiLCBsdHkgPSAxLCBsd2QgPSAyLCBjb2wgPSAxOjMsIGxlZ2VuZCA9IHNhcHBseShkZnMsIGZ1bmN0aW9uKGQpIGFzLmV4cHJlc3Npb24oc3Vic3RpdHV0ZShjaGlbZGYgPT0gdmFsXV4yLCBsaXN0KHZhbCA9IGQpKSkpKQpgYGAKCi0tLQoKLSBBIGxhcmdlIHZhbHVlIG9mIHRoZSB0ZXN0IHN0YXRpc3RpYyBnaXZlcyBhbiBpbmRpY2F0aW9uIHRoYXQgdGhlIG51bGwgaHlwb3RoZXNpcyBpcyBmYWxzZS4KLSBUaGUgdGVzdCB3aWxsIHJlamVjdCAkSF8wJCBhdCB0aGUgJFxhbHBoYSAxMDBcJSQKc2lnbmlmaWNhbmNlIGxldmVsIGFzIHNvb24gYXMgdGhlIG9ic2VydmVkIHRlc3Qtc3RhdGlzdGljIGlzIGxhcmdlciB0aGFuIHRoZSAkMTAwXCUoMS1cYWxwaGEpJC1xdWFudGlsZSwgJFxjaGleMl97MSwKXGFscGhhfSQsIG9mIHRoZSAkXGNoaV4yXzEkLWRpc3RyaWJ1dGlvbi4KLSBPdGhlcndpc2Ugd2UgZG8gbm90IHJlamVjdCAkSF8wJC4KLSBUaGUgcC12YWx1ZSBvZiBhIDItc2lkZWQgdGVzdCBpcyB0aGUgcHJvYmFiaWxpdHkgdG8gb2JzZXJ2ZSBhIGxhcmdlciB0ZXN0LXN0YXRpc3RpYyBpbiBhIHJhbmRvbSBzYW1wbGUgdW5kZXIgdGhlIG51bGwgdGhhbiB3aGF0IHdlIG9ic2VydmVkIGluIG91ciBzYW1wbGUuCiQkcD1QXzBbXGNoaV4yXzEgXGdlcSB4XjJdJCQuCgotLS0KCmBgYHtyfQpleHBlY3RlZCA8LSBtYXRyaXgoMCwgbnJvdyA9IDIsIG5jb2wgPSAyKQpmb3IgKGkgaW4gMToyKSB7CiAgZm9yIChqIGluIDE6MikgewogICAgZXhwZWN0ZWRbaSwgal0gPC0KICAgICAgc3VtKGJyY2FUYWIyW2ksIF0pICogc3VtKGJyY2FUYWIyWywgal0pIC8gc3VtKGJyY2FUYWIyKQogIH0KfQpleHBlY3RlZAp4MiA8LSBzdW0oKGFicyhicmNhVGFiMiAtIGV4cGVjdGVkKSAtIC41KV4yIC8gZXhwZWN0ZWQpCjEgLSBwY2hpc3EoeDIsIDEpCmBgYAoKLS0tCgotIEJlY2F1c2UgJE9fe2lqfSQgYXJlIGRpc2NyZXRlIHZhbHVlcywgdGhlICRYXjIkIGNhbiBvbmx5IHRha2UgZGlzY3JldGUgdmFsdWVzIGFuZCB0aGUgY29udGludW91c3MgJFxjaGleMl8xJC1kaXN0cmlidXRpb24gaXMgb25seSBhbiBhcHByb3hpbWF0aW9uIG9mIHRoZSByZWFsIGRpc3RyaWJ1dGlvbi4KLSBUbyBpbXByb3ZlIHRoZSBhcHByb3hpbWF0aW9uIG9uZSBzdWJzdHJhY3RzIDAuNSBmcm9tIHRoZSB2YWx1ZSBpbiBlYWNoIGNlbGw6Cipjb250aW51aXR5LWNvcnJlY3Rpb24qCi0gV2UgcmVmZXIgdG8gdGhpcyB0ZXN0IGFzICpQZWFyc29uIENoaS1zcXVhcmVkIHRlc3Qgd2l0aCBZYXRlcyBjb3JyZWN0aW9uKi4KLSBXaGVuIHRoZSBjb3JyZWN0aW9uIGlzIG5vdCB1c2VkIChpLmUuIHdoZW4gdGhlIHZhbHVlcyBvZiBgMC41JyBpbiB0aGUgZXN0aW1hdG9yICRYXjIkIGFyZSByZXBsYWNlZCkgd2UgdXNlIHRoZSAqUGVhcnNvbiBDaGktc3F1YXJlZCB0ZXN0Ki4KCi0tLQoKSW4gUiB5b3UgY2FuIHN3aXRjaCB0aGUgY29ycmVjdGlvbiBvbiBvciBvZmYgYnkgc2V0dGluZyB0aGUgYXJndW1lbnQgYGNvcnJlY3RgIG9uIFRSVUUgb3IgRkFMU0UsIHJlc3BlY3RpdmVseToKCmBgYHtyfQpjaGlzcS50ZXN0KGJyY2FUYWIyKQpjaGlzcS50ZXN0KGJyY2FUYWIyLCBjb3JyZWN0ID0gRkFMU0UpCmBgYAoKLS0tCgotIEV2ZW4gd2l0aCB0aGUgJFxjaGleMl8xJCBjb3JyZWN0aW9uIHRoZSBhcHByb3hpbWF0aW9uIGlzIG9ubHkgdmFsaWQgaWYgbm9uIG9mIHRoZSBjZWxscyBoYXMgYW4gZXhwZWN0ZWQgY291bnQgYmVsb3cgNSB1bmRlciAkSF8wJC4KLSBXaGVuIHRoZSAkXGNoaV4yJC1hcHByb3hpbWF0aW9uIGlzIGludmFsaWQgd2Ugd2lsbCB1c2UgKkZpc2hlcidzIGV4YWN0IHRlc3QqLgotICBOdWxsIGh5cG90aGVzaXMgaXMgYWxzbyB0aGF0ICRYJCBhbmQgJFkkIGFyZSBpbmRlcGVuZGVudCwgYW5kLCB0aGUgYWx0ZXJuYXRpdmUgaHlwb3RoZXNpcyB0aGF0ICRYJCBhbmQgJFkkIGFyZSBkZXBlbmRlbnQuCgpgYGB7cn0KZmlzaGVyLnRlc3QoYnJjYVRhYjIpCmBgYAoKLS0tCgoKIyMgRXh0ZW5zaW9uIHRvIGNhdGVnb3JpY2FsIHZhcmlhYmxlcyB3aXRoIG11bHRpcGxlIGxldmVscwoKLSBUaGUgJFxjaGleMiQtdGVzdCBjYW4gYWxzbyBiZSB1c2VkIGlmIG9uZSBvZiB0aGUgY2F0ZWdvcmljYWwgdmFyaWFibGVzICRYJCBhbmQgJFkkIGhhcyBtb3JlIHRoYW4gMiBsZXZlbHMKCi0gQWdhaW46IHRoZSBudWxsIGh5cG90aGVzaXMgJEhfMCQ6ICRYJCBhbmQgJFkkIGFyZSBpbmRlcGVuZGVudCAobm90IGFzc29jaWF0ZWQpLCBhZ2FpbnN0IHRoZSBhbHRlcm5hdGl2ZSAkSF9BOiBYJCBhbmQgJFkkCmFyZSBhc3NvY2lhdGVkLgoKLSBMZXQgdGhlIHZhcmlhYmxlIGluIHRoZSByb3dzIGhhdmUgJHIkIGRpZmZlcmVudCBwb3NzaWJsZSBvdXRjb21lcyBhbmQgdGhlIG9uZSBpbiB0aGUgY29sdW1ucyAkYyQgcG9zc2libGUgb3V0Y29tZXMsIHRoZW4gd2Ugb2J0YWluIGFuICRyIFx0aW1lcyBjJCB0YWJsZS4KCi0gQWdhaW4gd2Ugd2lsbCBjb21wYXJlIHRoZSBvYnNlcnZlZCB2YWx1ZXMgaW4gIGNlbGwgJChpLGopJCwgcmVmZXJyZWQgdG8gYXMgJE9fe2lqfSQsIHdpdGggdGhlIGV4cGVjdGVkIG51bWJlciB1bmRlciAkSF8wJCwgJEVfe2lqfSQKIC0gQWdhaW4gJEVfe2lqfSQgaXMgdGhlIHByb2R1Y3Qgb2YgdGhlICRpXlx0ZXh0e3RofSQgcm93LXRvdGFsIGFuZCB0aGUgJGpeXHRleHR7dGh9JCBjb2x1bW4gdG90YWwgZGV2aWRlZCBieSB0aGUgb3ZlcmFsbCB0b3RhbC4KClxiZWdpbntlcXVhdGlvbip9ClheMiA9IFxzdW1fe2lqfSBcZnJhY3tcbGVmdCAoT197aWp9IC0gRV97aWp9XHJpZ2h0KV4yIH17IEVfe2lqfX0KXGVuZHtlcXVhdGlvbip9CgotLS0KCi0gV2UgY2FuIHNob3cgdGhhdCB0aGUgc3RhdGlzdGljIGZvbGxvd3MgYSAkXGNoaV4yJCBkaXN0cmlidXRpb24gd2l0aCAkKHItMSkgXHRpbWVzCihjLTEpJCBkZWdyZWVzIG9mIGZyZWVkb20gdW5kZXIgJEhfMCQuCi0gTm8gY29udGludWl0eSBjb3JyZWN0aW9uCi0gKipQZWFyc29uICRcY2hpXjIkIHRlc3QqKiBpcyBhbmFsb2dvbiBvZiBvbmUtd2F5IEFOT1ZBIGZvciBxdWFsaXRhdGl2ZSB2YXJpYWJsZXMuCgotLS0KCgpgYGB7cn0KYnJjYVRhYiA8LSB0YWJsZShicmNhJHZhcmlhbnQsIGJyY2EkY2FuY2VyKQpjaGlzcS50ZXN0KGJyY2FUYWIpCmBgYAoKLSBUbyBhc3Nlc3MgaWYgdGhlIHZhcmlhbnQgb2YgdGhlIEJSQ0ExIGdlbmUgaXMgYXNzb2NpYXRlZCB3aXRoIGJyZWFzdCBjYW5jZXIgd2UgY29uZHVjdGVkIGEgIFBlYXJzb24gJFxjaGleMiR0ZXN0IGZvciB0aGUgJDMgXHRpbWVzIDIkIHRhYmxlLgotIFRoZSBzdGF0aXN0aWMgaXMgbm93IGByIGZvcm1hdChjaGlzcS50ZXN0KGJyY2FUYWIpJHN0YXRpc3RpYyxkaWdpdHM9NClgIGFuZCBmb2xsb3dzIGEgJFxjaGleMiQgZGlzdHJpYnV0aW9uIHdpdGggYHIgY2hpc3EudGVzdChicmNhVGFiKSRwYXJhbWV0ZXJgIGRlZ3JlZXMgb2YgZnJlZWRvbSB1bmRlciAkSF8wJC4gVGhlIHByb2JhYmlsaXR5IHRvIG9idGFpbiBhICRcY2hpXjIkLXRlc3Qgc3RhdGlzdGljIGluIGEgcmFuZG9tIHNhbXBsZSB1bmRlciAkSF8wJCB0aGF0IGlzIG1vcmUgZXh0cmVtZSB0aGFuIGByIGZvcm1hdChjaGlzcS50ZXN0KGJyY2FUYWIpJHN0YXRpc3RpYyxkaWdpdHM9NClgLCBpcyBgciBmb3JtYXQoY2hpc3EudGVzdChicmNhVGFiKSRwLnZhbHVlKjEwMCxkaWdpdHM9MilgJS4KLSBPbiB0aGUgNSUgbGV2ZWwgb2Ygc2lnbmlmaWNhbmNlIHdlIGNvbmNsdWRlIHRoYXQgdGhlIHZhcmlhbnQgb2YgdGhlIEJSQ0EtZ2VuZSBpcyBub3QgYXNzb2NpYXRlZCB3aXRoIGJyZWFzdCBjYW5jZXIuCgotLS0KCiMgTG9naXN0aWMgcmVncmVzc2lvbgoKLSBGcmFtZXdvcmsgdG8gbW9kZWwgYmluYXJ5IGRhdGEgKGUuZyBjYW5jZXIgdnMgbm8gY2FuY2VyKTogKmxvZ2lzdGljIHJlZ3Jlc3Npb24gbW9kZWwqLgotIE1vZGVsIGJpbmFyeSBkYXRhIHdpdGggY29udGludW91cyBhbmQvb3IgZHVtbXkgdmFyaWFibGVzLgoKLSBUaGUgbW9kZWwgYXNzdW1lcyB0aGF0IG9ic2VydmF0aW9ucyBmb3Igc3ViamVjdCAkaT0xLFxsZG90cyxuJCBhcmUgaW5kZXBlbmRlbnQgYW5kIGZvbGxvdyBhIEJlcm5vdWxsaSBkaXN0cmlidXRpb24uCi0gVGhlIGxvZ2FyaXRobSBvZiB0aGUgb2RkcyBpcyBtb2RlbGxlZCB1c2luZyBhIGxpbmVhciBtb2RlbCwgYWxzbyByZWZlcnJlZCB0byBhcyBsaW5lYXIgcHJlZGljdG9yOgpcYmVnaW57ZXF1YXRpb259ClxsZWZ0XHsKXGJlZ2lue2FycmF5fXtjY2x9CllfaSZcc2ltJkIoXHBpX2kpXFxcXApcbG9nIFxmcmFje1xwaV9pfXsxLVxwaV9pfSY9JlxiZXRhXzAgKyBcYmV0YV8xWF97aTF9ICsgXGxkb3RzICsgXGJldGFfcCBYX3tpcH0KXGVuZHthcnJheX1ccmlnaHQuClxlbmR7ZXF1YXRpb259CgotLS0KCiMjIENhdGVnb3JpY2FsIHByZWRpY3RvcgoKLSBicmVhc3QgY2FuY2VyIGV4YW1wbGU6IGlzIEJSQ0EgMSAgdmFyaWFudCBhc3NvY2lhdGVkIHdpdGggYnJlYXN0IGNhbmNlci4KCi0gQXMgaW4gdGhlIEFub3ZhIGNvbnRleHQsIGEgZmFjdG9yIGluIGxvZ2lzdGljIHJlZ3Jlc3Npb24gaXMgY29kZWQgdXNpbmcgZHVtbXkgdmFyaWFibGVzLgotIDEgZHVtbXkgdmFyaWFibGUgbGVzcyB0aGFuIHRoZSBudW1iZXIgb2YgZ3JvdXBzLgoKLSBGb3IgQlJDQSAxIHdlIG5lZWQgdHdvIGR1bW15IHZhcmlhYmxlcyBhbmQgb2J0YWluIHRoZSBmb2xsb3dpbmcgbGluZWFyIHByZWRpY3RvcjoKClxiZWdpbntlcW5hcnJheSp9CiAgXGxvZyBcZnJhY3tccGlfaX17MS1ccGlfaX0gJj0mIFxiZXRhXzArXGJldGFfMSB4X3tpMX0gK1xiZXRhXzIgeF97aTJ9ClxlbmR7ZXFuYXJyYXkqfQoKLSB3aXRoIDoKJCR4X3tpMX0gPSBcbGVmdFx7IFxiZWdpbnthcnJheX17bGx9CjEgJiBcdGV4dHsgaWYgc3ViamVjdCAkaSQgaXMgaGV0ZXJvenlnb3VzLCBQcm8vTGV1IHZhcmlhbnR9IFxcCjAgJiBcdGV4dHtpZiBzdWJqZWN0ICRpJCBpcyBob21venlnb3VzLCAoUHJvL1BybyBvciBMZXUvTGV1IHZhcmlhbnQpfSBcZW5ke2FycmF5fVxyaWdodC4gLiQkCiQkeF97aTJ9ID0gXGxlZnRceyBcYmVnaW57YXJyYXl9e2xsfQoxICYgXHRleHR7IGlmIHN1YmplY3QgJGkkIGlzIGhvbW96eWdvdXMgaXMgdGhlIExldWNpbmUgbXV0YXRpb246IExldS9MZXUgfSBcXAowICYgXHRleHR7IG9mIHN1YmplY3QgJGkkIGlzIG5vdCBob21venlnb3VzIGluIHRoZSBMZXUvTGV1IHZhcmlhbnR9IFxlbmR7YXJyYXl9XHJpZ2h0LiAuJCQKCi0gSG9tb3p5Z29zaXR5IGluIHRoZSAgd2lsZCB0eXBlIGFsbGVsZSBQcm8vUHJvIGlzIHRoZSAgKipyZWZlcmVuY2UgZ3JvdXAqKi4KCi0tLQoKV2UgZml0IHRoZSBtb2RlbCBpbiBSLgoKLSBOb3RlIHRoYXQgd2UgdXNlIHRoZSBmdW5jdGlvbiBgYXMuZmFjdG9yYCB0byBjb252ZXJ0IHRoZSBjYW5jZXIgdmFyaWFibGUgdG8gYSBmYWN0b3IgdmFyaWFibGUuIC0gV2UgZnVydGhlciB1c2UgdGhlIGZ1bmN0aW9uIGByZWxldmVsYCB0byBzcGVjaWZ5IHRoZSBjb250cm9sIHRyZWF0bWVudCBhcyB0aGUgcmVmZXJlbmNlIGdyb3VwLgpgYGB7cn0KYnJjYSRjYW5jZXIgPC0gYnJjYSRjYW5jZXIgJT4lCiAgYXMuZmFjdG9yKCkgJT4lCiAgcmVsZXZlbCgiY29udHJvbCIpCmJyY2EkdmFyaWFudCA8LSBicmNhJHZhcmlhbnQgJT4lCiAgYXMuZmFjdG9yKCkgJT4lCiAgcmVsZXZlbCgicHJvL3BybyIpCmJyY2FMb2dpdCA8LSBnbG0oY2FuY2VyIH4gdmFyaWFudCwgZGF0YSA9IGJyY2EsIGZhbWlseSA9IGJpbm9taWFsKQpzdW1tYXJ5KGJyY2FMb2dpdCkKYGBgCgpUaGUgaW50ZXJjZXB0IGlzIHRoZSBsb2ctb2RkcyBvbiBjYW5jZXIgaW4gdGhlIHJlZmVyZW5jZSBjbGFzcyAoUHJvL1BybykgYW5kIHRoZSBzbG9wZSB0ZXJtcyBhcmUgIGxvZyBvZGRzIHJhdGlvcyBiZXR3ZWVuIHRyZWF0bWVudCBhbmQgcmVmZXJlbmNlIGNsYXNzOgpcYmVnaW57ZXFuYXJyYXkqfQpcbG9nIFx0ZXh0e09ERFN9X1x0ZXh0e1Byby9Qcm99Jj0mXGJldGFfMFxcXFwKXGxvZyBcdGV4dHtPRERTfV9cdGV4dHtQcm8vTGV1fSY9JlxiZXRhXzArXGJldGFfMVxcXFwKXGxvZyBcdGV4dHtPRERTfV9cdGV4dHtMZXUvTGV1fSY9JlxiZXRhXzArXGJldGFfMlxcXFwKXGxvZyAgXGZyYWN7XHRleHR7T0REU31fXHRleHR7UHJvL0xldX19e1x0ZXh0e09ERFN9X1x0ZXh0e1Byby9Qcm99fSY9Jlxsb2cgXHRleHR7T0REU31fXHRleHR7UHJvL0xldX0tXGxvZyBPRERTX3tQcm8vUHJvfVxcCiY9JlxiZXRhXzArXGJldGFfMS1cYmV0YV8wPVxiZXRhXzFcXFxcClxsb2cgIFxmcmFje1x0ZXh0e09ERFN9X1x0ZXh0e0xldS9MZXV9fXtcdGV4dHtPRERTfV9cdGV4dHtQcm8vUHJvfX0mPSZcYmV0YV8yClxlbmR7ZXFuYXJyYXkqfQoKLSBUaGUgYW5hbHlzaXMgYWxsb3dzIHVzIHRvIGludGVycHJldCB0aGUgcmVzdWx0IGltbWVkaWF0ZWx5IGluIG9kZHNlcyBhbmQgb2RkcyByYXRpb3MhCgotLS0KCmBgYHtyfQphbm92YShicmNhTG9naXQsIHRlc3QgPSAiQ2hpc3EiKQpgYGAKClRoZSAkXGNoaV4yJC10ZXN0IG9uIHRoZSBsb2dzaXRpYyByZWdyZXNzaW9uIG1vZGVsIGFsc28gaW5kaWNhdGVzIHRoYXQgdGhlcmUgaXMgbm8gc2lnbmlmaWNhbnQgYXNzb2NpYXRpb24gYmV0d2VlbiBjYW5jZXIgc3RhdHVzIGFuZCB0aGUgZ2VuZXRpYyB2YXJpYW50IG9mIHRoZSBCUkNBIGdlbmUgKCRwPSQgYHIgZm9ybWF0KGFub3ZhKGJyY2FMb2dpdCx0ZXN0PSJDaGlzcSIpWzIsIlByKD5DaGkpIl0sZGlnaXRzPTMpYCkuCkRlIHAtdmFsdWUgaXMgYWxtb3N0IGVxdWl2YWxlbnQgdG8gdGhlIG9uZSBvZiB0aGUgICRcY2hpXjIkLXRlc3QgKHNlZSBwcmV2aW91cyBzZWN0aW9uKS4KCi0tLQoKLSBTaWduaWZpY2FudCBhc3NvY2lhdGlvbj8KCiAgICAtIFBvc3QtaG9jIHRlc3RzIHRvIGV2YWx1YXRlIHdoaWNoIG9mIHRoZSBvZGRzIHJhdGlvcyBhcmUgZGlmZmVyZW50IGZyb20gMS4KICAgIC0gRm9yIEJSQ0ExIGV4YW1wbGUgd2UgZGlkIG5vdCByZWplY3QgdGhlIG9tbmlidXMgaHlwb3RoZXNpcyBzbyBubyBwb3N0LWhvYyBhbmFseXNpcwogICAgLSBGb3IgeW91ciByZWZlcmVuY2Ugd2UgaW5jbHVkZSB0aGUgcG9zdCBob2MgYW5hbHlzaXMgc28gdGhhdCB5b3Ugd291bGQgaGF2ZSB0aGUgY29kZS4KCi0tLQoKYGBge3J9CnN1cHByZXNzUGFja2FnZVN0YXJ0dXBNZXNzYWdlcyh7CiAgbGlicmFyeShtdWx0Y29tcCkKfSkKcG9zdGhvYyA8LSBnbGh0KGJyY2FMb2dpdCwgbGluZmN0ID0gbWNwKHZhcmlhbnQgPSAiVHVrZXkiKSkKcG9zdGhvY1Rlc3RzIDwtIHN1bW1hcnkocG9zdGhvYykKcG9zdGhvY1Rlc3RzCmBgYAoKLS0tCgpgYGB7cn0KcG9zdGhvY0NJIDwtIGNvbmZpbnQocG9zdGhvYykKcG9zdGhvY0NJCmBgYAotIFdpdGggdGhlIGBjb25maW50YCBmdW5jdGlvbiBDSSBhcmUgb2J0YWluZWQgb24gdGhlIGxvZy1vZGRzIHJhdGlvcyBjb3JyZWN0ZWQgZm9yIG11bHRpcGxlIHRlc3RpbmcuCgotLS0KCi0gQ0kncyBjYW4gYmUgYmFja3RyYW5zZm9ybWVkIHRvIG9kZHMgcmF0aW9zOgoKYGBge3J9Ck9SIDwtIGV4cChwb3N0aG9jQ0kkY29uZmludCkKT1IKYGBgCgotIERlIG9kZHMgcmF0aW9zIHRoYXQgd2Ugb2J0YWluIGlzIGV4YWN0bHkgZXF1YWwgdG8gdGhlIG9uZSB3ZSBjYWxjdWxhdGVkIGJhc2VkIG9uIHRoZSBjb250aW5nZW5jeSB0YWJsZToKLSBlLmcgICRcdGV4dHtPUn1fXHRleHR7TGV1L0xldS1Qcm8vUHJvfT04OVx0aW1lcyAyNjYvKDU2XHRpbWVzIDM0Mik9JCBgciBmb3JtYXQoKDg5LzU2KS8oMzQyLzI2NiksZGlnaXRzPTQpYC4KCi0gTm90ZSwgdGhhdCBzdGF0aXN0aWNhbCBpbmZlcmVuY2UgZm9yIGxvZ2lzdGljIHJlZ3Jlc3Npb24gcmVsaWVzIG9uIGFzeW1wdG90aWMgdGhlb3J5LgoKLS0tCgojIyBDb250aW51b3VzIFByZWRpY3RvcgoKLSBUb3hpY29sb2NhbCBlZmZlY3Qgb2YgY2FyYm9uIGRpc3VsZml0ZSAoQ1MkXzIkKSBvbiBiZWV0bGVzLgotIFJlc2VhcmNoIGh5cG90aGVzaXMgaXMgdGhlcmUgYW4gZWZmZWN0IG9mIHRoZSAgQ1MkXzIkIGNvbmNlbnRyYXRpb24gb24gdGhlIG1vcnRhbGl0eSBvZiBiZWV0bGVzPwoKRGVzaWduOgoKLSAzMiBpbmRlcGVuZGVudCBleHBlcmltZW50cwotIEVhY2ggdGltZSAxIGJlYXRsZSBpcyBleHBvc2VkIHRvIG9uZSBvZiA4IENTJF8yJCBjb25jZW50cmF0aW9ucyAobWcvbCkuCi0gVGhlIG91dGNvbWU6IG1vcnRhbGl0eSAoJHk9MSQpIG9yIHN1cnZpdmFsICgkeT0wJCkuCgpgYGB7cn0KYmVldGxlcyA8LSByZWFkX2NzdigiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0dUUEIvUFNMUzIwL21hc3Rlci9kYXRhL2JlZXRsZXMuY3N2IikKaGVhZChiZWV0bGVzKQp0YWJsZShiZWV0bGVzJGRvc2UsIGJlZXRsZXMkc3RhdHVzKQpgYGAKCi0tLQoKV2UgYnVpbGQgYSBtb2RlbCBmb3IgdGhlIGxvZyBvZGRzIGluIGZ1bmN0aW9uIG9mIHRoZSBkb3NlICR4X2kkOgokJFxsb2cgXGZyYWN7XHBpX2l9ezEtXHBpX2l9PVxiZXRhXzArXGJldGFfMSBcdGltZXMgeF9pLiQkCgpgYGB7cn0KYmVhdGxlTW9kZWwgPC0gZ2xtKHN0YXR1cyB+IGRvc2UsIGRhdGEgPSBiZWV0bGVzLCBmYW1pbHkgPSBiaW5vbWlhbCkKc3VtbWFyeShiZWF0bGVNb2RlbCkKYGBgCgotLS0KCi0gSW50ZXJjZXB0IGhhcyBhbiBpbnRlcnByZXRhdGlvbiBvZiBhIGxvZyBvZGRzIG9uIG1vcnRhbGl0eSB3aGVuIG5vICRcdGV4dHtDU31fMiQgZ2FzIGlzIGFwcGxpZWQuCi0gVmVyeSBzbWFsbCBvZGRzIG9uIG1vcnRhbGl0eSAoJFxwaS8oMS1ccGkpPVxleHAoLTUzLjIpJCkgc28gdGhlIHByb2JhYmlsaXR5IGlzIGFsbW9zdCAwLgotIE5vdGUgdGhhdCB0aGlzIGlzIGEgdmVyeSBsYXJnZSBleHRyYXBvbGF0aW9uOiBtaW5pbXVtIGRvc2UgaW4gZGF0YXNldCBpcyBgciBtaW4oYmVldGxlcyRkb3NlKWAgbWcvbC4KCgotIEVzdGltYXRlZCBvZGRzIHJhdGlvIGZvciB0aGUgZWZmZWN0IG9mIGRvc2Ugb24gdGhlIG1vcnRhbGl0eSBwcm9iYWJpbGl0eSBpcyAkXGV4cCgwLjMwMTMpPTEuMzUkLgotIFNvIGEgYmVhdGxlIGV4cG9zZWQgdG8gYSBDUyRfMiQgY29uY2VudHJhdGlvbiB0aGF0IGlzIDEgbWcvbCBsYXJnZXIgdGhhbiBhbm90aGVyIGJlYXRsZSwgd2lsbCBvbiBhdmVyYWdlIGhhdmUgYW4gb2RkcyByYXRpbyBvbiBtb3J0YWxpdHkgb2YgJDEuMzUkLgoKLS0tCgotIFdlIGNvbmNsdWRlIHRoYXQgdGhpcyBlZmZlY3QgaXMgdmVyeSBzaWduaWZpY2FudCAoJHA9JCBgciByb3VuZChzdW1tYXJ5KGJlYXRsZU1vZGVsKSRjb2VmWzIsNF0sMylgKS4KLSBJbmNyZWFzaW5nIHRoZSBDUyRfMiQgZG9zZSBpbmNyZWFzZXMgdGhlIG1vcnRhbGl0eS4KCgpgYGB7cn0KCmJlZXRsZXNUYWIgPC0gdGFibGUoYmVldGxlcykgJT4lIGRhdGEuZnJhbWUoKQoKZGF0YS5mcmFtZShncmlkID0gc2VxKG1pbihiZWV0bGVzJGRvc2UpLCBtYXgoYmVldGxlcyRkb3NlKSwgLjEpKSAlPiUKICBtdXRhdGUocGlIYXQgPSBwcmVkaWN0KGJlYXRsZU1vZGVsLAogICAgbmV3ZGF0YSA9IGRhdGEuZnJhbWUoZG9zZSA9IGdyaWQpLAogICAgdHlwZSA9ICJyZXNwb25zZSIKICApKSAlPiUKICBnZ3Bsb3QoYWVzKGdyaWQsIHBpSGF0KSkgKwogIGdlb21fbGluZSgpICsKICB4bGFiKCJkb3NlIikgKwogIHlsYWIoInByb2JhYmlsaXR5IChkZWFkKSIpICsKICBnZW9tX3RleHQoYWVzKHggPSBkb3NlICU+JSBhcy5jaGFyYWN0ZXIoKSAlPiUgYXMuZG91YmxlKCksIHkgPSBzdGF0dXMgJT4lIGFzLmNoYXJhY3RlcigpICU+JSBhcy5kb3VibGUoKSwgbGFiZWwgPSBGcmVxKSwgYmVldGxlc1RhYiAlPiUgZmlsdGVyKHN0YXR1cyA9PSAwKSkgKwogIGdlb21fdGV4dChhZXMoeCA9IGRvc2UgJT4lIGFzLmNoYXJhY3RlcigpICU+JSBhcy5kb3VibGUoKSwgeSA9IHN0YXR1cyAlPiUgYXMuY2hhcmFjdGVyKCkgJT4lIGFzLmRvdWJsZSgpLCBsYWJlbCA9IEZyZXEpLCBiZWV0bGVzVGFiICU+JSBmaWx0ZXIoc3RhdHVzID09IDEpKQpgYGAK</div>
+<div class="footer">
+    <hr>
+    This work is licensed under the <a href= "https://creativecommons.org/licenses/by-nc-sa/4.0">
+    CC BY-NC-SA 4.0</a> licence.
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("10-categoricalDataAnalysis.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
