@@ -60,7 +60,7 @@ navbar:
 output_dir: "docs"
 
 output:
-  html_document:
+  bookdown::html_document2:
       code_download: true
       df_print: paged
       theme: flatly
