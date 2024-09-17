@@ -1,5 +1,5 @@
 ---
-title: "PSLS - Practical Statistics for the Life Sciences"
+title: "PSLS24 - Practical Statistics for the Life Sciences 2024"
 output:
   html_document:
     number_sections: false
@@ -79,7 +79,7 @@ There is a strong emphasis in reproducible research by extensively using R/Rmark
 
 ## Software
 
-- The learning materials are developed for [R](https://www.r-project.org/) version 4.1.0 or later. We also recommend to also install the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/).
+- The learning materials are developed for [R](https://www.r-project.org/) version 4.4.0 or later. We also recommend to also install the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/).
 
 - To install all requirements, please copy and paste this lines of code in your R console:
 
@@ -134,15 +134,9 @@ source("https://raw.githubusercontent.com/statOmics/PSLS/master/install.R")
 
 10. [Categorical Data Analysis](./10-categoricalDataAnalysis.html)
 
-Wrap-ups:
-
-- [Wrap-up 1](./wrapup1.html)
-- [Wrap-up 2](./wrapup2.html)
-- [Wrap-up 3](./wrapup3.html)
-
 ---
 
 ## Instructors
 
  - [Lieven Clement](./instructors.html#Lieven_Clement)
- - [Milan Malfait](./instructors.html#Milan_Malfait)
+ - [Nele De Meester]()

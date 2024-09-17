@@ -41,8 +41,10 @@ The aims of this exercise are to
 
 - Exercise: [Exercise1](./06_1_puromycin.html)
 - Data path: Not required
-- Solution: [Solution1](./06_1_puromycin_sol.html)
 
+<!--
+- Solution: [Solution1](./06_1_puromycin_sol.html)
+<!---->
 
 # The poison dataset
 
@@ -69,7 +71,9 @@ The aims of this exercise are to sharpen your skills in
 
   `https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv`
 
+<!--
 - Solution: [Solution2](./06_2_poison_sol.html)
+<!---->
 
 ---
 
@@ -99,4 +103,6 @@ The aims of this exercise are to
 
   `https://raw.githubusercontent.com/statOmics/PSLSData/main/armpit.csv`
 
+<!--
 - Solution: [Solution3](./06_3_armpit_sol.html)
+<!---->

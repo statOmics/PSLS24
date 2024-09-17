@@ -1,4 +1,4 @@
-name: "PSLS - Practical Statistics for the Life Sciences"
+name: "PSLS24 - Practical Statistics for the Life Sciences"
 navbar:
   left:
     - icon: fa-home
@@ -54,10 +54,11 @@ navbar:
         href: 09_exercises.html
 
   right:
-    - icon: fab fa-github
-      href: https://github.com/statOmics/PSLS
     - text: "statOmics"
       href: http://statomics.github.io/
+      
+output_dir: "docs"
+
 output:
   html_document:
       code_download: true

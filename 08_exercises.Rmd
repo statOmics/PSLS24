@@ -5,7 +5,7 @@ date: "statOmics, Ghent University (https://statomics.github.io)"
 ---
 
 On the fourth day of the "Practical Statistics for the Life Sciences"
-course, we will have 9 tutorials on multiple linear regression, based on
+course, we will have 6 tutorials on multiple linear regression, based on
 different datasets:
 
 - [The poison dataset]
@@ -14,9 +14,7 @@ different datasets:
 - [The KPNA2 dataset]
 - [Blocking: the rats dataset (1)]
 - [Blocking: the rats dataset (2)]
-- [Power analysis: the rodents dataset]
-- [Power analysis: the Puromycin dataset]
-- [Power analysis: the KPNA2 dataset]
+
 
 
 # The poison dataset
@@ -40,7 +38,9 @@ weight
 
 - Exercise: [Exercise1](./08_1_poison1.html)
 - Data path: "https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv"
+<!--
 - Solution1: [Solution1](./08_1_poison1_sol.html)
+<!---->
 
 ---
 
@@ -54,8 +54,9 @@ weight of the fish, **and including an interaction between dose and weight.**
 - Data path:
 
   `https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv`
-
+<!--
 - Solution2: [Solution2](./08_2_poison2_sol.html)
+<!---->
 
 ---
 
@@ -74,9 +75,10 @@ an interaction term between these two variables.
 
 - Exercise: [Exercise3](./08_3_puromycin.html)
 - Data path: Not required
+<!--
 - Solution: [Solution3](./08_3_puromycin_sol.html)
-
 - [Wrapup summary](./08-wrapup-puromycin.html)
+<!---->
 
 ---
 
@@ -98,7 +100,9 @@ not affected (0) or surgically removed (1).
 
   `https://raw.githubusercontent.com/statOmics/SGA21/master/data/kpna2.txt`
 
+<!--
 - Solution: [Solution4](./08_4_kpna2_sol.html)
+<!---->
 
 ---
 
@@ -125,7 +129,9 @@ to keep the data analysis simple we will only assess the beef and cereal diets.
 
   `https://raw.githubusercontent.com/statOmics/PSLSData/main/dietRats.txt`
 
-<!-- - Exercise: [Solution5](./08_5_rats_sol.html) -->
+<!-- 
+- Exercise: [Solution5](./08_5_rats_sol.html) 
+<!---->
 
 ---
 
@@ -139,7 +145,9 @@ previous exercise, we perform the analysis for all three diets in the dataset.
 
   `https://raw.githubusercontent.com/statOmics/PSLSData/main/dietRats.txt`
 
-<!-- - Exercise: [Solution6](./08_6_rats_sol.html) -->
+<!-- 
+- Exercise: [Solution6](./08_6_rats_sol.html) 
+<!---->
 
 
 ---
@@ -166,7 +174,9 @@ How many samples would be required in each group to obtain a power of 90%?
 
 - Exercise: [Exercise7](./08_ExperimentalDesignII_1_rodents.html)
 - Data path: Not required
-<!-- - Solution: [Solution7](./08_ExperimentalDesignII_1_rodents_sol.html) -->
+<!-- 
+- Solution: [Solution7](./08_ExperimentalDesignII_1_rodents_sol.html) 
+<!---->
 
 ---
 
@@ -203,7 +213,7 @@ increase in the substrate concentration ($\beta_1=10$).
 
 - Exercise: [Exercise8](./08_ExperimentalDesignII_2_puromycin.html)
 - Data path: Not required
-<!-- - Solution: [Solution8](./08_ExperimentalDesignII_2_puromycin_sol.html) -->
+<!-- - Solution: [Solution8](./08_ExperimentalDesignII_2_puromycin_sol.html) <!---->
 
 ---
 
@@ -236,4 +246,4 @@ the ones we observed in the study?
 
   `https://raw.githubusercontent.com/statOmics/SGA21/master/data/kpna2.txt`
 
-<!-- - Solution: [Solution9](./08_ExperimentalDesignII_3_kpna2_sol.Rmd.html) -->
+<!-- - Solution: [Solution9](./08_ExperimentalDesignII_3_kpna2_sol.Rmd.html) <!---->
