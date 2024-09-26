@@ -14,7 +14,6 @@
 
 <title>Exercise 4.3: Exploring the diabetes dataset</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,45 +546,35 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 4.3: Exploring the diabetes
-dataset</h1>
+<h1 class="title toc-ignore">Exercise 4.3: Exploring the diabetes dataset</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="aims-of-this-exercise" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Aims of this
-exercise</h1>
+<h1><span class="header-section-number">1</span> Aims of this exercise</h1>
 <p>In this exercise, you will acquire the skills to</p>
 <ul>
 <li>recognize paired data</li>
-<li>conduct a data exploration in R for data from paired experimental
-designs.</li>
-<li>interpret the results of a data exploration for paired experimental
-designs</li>
+<li>conduct a data exploration in R for data from
+paired experimental designs.</li>
+<li>interpret the results of a data exploration for paired experimental designs</li>
 </ul>
 </div>
 <div id="the-diabetes-dataset" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> The diabetes
-dataset</h1>
-<p>The <code>diabetes</code> dataset holds information on a small
-experiment with 8 patients that are subjected to a glucose tolerance
-test.</p>
-<p>Patients had to fast for eight hours before the test. When the
-patients entered the hospital their baseline glucose level was measured
-(mmol/l).</p>
-<p>Patients then had to drink 250 ml of a syrupy glucose solution
-containing 100 grams of sugar. Two hours later, their blood glucose
-level was measured again.</p>
+<h1><span class="header-section-number">2</span> The diabetes dataset</h1>
+<p>The <code>diabetes</code> dataset holds information on a small experiment with
+8 patients that are subjected to a glucose tolerance test.</p>
+<p>Patients had to fast for eight hours before the test.
+When the patients entered the hospital their baseline glucose level was measured (mmol/l).</p>
+<p>Patients then had to drink 250 ml of a syrupy glucose solution containing 100 grams of sugar.
+Two hours later, their blood glucose level was measured again.</p>
 <p>The data consist of three variables:</p>
 <ul>
 <li>before: glucose concentration upon 8 hours of fasting (mmol/l)</li>
-<li>after: glucose concentration 2 hours after drinking glucose solution
-(mmol/l).</li>
+<li>after: glucose concentration 2 hours after drinking glucose solution (mmol/l).</li>
 <li>patient: identifier for the patient</li>
 </ul>
 </div>
@@ -599,28 +588,27 @@ level was measured again.</p>
 </div>
 <div id="data-visualization" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Data visualization</h1>
-<p>Note, that the dataset is not in the tidy format. The glucose
-concentration variable is spread around 2 columns: <code>before</code>
-and <code>after</code>, while the “time” variable is encoded in the
-column names instead of in a dedicated column. Data in this form is also
-called <em>wide</em> data. Instead, we want to transform the data to a
-<em>long</em> format.</p>
-<p>To tidy the data, we can use the <code>gather()</code> function to <a
-href="https://r4ds.had.co.nz/tidy-data.html#pivoting">pivot</a> the
-data. In this case, we want to “gather” the <code>time</code> (encoded
-in the column names <code>before</code> and <code>after</code>) and
-<code>concentration</code> variables (which is encoded in the actual
-values). The <code>patient</code> column should stay the same. We can
-specify this with the following syntax.</p>
+<p>Note, that the dataset is not in the tidy format. The glucose concentration
+variable is spread around 2 columns: <code>before</code> and <code>after</code>, while the “time”
+variable is encoded in the column names instead of in a dedicated column. Data
+in this form is also called <em>wide</em> data. Instead, we want to transform the data
+to a <em>long</em> format.</p>
+<p>To tidy the data, we can use the <code>gather()</code> function to
+<a href="https://r4ds.had.co.nz/tidy-data.html#pivoting">pivot</a> the data. In this case,
+we want to “gather” the <code>time</code> (encoded in the column names <code>before</code> and
+<code>after</code>) and <code>concentration</code> variables (which is encoded in the actual values).
+The <code>patient</code> column should stay the same. We can specify this with the
+following syntax.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>diabetes_tidy <span class="ot">&lt;-</span> diabetes <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">gather</span>(time, concentration, <span class="sc">-</span>patient)</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>diabetes_tidy</span></code></pre></div>
 <div id="barplot" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Barplot</h2>
 <p>Not all visualization types will be equally informative.</p>
-<p>A barplot is a plot that you will commonly find in scientific
-publications. The code for generating such a barplot is provided
-below:</p>
+<p>A barplot is a plot that you will
+commonly find in scientific publications.
+The code for generating such a barplot
+is provided below:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a> diabetes_tidy <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="do">## Calculate summarry statistics for the &quot;bp&quot; variable for each &quot;type&quot;</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
@@ -637,27 +625,28 @@ below:</p>
 <span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Barplot of glucose measurements&quot;</span>) <span class="sc">+</span></span>
 <span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;concentration (mmol/l)&quot;</span>)</span></code></pre></div>
-<p>A barplot, however, is not very informative. The height of the bars
-only provides us with information of the mean blood pressure. However,
-we don’t see the actual underlying values, so we for instance don’t have
-any information on the spread of the data. It is usually more
-informative to represent to underlying values as <em>raw</em> as
-possible. Note that it is possible to add the raw data on the barplot,
-but we still would not see any measures of the spread, such as the
-interquartile range.</p>
-<p>Another crucial aspect of the data are also not displayed: the data
-are paired!</p>
+<p>A barplot, however, is not very informative.
+The height of the
+bars only provides us with information of the mean blood pressure.
+However, we don’t see the actual underlying values, so we for
+instance don’t have any information on the spread of the data.
+It is usually more informative to represent to underlying
+values as <em>raw</em> as possible.
+Note that it is possible to add the
+raw data on the barplot, but we still would not see any measures
+of the spread, such as the interquartile range.</p>
+<p>Another crucial aspect of the data are also not displayed:
+the data are paired!</p>
 <p><strong>Based on these critisisms, can you think of a better</strong>
 <strong>visualization strategy for the captopril data?</strong></p>
 <p><strong>Add your proposed visualization strategy here</strong></p>
 </div>
 </div>
 <div id="descriptive-statistics" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Descriptive
-statistics</h1>
+<h1><span class="header-section-number">5</span> Descriptive statistics</h1>
 <ul>
-<li>Generate a code chunk to calculate useful summary statistics for the
-diabetes data</li>
+<li>Generate a code chunk to calculate useful summary statistics for
+the diabetes data</li>
 </ul>
 </div>
 

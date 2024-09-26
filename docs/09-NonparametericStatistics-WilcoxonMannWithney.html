@@ -14,7 +14,6 @@
 
 <title>9. Nonparametric Statistics - Wilcoxon-Mann-Withney test</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,12 +546,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">9. Nonparametric Statistics -
-Wilcoxon-Mann-Withney test</h1>
+<h1 class="title toc-ignore">9. Nonparametric Statistics - Wilcoxon-Mann-Withney test</h1>
 <h4 class="author">Lieven Clement</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
@@ -560,46 +556,33 @@ class="uri">https://statomics.github.io</a>)</h4>
 <p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>Inference was only correct if distributional assumptions were
-satisfied</p>
+<p>Inference was only correct if distributional assumptions were satisfied</p>
 <ul>
 <li><p>e.g Normal distribution</p></li>
 <li><p>equal variance</p></li>
-<li><p>The <span class="math inline">\(p\)</span>-value: <span
-class="math inline">\(\text{P}_0\left[ \vert T\vert \geq \vert t \vert
-\right]\)</span>.</p>
+<li><p>The <span class="math inline">\(p\)</span>-value: <span class="math inline">\(\text{P}_0\left[ \vert T\vert \geq \vert t \vert \right]\)</span>.</p>
 <ul>
-<li>Calculated using the null distribution of <span
-class="math inline">\(T\)</span> that we derived under the
-assumptions</li>
+<li>Calculated using the null distribution of <span class="math inline">\(T\)</span> that we derived under the assumptions</li>
 <li>In correct if assumptions are violated</li>
 </ul></li>
-<li><p><span class="math inline">\(95\%\)</span> CI also builds upon
-these assumptions. If they are invalid then the intervals will not
-contain the population parameter with 95% probability.</p></li>
-<li><p>Asymptotic theory is more difficult to place: the <span
-class="math inline">\(t\)</span>-test is asymptotically non-parametric
-because for very large samples the distributional assumptions of
-normality are no longer important.</p></li>
+<li><p><span class="math inline">\(95\%\)</span> CI also builds upon these assumptions. If they are invalid then the intervals will not contain the population parameter with 95% probability.</p></li>
+<li><p>Asymptotic theory is more difficult to place: the <span class="math inline">\(t\)</span>-test is asymptotically non-parametric because for very large samples the distributional assumptions of normality are no longer important.</p></li>
 <li><p>If assumptions hold the parametric approach</p>
 <ul>
-<li>more efficient: larger power with same sample size + smaller
-CI.</li>
+<li>more efficient: larger power with same sample size + smaller CI.</li>
 <li>more flexible: easier to analyse data with complex designs</li>
 </ul></li>
 </ul>
 <hr />
 <div id="cholesterol-example" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Cholesterol
-example</h2>
+<h2><span class="header-section-number">1.1</span> Cholesterol example</h2>
 <ul>
 <li>Cholesterol concentration in blood measured for
 <ul>
 <li>5 patients (group=1) two days upon a stroke</li>
 <li>5 healthy subject (groep=2).</li>
 </ul></li>
-<li>Is cholesterol concentration of hart patients and healthy subjects
-on average different?</li>
+<li>Is cholesterol concentration of hart patients and healthy subjects on average different?</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>chol <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;https://raw.githubusercontent.com/GTPB/PSLS20/master/data/chol.txt&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>chol<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(chol<span class="sc">$</span>group)</span>
@@ -615,8 +598,7 @@ on average different?</li>
 <p><img src="09-NonparametericStatistics-WilcoxonMannWithney_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /><img src="09-NonparametericStatistics-WilcoxonMannWithney_files/figure-html/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Possibly outliers</li>
-<li>Difficult to assess distributional assumptions when only 5
-observations are available.</li>
+<li>Difficult to assess distributional assumptions when only 5 observations are available.</li>
 </ul>
 </div>
 </div>
@@ -626,12 +608,9 @@ observations are available.</li>
 <li>Important group of non-parametric test
 <ul>
 <li>Non-parametric,</li>
-<li>Exact <span class="math inline">\(p\)</span>-values using a
-permutation null distribution.</li>
-<li>No need for separate permutation distribution for each new
-dataset.</li>
-<li>Permutation null distribution of rank tests only depends on sample
-size</li>
+<li>Exact <span class="math inline">\(p\)</span>-values using a permutation null distribution.</li>
+<li>No need for separate permutation distribution for each new dataset.</li>
+<li>Permutation null distribution of rank tests only depends on sample size</li>
 <li>Robust to outliers</li>
 </ul></li>
 </ul>
@@ -642,11 +621,9 @@ size</li>
 <p>Rank tests start from rank-transformed data.</p>
 <ul>
 <li>Let <span class="math inline">\(Y_1, \ldots, Y_n\)</span>.</li>
-<li>In the absence of <em>ties</em> <span
-class="math display">\[R_i=R(Y_i) = \#\{Y_j: Y_j\leq Y_i; j=1,\ldots,
-n\}\]</span></li>
-<li>Smallest observation has rank 1, second smallest rank 2, … , largest
-observation gets rank <span class="math inline">\(n\)</span></li>
+<li>In the absence of <em>ties</em>
+<span class="math display">\[R_i=R(Y_i) = \#\{Y_j: Y_j\leq Y_i; j=1,\ldots, n\}\]</span></li>
+<li>Smallest observation has rank 1, second smallest rank 2, … , largest observation gets rank <span class="math inline">\(n\)</span></li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>chol<span class="sc">$</span>cholest</span></code></pre></div>
 <pre><code> [1] 244 206 242 278 236 188 212 186 198 160</code></pre>
@@ -655,34 +632,25 @@ observation gets rank <span class="math inline">\(n\)</span></li>
 <hr />
 <div id="ties" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Ties</h2>
-<p>Sometimes <em>ties</em> occur: two observations with identical
-values</p>
+<p>Sometimes <em>ties</em> occur: two observations with identical values</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>withTies <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">403</span>, <span class="dv">507</span>, <span class="dv">507</span>, <span class="dv">610</span>, <span class="dv">651</span>, <span class="dv">651</span>, <span class="dv">651</span>, <span class="dv">830</span>, <span class="dv">900</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">rank</span>(withTies)</span></code></pre></div>
 <pre><code>[1] 1.0 2.5 2.5 4.0 6.0 6.0 6.0 8.0 9.0</code></pre>
 <ul>
 <li><p>Ties: 507 occurs twice, 651 occurs 3 times</p></li>
 <li><p>If ties occur <em>midranks</em> are used.</p></li>
-<li><p><strong>midrank</strong> of observation <span
-class="math inline">\(Y_i\)</span> becomes <span
-class="math display">\[\begin{eqnarray*}
-R_i &amp;=&amp; \frac{ \#\{Y_j: Y_j\leq Y_i\} + ( \#\{Y_j: Y_j &lt;
-Y_i\} +1)}{2}.
+<li><p><strong>midrank</strong> of observation <span class="math inline">\(Y_i\)</span> becomes
+<span class="math display">\[\begin{eqnarray*}
+R_i &amp;=&amp; \frac{ \#\{Y_j: Y_j\leq Y_i\} + ( \#\{Y_j: Y_j &lt; Y_i\} +1)}{2}.
 \end{eqnarray*}\]</span></p></li>
 </ul>
 <hr />
 </div>
 <div id="ranks-of-pooled-sample" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Ranks of pooled
-sample</h2>
+<h2><span class="header-section-number">3.2</span> Ranks of pooled sample</h2>
 <ul>
-<li>Let <span class="math inline">\(Y_{ij}\)</span>, <span
-class="math inline">\(i=1,\ldots, n_j\)</span> be observations from two
-treatment groups <span class="math inline">\(j=1,2\)</span>.</li>
-<li>They can also be represented by <span
-class="math inline">\(Z_1,\ldots, Z_n\)</span> (<span
-class="math inline">\(n=n_1+n_2\)</span>), the outcomes of the pooled
-sample</li>
+<li>Let <span class="math inline">\(Y_{ij}\)</span>, <span class="math inline">\(i=1,\ldots, n_j\)</span> be observations from two treatment groups <span class="math inline">\(j=1,2\)</span>.</li>
+<li>They can also be represented by <span class="math inline">\(Z_1,\ldots, Z_n\)</span> (<span class="math inline">\(n=n_1+n_2\)</span>), the outcomes of the pooled sample</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">t</span>(chol)</span></code></pre></div>
 <pre><code>        [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9]  [,10]
@@ -697,101 +665,65 @@ cholest &quot;244&quot; &quot;206&quot; &quot;242&quot; &quot;278&quot; &quot;23
 </div>
 </div>
 <div id="wilcoxon-mann-whitney-test" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Wilcoxon-Mann-Whitney
-Test</h1>
-<p>Simultaneously developed by Wilcoxon, and, Mann and Whitney:
-<strong>Wilcoxon-Mann-Whitney</strong>, <strong>Wilcoxon rank sum
-test</strong> or <strong>Mann-Whitney U test</strong></p>
+<h1><span class="header-section-number">4</span> Wilcoxon-Mann-Whitney Test</h1>
+<p>Simultaneously developed by Wilcoxon, and, Mann and Whitney: <strong>Wilcoxon-Mann-Whitney</strong>, <strong>Wilcoxon rank sum test</strong> or <strong>Mann-Whitney U test</strong></p>
 <div id="hypotheses" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Hypotheses</h2>
-<p>Under <span class="math inline">\(H_0\)</span> the distributions of
-the two groups are equal <span class="math display">\[H_0:
-f_1=f_2\]</span></p>
-<p>Under the alternative <span class="math inline">\(H_1\)</span> the
-distributions differ in location <span class="math display">\[H_1:
-\mu_1\neq \mu_2\]</span></p>
-<p><span class="math inline">\(H_1\)</span> assumes
-<strong>location-shift</strong>, we will relax this assumption later
-on.</p>
+<p>Under <span class="math inline">\(H_0\)</span> the distributions of the two groups are equal
+<span class="math display">\[H_0: f_1=f_2\]</span></p>
+<p>Under the alternative <span class="math inline">\(H_1\)</span> the distributions differ in location <span class="math display">\[H_1: \mu_1\neq \mu_2\]</span></p>
+<p><span class="math inline">\(H_1\)</span> assumes <strong>location-shift</strong>, we will relax this assumption later on.</p>
 </div>
 <div id="test-statistic" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Test statistic</h2>
-<p>Classic T-test: difference in sample means <span
-class="math inline">\(\bar{Y}_1-\bar{Y}_2\)</span>.</p>
+<p>Classic T-test: difference in sample means <span class="math inline">\(\bar{Y}_1-\bar{Y}_2\)</span>.</p>
 <p>Here: Difference in sample means based on rank transformed data</p>
-<p>Ranks based on the pooled sample (upon joining the observations from
-the two groups): <span class="math inline">\(R_{ij}=R(Y_{ij})\)</span>
-is de rank of observation <span class="math inline">\(Y_{ij}\)</span> in
-the pooled sample.</p>
+<p>Ranks based on the pooled sample (upon joining the observations from the two groups): <span class="math inline">\(R_{ij}=R(Y_{ij})\)</span> is de rank of observation <span class="math inline">\(Y_{ij}\)</span> in the pooled sample.</p>
 <p><span class="math display">\[
-  T = \frac{1}{n_1}\sum_{i=1}^{n_1} R(Y_{i1}) -
-\frac{1}{n_2}\sum_{i=1}^{n_2} R(Y_{i2}) .
+  T = \frac{1}{n_1}\sum_{i=1}^{n_1} R(Y_{i1}) - \frac{1}{n_2}\sum_{i=1}^{n_2} R(Y_{i2}) .
 \]</span></p>
 <ul>
-<li><p>Under <span class="math inline">\(H_0\)</span> we expect the
-average rank of the first group to be close to that of the second group
-so <span class="math inline">\(T\)</span> is close to zero.</p></li>
-<li><p>Under <span class="math inline">\(H_1\)</span> we expect the mean
-ranks to differ so that <span class="math inline">\(T\)</span> deviates
-from zero.</p></li>
-<li><p>It is sufficient to only calculate <span
-class="math display">\[S_1=\sum_{i=1}^{n_1} R(Y_{i1})\]</span>.</p></li>
-<li><p><span class="math inline">\(S_1\)</span> is the sum of the ranks
-of the first group: <em>rank sum test</em>.</p></li>
-<li><p>This holds because <span class="math display">\[
+<li><p>Under <span class="math inline">\(H_0\)</span> we expect the average rank of the first group to be close to that of the second group so <span class="math inline">\(T\)</span> is close to zero.</p></li>
+<li><p>Under <span class="math inline">\(H_1\)</span> we expect the mean ranks to differ so that <span class="math inline">\(T\)</span> deviates from zero.</p></li>
+<li><p>It is sufficient to only calculate
+<span class="math display">\[S_1=\sum_{i=1}^{n_1} R(Y_{i1})\]</span>.</p></li>
+<li><p><span class="math inline">\(S_1\)</span> is the sum of the ranks of the first group: <em>rank sum test</em>.</p></li>
+<li><p>This holds because
+<span class="math display">\[
 S_1+S_2 = \text{sum of all ranks} = 1+2+\cdots + n=\frac{1}{2}n(n+1).
 \]</span></p></li>
-<li><p><span class="math inline">\(S_1\)</span> (or <span
-class="math inline">\(S_2\)</span>) is a good test statistic</p></li>
-<li><p>Use permutations to determine the exact permutation distribution.
-(Permute the ranks between the groups)</p></li>
-<li><p>For a given <span class="math inline">\(n\)</span> and no
-<em>ties</em> the rank transformed data is always <span
-class="math display">\[1, 2, \ldots, n\]</span></p></li>
-<li><p>For given <span class="math inline">\(n_1\)</span> en <span
-class="math inline">\(n_2\)</span> the permutation distribution is
-always the same!</p></li>
-<li><p>With current computing power this is not so important any
-more.</p></li>
+<li><p><span class="math inline">\(S_1\)</span> (or <span class="math inline">\(S_2\)</span>) is a good test statistic</p></li>
+<li><p>Use permutations to determine the exact permutation distribution. (Permute the ranks between the groups)</p></li>
+<li><p>For a given <span class="math inline">\(n\)</span> and no <em>ties</em> the rank transformed data is always
+<span class="math display">\[1, 2, \ldots, n\]</span></p></li>
+<li><p>For given <span class="math inline">\(n_1\)</span> en <span class="math inline">\(n_2\)</span> the permutation distribution is always the same!</p></li>
+<li><p>With current computing power this is not so important any more.</p></li>
 </ul>
 <hr />
 </div>
 <div id="standardized-statistic" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Standardized
-statistic</h2>
-<p>Often the standardized test statistic is used <span
-class="math display">\[
-  T =
-\frac{S_1-\text{E}_{0}\left[S_1\right]}{\sqrt{\text{Var}_{0}\left[S_1\right]}},
+<h2><span class="header-section-number">4.3</span> Standardized statistic</h2>
+<p>Often the standardized test statistic is used
+<span class="math display">\[
+  T = \frac{S_1-\text{E}_{0}\left[S_1\right]}{\sqrt{\text{Var}_{0}\left[S_1\right]}},
 \]</span></p>
 <ul>
-<li><p>with <span
-class="math inline">\(\text{E}_{0}\left[S_1\right]\)</span> and <span
-class="math inline">\(\text{Var}_{0}\left[S_1\right]\)</span> the expect
-mean and variance of S1 under <span
-class="math inline">\(H_0\)</span>.</p></li>
-<li><p>Under <span class="math inline">\(H_0\)</span> <span
-class="math display">\[
-\text{E}_{0}\left[S_1\right]= \frac{1}{2}n_1(n+1) \;\;\;\;\text{ en
-}\;\;\;\; \text{Var}_{0}\left[S_1\right]=\frac{1}{12}n_1n_2(n+1).
+<li><p>with <span class="math inline">\(\text{E}_{0}\left[S_1\right]\)</span> and <span class="math inline">\(\text{Var}_{0}\left[S_1\right]\)</span> the expect mean and variance of S1 under <span class="math inline">\(H_0\)</span>.</p></li>
+<li><p>Under <span class="math inline">\(H_0\)</span>
+<span class="math display">\[
+\text{E}_{0}\left[S_1\right]= \frac{1}{2}n_1(n+1) \;\;\;\;\text{ en }\;\;\;\; \text{Var}_{0}\left[S_1\right]=\frac{1}{12}n_1n_2(n+1).
 \]</span></p></li>
-<li><p>Under <span class="math inline">\(H_0\)</span> and when <span
-class="math inline">\(\min(n_1,n_2)\rightarrow \infty\)</span> <span
-class="math display">\[
-  T =
-\frac{S_1-\text{E}_{0}\left[S_1\right]}{\sqrt{\text{Var}_{0}\left[S_1\right]}}
-\rightarrow N(0,1).
+<li><p>Under <span class="math inline">\(H_0\)</span> and when <span class="math inline">\(\min(n_1,n_2)\rightarrow \infty\)</span>
+<span class="math display">\[
+  T = \frac{S_1-\text{E}_{0}\left[S_1\right]}{\sqrt{\text{Var}_{0}\left[S_1\right]}} \rightarrow N(0,1).
 \]</span></p></li>
 </ul>
-<p>Asymptotically the standardised statistic follows a standard normal
-distribution!</p>
+<p>Asymptotically the standardised statistic follows a standard normal distribution!</p>
 <hr />
 </div>
 <div id="cholesterol-example-1" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Cholesterol
-example</h2>
-<p>We illustrate the result for the cholesterol example using the R
-function <code>wilcox.test</code>.</p>
+<h2><span class="header-section-number">4.4</span> Cholesterol example</h2>
+<p>We illustrate the result for the cholesterol example using the R function <code>wilcox.test</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(cholest <span class="sc">~</span> group, <span class="at">data =</span> chol)</span></code></pre></div>
 <pre><code>
     Wilcoxon rank sum exact test
@@ -800,11 +732,8 @@ data:  cholest by group
 W = 24, p-value = 0.01587
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 <ul>
-<li><p>We reject <span class="math inline">\(H_0\)</span> (<span
-class="math inline">\(p=\)</span> 0.016 <span
-class="math inline">\(&lt;0.05\)</span>)</p></li>
-<li><p>The output shows <span class="math inline">\(W=\)</span>
-24?</p></li>
+<li><p>We reject <span class="math inline">\(H_0\)</span> (<span class="math inline">\(p=\)</span> 0.016 <span class="math inline">\(&lt;0.05\)</span>)</p></li>
+<li><p>The output shows <span class="math inline">\(W=\)</span> 24?</p></li>
 <li><p>Lets calculate</p></li>
 </ul>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>S1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">rank</span>(chol<span class="sc">$</span>cholest)[chol<span class="sc">$</span>group <span class="sc">==</span> <span class="dv">1</span>])</span>
@@ -814,25 +743,19 @@ class="math inline">\(&lt;0.05\)</span>)</p></li>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>S2</span></code></pre></div>
 <pre><code>[1] 16</code></pre>
 <ul>
-<li>Where does <span class="math inline">\(W=\)</span> 24 comes
-from?</li>
+<li>Where does <span class="math inline">\(W=\)</span> 24 comes from?</li>
 </ul>
 <hr />
 </div>
 <div id="mann-and-whitney-test" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Mann and Whitney
-test</h2>
-<p>Mann and Whitney test in absence of ties: <span
-class="math display">\[
-U_1 = \sum_{i=1}^{n_1}\sum_{k=1}^{n_2} \text{I}\left\{Y_{i1}\geq
-Y_{k2}\right\}.
+<h2><span class="header-section-number">4.5</span> Mann and Whitney test</h2>
+<p>Mann and Whitney test in absence of ties:
+<span class="math display">\[
+U_1 = \sum_{i=1}^{n_1}\sum_{k=1}^{n_2} \text{I}\left\{Y_{i1}\geq Y_{k2}\right\}.
 \]</span></p>
 <ul>
-<li><p>with <span
-class="math inline">\(\text{I}\left\{.\right\}\)</span> an indicator
-that equals 1 if the expression is true and is zero otherwise.</p></li>
-<li><p>U counts how many times an observation of the first group is
-larger or equal to an observation from the second group.</p></li>
+<li><p>with <span class="math inline">\(\text{I}\left\{.\right\}\)</span> an indicator that equals 1 if the expression is true and is zero otherwise.</p></li>
+<li><p>U counts how many times an observation of the first group is larger or equal to an observation from the second group.</p></li>
 </ul>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(chol, group <span class="sc">==</span> <span class="dv">1</span>)<span class="sc">$</span>cholest</span>
 <span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(chol, group <span class="sc">==</span> <span class="dv">2</span>)<span class="sc">$</span>cholest</span>
@@ -851,58 +774,38 @@ larger or equal to an observation from the second group.</p></li>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>U1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(u1Hlp)</span>
 <span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>U1</span></code></pre></div>
 <pre><code>[1] 24</code></pre>
-<p>It can be shown that <span class="math inline">\(U_1 = S_1 -
-\frac{1}{2}n_1(n_1+1).\)</span></p>
+<p>It can be shown that <span class="math inline">\(U_1 = S_1 - \frac{1}{2}n_1(n_1+1).\)</span></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>S1 <span class="sc">-</span> nGroups[<span class="dv">1</span>] <span class="sc">*</span> (nGroups[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code> 1 
 24 </code></pre>
 <ol style="list-style-type: decimal">
-<li><span class="math inline">\(U_1\)</span> en <span
-class="math inline">\(S_1\)</span> contain the same information</li>
-<li><span class="math inline">\(U_1\)</span> is also a rank statistic,
-and</li>
-<li>Exact test based on <span class="math inline">\(U_1\)</span> and
-<span class="math inline">\(S_1\)</span> are equivalent.</li>
+<li><span class="math inline">\(U_1\)</span> en <span class="math inline">\(S_1\)</span> contain the same information</li>
+<li><span class="math inline">\(U_1\)</span> is also a rank statistic, and</li>
+<li>Exact test based on <span class="math inline">\(U_1\)</span> and <span class="math inline">\(S_1\)</span> are equivalent.</li>
 </ol>
 <hr />
 </div>
 <div id="probabilistic-index" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Probabilistic
-index</h2>
+<h2><span class="header-section-number">4.6</span> Probabilistic index</h2>
 <ul>
-<li><span class="math inline">\(U_1\)</span> has a better interpretation
-feature</li>
-<li>Let <span class="math inline">\(Y_j\)</span> a random observation
-from group <span class="math inline">\(j\)</span> (<span
-class="math inline">\(j=1,2\)</span>). Then <span
-class="math display">\[\begin{eqnarray*}
+<li><span class="math inline">\(U_1\)</span> has a better interpretation feature</li>
+<li>Let <span class="math inline">\(Y_j\)</span> a random observation from group <span class="math inline">\(j\)</span> (<span class="math inline">\(j=1,2\)</span>). Then
+<span class="math display">\[\begin{eqnarray*}
 \frac{1}{n_1n_2}\text{E}\left[U_1\right]
    &amp;=&amp; \text{P}\left[Y_1 \geq Y_2\right].
 \end{eqnarray*}\]</span></li>
 </ul>
-<p>So we can estimate the probability by calculating the mean of all
-indicator variable values <span
-class="math inline">\(\text{I}\left\{Y_{i1}\geq Y_{k2}\right\}\)</span>.
-Note, that we did <span class="math inline">\(n_1 \times n_2\)</span>
-comparisons</p>
+<p>So we can estimate the probability by calculating the mean of all indicator variable values <span class="math inline">\(\text{I}\left\{Y_{i1}\geq Y_{k2}\right\}\)</span>. Note, that we did <span class="math inline">\(n_1 \times n_2\)</span> comparisons</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">mean</span>(u1Hlp)</span></code></pre></div>
 <pre><code>[1] 0.96</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>U1 <span class="sc">/</span> (nGroups[<span class="dv">1</span>] <span class="sc">*</span> nGroups[<span class="dv">2</span>])</span></code></pre></div>
 <pre><code>   1 
 0.96 </code></pre>
 <ul>
-<li><p>Probability <span class="math inline">\(\text{P}\left[Y_1 \geq
-Y_2\right]\)</span> is referred to as the <em>probabilistic
-index</em>.</p></li>
-<li><p>It is the probability that a random observation of the first
-group is larger or equal than a random observation of the second
-group</p></li>
-<li><p>If <span class="math inline">\(H_0\)</span> holds <span
-class="math inline">\(\text{P}\left[Y_1 \geq
-Y_2\right]=\frac{1}{2}\)</span>.</p></li>
-<li><p>R function <code>wilcox.test</code> does not return the Wilcoxon
-rank sum statistic. It returns the Mann-Whitney statistic <span
-class="math inline">\(U_1\)</span>.</p></li>
+<li><p>Probability <span class="math inline">\(\text{P}\left[Y_1 \geq Y_2\right]\)</span> is referred to as the <em>probabilistic index</em>.</p></li>
+<li><p>It is the probability that a random observation of the first group is larger or equal than a random observation of the second group</p></li>
+<li><p>If <span class="math inline">\(H_0\)</span> holds <span class="math inline">\(\text{P}\left[Y_1 \geq Y_2\right]=\frac{1}{2}\)</span>.</p></li>
+<li><p>R function <code>wilcox.test</code> does not return the Wilcoxon rank sum statistic. It returns the Mann-Whitney statistic <span class="math inline">\(U_1\)</span>.</p></li>
 <li><p>Lets revisit the result</p></li>
 </ul>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>wTest <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(cholest <span class="sc">~</span> group, <span class="at">data =</span> chol)</span>
@@ -919,36 +822,22 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>probInd</span></code></pre></div>
 <pre><code>   W 
 0.96 </code></pre>
-<p>Because <span class="math inline">\(p=\)</span> 0.0159 <span
-class="math inline">\(&lt;0.05\)</span> we conclude at the <span
-class="math inline">\(5\%\)</span> significance level that the mean
-cholesterol level of hart patients is larger then that of healthy
-subjects.</p>
+<p>Because <span class="math inline">\(p=\)</span> 0.0159 <span class="math inline">\(&lt;0.05\)</span> we conclude at the <span class="math inline">\(5\%\)</span> significance level that the mean cholesterol level of hart patients is larger then that of healthy subjects.</p>
 <ul>
-<li>Note that we have assumed that the location-shift model is valid in
-this conclusion.</li>
-<li>We also know that higher cholesterol level are more likely for hart
-patients then for healthy subjects and this probability is <span
-class="math inline">\(U1/(n_1\times n_2)=\)</span> 96%.</li>
-<li>We should assess the location shift assumption. But this is not
-possible with only 5 observations.</li>
+<li>Note that we have assumed that the location-shift model is valid in this conclusion.</li>
+<li>We also know that higher cholesterol level are more likely for hart patients then for healthy subjects and this probability is
+<span class="math inline">\(U1/(n_1\times n_2)=\)</span> 96%.</li>
+<li>We should assess the location shift assumption. But this is not possible with only 5 observations.</li>
 </ul>
-<p>Without the location-shift assumption the conclusion in terms of the
-probabilistic index remains valid!</p>
+<p>Without the location-shift assumption the conclusion in terms of the probabilistic index remains valid!</p>
 <ul>
 <li>So when we do not assume location shift we test for</li>
 </ul>
-<p><span class="math display">\[H_0: F_1=F_2 \text{ vs } H_1: P[Y_1 \geq
-Y_2] \neq 0.5.\]</span></p>
+<p><span class="math display">\[H_0: F_1=F_2 \text{ vs } H_1: P[Y_1 \geq Y_2] \neq 0.5.\]</span></p>
 </div>
 <div id="conclusion" class="section level2" number="4.7">
 <h2><span class="header-section-number">4.7</span> Conclusion</h2>
-<p>There is a significant difference in the distribution of the
-cholesterol concentration of hart patients two days upon a stroke and
-that of healthy subject (<span class="math inline">\(p=\)</span>
-0.0159). It is more likely to observe higher cholesterol levels for hart
-patients then for healthy subjects. The point estimator for this
-probability is 96%.</p>
+<p>There is a significant difference in the distribution of the cholesterol concentration of hart patients two days upon a stroke and that of healthy subject (<span class="math inline">\(p=\)</span> 0.0159). It is more likely to observe higher cholesterol levels for hart patients then for healthy subjects. The point estimator for this probability is 96%.</p>
 </div>
 </div>
 

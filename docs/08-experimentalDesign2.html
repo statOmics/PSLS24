@@ -14,7 +14,6 @@
 
 <title>8.3 Experimental Design II: Randomized Complete Block Designs and Pseudo-replication</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,12 +546,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">8.3 Experimental Design II: Randomized
-Complete Block Designs and Pseudo-replication</h1>
+<h1 class="title toc-ignore">8.3 Experimental Design II: Randomized Complete Block Designs and Pseudo-replication</h1>
 <h4 class="author">Lieven Clement</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
@@ -569,46 +565,30 @@ class="uri">https://statomics.github.io</a>)</h4>
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div id="randomized-complete-block-designs" class="section level1"
-number="1">
-<h1><span class="header-section-number">1</span> Randomized complete
-block designs</h1>
-<p><span class="math display">\[\sigma^2=
-\sigma^2_{bio}+\sigma^2_\text{lab} +\sigma^2_\text{extraction} +
-\sigma^2_\text{run} + \ldots\]</span></p>
+<div id="randomized-complete-block-designs" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Randomized complete block designs</h1>
+<p><span class="math display">\[\sigma^2= \sigma^2_{bio}+\sigma^2_\text{lab} +\sigma^2_\text{extraction} + \sigma^2_\text{run} + \ldots\]</span></p>
 <ul>
-<li>Biological: fluctuations in protein level between mice, fluctations
-in protein level between cells, …</li>
-<li>Technical: cage effect, lab effect, week effect, plasma extraction,
-MS-run, …</li>
+<li>Biological: fluctuations in protein level between mice, fluctations in protein level between cells, …</li>
+<li>Technical: cage effect, lab effect, week effect, plasma extraction, MS-run, …</li>
 </ul>
 </div>
-<div id="nature-methods-points-of-significance---blocking"
-class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Nature methods: Points
-of significance - Blocking</h1>
-<p><a
-href="https://www.nature.com/articles/nmeth.3005.pdf">https://www.nature.com/articles/nmeth.3005.pdf</a></p>
+<div id="nature-methods-points-of-significance---blocking" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Nature methods: Points of significance - Blocking</h1>
+<p><a href="https://www.nature.com/articles/nmeth.3005.pdf">https://www.nature.com/articles/nmeth.3005.pdf</a></p>
 <ul>
-<li><p>Oneway anova is a special case of a completely randomized
-design:</p>
+<li><p>Oneway anova is a special case of a completely randomized design:</p>
 <ul>
-<li>the experimental units are sampled at random from the
-population</li>
+<li>the experimental units are sampled at random from the population</li>
 <li>the treatments are randomized to the experimental units</li>
-<li>Every experimental unit receives one treatment and its response
-variable is measured once.</li>
+<li>Every experimental unit receives one treatment and its response variable is measured once.</li>
 </ul></li>
-<li><p>In a block design the experimental units are blocks which are
-sampled at random of the population of all possible blocks.</p>
+<li><p>In a block design the experimental units are blocks which are sampled at random of the population of all possible blocks.</p>
 <ul>
-<li>The RCB restricts randomization: the treatments are randomized
-within the blocks.</li>
+<li>The RCB restricts randomization: the treatments are randomized within the blocks.</li>
 <li>it cannot be analysed using oneway anova.</li>
-<li>The paired design is a special case of an RCB: block size equals
-2.</li>
-<li>Within block effects can be assessed using the lm function in
-R.</li>
+<li>The paired design is a special case of an RCB: block size equals 2.</li>
+<li>Within block effects can be assessed using the lm function in R.</li>
 </ul></li>
 </ul>
 </div>
@@ -617,23 +597,16 @@ R.</li>
 <div id="background" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Background</h2>
 <p><img src="https://raw.githubusercontent.com/statOmics/PSLS21/master/figures/mouseTcell_RCB_design.png" width="50%" /></p>
-<p>Duguet et al. (2017) MCP 16(8):1416-1432. doi:
-10.1074/mcp.m116.062745</p>
+<p>Duguet et al. (2017) MCP 16(8):1416-1432. doi: 10.1074/mcp.m116.062745</p>
 <ul>
 <li>All treatments of interest are present within block!</li>
 <li>We can estimate the effect of the treatment within block!</li>
 </ul>
 <p>We focus on one protein</p>
 <ul>
-<li>The measured intensities are already on the log2-scale. Differences
-between the intensities can thus be interpreted as log2 FC.</li>
+<li>The measured intensities are already on the log2-scale. Differences between the intensities can thus be interpreted as log2 FC.</li>
 <li>P16045 or Galectin-1.</li>
-<li>Function: “Lectin that binds beta-galactoside and a wide array of
-complex carbohydrates. Plays a role in regulating apoptosis, cell
-proliferation and cell differentiation. Inhibits CD45 protein
-phosphatase activity and therefore the dephosphorylation of Lyn kinase.
-Strong inducer of T-cell apoptosis.” (source: <a
-href="https://www.uniprot.org/uniprot/P16045">uniprot</a>)</li>
+<li>Function: “Lectin that binds beta-galactoside and a wide array of complex carbohydrates. Plays a role in regulating apoptosis, cell proliferation and cell differentiation. Inhibits CD45 protein phosphatase activity and therefore the dephosphorylation of Lyn kinase. Strong inducer of T-cell apoptosis.” (source: <a href="https://www.uniprot.org/uniprot/P16045">uniprot</a>)</li>
 </ul>
 </div>
 <div id="data-exploration" class="section level2" number="3.2">
@@ -663,16 +636,14 @@ href="https://www.uniprot.org/uniprot/P16045">uniprot</a>)</li>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> mouse)) <span class="sc">+</span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col =</span> celltype))</span></code></pre></div>
 <p><img src="08-experimentalDesign2_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>The plots show evidence for - an upregulation of the protein
-expression in regulatory T-cells and - a considerable variability in
-expression from animal to animal!</p>
+<p>The plots show evidence for
+- an upregulation of the protein expression in regulatory T-cells and
+- a considerable variability in expression from animal to animal!</p>
 </div>
 <div id="paired-analysis" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Paired Analysis</h2>
-<p>This is a paired design, which is the most simple form of randomized
-complete block design.</p>
-<p>In the introduction to statistical inference we would have analyzed
-the data by differencing.</p>
+<p>This is a paired design, which is the most simple form of randomized complete block design.</p>
+<p>In the introduction to statistical inference we would have analyzed the data by differencing.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>mouseWide <span class="ot">&lt;-</span> mouse <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">spread</span>(celltype, intensity) <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">delta =</span> Treg <span class="sc">-</span> Tcon)</span>
@@ -683,8 +654,7 @@ the data by differencing.</p>
   </script>
 </div>
 <div id="data-exploration-1" class="section level3" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Data
-exploration</h3>
+<h3><span class="header-section-number">3.3.1</span> Data exploration</h3>
 <ul>
 <li>Boxplot of difference</li>
 </ul>
@@ -709,8 +679,7 @@ exploration</h3>
 {"columns":[{"label":["mean"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["se"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"1.202857","2":"0.3706672","3":"7","4":"0.140099"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Note, that the intensity data are not independent because we measured
-the expression in regulatory and ordinary T-cells for every animal</p>
+<p>Note, that the intensity data are not independent because we measured the expression in regulatory and ordinary T-cells for every animal</p>
 <ul>
 <li>Covariance and correlation between expression in both celltypes</li>
 </ul>
@@ -728,18 +697,15 @@ the expression in regulatory and ordinary T-cells for every animal</p>
 <pre><code>##      Tcon      Treg 
 ## 0.7811230 0.9880811</code></pre>
 <ul>
-<li><p>There is indeed a large correlation between the expression of the
-protein in conventional and regulatory T-cells.</p></li>
+<li><p>There is indeed a large correlation between the expression of the protein in conventional and regulatory T-cells.</p></li>
 <li><p>Standard deviation of difference?</p></li>
 </ul>
 <p><span class="math display">\[
 \begin{array}{lcl}
-\text{sd}_{x_r - x_c} &amp;=&amp; \sqrt{1^2\hat \sigma_r^2 + (-1)^2 \hat
-\sigma_c^2 + 2 \times 1
+\text{sd}_{x_r - x_c} &amp;=&amp; \sqrt{1^2\hat \sigma_r^2 + (-1)^2 \hat \sigma_c^2 + 2 \times 1
 \times -1
 \times \hat\sigma_{r,c}}\\
-&amp;=&amp;\sqrt{\hat \sigma_r^2 + \hat \sigma_c^2 - 2 \times
-\hat\sigma_{r,c}}
+&amp;=&amp;\sqrt{\hat \sigma_r^2 + \hat \sigma_c^2 - 2 \times \hat\sigma_{r,c}}
 \end{array}
 \]</span></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>sdDelta2 <span class="ot">&lt;-</span> (<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">%*%</span> <span class="fu">var</span>(mouseWide[, <span class="fu">c</span>(<span class="st">&quot;Tcon&quot;</span>, <span class="st">&quot;Treg&quot;</span>)]) <span class="sc">%*%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
@@ -758,11 +724,8 @@ protein in conventional and regulatory T-cells.</p></li>
   </script>
 </div>
 <ul>
-<li>The standard deviation on the difference is much lower because of
-the strong correlation!</li>
-<li>Note, that the paired design enabled us to estimate the difference
-in log2-expression between the two cell types in every animal (log2
-FC).</li>
+<li>The standard deviation on the difference is much lower because of the strong correlation!</li>
+<li>Note, that the paired design enabled us to estimate the difference in log2-expression between the two cell types in every animal (log2 FC).</li>
 </ul>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">t.test</span>(delta<span class="sc">~</span><span class="dv">1</span>, mouseWide)</span></code></pre></div>
 <pre><code>## 
@@ -778,25 +741,18 @@ FC).</li>
 ##  1.202857</code></pre>
 </div>
 </div>
-<div id="randomized-complete-block-analysis" class="section level2"
-number="3.4">
-<h2><span class="header-section-number">3.4</span> Randomized complete
-block analysis</h2>
+<div id="randomized-complete-block-analysis" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Randomized complete block analysis</h2>
 <p>We can also analyse the design using a linear model, i.e. with</p>
 <ul>
 <li>a main effect for cell type and</li>
 <li>a main effect for the block factor mouse</li>
 </ul>
-<p>Because we have measured the two cell types in every mouse, we can
-thus estimate the average log2-intensity of the protein in the T-cells
-for each mouse.</p>
+<p>Because we have measured the two cell types in every mouse, we can thus estimate the average log2-intensity of the protein in the T-cells for each mouse.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>lmRCB <span class="ot">&lt;-</span> <span class="fu">lm</span>(intensity <span class="sc">~</span> celltype <span class="sc">+</span> mouse, mouse)</span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">plot</span>(lmRCB, <span class="at">which =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
 <p><img src="08-experimentalDesign2_files/figure-html/unnamed-chunk-12-1.png" width="672" /><img src="08-experimentalDesign2_files/figure-html/unnamed-chunk-12-2.png" width="672" /><img src="08-experimentalDesign2_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
-<p>If you have doubts on that your data violates the assumptions you can
-always simulate data from a model with similar effects as yours but
-where are distributional assumptions hold and compare the residual
-plots.</p>
+<p>If you have doubts on that your data violates the assumptions you can always simulate data from a model with similar effects as yours but where are distributional assumptions hold and compare the residual plots.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(intensity <span class="sc">~</span> celltype <span class="sc">+</span> mouse, mouse)</span>
 <span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>sigmaMouse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)[<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;Sum Sq&quot;</span>] <span class="sc">/</span> car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)[<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;Df&quot;</span>])</span>
 <span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>betas <span class="ot">&lt;-</span> lmRCB<span class="sc">$</span>coefficients</span>
@@ -814,9 +770,8 @@ plots.</p>
 <span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">lm</span>(ysim <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> design), <span class="at">which =</span> <span class="dv">1</span>)</span>
 <span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="08-experimentalDesign2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>The deviations seen in our plot are in line with what those observed
-in simulations under the model assumptions. Hence, we can use the model
-for statistical inference.</p>
+<p>The deviations seen in our plot are in line with what those observed in simulations under the model assumptions.
+Hence, we can use the model for statistical inference.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>anovaRCB <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">summary</span>(lmRCB)</span></code></pre></div>
 <pre><code>## 
@@ -863,12 +818,8 @@ for statistical inference.</p>
 </div>
 <p>Notice that</p>
 <ol style="list-style-type: decimal">
-<li><p>the estimate, se, t-test statistic and p-value for the celltype
-effect of interest is the same as in the paired t-test!</p></li>
-<li><p>the anova analysis shows that we model the total variability in
-the protein expression in T-cells using variability due to the cell type
-(CT), the variability from mouse to mouse (M) and residual variability
-(R) within mouse that we cannot explain. Indeed,</p></li>
+<li><p>the estimate, se, t-test statistic and p-value for the celltype effect of interest is the same as in the paired t-test!</p></li>
+<li><p>the anova analysis shows that we model the total variability in the protein expression in T-cells using variability due to the cell type (CT), the variability from mouse to mouse (M) and residual variability (R) within mouse that we cannot explain. Indeed,</p></li>
 </ol>
 <p><span class="math display">\[
 \begin{array}{lcl}
@@ -876,79 +827,57 @@ the protein expression in T-cells using variability due to the cell type
 14.6 &amp;=&amp; 5.1 + 9.1 + 0.4
 \end{array}
 \]</span></p>
-<p>So the celltype and the mouse effect explain respectively <span
-class="math display">\[
+<p>So the celltype and the mouse effect explain respectively
+<span class="math display">\[
 \begin{array}{ll}
-\frac{\text{SSCT}}{\text{SSTot}}\times
-100&amp;\frac{\text{SSM}}{\text{SSTot}}\times 100\\\\
+\frac{\text{SSCT}}{\text{SSTot}}\times 100&amp;\frac{\text{SSM}}{\text{SSTot}}\times 100\\\\
 34.7&amp;
 62.4\\
 \end{array}
 \]</span></p>
-<p>percent of the variability in the protein expression values and <span
-class="math display">\[
+<p>percent of the variability in the protein expression values and
+<span class="math display">\[
 \frac{\text{SSE}}{\text{SSTot}} \times 100 = 2.8
-\]</span> percent cannot be explained.</p>
+\]</span>
+percent cannot be explained.</p>
 <p>Note, that</p>
 <ul>
-<li>the variability from mouse to mouse is the largest source of
-variability in the model,</li>
+<li>the variability from mouse to mouse is the largest source of variability in the model,</li>
 <li>This variability can be estimated with the RCB design and</li>
 <li>can thus be isolated from the residual variability</li>
-<li>leading to a much higher precision on the estimate of the average
-log2 FC between regulatory and conventional T-cells that what would be
-obtained with a CRD!</li>
+<li>leading to a much higher precision on the estimate of the average log2 FC between regulatory and conventional T-cells that what would be obtained with a CRD!</li>
 </ul>
-<p>Note, that the RCB also has to sacrifice a number of degrees of
-freedom to estimate the mouse effect, here 6 DF.</p>
-<p>Hence, the power gain of the RCB is a trade-off between the
-variability that can be explained by the block effect and the loss in
-DF.</p>
-<p>If you remember the equation of variance covariance matrix of the
-parameter estimators <span class="math display">\[
+<p>Note, that the RCB also has to sacrifice a number of degrees of freedom to estimate the mouse effect, here 6 DF.</p>
+<p>Hence, the power gain of the RCB is a trade-off between the variability that can be explained by the block effect and the loss in DF.</p>
+<p>If you remember the equation of variance covariance matrix of the parameter estimators
+<span class="math display">\[
 \hat{\boldsymbol{\Sigma}}^2_{\hat{\boldsymbol{\beta}}}
 =\left(\mathbf{X}^T\mathbf{X}\right)^{-1}\hat\sigma^2
 \]</span></p>
-<p>you can see that the randomized complete block will have an impact
-on</p>
+<p>you can see that the randomized complete block will have an impact on</p>
 <ul>
-<li><span
-class="math inline">\(\left(\mathbf{X}^T\mathbf{X}\right)^{-1}\)</span>
-as well as</li>
-<li>on <span class="math inline">\(\sigma^2\)</span> of the
-residuals!</li>
+<li><span class="math inline">\(\left(\mathbf{X}^T\mathbf{X}\right)^{-1}\)</span> as well as</li>
+<li>on <span class="math inline">\(\sigma^2\)</span> of the residuals!</li>
 </ul>
-<p><span class="math inline">\(\rightarrow\)</span> We were able to
-isolate the variance in expression between animals/blocks from our
-analysis!</p>
-<p><span class="math inline">\(\rightarrow\)</span> This reduces the
-variance of the residuals and leads to a power gain if the variability
-between mice/blocks is large.</p>
+<p><span class="math inline">\(\rightarrow\)</span> We were able to isolate the variance in expression between animals/blocks from our analysis!</p>
+<p><span class="math inline">\(\rightarrow\)</span> This reduces the variance of the residuals and leads to a power gain if the variability between mice/blocks is large.</p>
 <p>Also note that,</p>
 <p><span class="math display">\[
 \hat\sigma^2 = \frac{\text{SSE}}{n-p} = \frac{SSTot - SSM - SSCT}{n-p}
 \]</span></p>
 <ul>
-<li>Hence, blocking is beneficial if the reduction in sum of squares of
-the residuals is large compared to the degrees of freedom that are
-sacrificed.</li>
+<li>Hence, blocking is beneficial if the reduction in sum of squares of the residuals is large compared to the degrees of freedom that are sacrificed.</li>
 <li>Thus if SSM can explain a large part of the total variability.</li>
 </ul>
-<p>Further, the degrees of freedom affect the t-distribution that is
-used for inference, which has broader tails if the residual degrees of
-freedom <span class="math inline">\(n-p\)</span> are getting
-smaller.</p>
+<p>Further, the degrees of freedom affect the t-distribution that is used for inference, which has broader tails if the residual degrees of freedom <span class="math inline">\(n-p\)</span> are getting smaller.</p>
 </div>
 </div>
 <div id="power-gain-of-an-rcb-vs-crd" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Power gain of an RCB vs
-CRD</h1>
-<p>In this section we will subset the original data in two
-experiments:</p>
+<h1><span class="header-section-number">4</span> Power gain of an RCB vs CRD</h1>
+<p>In this section we will subset the original data in two experiments:</p>
 <ul>
 <li>A randomized complete block design with three mice</li>
-<li>A completely randomized design with six mice but where we only
-measure one cell type in each mouse.</li>
+<li>A completely randomized design with six mice but where we only measure one cell type in each mouse.</li>
 </ul>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">859</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>mRcb <span class="ot">&lt;-</span> mouse <span class="sc">%&gt;%</span></span>
@@ -1041,14 +970,10 @@ measure one cell type in each mouse.</li>
 ## F-statistic: 33.32 on 3 and 2 DF,  p-value: 0.02928</code></pre>
 <p>Note, that</p>
 <ul>
-<li>we are able to pick up the upregulation between regulatory T-cells
-and ordinary T-cells with the RCB but not with the CRD.</li>
-<li>the standard error of the <span
-class="math inline">\(\log_2\text{FC}_\text{Treg-Tcon}\)</span> estimate
-is a factor 4.4 smaller for the RCB design!</li>
+<li>we are able to pick up the upregulation between regulatory T-cells and ordinary T-cells with the RCB but not with the CRD.</li>
+<li>the standard error of the <span class="math inline">\(\log_2\text{FC}_\text{Treg-Tcon}\)</span> estimate is a factor 4.4 smaller for the RCB design!</li>
 </ul>
-<p>A poor data analysis who forgets about the blocking will be back at
-square one:</p>
+<p>A poor data analysis who forgets about the blocking will be back at square one:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>wrongRbc <span class="ot">&lt;-</span> <span class="fu">lm</span>(intensity <span class="sc">~</span> celltype, rcbSmall)</span>
 <span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="fu">anova</span>(wrongRbc)</span></code></pre></div>
 <div data-pagedtable="false">
@@ -1075,18 +1000,12 @@ square one:</p>
 ## Residual standard error: 1.019 on 4 degrees of freedom
 ## Multiple R-squared:  0.2779, Adjusted R-squared:  0.09743 
 ## F-statistic:  1.54 on 1 and 4 DF,  p-value: 0.2825</code></pre>
-<p>So, the block to block variability is then absorbed in the variance
-estimator of the residual.</p>
-<p>Of course, we are never allowed to analyse an RCB with a model for a
-CRD (without block factor) because blocking imposes a randomization
-restriction: we randomize the treatment within block.</p>
+<p>So, the block to block variability is then absorbed in the variance estimator of the residual.</p>
+<p>Of course, we are never allowed to analyse an RCB with a model for a CRD (without block factor) because blocking imposes a randomization restriction: we randomize the treatment within block.</p>
 <div id="power-gain-of-blocking" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Power gain of
-blocking?</h2>
-<div id="power-for-completely-randomized-design" class="section level3"
-number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Power for
-completely randomized design</h3>
+<h2><span class="header-section-number">4.1</span> Power gain of blocking?</h2>
+<div id="power-for-completely-randomized-design" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Power for completely randomized design</h3>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>varBetweenPlusWithin <span class="ot">&lt;-</span> <span class="fu">sum</span>(car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)[<span class="fu">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;Residuals&quot;</span>), <span class="st">&quot;Sum Sq&quot;</span>]) <span class="sc">/</span> <span class="fu">sum</span>(car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)[<span class="fu">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;Residuals&quot;</span>), <span class="st">&quot;Df&quot;</span>])</span>
 <span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a></span>
 <span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
@@ -1138,8 +1057,7 @@ completely randomized design</h3>
 {"columns":[{"label":["b1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["power"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1.202857","2":"3","3":"0.24675"},{"1":"1.202857","2":"7","3":"0.64355"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Because we have a simple 2 group comparison we can also calculate the
-power using the <code>power.t.test</code> function.</p>
+<p>Because we have a simple 2 group comparison we can also calculate the power using the <code>power.t.test</code> function.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">delta =</span> lmRCB<span class="sc">$</span>coefficients[<span class="st">&quot;celltypeTreg&quot;</span>], <span class="at">sd =</span> <span class="fu">sqrt</span>(varBetweenPlusWithin))</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
@@ -1166,10 +1084,8 @@ power using the <code>power.t.test</code> function.</p>
 ## NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
-<div id="power-for-randomized-complete-block-design"
-class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Power for randomized
-complete block design</h2>
+<div id="power-for-randomized-complete-block-design" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Power for randomized complete block design</h2>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
 <span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
@@ -1224,13 +1140,9 @@ complete block design</h2>
 {"columns":[{"label":["b1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["power"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1.202857","2":"3","3":"0.79505"},{"1":"1.202857","2":"7","3":"1.00000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Note, that the power is indeed much larger for the randomized
-complete block design. Both for the designs with 6 and 14 mass
-spectrometer runs.</p>
-<p>Because we have an RCB with a block size of 2 (paired design) we can
-also calculate the power using the <code>power.t.test function</code>
-with <code>type = "one.sample"</code> and <code>sd</code> equal to the
-standard deviation of the difference.</p>
+<p>Note, that the power is indeed much larger for the randomized complete block design.
+Both for the designs with 6 and 14 mass spectrometer runs.</p>
+<p>Because we have an RCB with a block size of 2 (paired design) we can also calculate the power using the <code>power.t.test function</code> with <code>type = "one.sample"</code> and <code>sd</code> equal to the standard deviation of the difference.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">delta =</span> <span class="fu">mean</span>(mouseWide<span class="sc">$</span>delta), <span class="at">sd =</span> <span class="fu">sd</span>(mouseWide<span class="sc">$</span>delta))</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
@@ -1255,22 +1167,15 @@ standard deviation of the difference.</p>
 ##     alternative = two.sided
 ## 
 ## NOTE: n is number in *each* group</code></pre>
-<p>Note, that the power is slightly different because for the
-power.t.test function we conditioned on the mice from our study. While
-in the simulation study we generated data for new mice by simulating the
-mouse effect from a normal distribution.</p>
+<p>Note, that the power is slightly different because for the power.t.test function we conditioned on the mice from our study. While in the simulation study we generated data for new mice by simulating the mouse effect from a normal distribution.</p>
 </div>
-<div
-id="impact-of-the-amount-of-variability-that-the-blocking-factor-explains-on-the-power"
-class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Impact of the amount
-of variability that the blocking factor explains on the power?</h2>
-<p>We will vary the block effect explains <span class="math display">\[
+<div id="impact-of-the-amount-of-variability-that-the-blocking-factor-explains-on-the-power" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Impact of the amount of variability that the blocking factor explains on the power?</h2>
+<p>We will vary the block effect explains
+<span class="math display">\[
 \frac{\sigma^2_\text{between}}{\sigma^2_\text{between}+\sigma^2_\text{within}}=1-\frac{\sigma^2_\text{within}}{\sigma^2_\text{between}+\sigma^2_\text{within}}
-\]</span> So in our example that is the ratio between the variability
-between the mice and the sum of the variability between and within the
-mice. Note, that the within mouse variability was the variance of the
-errors of the RCB. The ratio for our experiment equals</p>
+\]</span>
+So in our example that is the ratio between the variability between the mice and the sum of the variability between and within the mice. Note, that the within mouse variability was the variance of the errors of the RCB. The ratio for our experiment equals</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>varBetweenPlusWithin <span class="ot">&lt;-</span> <span class="fu">sum</span>(car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)[<span class="fu">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;Residuals&quot;</span>), <span class="st">&quot;Sum Sq&quot;</span>]) <span class="sc">/</span> <span class="fu">sum</span>(car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)[<span class="fu">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;Residuals&quot;</span>), <span class="st">&quot;Df&quot;</span>])</span>
 <span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>varWithin <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB)[<span class="st">&quot;Residuals&quot;</span>, <span class="st">&quot;Sum Sq&quot;</span>] <span class="sc">/</span> car<span class="sc">::</span><span class="fu">Anova</span>(lmRCB)[<span class="st">&quot;Residuals&quot;</span>, <span class="st">&quot;Df&quot;</span>]</span>
 <span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a>varBetweenPlusWithin</span></code></pre></div>
@@ -1367,33 +1272,22 @@ errors of the RCB. The ratio for our experiment equals</p>
 <span id="cb65-24"><a href="#cb65-24" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="08-experimentalDesign2_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <ul>
-<li><p>So if the variance that is explained by the block effect is small
-you will loose power as compared to the analysis with a CRD design.
-Indeed, then</p>
+<li><p>So if the variance that is explained by the block effect is small you will loose power as compared to the analysis with a CRD design. Indeed, then</p>
 <ul>
 <li>SSE does not reduce much and</li>
-<li>n<span class="math inline">\(_\text{blocks}\)</span>-1 degrees of
-freedom have been sacrificed.</li>
+<li>n<span class="math inline">\(_\text{blocks}\)</span>-1 degrees of freedom have been sacrificed.</li>
 </ul></li>
-<li><p>As soon as the block effect explains a large part of the
-variability it is very beneficial to use a randomized complete block
-design!</p></li>
-<li><p>Note, that the same number of mass spectrometry runs have to be
-done for both the RCB and CRD design. However, for the RCB we only need
-half of the mice.</p></li>
+<li><p>As soon as the block effect explains a large part of the variability it is very beneficial to use a randomized complete block design!</p></li>
+<li><p>Note, that the same number of mass spectrometry runs have to be done for both the RCB and CRD design. However, for the RCB we only need half of the mice.</p></li>
 </ul>
 </div>
 </div>
 <div id="penicillin-example" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Penicillin example</h1>
-<p>The production of penicillin corn steep liquor is used. Corn steep
-liquor is produced in blends and there is a considerable variability
-between the blends. Suppose that</p>
+<p>The production of penicillin corn steep liquor is used. Corn steep liquor is produced in blends and there is a considerable variability between the blends. Suppose that</p>
 <ul>
-<li>four competing methods have to be evaluated to produce penicillin
-(A-D),</li>
-<li>one blends is sufficient for four runs of a penicillin batch reactor
-and</li>
+<li>four competing methods have to be evaluated to produce penicillin (A-D),</li>
+<li>one blends is sufficient for four runs of a penicillin batch reactor and</li>
 <li>the 20 runs can be scheduled for the experiment.</li>
 </ul>
 <p>How would you assign the methods to the blends.</p>
@@ -1448,31 +1342,20 @@ and</li>
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Sum Sq"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Df"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"20250","2":"1","3":"1075.221239","4":"4.097853e-13","_rn_":"(Intercept)"},{"1":"70","2":"3","3":"1.238938","4":"3.386581e-01","_rn_":"treat"},{"1":"264","2":"4","3":"3.504425","4":"4.074617e-02","_rn_":"blend"},{"1":"226","2":"12","3":"NA","4":"NA","_rn_":"Residuals"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>We conclude that the effect of the treatment on the penicillin yield
-is not significant at the 5% level of significance (p = 0.34.</p>
-<p>We also observe that there is a large effect of the blend on the
-yield. Blend explains about 47.1% of the variability in the penicillin
-yield.</p>
+<p>We conclude that the effect of the treatment on the penicillin yield is not significant at the 5% level of significance (p = 0.34.</p>
+<p>We also observe that there is a large effect of the blend on the yield.
+Blend explains about 47.1% of the variability in the penicillin yield.</p>
 </div>
 </div>
 <div id="pseudo-replication" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Pseudo-replication</h1>
-<p>A study on the facultative pathogen Francisella tularensis was
-conceived by Ramond et al. (2015) [12].</p>
+<p>A study on the facultative pathogen Francisella tularensis was conceived by Ramond et al. (2015) [12].</p>
 <ul>
-<li><p>F. tularensis enters the cells of its host by
-phagocytosis.</p></li>
-<li><p>The authors showed that F. tularensis is arginine deficient and
-imports arginine from the host cell via an arginine transporter, ArgP,
-in order to efficiently escape from the phagosome and reach the
-cytosolic compartment, where it can actively multiply.</p></li>
-<li><p>In their study, they compared the proteome of wild type F.
-tularensis (WT) to ArgP-gene deleted F. tularensis (knock-out,
-D8).</p></li>
-<li><p>The sample for each bio-rep was run in technical triplicate on
-the mass-spectrometer.</p></li>
-<li><p>We will use data for the protein 50S ribosomal protein L5 <a
-href="https://www.uniprot.org/uniprot/A0Q4J5">A0Q4J5</a></p></li>
+<li><p>F. tularensis enters the cells of its host by phagocytosis.</p></li>
+<li><p>The authors showed that F. tularensis is arginine deficient and imports arginine from the host cell via an arginine transporter, ArgP, in order to efficiently escape from the phagosome and reach the cytosolic compartment, where it can actively multiply.</p></li>
+<li><p>In their study, they compared the proteome of wild type F. tularensis (WT) to ArgP-gene deleted F. tularensis (knock-out, D8).</p></li>
+<li><p>The sample for each bio-rep was run in technical triplicate on the mass-spectrometer.</p></li>
+<li><p>We will use data for the protein 50S ribosomal protein L5 <a href="https://www.uniprot.org/uniprot/A0Q4J5">A0Q4J5</a></p></li>
 </ul>
 <div id="data-exploration-2" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Data exploration</h2>
@@ -1501,22 +1384,15 @@ href="https://www.uniprot.org/uniprot/A0Q4J5">A0Q4J5</a></p></li>
 <li>Observational unit?</li>
 <li>Factors?</li>
 </ul>
-<p><span class="math inline">\(\rightarrow\)</span> Pseudo-replication,
-randomisation to bio-repeat and each bio-repeat measured in technical
-triplicate. <span class="math inline">\(\rightarrow\)</span> If we would
-analyse the data using a linear model based on each measured intensity,
-we would act as if we had sampled 18 bio-repeats. <span
-class="math inline">\(\rightarrow\)</span> Effect of interest has to be
-assessed between bio-repeats. So block analysis not possible!</p>
-<p>If the same number of pseudo-replicates/technical replicates are
-available for each bio-repeat:</p>
+<p><span class="math inline">\(\rightarrow\)</span> Pseudo-replication, randomisation to bio-repeat and each bio-repeat measured in technical triplicate.
+<span class="math inline">\(\rightarrow\)</span> If we would analyse the data using a linear model based on each measured intensity, we would act as if we had sampled 18 bio-repeats.
+<span class="math inline">\(\rightarrow\)</span> Effect of interest has to be assessed between bio-repeats. So block analysis not possible!</p>
+<p>If the same number of pseudo-replicates/technical replicates are available for each bio-repeat:</p>
 <ul>
-<li>average first over bio-repeats to obtain independent
-measurements</li>
+<li>average first over bio-repeats to obtain independent measurements</li>
 <li>averages will then have the same precision</li>
 <li>assess effect of treatment using averages</li>
-<li><strong>Caution: never summarize over bio-repeats/experimental
-units</strong></li>
+<li><strong>Caution: never summarize over bio-repeats/experimental units</strong></li>
 </ul>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a>lmBiorep <span class="ot">&lt;-</span> <span class="fu">lm</span>(intensityLog2 <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> biorep, franc)</span>
 <span id="cb79-2"><a href="#cb79-2" tabindex="-1"></a>lmBiorep</span></code></pre></div>
@@ -1577,13 +1453,9 @@ units</strong></li>
 ## Residual standard error: 0.1037 on 16 degrees of freedom
 ## Multiple R-squared:  0.5684, Adjusted R-squared:  0.5414 
 ## F-statistic: 21.07 on 1 and 16 DF,  p-value: 0.0003017</code></pre>
-<p>Note, that the analysis where we ignore that we have multiple
-technical repeats for each bio-repeat returns results that are much more
-significant because we act as if we have much more independent
-observations.</p>
+<p>Note, that the analysis where we ignore that we have multiple technical repeats for each bio-repeat returns results that are much more significant because we act as if we have much more independent observations.</p>
 <div id="no-type-i-error-control" class="section level3" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> No Type I error
-control!</h3>
+<h3><span class="header-section-number">6.2.1</span> No Type I error control!</h3>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a>sigmaWithin <span class="ot">&lt;-</span> <span class="fu">sigma</span>(lmBiorep)</span>
 <span id="cb86-2"><a href="#cb86-2" tabindex="-1"></a>sigmaBetween <span class="ot">&lt;-</span> <span class="fu">sigma</span>(lmSum)</span>
 <span id="cb86-3"><a href="#cb86-3" tabindex="-1"></a>xBiorep <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> biorep, franc)</span>
@@ -1634,31 +1506,22 @@ control!</h3>
 ## ! &#39;from&#39; must be of length 1</code></pre>
 <p><img src="08-experimentalDesign2_files/figure-html/unnamed-chunk-39-2.png" width="672" /></p>
 <ul>
-<li><p>So we observe that the analysis that does not account for
-pseudo-replication is too liberal!</p></li>
-<li><p>The analysis that first summarizes over the technical repeats
-leads to correct p-values and correct type I error control!</p></li>
-<li><p>What to do when you have an unequal number of technical repeats:
-more advanced methods are required</p>
+<li><p>So we observe that the analysis that does not account for pseudo-replication is too liberal!</p></li>
+<li><p>The analysis that first summarizes over the technical repeats leads to correct p-values and correct type I error control!</p></li>
+<li><p>What to do when you have an unequal number of technical repeats: more advanced methods are required</p>
 <ul>
 <li>e.g. mixed models</li>
-<li>The mixed model framework can model the correlation structure in the
-data</li>
+<li>The mixed model framework can model the correlation structure in the data</li>
 </ul></li>
-<li><p>Mixed models can also be used when inference between and within
-blocks is needed, e.g. split-plot designs.</p></li>
-<li><p>But, mixed models are beyond the scope of the lecture
-series.</p></li>
+<li><p>Mixed models can also be used when inference between and within blocks is needed, e.g. split-plot designs.</p></li>
+<li><p>But, mixed models are beyond the scope of the lecture series.</p></li>
 </ul>
 </div>
 </div>
 </div>
-<div id="nature-methods-split-plot-designs" class="section level1"
-number="7">
-<h1><span class="header-section-number">7</span> Nature methods:
-Split-plot designs</h1>
-<p><a href="https://www.nature.com/articles/nmeth.3293.pdf">Nature
-Methods - Point of Significance - Split-plot Designs</a></p>
+<div id="nature-methods-split-plot-designs" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Nature methods: Split-plot designs</h1>
+<p><a href="https://www.nature.com/articles/nmeth.3293.pdf">Nature Methods - Point of Significance - Split-plot Designs</a></p>
 </div>
 
 <div id="rmd-source-code">LS0tCnRpdGxlOiAiOC4zIEV4cGVyaW1lbnRhbCBEZXNpZ24gSUk6IFJhbmRvbWl6ZWQgQ29tcGxldGUgQmxvY2sgRGVzaWducyBhbmQgUHNldWRvLXJlcGxpY2F0aW9uIgphdXRob3I6ICJMaWV2ZW4gQ2xlbWVudCIKZGF0ZTogInN0YXRPbWljcywgR2hlbnQgVW5pdmVyc2l0eSAoaHR0cHM6Ly9zdGF0b21pY3MuZ2l0aHViLmlvKSIKLS0tCgoKPGEgcmVsPSJsaWNlbnNlIiBocmVmPSJodHRwczovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnktbmMtc2EvNC4wIj48aW1nIGFsdD0iQ3JlYXRpdmUgQ29tbW9ucyBMaWNlbnNlIiBzdHlsZT0iYm9yZGVyLXdpZHRoOjAiIHNyYz0iaHR0cHM6Ly9pLmNyZWF0aXZlY29tbW9ucy5vcmcvbC9ieS1uYy1zYS80LjAvODh4MzEucG5nIiAvPjwvYT4KCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgojIFJhbmRvbWl6ZWQgY29tcGxldGUgYmxvY2sgZGVzaWducwoKXFtcc2lnbWFeMj0gXHNpZ21hXjJfe2Jpb30rXHNpZ21hXjJfXHRleHR7bGFifSArXHNpZ21hXjJfXHRleHR7ZXh0cmFjdGlvbn0gKyBcc2lnbWFeMl9cdGV4dHtydW59ICsgXGxkb3RzXF0KCi0gQmlvbG9naWNhbDogZmx1Y3R1YXRpb25zIGluIHByb3RlaW4gbGV2ZWwgYmV0d2VlbiBtaWNlLCBmbHVjdGF0aW9ucyBpbiBwcm90ZWluIGxldmVsIGJldHdlZW4gY2VsbHMsIC4uLgotIFRlY2huaWNhbDogY2FnZSBlZmZlY3QsIGxhYiBlZmZlY3QsIHdlZWsgZWZmZWN0LCBwbGFzbWEgZXh0cmFjdGlvbiwgTVMtcnVuLCAuLi4KCiMgTmF0dXJlIG1ldGhvZHM6IFBvaW50cyBvZiBzaWduaWZpY2FuY2UgLSBCbG9ja2luZwpbaHR0cHM6Ly93d3cubmF0dXJlLmNvbS9hcnRpY2xlcy9ubWV0aC4zMDA1LnBkZl0oaHR0cHM6Ly93d3cubmF0dXJlLmNvbS9hcnRpY2xlcy9ubWV0aC4zMDA1LnBkZikKCi0gT25ld2F5IGFub3ZhIGlzIGEgc3BlY2lhbCBjYXNlIG9mIGEgY29tcGxldGVseSByYW5kb21pemVkIGRlc2lnbjoKCiAgICAtIHRoZSBleHBlcmltZW50YWwgdW5pdHMgYXJlIHNhbXBsZWQgYXQgcmFuZG9tIGZyb20gdGhlIHBvcHVsYXRpb24KICAgIC0gdGhlIHRyZWF0bWVudHMgYXJlIHJhbmRvbWl6ZWQgdG8gdGhlIGV4cGVyaW1lbnRhbCB1bml0cwogICAgLSBFdmVyeSBleHBlcmltZW50YWwgdW5pdCByZWNlaXZlcyBvbmUgdHJlYXRtZW50IGFuZCBpdHMgcmVzcG9uc2UgdmFyaWFibGUgaXMgbWVhc3VyZWQgb25jZS4KCi0gSW4gYSBibG9jayBkZXNpZ24gdGhlIGV4cGVyaW1lbnRhbCB1bml0cyBhcmUgYmxvY2tzIHdoaWNoIGFyZSBzYW1wbGVkIGF0IHJhbmRvbSBvZiB0aGUgcG9wdWxhdGlvbiBvZiBhbGwgcG9zc2libGUgYmxvY2tzLgoKICAgIC0gVGhlIFJDQiByZXN0cmljdHMgcmFuZG9taXphdGlvbjogdGhlIHRyZWF0bWVudHMgYXJlIHJhbmRvbWl6ZWQgd2l0aGluIHRoZSBibG9ja3MuCiAgICAtIGl0IGNhbm5vdCBiZSBhbmFseXNlZCB1c2luZyBvbmV3YXkgYW5vdmEuCiAgICAtIFRoZSBwYWlyZWQgZGVzaWduIGlzIGEgc3BlY2lhbCBjYXNlIG9mIGFuIFJDQjogYmxvY2sgc2l6ZSBlcXVhbHMgMi4KICAgIC0gV2l0aGluIGJsb2NrIGVmZmVjdHMgY2FuIGJlIGFzc2Vzc2VkIHVzaW5nIHRoZSBsbSBmdW5jdGlvbiBpbiBSLgoKIyBNb3VzZSBleGFtcGxlCgojIyBCYWNrZ3JvdW5kCgpgYGB7ciBlY2hvPUZBTFNFLCBvdXQud2lkdGg9IjUwJSJ9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vc3RhdE9taWNzL1BTTFMyMS9tYXN0ZXIvZmlndXJlcy9tb3VzZVRjZWxsX1JDQl9kZXNpZ24ucG5nIikKYGBgCgpEdWd1ZXQgZXQgYWwuICgyMDE3KSBNQ1AgMTYoOCk6MTQxNi0xNDMyLiBkb2k6IDEwLjEwNzQvbWNwLm0xMTYuMDYyNzQ1CgotIEFsbCB0cmVhdG1lbnRzIG9mIGludGVyZXN0IGFyZSBwcmVzZW50IHdpdGhpbiBibG9jayEKLSBXZSBjYW4gZXN0aW1hdGUgdGhlIGVmZmVjdCBvZiB0aGUgdHJlYXRtZW50IHdpdGhpbiBibG9jayEKCldlIGZvY3VzIG9uIG9uZSBwcm90ZWluCgogIC0gVGhlIG1lYXN1cmVkIGludGVuc2l0aWVzIGFyZSBhbHJlYWR5IG9uIHRoZSBsb2cyLXNjYWxlLiBEaWZmZXJlbmNlcyBiZXR3ZWVuIHRoZSBpbnRlbnNpdGllcyBjYW4gdGh1cyBiZSBpbnRlcnByZXRlZCBhcyBsb2cyIEZDLgogIC0gUDE2MDQ1IG9yIEdhbGVjdGluLTEuCiAgLSBGdW5jdGlvbjogIkxlY3RpbiB0aGF0IGJpbmRzIGJldGEtZ2FsYWN0b3NpZGUgYW5kIGEgd2lkZSBhcnJheSBvZiBjb21wbGV4IGNhcmJvaHlkcmF0ZXMuIFBsYXlzIGEgcm9sZSBpbiByZWd1bGF0aW5nIGFwb3B0b3NpcywgY2VsbCBwcm9saWZlcmF0aW9uIGFuZCBjZWxsIGRpZmZlcmVudGlhdGlvbi4gSW5oaWJpdHMgQ0Q0NSBwcm90ZWluIHBob3NwaGF0YXNlIGFjdGl2aXR5IGFuZCB0aGVyZWZvcmUgdGhlIGRlcGhvc3Bob3J5bGF0aW9uIG9mIEx5biBraW5hc2UuIFN0cm9uZyBpbmR1Y2VyIG9mIFQtY2VsbCBhcG9wdG9zaXMuIiAoc291cmNlOiBbdW5pcHJvdF0oaHR0cHM6Ly93d3cudW5pcHJvdC5vcmcvdW5pcHJvdC9QMTYwNDUpKQoKIyMgRGF0YSBFeHBsb3JhdGlvbgoKYGBge3J9Cm1vdXNlIDwtIHJlYWRfdHN2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vc3RhdE9taWNzL1BTTFNEYXRhL21haW4vbW91c2VQMTYwNDUudHh0IikKbW91c2UKYGBgCgoKYGBge3J9Cm1vdXNlICU+JQogIGdncGxvdChhZXMoeCA9IG1vdXNlLCB5ID0gaW50ZW5zaXR5LCBjb2wgPSBjZWxsdHlwZSkpICsKICBnZW9tX3BvaW50KCkKYGBgCgpgYGB7cn0KbW91c2UgJT4lCiAgZ2dwbG90KGFlcyh4ID0gY2VsbHR5cGUsIHkgPSBpbnRlbnNpdHkpKSArCiAgZ2VvbV9wb2ludCgpICsKICBnZW9tX2xpbmUoYWVzKGdyb3VwID0gbW91c2UpKSArCiAgZ2VvbV9wb2ludChhZXMoY29sID0gY2VsbHR5cGUpKQpgYGAKCgpUaGUgcGxvdHMgc2hvdyBldmlkZW5jZSBmb3IKLSBhbiB1cHJlZ3VsYXRpb24gb2YgdGhlIHByb3RlaW4gZXhwcmVzc2lvbiBpbiByZWd1bGF0b3J5IFQtY2VsbHMgYW5kCi0gYSBjb25zaWRlcmFibGUgdmFyaWFiaWxpdHkgaW4gZXhwcmVzc2lvbiBmcm9tIGFuaW1hbCB0byBhbmltYWwhCgojIyBQYWlyZWQgQW5hbHlzaXMKClRoaXMgaXMgYSBwYWlyZWQgZGVzaWduLCB3aGljaCBpcyB0aGUgbW9zdCBzaW1wbGUgZm9ybSBvZiByYW5kb21pemVkIGNvbXBsZXRlIGJsb2NrIGRlc2lnbi4KCkluIHRoZSBpbnRyb2R1Y3Rpb24gdG8gc3RhdGlzdGljYWwgaW5mZXJlbmNlIHdlIHdvdWxkIGhhdmUgYW5hbHl6ZWQgdGhlIGRhdGEgYnkgZGlmZmVyZW5jaW5nLgoKYGBge3J9Cm1vdXNlV2lkZSA8LSBtb3VzZSAlPiUKICBzcHJlYWQoY2VsbHR5cGUsIGludGVuc2l0eSkgJT4lCiAgbXV0YXRlKGRlbHRhID0gVHJlZyAtIFRjb24pCm1vdXNlV2lkZQpgYGAKCiMjIyBEYXRhIGV4cGxvcmF0aW9uCgotIEJveHBsb3Qgb2YgZGlmZmVyZW5jZQoKYGBge3J9Cm1vdXNlV2lkZSAlPiUKICBnZ3Bsb3QoYWVzKHggPSAiIiwgeSA9IGRlbHRhKSkgKwogIGdlb21fYm94cGxvdChvdXRsaWVyLnNoYXBlID0gTkEpICsKICBnZW9tX2ppdHRlcigpCmBgYAoKLSBTdW1tYXJ5IHN0YXRpc3RpY3MKYGBge3J9CmRlbHRhU3VtIDwtIG1vdXNlV2lkZSAlPiUKICBzdW1tYXJpemUoCiAgICAgIG1lYW4gPSBtZWFuKGRlbHRhLCBuYS5ybSA9IFRSVUUpLAogICAgICBzZCA9IHNkKGRlbHRhLCBuYS5ybSA9IFRSVUUpLAogICAgICBuID0gbigpCiAgKSAlPiUKICBtdXRhdGUoc2UgPSBzZCAvIHNxcnQobikpCmRlbHRhU3VtCmBgYAoKCk5vdGUsIHRoYXQgdGhlIGludGVuc2l0eSBkYXRhIGFyZSBub3QgaW5kZXBlbmRlbnQgYmVjYXVzZSB3ZSBtZWFzdXJlZCB0aGUgZXhwcmVzc2lvbiBpbiByZWd1bGF0b3J5IGFuZCBvcmRpbmFyeSBULWNlbGxzIGZvciBldmVyeSBhbmltYWwKCi0gQ292YXJpYW5jZSBhbmQgY29ycmVsYXRpb24gYmV0d2VlbiBleHByZXNzaW9uIGluIGJvdGggY2VsbHR5cGVzCgpgYGB7cn0KY29yKG1vdXNlV2lkZVssIGMoIlRjb24iLCAiVHJlZyIpXSkKdmFyKG1vdXNlV2lkZVssIGMoIlRjb24iLCAiVHJlZyIpXSkKdmFyKG1vdXNlV2lkZVssIGMoIlRjb24iLCAiVHJlZyIpXSkgJT4lCiAgZGlhZygpICU+JQogIHNxcnQoKQpgYGAKCi0gVGhlcmUgaXMgaW5kZWVkIGEgbGFyZ2UgY29ycmVsYXRpb24gYmV0d2VlbiB0aGUgZXhwcmVzc2lvbiBvZiB0aGUgcHJvdGVpbiBpbiBjb252ZW50aW9uYWwgYW5kIHJlZ3VsYXRvcnkgVC1jZWxscy4KCi0gU3RhbmRhcmQgZGV2aWF0aW9uIG9mIGRpZmZlcmVuY2U/CgokJApcYmVnaW57YXJyYXl9e2xjbH0KXHRleHR7c2R9X3t4X3IgLSB4X2N9ICY9JiBcc3FydHsxXjJcaGF0IFxzaWdtYV9yXjIgKyAoLTEpXjIgXGhhdCBcc2lnbWFfY14yICsgMiBcdGltZXMgMQpcdGltZXMgLTEKXHRpbWVzIFxoYXRcc2lnbWFfe3IsY319XFwKJj0mXHNxcnR7XGhhdCBcc2lnbWFfcl4yICsgXGhhdCBcc2lnbWFfY14yIC0gMiBcdGltZXMgXGhhdFxzaWdtYV97cixjfX0KXGVuZHthcnJheX0KJCQKCmBgYHtyfQpzZERlbHRhMiA8LSAoYygtMSwgMSkgJSolIHZhcihtb3VzZVdpZGVbLCBjKCJUY29uIiwgIlRyZWciKV0pICUqJSBjKC0xLCAxKSkgJT4lCiAgc3FydCgpCnNkRGVsdGEyCgpzZURlbHRhQmFyIDwtIHNkRGVsdGEyIC8gc3FydChkZWx0YVN1bSRuKQpzZURlbHRhQmFyCgpkZWx0YVN1bQpgYGAKCi0gVGhlIHN0YW5kYXJkIGRldmlhdGlvbiBvbiB0aGUgZGlmZmVyZW5jZSBpcyBtdWNoIGxvd2VyIGJlY2F1c2Ugb2YgdGhlIHN0cm9uZyBjb3JyZWxhdGlvbiEKLSBOb3RlLCB0aGF0IHRoZSBwYWlyZWQgZGVzaWduIGVuYWJsZWQgdXMgdG8gZXN0aW1hdGUgdGhlIGRpZmZlcmVuY2UgaW4gbG9nMi1leHByZXNzaW9uIGJldHdlZW4gdGhlIHR3byBjZWxsIHR5cGVzIGluIGV2ZXJ5IGFuaW1hbCAobG9nMiBGQykuCgoKYGBge3J9CnQudGVzdChkZWx0YX4xLCBtb3VzZVdpZGUpCmBgYAoKIyMgUmFuZG9taXplZCBjb21wbGV0ZSBibG9jayBhbmFseXNpcwoKV2UgY2FuIGFsc28gYW5hbHlzZSB0aGUgZGVzaWduIHVzaW5nIGEgbGluZWFyIG1vZGVsLCBpLmUuIHdpdGgKCi0gYSBtYWluIGVmZmVjdCBmb3IgY2VsbCB0eXBlIGFuZAotIGEgbWFpbiBlZmZlY3QgZm9yIHRoZSBibG9jayBmYWN0b3IgbW91c2UKCkJlY2F1c2Ugd2UgaGF2ZSBtZWFzdXJlZCB0aGUgdHdvIGNlbGwgdHlwZXMgaW4gZXZlcnkgbW91c2UsIHdlIGNhbiB0aHVzIGVzdGltYXRlIHRoZSBhdmVyYWdlIGxvZzItaW50ZW5zaXR5IG9mIHRoZSBwcm90ZWluIGluIHRoZSBULWNlbGxzIGZvciBlYWNoIG1vdXNlLgoKYGBge3J9CmxtUkNCIDwtIGxtKGludGVuc2l0eSB+IGNlbGx0eXBlICsgbW91c2UsIG1vdXNlKQpwbG90KGxtUkNCLCB3aGljaCA9IGMoMSwgMiwgMykpCmBgYAoKSWYgeW91IGhhdmUgZG91YnRzIG9uIHRoYXQgeW91ciBkYXRhIHZpb2xhdGVzIHRoZSBhc3N1bXB0aW9ucyB5b3UgY2FuIGFsd2F5cyBzaW11bGF0ZSBkYXRhIGZyb20gYSBtb2RlbCB3aXRoIHNpbWlsYXIgZWZmZWN0cyBhcyB5b3VycyBidXQgd2hlcmUgYXJlIGRpc3RyaWJ1dGlvbmFsIGFzc3VtcHRpb25zIGhvbGQgYW5kIGNvbXBhcmUgdGhlIHJlc2lkdWFsIHBsb3RzLgoKYGBge3J9CmRlc2lnbiA8LSBtb2RlbC5tYXRyaXgoaW50ZW5zaXR5IH4gY2VsbHR5cGUgKyBtb3VzZSwgbW91c2UpCnNpZ21hTW91c2UgPC0gc3FydChjYXI6OkFub3ZhKGxtUkNCLCB0eXBlID0gIklJSSIpWyJtb3VzZSIsICJTdW0gU3EiXSAvIGNhcjo6QW5vdmEobG1SQ0IsIHR5cGUgPSAiSUlJIilbIm1vdXNlIiwgIkRmIl0pCmJldGFzIDwtIGxtUkNCJGNvZWZmaWNpZW50cwpuTW91c2UgPC0gbW91c2UkbW91c2UgJT4lCiAgdW5pcXVlKCkgJT4lCiAgbGVuZ3RoKCkKCnBhcihtZnJvdyA9IGMoMywgMykpCmZvciAoaSBpbiAxOjkpCnsKICBtb3VzZUVmZmVjdCA8LSBybm9ybShuTW91c2UsIHNkID0gc2lnbWFNb3VzZSkKICBiZXRhc01vdXNlIDwtIG1vdXNlRWZmZWN0Wy0xXSAtIG1vdXNlRWZmZWN0WzFdCiAgYmV0YXNbLWMoMToyKV0gPC0gYmV0YXNNb3VzZQogIHlzaW0gPC0gZGVzaWduICUqJSBiZXRhcyArIHJub3JtKG5yb3coZGVzaWduKSwgc2QgPSBzaWdtYShsbVJDQikpCiAgcGxvdChsbSh5c2ltIH4gLTEgKyBkZXNpZ24pLCB3aGljaCA9IDEpCn0KYGBgCgpUaGUgZGV2aWF0aW9ucyBzZWVuIGluIG91ciBwbG90IGFyZSBpbiBsaW5lIHdpdGggd2hhdCB0aG9zZSBvYnNlcnZlZCBpbiBzaW11bGF0aW9ucyB1bmRlciB0aGUgbW9kZWwgYXNzdW1wdGlvbnMuCkhlbmNlLCB3ZSBjYW4gdXNlIHRoZSBtb2RlbCBmb3Igc3RhdGlzdGljYWwgaW5mZXJlbmNlLgoKYGBge3J9CmFub3ZhUkNCIDwtIGNhcjo6QW5vdmEobG1SQ0IsIHR5cGUgPSAiSUlJIikKc3VtbWFyeShsbVJDQikKdC50ZXN0KGRlbHRhIH4xICwgbW91c2VXaWRlKQphbm92YVJDQgpgYGAKCk5vdGljZSB0aGF0CgoxLiB0aGUgZXN0aW1hdGUsIHNlLCB0LXRlc3Qgc3RhdGlzdGljIGFuZCBwLXZhbHVlIGZvciB0aGUgY2VsbHR5cGUgZWZmZWN0IG9mIGludGVyZXN0IGlzIHRoZSBzYW1lIGFzIGluIHRoZSBwYWlyZWQgdC10ZXN0IQoKMi4gdGhlIGFub3ZhIGFuYWx5c2lzIHNob3dzIHRoYXQgd2UgbW9kZWwgdGhlIHRvdGFsIHZhcmlhYmlsaXR5IGluIHRoZSBwcm90ZWluIGV4cHJlc3Npb24gaW4gVC1jZWxscyB1c2luZyAgdmFyaWFiaWxpdHkgZHVlIHRvIHRoZSBjZWxsIHR5cGUgKENUKSwgdGhlIHZhcmlhYmlsaXR5IGZyb20gbW91c2UgdG8gbW91c2UgKE0pIGFuZCByZXNpZHVhbCB2YXJpYWJpbGl0eSAoUikgd2l0aGluIG1vdXNlIHRoYXQgd2UgY2Fubm90IGV4cGxhaW4uIEluZGVlZCwKCiQkClxiZWdpbnthcnJheX17bGNsfQpcdGV4dHtTU1RvdH0gJj0mIFx0ZXh0e1NTQ1R9ICsgXHRleHR7U1NNfSArIFx0ZXh0e1NTRX1cXApgciByb3VuZChhbm92YVJDQlstMSwiU3VtIFNxIl0gJT4lIHN1bSgpLDEpYCAmPSYgYHIgcm91bmQoYW5vdmFSQ0JbImNlbGx0eXBlIiwiU3VtIFNxIl0sMSlgICsgYHIgcm91bmQoYW5vdmFSQ0JbIm1vdXNlIiwiU3VtIFNxIl0sMSlgICsgYHIgcm91bmQoYW5vdmFSQ0JbIlJlc2lkdWFscyIsIlN1bSBTcSJdLDEpYApcZW5ke2FycmF5fQokJAoKU28gdGhlIGNlbGx0eXBlIGFuZCB0aGUgbW91c2UgZWZmZWN0IGV4cGxhaW4gcmVzcGVjdGl2ZWx5CiQkClxiZWdpbnthcnJheX17bGx9ClxmcmFje1x0ZXh0e1NTQ1R9fXtcdGV4dHtTU1RvdH19XHRpbWVzIDEwMCZcZnJhY3tcdGV4dHtTU019fXtcdGV4dHtTU1RvdH19XHRpbWVzIDEwMFxcXFwKYHIgcm91bmQoYW5vdmFSQ0JbImNlbGx0eXBlIiwiU3VtIFNxIl0vc3VtKGFub3ZhUkNCWy0xLCJTdW0gU3EiXSkqMTAwLDEpYCYKYHIgcm91bmQoYW5vdmFSQ0JbIm1vdXNlIiwiU3VtIFNxIl0vc3VtKGFub3ZhUkNCWy0xLCJTdW0gU3EiXSkqMTAwLDEpYFxcClxlbmR7YXJyYXl9CiQkCgpwZXJjZW50IG9mIHRoZSB2YXJpYWJpbGl0eSBpbiB0aGUgcHJvdGVpbiBleHByZXNzaW9uIHZhbHVlcyBhbmQKJCQKXGZyYWN7XHRleHR7U1NFfX17XHRleHR7U1NUb3R9fSBcdGltZXMgMTAwID0gYHIgcm91bmQoYW5vdmFSQ0JbIlJlc2lkdWFscyIsIlN1bSBTcSJdL3N1bShhbm92YVJDQlstMSwiU3VtIFNxIl0pKjEwMCwxKWAKJCQKcGVyY2VudCBjYW5ub3QgYmUgZXhwbGFpbmVkLgoKTm90ZSwgdGhhdAoKLSB0aGUgdmFyaWFiaWxpdHkgZnJvbSBtb3VzZSB0byBtb3VzZSBpcyB0aGUgbGFyZ2VzdCBzb3VyY2Ugb2YgdmFyaWFiaWxpdHkgaW4gdGhlIG1vZGVsLAotIFRoaXMgdmFyaWFiaWxpdHkgY2FuIGJlIGVzdGltYXRlZCB3aXRoIHRoZSBSQ0IgZGVzaWduIGFuZAotIGNhbiB0aHVzIGJlIGlzb2xhdGVkIGZyb20gdGhlIHJlc2lkdWFsIHZhcmlhYmlsaXR5Ci0gbGVhZGluZyB0byBhIG11Y2ggaGlnaGVyIHByZWNpc2lvbiBvbiB0aGUgZXN0aW1hdGUgb2YgdGhlIGF2ZXJhZ2UgbG9nMiBGQyBiZXR3ZWVuIHJlZ3VsYXRvcnkgYW5kIGNvbnZlbnRpb25hbCBULWNlbGxzIHRoYXQgd2hhdCB3b3VsZCBiZSBvYnRhaW5lZCB3aXRoIGEgQ1JEIQoKTm90ZSwgdGhhdCB0aGUgUkNCIGFsc28gaGFzIHRvIHNhY3JpZmljZSBhIG51bWJlciBvZiBkZWdyZWVzIG9mIGZyZWVkb20gdG8gZXN0aW1hdGUgdGhlIG1vdXNlIGVmZmVjdCwgaGVyZSA2IERGLgoKSGVuY2UsIHRoZSBwb3dlciBnYWluIG9mIHRoZSBSQ0IgaXMgYSB0cmFkZS1vZmYgYmV0d2VlbiB0aGUgdmFyaWFiaWxpdHkgdGhhdCBjYW4gYmUgZXhwbGFpbmVkIGJ5IHRoZSBibG9jayBlZmZlY3QgYW5kIHRoZSBsb3NzIGluIERGLgoKCklmIHlvdSByZW1lbWJlciB0aGUgZXF1YXRpb24gb2YgdmFyaWFuY2UgY292YXJpYW5jZSBtYXRyaXggb2YgdGhlIHBhcmFtZXRlciBlc3RpbWF0b3JzCiQkClxoYXR7XGJvbGRzeW1ib2x7XFNpZ21hfX1eMl97XGhhdHtcYm9sZHN5bWJvbHtcYmV0YX19fQo9XGxlZnQoXG1hdGhiZntYfV5UXG1hdGhiZntYfVxyaWdodCleey0xfVxoYXRcc2lnbWFeMgokJAoKeW91IGNhbiBzZWUgdGhhdCB0aGUgcmFuZG9taXplZCBjb21wbGV0ZSBibG9jayB3aWxsIGhhdmUgYW4gaW1wYWN0IG9uCgotICRcbGVmdChcbWF0aGJme1h9XlRcbWF0aGJme1h9XHJpZ2h0KV57LTF9JCBhcyB3ZWxsIGFzCi0gb24gJFxzaWdtYV4yJCBvZiB0aGUgcmVzaWR1YWxzIQoKJFxyaWdodGFycm93JCBXZSB3ZXJlIGFibGUgdG8gaXNvbGF0ZSB0aGUgdmFyaWFuY2UgaW4gZXhwcmVzc2lvbiBiZXR3ZWVuIGFuaW1hbHMvYmxvY2tzIGZyb20gb3VyIGFuYWx5c2lzIQoKJFxyaWdodGFycm93JCBUaGlzIHJlZHVjZXMgdGhlIHZhcmlhbmNlIG9mIHRoZSByZXNpZHVhbHMgYW5kIGxlYWRzIHRvIGEgcG93ZXIgZ2FpbiBpZiB0aGUgdmFyaWFiaWxpdHkgYmV0d2VlbiBtaWNlL2Jsb2NrcyBpcyBsYXJnZS4KCkFsc28gbm90ZSB0aGF0LAoKJCQKXGhhdFxzaWdtYV4yID0gXGZyYWN7XHRleHR7U1NFfX17bi1wfSA9IFxmcmFje1NTVG90IC0gU1NNIC0gU1NDVH17bi1wfQokJAoKLSBIZW5jZSwgYmxvY2tpbmcgaXMgYmVuZWZpY2lhbCBpZiB0aGUgcmVkdWN0aW9uIGluIHN1bSBvZiBzcXVhcmVzIG9mIHRoZSByZXNpZHVhbHMgaXMgbGFyZ2UgY29tcGFyZWQgdG8gdGhlIGRlZ3JlZXMgb2YgZnJlZWRvbSB0aGF0IGFyZSBzYWNyaWZpY2VkLgotIFRodXMgaWYgU1NNIGNhbiBleHBsYWluIGEgbGFyZ2UgcGFydCBvZiB0aGUgdG90YWwgdmFyaWFiaWxpdHkuCgpGdXJ0aGVyLCB0aGUgZGVncmVlcyBvZiBmcmVlZG9tIGFmZmVjdCB0aGUgdC1kaXN0cmlidXRpb24gdGhhdCBpcyB1c2VkIGZvciBpbmZlcmVuY2UsIHdoaWNoIGhhcyBicm9hZGVyIHRhaWxzIGlmIHRoZSByZXNpZHVhbCBkZWdyZWVzIG9mIGZyZWVkb20gJG4tcCQgYXJlIGdldHRpbmcgc21hbGxlci4KCiMgUG93ZXIgZ2FpbiBvZiBhbiBSQ0IgdnMgQ1JECgpJbiB0aGlzIHNlY3Rpb24gd2Ugd2lsbCBzdWJzZXQgdGhlIG9yaWdpbmFsIGRhdGEgaW4gdHdvIGV4cGVyaW1lbnRzOgoKLSBBIHJhbmRvbWl6ZWQgY29tcGxldGUgYmxvY2sgZGVzaWduIHdpdGggdGhyZWUgbWljZQotIEEgY29tcGxldGVseSByYW5kb21pemVkIGRlc2lnbiB3aXRoIHNpeCBtaWNlIGJ1dCB3aGVyZSB3ZSBvbmx5IG1lYXN1cmUgb25lIGNlbGwgdHlwZSBpbiBlYWNoIG1vdXNlLgoKYGBge3J9CnNldC5zZWVkKDg1OSkKbVJjYiA8LSBtb3VzZSAlPiUKICBwdWxsKG1vdXNlKSAlPiUKICB1bmlxdWUoKSAlPiUKICBzYW1wbGUoc2l6ZSA9IDMpCgpyY2JTbWFsbCA8LSBtb3VzZSAlPiUgZmlsdGVyKG1vdXNlICVpbiUgbVJjYikKcmNiU21hbGwKYGBgCgpgYGB7cn0KbUNyZCA8LSBtb3VzZSAlPiUKICBwdWxsKG1vdXNlKSAlPiUKICB1bmlxdWUoKSAlPiUKICBzYW1wbGUoc2l6ZSA9IDYpCgoKY3JkU21hbGwgPC0KICBiaW5kX3Jvd3MoCiAgICBtb3VzZSAlPiUKICAgICAgZmlsdGVyKG1vdXNlICVpbiUgbUNyZFsxOjNdKSAlPiUKICAgICAgZmlsdGVyKGNlbGx0eXBlID09ICJUY29uIiksCiAgICBtb3VzZSAlPiUKICAgICAgZmlsdGVyKG1vdXNlICVpbiUgbUNyZFstKDE6MyldKSAlPiUKICAgICAgZmlsdGVyKGNlbGx0eXBlID09ICJUcmVnIikKICApCmNyZFNtYWxsCmBgYAoKU28gaW4gYm90aCBleHBlcmltZW50cyB3ZSBuZWVkIHRvIGRvIHNpeCBtYXNzIHNwZWN0cm9tZXRyeSBydW5zLgoKCmBgYHtyfQpsbUNSRFNtYWxsIDwtIGxtKGludGVuc2l0eSB+IGNlbGx0eXBlLCBjcmRTbWFsbCkKc3VtbWFyeShsbUNSRFNtYWxsKQphbm92YShsbUNSRFNtYWxsKQpgYGAKCmBgYHtyfQpsbVJDQlNtYWxsIDwtIGxtKGludGVuc2l0eSB+IGNlbGx0eXBlICsgbW91c2UsIHJjYlNtYWxsKQphbm92YShsbVJDQlNtYWxsKQpzdW1tYXJ5KGxtUkNCU21hbGwpCmBgYAoKCk5vdGUsIHRoYXQKCi0gd2UgYXJlIGFibGUgdG8gcGljayB1cCB0aGUgdXByZWd1bGF0aW9uIGJldHdlZW4gcmVndWxhdG9yeSBULWNlbGxzIGFuZCBvcmRpbmFyeSBULWNlbGxzIHdpdGggdGhlIFJDQiBidXQgbm90IHdpdGggdGhlIENSRC4KLSB0aGUgc3RhbmRhcmQgZXJyb3Igb2YgdGhlICRcbG9nXzJcdGV4dHtGQ31fXHRleHR7VHJlZy1UY29ufSQgZXN0aW1hdGUgaXMgYSBmYWN0b3IgYHIgcm91bmQoc3VtbWFyeShsbUNSRFNtYWxsKSRjb2VmWyJjZWxsdHlwZVRyZWciLCJTdGQuIEVycm9yIl0vc3VtbWFyeShsbVJDQlNtYWxsKSRjb2VmWyJjZWxsdHlwZVRyZWciLCJTdGQuIEVycm9yIl0sMSlgIHNtYWxsZXIgZm9yIHRoZSBSQ0IgZGVzaWduIQoKQSBwb29yIGRhdGEgYW5hbHlzaXMgd2hvIGZvcmdldHMgYWJvdXQgdGhlIGJsb2NraW5nIHdpbGwgYmUgYmFjayBhdCBzcXVhcmUgb25lOgoKYGBge3J9Cndyb25nUmJjIDwtIGxtKGludGVuc2l0eSB+IGNlbGx0eXBlLCByY2JTbWFsbCkKYW5vdmEod3JvbmdSYmMpCnN1bW1hcnkod3JvbmdSYmMpCmBgYAoKU28sIHRoZSBibG9jayB0byBibG9jayB2YXJpYWJpbGl0eSBpcyB0aGVuIGFic29yYmVkIGluIHRoZSB2YXJpYW5jZSBlc3RpbWF0b3Igb2YgdGhlIHJlc2lkdWFsLgoKT2YgY291cnNlLCB3ZSBhcmUgbmV2ZXIgYWxsb3dlZCB0byBhbmFseXNlIGFuIFJDQiB3aXRoIGEgbW9kZWwgZm9yIGEgQ1JEICh3aXRob3V0IGJsb2NrIGZhY3RvcikgYmVjYXVzZSBibG9ja2luZyBpbXBvc2VzIGEgcmFuZG9taXphdGlvbiByZXN0cmljdGlvbjogd2UgcmFuZG9taXplIHRoZSB0cmVhdG1lbnQgd2l0aGluIGJsb2NrLgoKIyMgUG93ZXIgZ2FpbiBvZiBibG9ja2luZz8KCiMjIyBQb3dlciBmb3IgY29tcGxldGVseSByYW5kb21pemVkIGRlc2lnbgoKYGBge3J9CnZhckJldHdlZW5QbHVzV2l0aGluIDwtIHN1bShjYXI6OkFub3ZhKGxtUkNCLCB0eXBlID0gIklJSSIpW2MoIm1vdXNlIiwgIlJlc2lkdWFscyIpLCAiU3VtIFNxIl0pIC8gc3VtKGNhcjo6QW5vdmEobG1SQ0IsIHR5cGUgPSAiSUlJIilbYygibW91c2UiLCAiUmVzaWR1YWxzIiksICJEZiJdKQoKYWxwaGEgPC0gMC4wNQpuU2ltIDwtIDIwMDAwCmIwIDwtIDAKc2QgPC0gc3FydCh2YXJCZXR3ZWVuUGx1c1dpdGhpbikKbnMgPC0gYygzLCA3KQpkZWx0YXMgPC0gbG1SQ0IkY29lZmZpY2llbnRzWyJjZWxsdHlwZVRyZWciXQoKTCA8LSBsaW1tYTo6bWFrZUNvbnRyYXN0cygiY2VsbHR5cGVUcmVnIiwgbGV2ZWxzID0gYygiKEludGVyY2VwdCkiLCAiY2VsbHR5cGVUcmVnIikpCgpwb3dlckZhc3QgPC0gbWF0cml4KE5BLCBucm93ID0gbGVuZ3RoKG5zKSAqIGxlbmd0aChkZWx0YXMpLCBuY29sID0gMykgJT4lIGFzLmRhdGEuZnJhbWUoKQpuYW1lcyhwb3dlckZhc3QpIDwtIGMoImIxIiwgIm4iLCAicG93ZXIiKQoKaSA8LSAwCmZvciAobiBpbiBucykKewogIG4xIDwtIG4yIDwtIG4KCiAgIyMjIFNpbXVsYXRpb24KICBwcmVkaWN0b3JEYXRhIDwtIGRhdGEuZnJhbWUoY2VsbHR5cGUgPSByZXAoYygiVGNvbiIsICJUcmVnIiksIGMobjEsIG4yKSkgJT4lIGFzLmZhY3RvcigpKQogIGRlc2lnbiA8LSBtb2RlbC5tYXRyaXgofmNlbGx0eXBlLCBwcmVkaWN0b3JEYXRhKQoKICBmb3IgKGIxIGluIGRlbHRhcykKICB7CiAgICB5U2ltIDwtIHJub3JtKG5yb3cocHJlZGljdG9yRGF0YSkgKiBuU2ltLCBzZCA9IHNkKQogICAgZGltKHlTaW0pIDwtIGMobnJvdyhwcmVkaWN0b3JEYXRhKSwgblNpbSkKICAgIHlTaW0gPC0geVNpbSArIGMoZGVzaWduICUqJSBjKGIwLCBiMSkpCiAgICB5U2ltIDwtIHQoeVNpbSkKCiAgICAjIyMgRml0dGluZwogICAgZml0QWxsIDwtIGxpbW1hOjpsbUZpdCh5U2ltLCBkZXNpZ24pCgogICAgIyMjIEluZmVyZW5jZQogICAgdmFyVW5zY2FsZWQgPC0gYyh0KEwpICUqJSBmaXRBbGwkY292LmNvZWZmaWNpZW50cyAlKiUgTCkKICAgIGNvbnRyYXN0cyA8LSBmaXRBbGwkY29lZmZpY2llbnRzICUqJSBMCiAgICBzZUNvbnRyYXN0cyA8LSB2YXJVbnNjYWxlZF4uNSAqIGZpdEFsbCRzaWdtYQogICAgdHN0YXRzIDwtIGNvbnRyYXN0cyAvIHNlQ29udHJhc3RzCiAgICBwdmFscyA8LSBwdChhYnModHN0YXRzKSwgZml0QWxsJGRmLnJlc2lkdWFsLCBsb3dlci50YWlsID0gRkFMU0UpICogMgoKICAgIGkgPC0gaSArIDEKICAgIHBvd2VyRmFzdFtpLCBdIDwtIGMoYjEsIG4sIG1lYW4ocHZhbHMgPCBhbHBoYSkpCiAgfQp9CnBvd2VyRmFzdApgYGAKCkJlY2F1c2Ugd2UgaGF2ZSBhIHNpbXBsZSAyIGdyb3VwIGNvbXBhcmlzb24gd2UgY2FuIGFsc28gY2FsY3VsYXRlIHRoZSBwb3dlciB1c2luZyB0aGUgIGBwb3dlci50LnRlc3RgIGZ1bmN0aW9uLgoKYGBge3J9CnBvd2VyLnQudGVzdChuID0gMywgZGVsdGEgPSBsbVJDQiRjb2VmZmljaWVudHNbImNlbGx0eXBlVHJlZyJdLCBzZCA9IHNxcnQodmFyQmV0d2VlblBsdXNXaXRoaW4pKQpwb3dlci50LnRlc3QobiA9IDcsIGRlbHRhID0gbG1SQ0IkY29lZmZpY2llbnRzWyJjZWxsdHlwZVRyZWciXSwgc2QgPSBzcXJ0KHZhckJldHdlZW5QbHVzV2l0aGluKSkKYGBgCgojIyBQb3dlciBmb3IgcmFuZG9taXplZCBjb21wbGV0ZSBibG9jayBkZXNpZ24KCgoKCmBgYHtyfQphbHBoYSA8LSAwLjA1Cm5TaW0gPC0gMjAwMDAKYjAgPC0gMApzZCA8LSBzaWdtYShsbVJDQikKc2RNb3VzZSA8LSBzcXJ0KGNhcjo6QW5vdmEobG1SQ0IpWyJtb3VzZSIsICJTdW0gU3EiXSAvIGNhcjo6QW5vdmEobG1SQ0IpWyJtb3VzZSIsICJEZiJdKQpucyA8LSBjKDMsIDcpCmRlbHRhcyA8LSBsbVJDQiRjb2VmZmljaWVudHNbImNlbGx0eXBlVHJlZyJdCgoKcG93ZXJGYXN0QmxvY2tpbmcgPC0gbWF0cml4KE5BLCBucm93ID0gbGVuZ3RoKG5zKSAqIGxlbmd0aChkZWx0YXMpLCBuY29sID0gMykgJT4lIGFzLmRhdGEuZnJhbWUoKQpuYW1lcyhwb3dlckZhc3RCbG9ja2luZykgPC0gYygiYjEiLCAibiIsICJwb3dlciIpCgppIDwtIDAKZm9yIChuIGluIG5zKQp7CgogICMjIyBTaW11bGF0aW9uCiAgcHJlZGljdG9yRGF0YSA8LSBkYXRhLmZyYW1lKGNlbGx0eXBlID0gcmVwKGMoIlRjb24iLCAiVHJlZyIpLCBlYWNoID0gbikgJT4lIGFzLmZhY3RvcigpLCBtb3VzZSA9IHBhc3RlMCgibSIsIHJlcCgxOm4sIDIpKSkKICBkZXNpZ24gPC0gbW9kZWwubWF0cml4KH4gY2VsbHR5cGUgKyBtb3VzZSwgcHJlZGljdG9yRGF0YSkKICBMIDwtIGxpbW1hOjptYWtlQ29udHJhc3RzKCJjZWxsdHlwZVRyZWciLCBsZXZlbHMgPSBjb2xuYW1lcyhkZXNpZ24pKQoKICBmb3IgKGIxIGluIGRlbHRhcykKICB7CiAgICB5U2ltIDwtIHJub3JtKG5yb3cocHJlZGljdG9yRGF0YSkgKiBuU2ltLCBzZCA9IHNkKQogICAgZGltKHlTaW0pIDwtIGMobnJvdyhwcmVkaWN0b3JEYXRhKSwgblNpbSkKICAgIG1vdXNlRWZmZWN0IDwtIHJub3JtKG4sIHNkID0gc2RNb3VzZSkKICAgIGJldGFzTW91c2UgPC0gbW91c2VFZmZlY3RbLTFdIC0gbW91c2VFZmZlY3RbMV0KICAgIHlTaW0gPC0geVNpbSArIGMoZGVzaWduICUqJSBjKGIwLCBiMSwgYmV0YXNNb3VzZSkpCiAgICB5U2ltIDwtIHQoeVNpbSkKCiAgICAjIyMgRml0dGluZwogICAgZml0QWxsIDwtIGxpbW1hOjpsbUZpdCh5U2ltLCBkZXNpZ24pCgogICAgIyMjIEluZmVyZW5jZQogICAgdmFyVW5zY2FsZWQgPC0gYyh0KEwpICUqJSBmaXRBbGwkY292LmNvZWZmaWNpZW50cyAlKiUgTCkKICAgIGNvbnRyYXN0cyA8LSBmaXRBbGwkY29lZmZpY2llbnRzICUqJSBMCiAgICBzZUNvbnRyYXN0cyA8LSB2YXJVbnNjYWxlZF4uNSAqIGZpdEFsbCRzaWdtYQogICAgdHN0YXRzIDwtIGNvbnRyYXN0cyAvIHNlQ29udHJhc3RzCiAgICBwdmFscyA8LSBwdChhYnModHN0YXRzKSwgZml0QWxsJGRmLnJlc2lkdWFsLCBsb3dlci50YWlsID0gRkFMU0UpICogMgoKICAgIGkgPC0gaSArIDEKICAgIHBvd2VyRmFzdEJsb2NraW5nW2ksIF0gPC0gYyhiMSwgbiwgbWVhbihwdmFscyA8IGFscGhhKSkKICB9Cn0KcG93ZXJGYXN0QmxvY2tpbmcKYGBgCgpOb3RlLCB0aGF0IHRoZSBwb3dlciBpcyBpbmRlZWQgbXVjaCBsYXJnZXIgZm9yIHRoZSByYW5kb21pemVkIGNvbXBsZXRlIGJsb2NrIGRlc2lnbi4KQm90aCBmb3IgdGhlIGRlc2lnbnMgd2l0aCA2IGFuZCAxNCBtYXNzIHNwZWN0cm9tZXRlciBydW5zLgoKQmVjYXVzZSB3ZSBoYXZlIGFuIFJDQiB3aXRoIGEgYmxvY2sgc2l6ZSBvZiAyIChwYWlyZWQgZGVzaWduKSB3ZSBjYW4gYWxzbyBjYWxjdWxhdGUgdGhlIHBvd2VyIHVzaW5nIHRoZSBgcG93ZXIudC50ZXN0IGZ1bmN0aW9uYCB3aXRoIGB0eXBlID0gIm9uZS5zYW1wbGUiYCBhbmQgYHNkYCBlcXVhbCB0byB0aGUgc3RhbmRhcmQgZGV2aWF0aW9uIG9mIHRoZSBkaWZmZXJlbmNlLgoKCmBgYHtyfQpwb3dlci50LnRlc3QobiA9IDMsIGRlbHRhID0gbWVhbihtb3VzZVdpZGUkZGVsdGEpLCBzZCA9IHNkKG1vdXNlV2lkZSRkZWx0YSkpCnBvd2VyLnQudGVzdChuID0gNywgZGVsdGEgPSBtZWFuKG1vdXNlV2lkZSRkZWx0YSksIHNkID0gc2QobW91c2VXaWRlJGRlbHRhKSkKYGBgCgpOb3RlLCB0aGF0IHRoZSBwb3dlciBpcyBzbGlnaHRseSBkaWZmZXJlbnQgYmVjYXVzZSBmb3IgdGhlIHBvd2VyLnQudGVzdCBmdW5jdGlvbiB3ZSBjb25kaXRpb25lZCBvbiB0aGUgbWljZSBmcm9tIG91ciBzdHVkeS4gV2hpbGUgaW4gdGhlIHNpbXVsYXRpb24gc3R1ZHkgd2UgZ2VuZXJhdGVkIGRhdGEgZm9yIG5ldyBtaWNlIGJ5IHNpbXVsYXRpbmcgdGhlIG1vdXNlIGVmZmVjdCBmcm9tIGEgbm9ybWFsIGRpc3RyaWJ1dGlvbi4KCiMjIEltcGFjdCBvZiB0aGUgYW1vdW50IG9mIHZhcmlhYmlsaXR5IHRoYXQgdGhlIGJsb2NraW5nIGZhY3RvciBleHBsYWlucyBvbiB0aGUgcG93ZXI/CgpXZSB3aWxsIHZhcnkgdGhlIGJsb2NrIGVmZmVjdCBleHBsYWlucwokJApcZnJhY3tcc2lnbWFeMl9cdGV4dHtiZXR3ZWVufX17XHNpZ21hXjJfXHRleHR7YmV0d2Vlbn0rXHNpZ21hXjJfXHRleHR7d2l0aGlufX09MS1cZnJhY3tcc2lnbWFeMl9cdGV4dHt3aXRoaW59fXtcc2lnbWFeMl9cdGV4dHtiZXR3ZWVufStcc2lnbWFeMl9cdGV4dHt3aXRoaW59fQokJApTbyBpbiBvdXIgZXhhbXBsZSB0aGF0IGlzIHRoZSByYXRpbyBiZXR3ZWVuIHRoZSB2YXJpYWJpbGl0eSBiZXR3ZWVuIHRoZSBtaWNlIGFuZCB0aGUgc3VtIG9mIHRoZSB2YXJpYWJpbGl0eSBiZXR3ZWVuIGFuZCB3aXRoaW4gdGhlIG1pY2UuIE5vdGUsIHRoYXQgdGhlIHdpdGhpbiBtb3VzZSB2YXJpYWJpbGl0eSB3YXMgdGhlIHZhcmlhbmNlIG9mIHRoZSBlcnJvcnMgb2YgdGhlIFJDQi4gVGhlIHJhdGlvIGZvciBvdXIgZXhwZXJpbWVudCBlcXVhbHMKCmBgYHtyfQp2YXJCZXR3ZWVuUGx1c1dpdGhpbiA8LSBzdW0oY2FyOjpBbm92YShsbVJDQiwgdHlwZSA9ICJJSUkiKVtjKCJtb3VzZSIsICJSZXNpZHVhbHMiKSwgIlN1bSBTcSJdKSAvIHN1bShjYXI6OkFub3ZhKGxtUkNCLCB0eXBlID0gIklJSSIpW2MoIm1vdXNlIiwgIlJlc2lkdWFscyIpLCAiRGYiXSkKdmFyV2l0aGluIDwtIGNhcjo6QW5vdmEobG1SQ0IpWyJSZXNpZHVhbHMiLCAiU3VtIFNxIl0gLyBjYXI6OkFub3ZhKGxtUkNCKVsiUmVzaWR1YWxzIiwgIkRmIl0KdmFyQmV0d2VlblBsdXNXaXRoaW4KdmFyV2l0aGluCjEgLSB2YXJXaXRoaW4gLyB2YXJCZXR3ZWVuUGx1c1dpdGhpbgpgYGAKCgpgYGB7cn0KYWxwaGEgPC0gMC4wNQpuU2ltIDwtIDIwMDAwCmIwIDwtIDAKdmFyQmV0d2VlblBsdXNXaXRoaW4gPC0gc3VtKGNhcjo6QW5vdmEobG1SQ0IsIHR5cGUgPSAiSUlJIilbYygibW91c2UiLCAiUmVzaWR1YWxzIiksICJTdW0gU3EiXSkgLyBzdW0oY2FyOjpBbm92YShsbVJDQiwgdHlwZSA9ICJJSUkiKVtjKCJtb3VzZSIsICJSZXNpZHVhbHMiKSwgIkRmIl0pCgoKbnMgPC0gYygzLCA3KQpkZWx0YXMgPC0gbG1SQ0IkY29lZmZpY2llbnRzWyJjZWxsdHlwZVRyZWciXQoKZnJhY1ZhcnMgPC0gc2VxKDAsIC45NSwgLjA1KQoKcG93ZXJGYXN0QmxvY2tpbmdMb3cgPC0gbWF0cml4KE5BLCBucm93ID0gbGVuZ3RoKG5zKSAqIGxlbmd0aChmcmFjVmFycyksIG5jb2wgPSAzKSAlPiUgYXMuZGF0YS5mcmFtZSgpCm5hbWVzKHBvd2VyRmFzdEJsb2NraW5nTG93KSA8LSBjKCJmcmFjVmFycyIsICJuIiwgInBvd2VyIikKCmkgPC0gMAoKCmZvciAobiBpbiBucykKewoKICAjIyMgU2ltdWxhdGlvbgogIHByZWRpY3RvckRhdGEgPC0gZGF0YS5mcmFtZShjZWxsdHlwZSA9IHJlcChjKCJUY29uIiwgIlRyZWciKSwgZWFjaCA9IG4pICU+JSBhcy5mYWN0b3IoKSwgbW91c2UgPSBwYXN0ZTAoIm0iLCByZXAoMTpuLCAyKSkpCiAgZGVzaWduIDwtIG1vZGVsLm1hdHJpeCh+IGNlbGx0eXBlICsgbW91c2UsIHByZWRpY3RvckRhdGEpCiAgTCA8LSBsaW1tYTo6bWFrZUNvbnRyYXN0cygiY2VsbHR5cGVUcmVnIiwgbGV2ZWxzID0gY29sbmFtZXMoZGVzaWduKSkKICBmb3IgKGZyYWNWYXIgaW4gZnJhY1ZhcnMpCiAgewogICAgc2QgPC0gc3FydCh2YXJCZXR3ZWVuUGx1c1dpdGhpbiAqICgxIC0gZnJhY1ZhcikpCiAgICBzZE1vdXNlIDwtIHNxcnQodmFyQmV0d2VlblBsdXNXaXRoaW4gKiBmcmFjVmFyKQogICAgZm9yIChiMSBpbiBkZWx0YXMpCiAgICB7CiAgICAgIHlTaW0gPC0gcm5vcm0obnJvdyhwcmVkaWN0b3JEYXRhKSAqIG5TaW0sIHNkID0gc2QpCiAgICAgIGRpbSh5U2ltKSA8LSBjKG5yb3cocHJlZGljdG9yRGF0YSksIG5TaW0pCiAgICAgIG1vdXNlRWZmZWN0IDwtIHJub3JtKG4sIHNkID0gc2RNb3VzZSkKICAgICAgYmV0YXNNb3VzZSA8LSBtb3VzZUVmZmVjdFstMV0gLSBtb3VzZUVmZmVjdFsxXQogICAgICB5U2ltIDwtIHlTaW0gKyBjKGRlc2lnbiAlKiUgYyhiMCwgYjEsIGJldGFzTW91c2UpKQogICAgICB5U2ltIDwtIHQoeVNpbSkKCiAgICAgICMjIyBGaXR0aW5nCiAgICAgIGZpdEFsbCA8LSBsaW1tYTo6bG1GaXQoeVNpbSwgZGVzaWduKQoKICAgICAgIyMjIEluZmVyZW5jZQogICAgICB2YXJVbnNjYWxlZCA8LSBjKHQoTCkgJSolIGZpdEFsbCRjb3YuY29lZmZpY2llbnRzICUqJSBMKQogICAgICBjb250cmFzdHMgPC0gZml0QWxsJGNvZWZmaWNpZW50cyAlKiUgTAogICAgICBzZUNvbnRyYXN0cyA8LSB2YXJVbnNjYWxlZF4uNSAqIGZpdEFsbCRzaWdtYQogICAgICB0c3RhdHMgPC0gY29udHJhc3RzIC8gc2VDb250cmFzdHMKICAgICAgcHZhbHMgPC0gcHQoYWJzKHRzdGF0cyksIGZpdEFsbCRkZi5yZXNpZHVhbCwgbG93ZXIudGFpbCA9IEZBTFNFKSAqIDIKCiAgICAgIGkgPC0gaSArIDEKICAgICAgcG93ZXJGYXN0QmxvY2tpbmdMb3dbaSwgXSA8LSBjKGZyYWNWYXIsIG4sIG1lYW4ocHZhbHMgPCBhbHBoYSkpCiAgICB9CiAgfQp9CnBvd2VyRmFzdEJsb2NraW5nTG93CmBgYAoKYGBge3J9CmdnX2NvbG9yX2h1ZSA8LSBmdW5jdGlvbihuKSB7CiAgaHVlcyA8LSBzZXEoMTUsIDM3NSwgbGVuZ3RoID0gbiArIDEpCiAgaGNsKGggPSBodWVzLCBsID0gNjUsIGMgPSAxMDApWzE6bl0KfQpjb2xzIDwtIGdnX2NvbG9yX2h1ZSgyKQoKcG93ZXJGYXN0QmxvY2tpbmdMb3cgJT4lCiAgYXMuZGF0YS5mcmFtZSgpICU+JQogIG11dGF0ZShuID0gYXMuZmFjdG9yKG4pKSAlPiUKICBnZ3Bsb3QoYWVzKGZyYWNWYXJzLCBwb3dlciwgZ3JvdXAgPSBuLCBjb2xvciA9IG4pKSArCiAgZ2VvbV9saW5lKCkgKwogIGdlb21faGxpbmUoeWludGVyY2VwdCA9IHBvd2VyRmFzdCAlPiUgZmlsdGVyKG4gPT0gMykgJT4lIHB1bGwocG93ZXIpLCBjb2xvciA9IGNvbHNbMV0pICsKICBhbm5vdGF0ZSgidGV4dCIsCiAgICBsYWJlbCA9ICJDUkQgKG49MykiLAogICAgeCA9IDAuMDUsIHkgPSBwb3dlckZhc3QgJT4lIGZpbHRlcihuID09IDMpICU+JSBwdWxsKHBvd2VyKSArIC4wMiwgc2l6ZSA9IDMsIGNvbG91ciA9IGNvbHNbMV0KICApICsKICBnZW9tX2hsaW5lKHlpbnRlcmNlcHQgPSBwb3dlckZhc3QgJT4lIGZpbHRlcihuID09IDcpICU+JSBwdWxsKHBvd2VyKSwgY29sb3IgPSBjb2xzWzJdKSArCiAgYW5ub3RhdGUoInRleHQiLAogICAgbGFiZWwgPSAiQ1JEIChuPTcpIiwKICAgIHggPSAwLjA1LCB5ID0gcG93ZXJGYXN0ICU+JSBmaWx0ZXIobiA9PSA3KSAlPiUgcHVsbChwb3dlcikgKyAuMDIsIHNpemUgPSAzLCBjb2xvdXIgPSBjb2xzWzJdCiAgKSArCiAgeGxhYihleHByZXNzaW9uKH4gc2lnbWFbYmV0d2Vlbl1eMiAvIChzaWdtYVtiZXR3ZWVuXV4yICsgc2lnbWFbd2l0aGluXV4yKSkpICsKICBnZW9tX3ZsaW5lKHhpbnRlcmNlcHQgPSAxIC0gdmFyV2l0aGluIC8gdmFyQmV0d2VlblBsdXNXaXRoaW4pICsKICB4bGltKDAsIDEpCmBgYAoKLSBTbyBpZiB0aGUgdmFyaWFuY2UgdGhhdCBpcyBleHBsYWluZWQgYnkgdGhlIGJsb2NrIGVmZmVjdCBpcyBzbWFsbCB5b3Ugd2lsbCBsb29zZSBwb3dlciBhcyBjb21wYXJlZCB0byB0aGUgYW5hbHlzaXMgd2l0aCBhIENSRCBkZXNpZ24uIEluZGVlZCwgdGhlbgoKICAgIC0gU1NFIGRvZXMgbm90IHJlZHVjZSBtdWNoIGFuZAogICAgLSBuJF9cdGV4dHtibG9ja3N9JC0xIGRlZ3JlZXMgb2YgZnJlZWRvbSBoYXZlIGJlZW4gc2FjcmlmaWNlZC4KCi0gQXMgc29vbiBhcyB0aGUgYmxvY2sgZWZmZWN0IGV4cGxhaW5zIGEgbGFyZ2UgcGFydCBvZiB0aGUgdmFyaWFiaWxpdHkgaXQgaXMgdmVyeSBiZW5lZmljaWFsIHRvIHVzZSBhIHJhbmRvbWl6ZWQgY29tcGxldGUgYmxvY2sgZGVzaWduIQoKLSBOb3RlLCB0aGF0IHRoZSBzYW1lIG51bWJlciBvZiBtYXNzIHNwZWN0cm9tZXRyeSBydW5zIGhhdmUgdG8gYmUgZG9uZSBmb3IgYm90aCB0aGUgUkNCIGFuZCBDUkQgZGVzaWduLiBIb3dldmVyLCBmb3IgdGhlIFJDQiB3ZSBvbmx5IG5lZWQgaGFsZiBvZiB0aGUgbWljZS4KCiMgUGVuaWNpbGxpbiBleGFtcGxlCgpUaGUgcHJvZHVjdGlvbiBvZiBwZW5pY2lsbGluIGNvcm4gc3RlZXAgbGlxdW9yIGlzIHVzZWQuIENvcm4gc3RlZXAgbGlxdW9yIGlzIHByb2R1Y2VkIGluIGJsZW5kcyBhbmQgdGhlcmUgaXMgYSBjb25zaWRlcmFibGUgdmFyaWFiaWxpdHkgYmV0d2VlbiB0aGUgYmxlbmRzLiBTdXBwb3NlIHRoYXQKCi0gZm91ciBjb21wZXRpbmcgbWV0aG9kcyBoYXZlIHRvIGJlIGV2YWx1YXRlZCB0byBwcm9kdWNlIHBlbmljaWxsaW4gKEEtRCksCi0gb25lIGJsZW5kcyBpcyBzdWZmaWNpZW50IGZvciBmb3VyIHJ1bnMgb2YgYSBwZW5pY2lsbGluIGJhdGNoIHJlYWN0b3IgYW5kCi0gdGhlIDIwIHJ1bnMgY2FuIGJlIHNjaGVkdWxlZCBmb3IgdGhlIGV4cGVyaW1lbnQuCgpIb3cgd291bGQgeW91IGFzc2lnbiB0aGUgbWV0aG9kcyB0byB0aGUgYmxlbmRzLgoKYGBge3J9CmRhdGEocGVuaWNpbGxpbiwgcGFja2FnZSA9ICJmYXJhd2F5IikKdGFibGUocGVuaWNpbGxpbiRibGVuZCwgcGVuaWNpbGxpbiR0cmVhdCkKYGBgCgojIyBEYXRhCgpgYGB7cn0KaGVhZChwZW5pY2lsbGluKQptYXRyaXgocGVuaWNpbGxpbiR5aWVsZCwgbnJvdyA9IDUsIG5jb2wgPSA0LCBieXJvdyA9IFRSVUUsIGRpbW5hbWVzID0gbGlzdChsZXZlbHMocGVuaWNpbGxpbiRibGVuZCksIGxldmVscyhwZW5pY2lsbGluJHRyZWF0KSkpCmBgYAoKYGBge3J9CnBlbmljaWxsaW4gJT4lCiAgZ2dwbG90KGFlcyh4ID0gYmxlbmQsIHkgPSB5aWVsZCwgZ3JvdXAgPSB0cmVhdCwgY29sb3IgPSB0cmVhdCkpICsKICBnZW9tX2xpbmUoKSArCiAgZ2VvbV9wb2ludCgpCmBgYAoKYGBge3J9CnBlbmljaWxsaW4gJT4lCiAgZ2dwbG90KGFlcyh4ID0gdHJlYXQsIHkgPSB5aWVsZCwgZ3JvdXAgPSBibGVuZCwgY29sb3IgPSBibGVuZCkpICsKICBnZW9tX2xpbmUoKSArCiAgZ2VvbV9wb2ludCgpCmBgYAoKIyMgQW5hbHlzaXMKCldlIGFuYWx5c2UgdGhlIHlpZWxkIHVzaW5nCgotIGEgZmFjdG9yIGZvciBibGVuZCBhbmQKLSBhIGZhY3RvciBmb3IgdHJlYXRtZW50LgoKYGBge3J9CmxtUGVuIDwtIGxtKHlpZWxkIH4gdHJlYXQgKyBibGVuZCwgZGF0YSA9IHBlbmljaWxsaW4pCnBsb3QobG1QZW4pCmNhcjo6QW5vdmEobG1QZW4sIHR5cGUgPSAiSUlJIikKYGBgCgpXZSBjb25jbHVkZSB0aGF0IHRoZSBlZmZlY3Qgb2YgdGhlIHRyZWF0bWVudCBvbiB0aGUgcGVuaWNpbGxpbiB5aWVsZCBpcyBub3Qgc2lnbmlmaWNhbnQgYXQgdGhlIDUlIGxldmVsIG9mIHNpZ25pZmljYW5jZSAocCA9IGByIGNhcjo6QW5vdmEobG1QZW4sdHlwZT0iSUlJIilbInRyZWF0IiwiUHIoPkYpIl0gJT4lIHJvdW5kKC4sMilgLgoKV2UgYWxzbyBvYnNlcnZlIHRoYXQgdGhlcmUgaXMgYSBsYXJnZSBlZmZlY3Qgb2YgdGhlIGJsZW5kIG9uIHRoZSB5aWVsZC4KQmxlbmQgZXhwbGFpbnMgYWJvdXQgYHIgcm91bmQoY2FyOjpBbm92YShsbVBlbix0eXBlPSJJSUkiKVsiYmxlbmQiLCJTdW0gU3EiXS9zdW0oY2FyOjpBbm92YShsbVBlbix0eXBlPSJJSUkiKVstMSwiU3VtIFNxIl0pKjEwMCwxKWAlIG9mIHRoZSB2YXJpYWJpbGl0eSBpbiB0aGUgcGVuaWNpbGxpbiB5aWVsZC4KCgojIFBzZXVkby1yZXBsaWNhdGlvbgoKQSBzdHVkeSBvbiB0aGUgZmFjdWx0YXRpdmUgcGF0aG9nZW4gRnJhbmNpc2VsbGEgdHVsYXJlbnNpcyB3YXMgY29uY2VpdmVkIGJ5IFJhbW9uZCBldCBhbC4gKDIwMTUpIFsxMl0uCgotIEYuIHR1bGFyZW5zaXMgZW50ZXJzIHRoZSBjZWxscyBvZiBpdHMgaG9zdCBieSBwaGFnb2N5dG9zaXMuCi0gVGhlIGF1dGhvcnMgc2hvd2VkIHRoYXQgRi4gdHVsYXJlbnNpcyBpcyBhcmdpbmluZSBkZWZpY2llbnQgYW5kIGltcG9ydHMgYXJnaW5pbmUgZnJvbSB0aGUgaG9zdCBjZWxsIHZpYSBhbiBhcmdpbmluZSB0cmFuc3BvcnRlciwgQXJnUCwgaW4gb3JkZXIgdG8gZWZmaWNpZW50bHkgZXNjYXBlIGZyb20gdGhlIHBoYWdvc29tZSBhbmQgcmVhY2ggdGhlIGN5dG9zb2xpYyBjb21wYXJ0bWVudCwgd2hlcmUgaXQgY2FuIGFjdGl2ZWx5IG11bHRpcGx5LgotIEluIHRoZWlyIHN0dWR5LCB0aGV5IGNvbXBhcmVkIHRoZSBwcm90ZW9tZSBvZiB3aWxkIHR5cGUgRi4gdHVsYXJlbnNpcyAoV1QpIHRvIEFyZ1AtZ2VuZSBkZWxldGVkIEYuIHR1bGFyZW5zaXMgKGtub2NrLW91dCwgRDgpLgoKLSBUaGUgc2FtcGxlIGZvciBlYWNoIGJpby1yZXAgd2FzIHJ1biBpbiB0ZWNobmljYWwgdHJpcGxpY2F0ZSBvbiB0aGUgbWFzcy1zcGVjdHJvbWV0ZXIuCgotIFdlIHdpbGwgdXNlIGRhdGEgZm9yIHRoZSBwcm90ZWluIDUwUyByaWJvc29tYWwgcHJvdGVpbiBMNSBbQTBRNEo1XShodHRwczovL3d3dy51bmlwcm90Lm9yZy91bmlwcm90L0EwUTRKNSkKCiMjIERhdGEgZXhwbG9yYXRpb24KCmBgYHtyfQpmcmFuYyA8LSByZWFkX3RzdigiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3N0YXRPbWljcy9QU0xTRGF0YS9tYWluL2ZyYW5jaXNlbGxhQTBRNEo1LnR4dCIpCmZyYW5jCmBgYAoKYGBge3J9CmZyYW5jICU+JQogIGdncGxvdChhZXMoYmlvcmVwLCBpbnRlbnNpdHlMb2cyLCBjb2xvciA9IGdlbm90eXBlKSkgKwogIGdlb21fcG9pbnQoKQpgYGAKCi0gUmVzcG9uc2U/Ci0gRXhwZXJpbWVudGFsIHVuaXQ/Ci0gT2JzZXJ2YXRpb25hbCB1bml0PwotIEZhY3RvcnM/CgokXHJpZ2h0YXJyb3ckIFBzZXVkby1yZXBsaWNhdGlvbiwgcmFuZG9taXNhdGlvbiB0byBiaW8tcmVwZWF0IGFuZCBlYWNoIGJpby1yZXBlYXQgbWVhc3VyZWQgaW4gdGVjaG5pY2FsIHRyaXBsaWNhdGUuCiRccmlnaHRhcnJvdyQgSWYgd2Ugd291bGQgYW5hbHlzZSB0aGUgZGF0YSB1c2luZyBhIGxpbmVhciBtb2RlbCBiYXNlZCBvbiBlYWNoIG1lYXN1cmVkIGludGVuc2l0eSwgd2Ugd291bGQgYWN0IGFzIGlmIHdlIGhhZCBzYW1wbGVkIDE4IGJpby1yZXBlYXRzLgokXHJpZ2h0YXJyb3ckIEVmZmVjdCBvZiBpbnRlcmVzdCBoYXMgdG8gYmUgYXNzZXNzZWQgYmV0d2VlbiBiaW8tcmVwZWF0cy4gU28gYmxvY2sgYW5hbHlzaXMgbm90IHBvc3NpYmxlIQoKSWYgdGhlIHNhbWUgbnVtYmVyIG9mIHBzZXVkby1yZXBsaWNhdGVzL3RlY2huaWNhbCByZXBsaWNhdGVzIGFyZSBhdmFpbGFibGUgZm9yIGVhY2ggYmlvLXJlcGVhdDoKCi0gYXZlcmFnZSBmaXJzdCBvdmVyIGJpby1yZXBlYXRzIHRvIG9idGFpbiBpbmRlcGVuZGVudCBtZWFzdXJlbWVudHMKLSBhdmVyYWdlcyB3aWxsIHRoZW4gaGF2ZSB0aGUgc2FtZSBwcmVjaXNpb24KLSBhc3Nlc3MgZWZmZWN0IG9mIHRyZWF0bWVudCB1c2luZyBhdmVyYWdlcwotICoqQ2F1dGlvbjogbmV2ZXIgc3VtbWFyaXplIG92ZXIgYmlvLXJlcGVhdHMvZXhwZXJpbWVudGFsIHVuaXRzKioKCgpgYGB7cn0KbG1CaW9yZXAgPC0gbG0oaW50ZW5zaXR5TG9nMiB+IC0xICsgYmlvcmVwLCBmcmFuYykKbG1CaW9yZXAKYGBgCgpgYGB7cn0KZnJhbmNTdW0gPC0gZGF0YS5mcmFtZShnZW5vdHlwZSA9IHJlcChjKCJEOCIsICJXVCIpLCBlYWNoID0gMykgJT4lIGFzLmZhY3RvcigpICU+JSByZWxldmVsKCJXVCIpLCBpbnRlbnNpdHlMb2cyID0gbG1CaW9yZXAkY29lZikKZnJhbmNTdW0KYGBgCgpgYGB7cn0KbG1TdW0gPC0gbG0oaW50ZW5zaXR5TG9nMiB+IGdlbm90eXBlLCBmcmFuY1N1bSkKc3VtbWFyeShsbVN1bSkKYGBgCgojIyBXcm9uZyBhbmFseXNpcwoKYGBge3J9CmxtV3JvbmcgPC0gbG0oaW50ZW5zaXR5TG9nMiB+IGdlbm90eXBlLCBmcmFuYykKc3VtbWFyeShsbVdyb25nKQpgYGAKCk5vdGUsIHRoYXQgdGhlIGFuYWx5c2lzIHdoZXJlIHdlIGlnbm9yZSB0aGF0IHdlIGhhdmUgbXVsdGlwbGUgdGVjaG5pY2FsIHJlcGVhdHMgZm9yIGVhY2ggYmlvLXJlcGVhdCByZXR1cm5zIHJlc3VsdHMgdGhhdCBhcmUgbXVjaCBtb3JlIHNpZ25pZmljYW50IGJlY2F1c2Ugd2UgYWN0IGFzIGlmIHdlIGhhdmUgbXVjaCBtb3JlIGluZGVwZW5kZW50IG9ic2VydmF0aW9ucy4KCiMjIyBObyBUeXBlIEkgZXJyb3IgY29udHJvbCEKCmBgYHtyfQpzaWdtYVdpdGhpbiA8LSBzaWdtYShsbUJpb3JlcCkKc2lnbWFCZXR3ZWVuIDwtIHNpZ21hKGxtU3VtKQp4QmlvcmVwIDwtIG1vZGVsLm1hdHJpeCh+IC0xICsgYmlvcmVwLCBmcmFuYykKeFdyb25nIDwtIG1vZGVsLm1hdHJpeCh+Z2Vub3R5cGUsIGZyYW5jKQoKCnNldC5zZWVkKDI1MjMpCm5TaW0gPC0gMTAwMApyZXNXcm9uZyA8LSBtYXRyaXgoTkEsIG5TaW0sIDQpICU+JSBhcy5kYXRhLmZyYW1lKCkKbmFtZXMocmVzV3JvbmcpIDwtIGMoIkVzdGltYXRlIiwgIlN0ZC4gRXJyb3IiLCAidCB2YWx1ZSIsICJwdmFsdWUiKQpyZXNDb3JyZWN0IDwtIHJlc1dyb25nCmdlbm90eXBlIDwtIGZyYW5jJGdlbm90eXBlCmdlbm90eXBlU3VtIDwtIGZyYW5jU3VtJGdlbm90eXBlCmJpb3JlcCA8LSBmcmFuYyRiaW9yZXAKCmZvciAoaSBpbiAxOm5TaW0pCnsKICBiaW9yZXBTaW0gPC0gcm5vcm0obmNvbCh4QmlvcmVwKSwgc2QgPSBzaWdtYUJldHdlZW4pCiAgeVNpbSA8LSB4QmlvcmVwICUqJSBiaW9yZXBTaW0gKyBybm9ybShucm93KHhCaW9yZXApLCBzZCA9IHNpZ21hV2l0aGluKQogIHlTdW0gPC0gbG0oeVNpbSB+IGJpb3JlcCkkY29lZmZpY2llbnQKICByZXNXcm9uZ1tpLCBdIDwtIHN1bW1hcnkobG0oeVNpbSB+IGdlbm90eXBlKSkkY29lZmZpY2llbnRbMiwgXQogIHJlc0NvcnJlY3RbaSwgXSA8LSBzdW1tYXJ5KGxtKHlTdW0gfiBnZW5vdHlwZVN1bSkpJGNvZWZmaWNpZW50WzIsIF0KfQptZWFuKHJlc0NvcnJlY3QkcHZhbHVlIDwgMC4wNSkKbWVhbihyZXNXcm9uZyRwdmFsdWUgPCAwLjA1KQpgYGAKCmBgYHtyfQpxcGxvdChyZXNDb3JyZWN0JHB2YWx1ZSwgZ2VvbSA9ICJoaXN0b2dyYW0iLCBib3VuZGFyeSA9IGMoMCwgMSkpICsKICBzdGF0X2JpbihicmVha3MgPSBzZXEoMCwgMSwgLjEpKSArCiAgeGxhYigicHZhbHVlIikgKwogIGdndGl0bGUoIkNvcnJlY3QgYW5hbHlzaXMiKQoKcXBsb3QocmVzV3JvbmckcHZhbHVlLCBnZW9tID0gImhpc3RvZ3JhbSIsIGJvdW5kYXJ5ID0gYygwLCAxKSkgKwogIHN0YXRfYmluKGJyZWFrcyA9IHNlcSgwLCAxLCAuMSkpICsKICB4bGFiKCJwdmFsdWUiKSArCiAgZ2d0aXRsZSgiV3JvbmcgYW5hbHlzaXMiKQpgYGAKCi0gU28gd2Ugb2JzZXJ2ZSB0aGF0IHRoZSBhbmFseXNpcyB0aGF0IGRvZXMgbm90IGFjY291bnQgZm9yIHBzZXVkby1yZXBsaWNhdGlvbiBpcyB0b28gbGliZXJhbCEKCi0gVGhlIGFuYWx5c2lzIHRoYXQgZmlyc3Qgc3VtbWFyaXplcyBvdmVyIHRoZSB0ZWNobmljYWwgcmVwZWF0cyBsZWFkcyB0byBjb3JyZWN0IHAtdmFsdWVzIGFuZCBjb3JyZWN0IHR5cGUgSSBlcnJvciBjb250cm9sIQoKLSBXaGF0IHRvIGRvIHdoZW4geW91IGhhdmUgYW4gdW5lcXVhbCBudW1iZXIgb2YgdGVjaG5pY2FsIHJlcGVhdHM6IG1vcmUgYWR2YW5jZWQgbWV0aG9kcyBhcmUgcmVxdWlyZWQKCiAgLSBlLmcuIG1peGVkIG1vZGVscwogIC0gVGhlIG1peGVkIG1vZGVsIGZyYW1ld29yayBjYW4gbW9kZWwgdGhlIGNvcnJlbGF0aW9uIHN0cnVjdHVyZSBpbiB0aGUgZGF0YQoKLSBNaXhlZCBtb2RlbHMgY2FuIGFsc28gYmUgdXNlZCB3aGVuIGluZmVyZW5jZSBiZXR3ZWVuIGFuZCB3aXRoaW4gYmxvY2tzIGlzIG5lZWRlZCwgZS5nLiBzcGxpdC1wbG90IGRlc2lnbnMuCgotIEJ1dCwgbWl4ZWQgbW9kZWxzIGFyZSBiZXlvbmQgdGhlIHNjb3BlIG9mIHRoZSBsZWN0dXJlIHNlcmllcy4KCiMgTmF0dXJlIG1ldGhvZHM6IFNwbGl0LXBsb3QgZGVzaWducwoKW05hdHVyZSBNZXRob2RzIC0gUG9pbnQgb2YgU2lnbmlmaWNhbmNlIC0gU3BsaXQtcGxvdCBEZXNpZ25zXShodHRwczovL3d3dy5uYXR1cmUuY29tL2FydGljbGVzL25tZXRoLjMyOTMucGRmKQo=</div>

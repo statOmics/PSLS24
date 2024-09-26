@@ -35,8 +35,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -60,7 +58,6 @@
 </style>
 
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -427,9 +424,6 @@ div.tocify {
 <div class="btn-group pull-right float-right">
 <button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-<li role="separator" class="divider"></li>
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
@@ -493,11 +487,6 @@ inference</h2>
 </div>
 
 <div id="rmd-source-code">LS0tCnRpdGxlOiAiV3JhcHVwIDE6IEludHJvZHVjdGlvbiB0byBzdGF0aXN0aWNzIGFuZCBkYXRhIGV4cGxvcmF0aW9uIiAgIApvdXRwdXQ6CiAgICBodG1sX2RvY3VtZW50OgogICAgICBjb2RlX2Rvd25sb2FkOiB0cnVlICAgIAogICAgICB0aGVtZTogY29zbW8KICAgICAgdG9jOiB0cnVlCiAgICAgIHRvY19mbG9hdDogdHJ1ZQogICAgICBoaWdobGlnaHQ6IHRhbmdvCiAgICAgIG51bWJlcl9zZWN0aW9uczogdHJ1ZQotLS0KCiMgUmVwcm9kdWNlIHNjaGVtZSBvZiBwb3B1bGF0aW9uIC0tPiBleHBlcmltZW50IC0tPiBiYWNrIAoKVXNlIGFybXBpdCBleGFtcGxlIAoKIyMgQ29uY2VwdHMgb24gZXhwZXJpbWVudGFsIGRlc2lnbj8KCi0gRGVmaW5pbmcgUG9wdWxhdGlvbgotIEltcG9ydGFuY2Ugb2YgUmFuZG9taXNhdGlvbgotIFNhbXBsZSBzaXplCi0gQ29udHJvbDogc2ltdWx0YW5lb3VzLCByYW5kb21pemluZywgYmxpbmRpbmcKLSBXaGF0IGhhdmUgd2UgbWVhc3VyZWQgKGRhdGEgdHlwZXM/KQotIFR5cGVzIG9mIHZhcmlhYmxlcwoKIyMgRGF0YSBleHBsb3JhdGlvbgoKLSBQbG90cyBmb3IgY29udGludW91cyB2YXJpYWJsZXMKLSBCYXIgcGxvdHMgdnMgYm94cGxvdHMKLSBEYXRhIGFzIHJhdyBhcyBwb3NzaWJsZSB3aHk/Ci0gQXNzZXNzaW5nIG5vcm1hbGl0eQotIG1lYW4gdnMgbWVkaWFuIHZzIGdlb21ldHJpYyBtZWFuCi0gc3RhbmRhcmQgZGV2aWF0aW9uIHZzIElRUgoKIyMgRXN0aW1hdGlvbiAvIGluZmVyZW5jZQoKLSBXaGF0IGhhcHBlbnMgd2hlbiB3ZSByZXBlYXQgZXhwZXJpbWVudHM/IAotIGdlbmVyYWxpemUgd2hhdCB3ZSBzZWUgaW4gc2FtcGxlPyAKCgojIyBCYXNpYyBDb25jZXB0cwoKLSBSYW5kb20gdmFyaWFibGVzCi0gUHJvYmFiaWxpdHkgdGhlb3J5Ci0gU3RhdGlzdGljYWwgbW9kZWxpbmcKLSBFc3RpbWF0aW9uCi0gV2h5IGFyZSBhbGwgb3VyIHN0YXRpc3RpY3MvZXN0aW1hdG9ycyByYW5kb20gdmFyaWFibGVzCi0gTm8gYXNzdW1wdGlvbnM6IGVtcGlyaWNhbCB2cyBhc3N1bXB0aW9ucwoK</div>
-<div class="footer">
-    <hr>
-    This work is licensed under the <a href= "https://creativecommons.org/licenses/by-nc-sa/4.0">
-    CC BY-NC-SA 4.0</a> licence.
-</div>
 
 
 </div>
@@ -536,7 +525,6 @@ $(document).ready(function () {
 <script>
 $(document).ready(function () {
   window.initializeSourceEmbed("wrapup1_bub.Rmd");
-  window.initializeCodeFolding("show" === "show");
 });
 </script>
 

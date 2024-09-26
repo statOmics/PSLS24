@@ -14,7 +14,6 @@
 
 <title>Exercises on chapter 6: Simple linear regression</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -437,42 +436,32 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercises on chapter 6: Simple linear
-regression</h1>
+<h1 class="title toc-ignore">Exercises on chapter 6: Simple linear regression</h1>
 <h4 class="author">Lieven Clement and Jeroen Gilis</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
-<p>In this hands-on tutorial session you will perform three exercises on
-linear regression. For your reference you can find the code for the brca
-case study from the lecture for chapter 6:</p>
+<p>In this hands-on tutorial session you will perform three exercises on linear regression.
+For your reference you can find the code for the brca case study from the lecture for chapter 6:</p>
 <p>[LINK TO FILE]</p>
 <div id="the-puromycin-dataset" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> The puromycin
-dataset</h1>
-<p>Data on the velocity of an enzymatic reaction were obtained by
-Treloar (1974). The number of counts per minute of radioactive product
-from the reaction was measured as a function of substrate concentration
-in parts per million (ppm) and from these counts the initial rate (or
-velocity) of the reaction was calculated (counts/min/min). The
-experiment was conducted once with the enzyme treated with Puromycin,
-and once with the enzyme untreated.</p>
-<p>In this tutorial you will assess if there is an association between
-the substrate concentration and rate for the <strong>treated</strong>
-enzyme.</p>
+<h1><span class="header-section-number">1</span> The puromycin dataset</h1>
+<p>Data on the velocity of an enzymatic reaction were obtained by Treloar (1974).
+The number of counts per minute of radioactive product from the reaction was
+measured as a function of substrate concentration in parts per million (ppm)
+and from these counts the initial rate (or velocity) of the reaction was
+calculated (counts/min/min). The experiment was conducted once with the enzyme
+treated with Puromycin, and once with the enzyme untreated.</p>
+<p>In this tutorial you will assess if there is an association between the substrate
+concentration and rate for the <strong>treated</strong> enzyme.</p>
 <p>The aims of this exercise are to</p>
 <ol style="list-style-type: decimal">
-<li>independently perform a linear regression analysis on a new case
-study</li>
+<li>independently perform a linear regression analysis on a new case study</li>
 <li>critically assess the assumptions for linear regression</li>
-<li>grasp how an appropriate transformation can remediate invalid
-assumptions</li>
-<li>get more proficient in formulating the conclusion of a statistical
-analysis in terms of the research question.</li>
+<li>grasp how an appropriate transformation can remediate invalid assumptions</li>
+<li>get more proficient in formulating the conclusion of a statistical analysis in terms of the research question.</li>
 </ol>
 <p>FILES:</p>
 <ul>
@@ -482,65 +471,50 @@ analysis in terms of the research question.</li>
 </ul>
 </div>
 <div id="the-poison-dataset" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> The poison
-dataset:</h1>
-<p>In this experiment, 96 fish (dojofish, goldfish and zebrafish) were
-placed separately in a tank with two litres of water and a certain dose
-(in mg) of a certain poison EI-43,064. The resistance of the fish a
-against the poison was measured as the amount of minutes the fish
-survived upon adding the poison (Surv_time, in minutes). Additionally,
-the weight of each fish was measured.</p>
-<p>In this tutorial, we will study the association between dose and
-survival time by using a linear regression model.</p>
+<h1><span class="header-section-number">2</span> The poison dataset:</h1>
+<p>In this experiment, 96 fish (dojofish, goldfish and zebrafish)
+were placed separately in a tank with two litres of water and
+a certain dose (in mg) of a certain poison EI-43,064. The resistance
+of the fish a against the poison was measured as the amount of
+minutes the fish survived upon adding the poison (Surv_time, in
+minutes). Additionally, the weight of each fish was measured.</p>
+<p>In this tutorial, we will study the association between dose and survival time
+by using a linear regression model.</p>
 <p>The aims of this exercise are to sharpen your skills in</p>
 <ol style="list-style-type: decimal">
 <li><p>data exploration for datasets with multiple variables</p></li>
-<li><p>assessing the assumptions of the linear model and remediating the
-fit using transformations</p></li>
-<li><p>interpreting the linear model parameters in the context of the
-research question</p></li>
+<li><p>assessing the assumptions of the linear model and remediating the fit using transformations</p></li>
+<li><p>interpreting the linear model parameters in the context of the research question</p></li>
 </ol>
 <p>Files:</p>
 <ul>
 <li>Exercise: <a href="./06_1_poison.html">Exercise2</a></li>
-<li>Data path: <a
-href="https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv"
-class="uri">https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv</a>
+<li>Data path: <a href="https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv" class="uri">https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv</a>
 <!-- - Solution: [Solution2](./06_1_poison_sol.html) --></li>
 </ul>
 <hr />
 </div>
 <div id="armpit-example" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Armpit example</h1>
-<p>Smelly armpits are not caused by sweat, itself. The smell is caused
-by specific micro-organisms belonging to the group of Corynebacterium
-spp. that metabolise sweat. Another group of abundant bacteria are the
-Staphylococcus spp., which do not metabolise sweat in smelly
-compounds.</p>
-<p>The CMET-groep at Ghent University does research on transplanting the
-armpit microbiome to help people with smelly armpits. To test the effect
-of transplanting the microbiome, they conducted an experiment on two
-groups of volunteers: one group was treated with a placebo, while the
-other had a microbiome transplant. The goal was to assess whether a
-microbial transplant can affect the relative abundance Staphylococcus
-spp. in the microbiome of the armpit.</p>
-<p>In the previous tutorial, we analysed the armpit data using a two
-sample t-test. Add a section to the script file for the armpit example
-where you model the data using a linear model. Compare the output of the
-linear model to the results you optained with the two sample t-test and
-formulate your conclusion based on the output of the linear model.</p>
+<p>Smelly armpits are not caused by sweat, itself. The smell is caused by specific
+micro-organisms belonging to the group of Corynebacterium spp. that metabolise
+sweat. Another group of abundant bacteria are the Staphylococcus spp., which do
+not metabolise sweat in smelly compounds.</p>
+<p>The CMET-groep at Ghent University does research on transplanting the armpit
+microbiome to help people with smelly armpits. To test the effect of
+transplanting the microbiome, they conducted an experiment on two groups
+of volunteers: one group was treated with a placebo, while the other had a
+microbiome transplant. The goal was to assess whether a microbial transplant can affect the relative abundance Staphylococcus spp. in the microbiome of the armpit.</p>
+<p>In the previous tutorial, we analysed the armpit data using a two sample t-test.
+Add a section to the script file for the armpit example where you model the data using a linear model. Compare the output of the linear model to the results you optained with the two sample t-test and formulate your conclusion based on the output of the linear model.</p>
 <p>The aims of this exercise are to</p>
 <ol style="list-style-type: decimal">
-<li>learn how the linear regression model can also be used to compare
-two group means.</li>
-<li>grasp how a two sample t-test can be recasted in a test on the slope
-term for a dummy variable</li>
+<li>learn how the linear regression model can also be used to compare two group means.</li>
+<li>grasp how a two sample t-test can be recasted in a test on the slope term for a dummy variable</li>
 </ol>
 <p>Files:</p>
 <ul>
-<li>Data path: <a
-href="https://raw.githubusercontent.com/statOmics/PSLSData/main/armpit.csv"
-class="uri">https://raw.githubusercontent.com/statOmics/PSLSData/main/armpit.csv</a>”</li>
+<li>Data path: <a href="https://raw.githubusercontent.com/statOmics/PSLSData/main/armpit.csv" class="uri">https://raw.githubusercontent.com/statOmics/PSLSData/main/armpit.csv</a>”</li>
 <li>Exercise: <a href="./06_3_armpit.html">Exercise3</a></li>
 </ul>
 </div>

@@ -13,7 +13,6 @@
 
 <title>Tutorial 7.3: ANOVA in the NHANES dataset</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -546,31 +545,30 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Tutorial 7.3: ANOVA in the NHANES
-dataset</h1>
+<h1 class="title toc-ignore">Tutorial 7.3: ANOVA in the NHANES dataset</h1>
 
 </div>
 
 
 <div id="the-nhanes-dataset" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> The NHANES dataset</h1>
-<p>The National Health and Nutrition Examination Survey (NHANES)
-contains data that has been collected since 1960. For this tutorial, we
-will make use of the data that were collected between 2009 and 2012, for
-10.000 U.S. civilians. The dataset contains a large number of physical,
-demographic, nutritional and life-style-related parameters.</p>
+<p>The National Health and Nutrition Examination Survey (NHANES) contains data
+that has been collected since 1960. For this tutorial, we will make use of
+the data that were collected between 2009 and 2012, for 10.000 U.S. civilians.
+The dataset contains a large number of physical, demographic, nutritional and
+life-style-related parameters.</p>
 </div>
 <div id="goal" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Goal</h1>
-<p>In the NHANES dataset, one of the columns is named
-<code>HealthGen</code>. HealthGen is a self-reported rating of a
-participant’s health in general terms. HealthGen is reported for
-participants aged 12 years or older. It is a factor with the following
-levels: Excellent, Vgood, Good, Fair, or Poor.</p>
-<p>We want to test whether or not the mean systolic blood pressure value
-(take column <code>BPSys1</code>) is equal between the five
-self-reported health categories. To this end, we will use an ANOVA
-analysis (if the required assumptions are met).</p>
+<p>In the NHANES dataset, one of the columns is named <code>HealthGen</code>.
+HealthGen is a self-reported rating of a participant’s health
+in general terms. HealthGen is reported for participants aged 12
+years or older. It is a factor with the following levels:
+Excellent, Vgood, Good, Fair, or Poor.</p>
+<p>We want to test whether or not the mean systolic blood pressure
+value (take column <code>BPSys1</code>) is equal between the five self-reported
+health categories. To this end, we will use an ANOVA analysis
+(if the required assumptions are met).</p>
 <p>Load the required libraries</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 </div>
@@ -610,19 +608,16 @@ analysis (if the required assumptions are met).</p>
 <pre><code>## Warning: Removed 1763 rows containing non-finite outside the scale range
 ## (`stat_summary()`).</code></pre>
 <p><img src="07_3_NHANES_sol_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>This plot is not ideal; it would be far more intuitive if the health
-categories were ordered properly (i.e., Poor –&gt; excellent). In
-addition, we observe a sixth “category” of NA values.</p>
+<p>This plot is not ideal; it would be far more intuitive if
+the health categories were ordered properly (i.e., Poor –&gt; excellent).
+In addition, we observe a sixth “category” of NA values.</p>
 <p>To get a more informative and intuitive visualization, you can:</p>
 <ol style="list-style-type: decimal">
-<li>Filter out subjects with NA values for <code>HealthGen</code> or
-<code>BPSys1</code></li>
-<li>Set <code>HealthGen</code> to a factor and relevel it to Poor –&gt;
-Excellent</li>
+<li>Filter out subjects with NA values for <code>HealthGen</code> or <code>BPSys1</code></li>
+<li>Set <code>HealthGen</code> to a factor and relevel it to Poor –&gt; Excellent</li>
 </ol>
-<p><strong>Hint:</strong> The second task can be achieved by using the
-<code>mutate</code>, <code>as.factor</code> and <code>fct_relevel</code>
-functions.</p>
+<p><strong>Hint:</strong> The second task can be achieved by using the <code>mutate</code>,
+<code>as.factor</code> and <code>fct_relevel</code> functions.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>NHANES <span class="ot">&lt;-</span> NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(HealthGen), <span class="sc">!</span><span class="fu">is.na</span>(BPSys1)) <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HealthGen =</span> <span class="fu">as.factor</span>(HealthGen)) <span class="sc">%&gt;%</span></span>
@@ -642,25 +637,19 @@ functions.</p>
 </div>
 <div id="anova" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> ANOVA</h1>
-<p>To study if the observed difference between the average systolic
-blood pressure values of the different health groups are significant, we
-may perform an ANOVA.</p>
-<div id="formulate-null-and-alternative-hyoptheses"
-class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Formulate null and
-alternative hyoptheses</h2>
-<p>The null hypothesis of ANOVA states that: <span
-class="math inline">\(H0\)</span>: The mean systolic blood pressure is
-equal between the different health groups.</p>
-<p>The alternative hypothesis of ANOVA states that: <span
-class="math inline">\(HA\)</span>: The mean systolic blood pressure for
-at least one health group is different from the mean systolic blood
-pressure in at least one other health group.</p>
+<p>To study if the observed difference between the
+average systolic blood pressure values of the different health groups
+are significant, we may perform an ANOVA.</p>
+<div id="formulate-null-and-alternative-hyoptheses" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Formulate null and alternative hyoptheses</h2>
+<p>The null hypothesis of ANOVA states that:
+<span class="math inline">\(H0\)</span>: The mean systolic blood pressure is equal between the different health groups.</p>
+<p>The alternative hypothesis of ANOVA states that:
+<span class="math inline">\(HA\)</span>: The mean systolic blood pressure for at least one health group is different
+from the mean systolic blood pressure in at least one other health group.</p>
 </div>
-<div id="check-the-assumptions-for-anova" class="section level2"
-number="5.2">
-<h2><span class="header-section-number">5.2</span> Check the assumptions
-for ANOVA</h2>
+<div id="check-the-assumptions-for-anova" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Check the assumptions for ANOVA</h2>
 <p>Before we may proceed with the analysis, we must make sure that all
 assumptions for ANOVA are met. ANOVA has three assumptions:</p>
 <ol style="list-style-type: decimal">
@@ -668,16 +657,12 @@ assumptions for ANOVA are met. ANOVA has three assumptions:</p>
 <li>The data (BPSys1) must be normally distributed (in all groups)</li>
 <li>The variability within all groups is similar</li>
 </ol>
-<div id="assumption-of-independence" class="section level3"
-number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Assumption of
-independence</h3>
-<p>The first assumption is met; there shoud be no specific pattterns of
-dependence.</p>
+<div id="assumption-of-independence" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Assumption of independence</h3>
+<p>The first assumption is met; there shoud be no specific pattterns of dependence.</p>
 </div>
 <div id="assumption-of-normality" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Assumption of
-normality</h3>
+<h3><span class="header-section-number">5.2.2</span> Assumption of normality</h3>
 <p>For the second assumption, we must check normality in each group.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> BPSys1)) <span class="sc">+</span></span>
@@ -685,9 +670,9 @@ normality</h3>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>HealthGen)</span></code></pre></div>
 <p><img src="07_3_NHANES_sol_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>The data does not appear to be normally distributed for each group.
-It seems to have a heavy right tail. We can perform a log transformation
-on the data.</p>
+<p>The data does not appear to be normally distributed for
+each group. It seems to have a heavy right tail. We can
+perform a log transformation on the data.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BPSys1_log =</span> <span class="fu">log</span>(BPSys1)) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> BPSys1_log)) <span class="sc">+</span></span>
@@ -695,9 +680,10 @@ on the data.</p>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>HealthGen)</span></code></pre></div>
 <p><img src="07_3_NHANES_sol_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>While the log transformation improved the distributions somewhat, the
-data still does not appear to be normally distributed for each group.
-However, we do have a very large number of observations per group:</p>
+<p>While the log transformation improved the distributions somewhat,
+the data still does not appear to be normally distributed for
+each group. However, we do have a very large number of
+observations per group:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## Count the number of observations per treatment</span></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="fu">count</span>(HealthGen)</span></code></pre></div>
@@ -706,11 +692,12 @@ However, we do have a very large number of observations per group:</p>
 {"columns":[{"label":["HealthGen"],"name":[1],"type":["fct"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Poor","2":"184"},{"1":"Fair","2":"934"},{"1":"Good","2":"2803"},{"1":"Vgood","2":"2367"},{"1":"Excellent","2":"848"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>As such, we may rely on the cental limit theorem. Remember, the
-cental limit theorem that when the number of observations is
-sufficiently large (i.e. &gt;100), we will assume that the distribution
-of the sample mean will approximate a normal distribution, even if the
-underlying data is not normally distributed.</p>
+<p>As such, we may rely on the cental limit theorem.
+Remember, the cental limit theorem that when the number
+of observations is sufficiently large (i.e. &gt;100), we
+will assume that the distribution of the sample mean will
+approximate a normal distribution, even if the underlying
+data is not normally distributed.</p>
 </div>
 </div>
 <div id="anova-model" class="section level2" number="5.3">
@@ -725,18 +712,18 @@ underlying data is not normally distributed.</p>
 </div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Not-rounded p-value:&quot;</span>, fit_anova<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>## [1] &quot;Not-rounded p-value: 2.99356182479473e-21&quot;</code></pre>
-<p>The p-value of the ANOVA analysis is extremely significant (p-value =
-2.994e-21), so we reject the null hypothesis that the mean egg length is
-equal between the different bird types. We can say that the mean egg
-length is significantly different between at least two bird types on the
-5% significance level.</p>
+<p>The p-value of the ANOVA analysis is extremely significant
+(p-value = 2.994e-21),
+so we reject the null hypothesis that the mean
+egg length is equal between the different bird types.
+We can say that the mean egg length is significantly different
+between at least two bird types on the 5% significance level.</p>
 <p>Based on this analysis, we do not yet know between which particular
 bird types there is a significant difference. To study this, we will
 perfrom the Tuckey post-hoc analysis.</p>
 </div>
 <div id="post-hoc-analysis" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Post-hoc
-analysis</h2>
+<h2><span class="header-section-number">5.4</span> Post-hoc analysis</h2>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">library</span>(multcomp, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>mcp <span class="ot">&lt;-</span> <span class="fu">glht</span>(fit, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">HealthGen =</span> <span class="st">&quot;Tukey&quot;</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="fu">summary</span>(mcp)</span></code></pre></div>
@@ -751,15 +738,15 @@ analysis</h2>
 ## Linear Hypotheses:
 ##                         Estimate Std. Error t value Pr(&gt;|t|)    
 ## Fair - Poor == 0       -0.015828   0.010971  -1.443  0.57595    
-## Good - Poor == 0       -0.036762   0.010351  -3.551  0.00318 ** 
+## Good - Poor == 0       -0.036762   0.010351  -3.551  0.00303 ** 
 ## Vgood - Poor == 0      -0.059415   0.010410  -5.708  &lt; 0.001 ***
 ## Excellent - Poor == 0  -0.055476   0.011062  -5.015  &lt; 0.001 ***
 ## Good - Fair == 0       -0.020934   0.005139  -4.074  &lt; 0.001 ***
 ## Vgood - Fair == 0      -0.043587   0.005256  -8.293  &lt; 0.001 ***
 ## Excellent - Fair == 0  -0.039648   0.006452  -6.145  &lt; 0.001 ***
 ## Vgood - Good == 0      -0.022653   0.003797  -5.966  &lt; 0.001 ***
-## Excellent - Good == 0  -0.018714   0.005331  -3.511  0.00360 ** 
-## Excellent - Vgood == 0  0.003938   0.005444   0.723  0.94605    
+## Excellent - Good == 0  -0.018714   0.005331  -3.511  0.00347 ** 
+## Excellent - Vgood == 0  0.003938   0.005444   0.723  0.94608    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- single-step method)</code></pre>
@@ -772,64 +759,53 @@ analysis</h2>
 ## 
 ## Fit: lm(formula = log(BPSys1) ~ HealthGen, data = NHANES)
 ## 
-## Quantile = 2.6831
+## Quantile = 2.6841
 ## 95% family-wise confidence level
 ##  
 ## 
 ## Linear Hypotheses:
 ##                        Estimate  lwr       upr      
-## Fair - Poor == 0       -0.015828 -0.045264  0.013608
-## Good - Poor == 0       -0.036762 -0.064536 -0.008988
-## Vgood - Poor == 0      -0.059415 -0.087346 -0.031484
-## Excellent - Poor == 0  -0.055476 -0.085157 -0.025796
-## Good - Fair == 0       -0.020934 -0.034722 -0.007145
-## Vgood - Fair == 0      -0.043587 -0.057689 -0.029484
-## Excellent - Fair == 0  -0.039648 -0.056959 -0.022337
-## Vgood - Good == 0      -0.022653 -0.032841 -0.012465
-## Excellent - Good == 0  -0.018714 -0.033018 -0.004411
-## Excellent - Vgood == 0  0.003938 -0.010668  0.018544</code></pre>
+## Fair - Poor == 0       -0.015828 -0.045275  0.013619
+## Good - Poor == 0       -0.036762 -0.064546 -0.008978
+## Vgood - Poor == 0      -0.059415 -0.087356 -0.031474
+## Excellent - Poor == 0  -0.055476 -0.085168 -0.025785
+## Good - Fair == 0       -0.020934 -0.034727 -0.007140
+## Vgood - Fair == 0      -0.043587 -0.057694 -0.029479
+## Excellent - Fair == 0  -0.039648 -0.056966 -0.022331
+## Vgood - Good == 0      -0.022653 -0.032844 -0.012462
+## Excellent - Good == 0  -0.018714 -0.033023 -0.004406
+## Excellent - Vgood == 0  0.003938 -0.010673  0.018550</code></pre>
 </div>
 <div id="conclusion" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Conclusion</h2>
-<p>We have found an extremely significant dependence (p-value =
-2.994e-21), between the mean systolic blood pressure and the health
-group on the global 5% significance level.</p>
-<p>The mean logarithm of systolic blood pressure in the self-reported
-health category <code>Poor</code> is significantly higher as compared
-three other groups:</p>
+<p>We have found an extremely significant dependence (p-value = 2.994e-21),
+between the mean systolic blood pressure and the health group
+on the global 5% significance level.</p>
+<p>The mean logarithm of systolic blood pressure in the self-reported health
+category <code>Poor</code> is significantly higher as compared three other groups:</p>
 <ul>
-<li>the <code>Good</code> group (adjusted p-value = &lt; 0.001, mean
-difference = -0.036762 mmHg, 95% CI [-0.034725; -0.007142])</li>
-<li>the <code>Vgood</code> group (adjusted p-value = &lt; 0.001, mean
-difference = -0.059415 mmHg, 95% CI [-0.087352; -0.031477])</li>
-<li>the <code>Excellent</code> group (adjusted p-value = &lt; 0.001,
-mean difference = -0.059415 mmHg, 95% CI [-0.085164; -0.025789])</li>
+<li>the <code>Good</code> group (adjusted p-value = &lt; 0.001, mean difference = -0.036762 mmHg, 95% CI [-0.034725; -0.007142])</li>
+<li>the <code>Vgood</code> group (adjusted p-value = &lt; 0.001, mean difference = -0.059415 mmHg, 95% CI [-0.087352; -0.031477])</li>
+<li>the <code>Excellent</code> group (adjusted p-value = &lt; 0.001, mean difference = -0.059415 mmHg, 95% CI [-0.085164; -0.025789])</li>
 </ul>
-<p>The mean logarithm of systolic blood pressure in the self-reported
-health category <code>Fair</code> is significantly higher as compared
-three other groups:</p>
+<p>The mean logarithm of systolic blood pressure in the self-reported health
+category <code>Fair</code> is significantly higher as compared three other groups:</p>
 <ul>
-<li>the <code>Good</code> group (adjusted p-value = 0.00317, mean
-difference = -0.020934 mmHg, 95% CI [-0.064542; -0.008982])</li>
-<li>the <code>Vgood</code> group (adjusted p-value = &lt; 0.001, mean
-difference = -0.043587 mmHg, 95% CI [-0.057692; -0.029481])</li>
-<li>the <code>Excellent</code> group (adjusted p-value = &lt; 0.001,
-mean difference = -0.039648 mmHg, 95% CI [-0.056963; -0.022333])</li>
+<li>the <code>Good</code> group (adjusted p-value = 0.00317, mean difference = -0.020934 mmHg, 95% CI [-0.064542; -0.008982])</li>
+<li>the <code>Vgood</code> group (adjusted p-value = &lt; 0.001, mean difference = -0.043587 mmHg, 95% CI [-0.057692; -0.029481])</li>
+<li>the <code>Excellent</code> group (adjusted p-value = &lt; 0.001, mean difference = -0.039648 mmHg, 95% CI [-0.056963; -0.022333])</li>
 </ul>
-<p>The mean logarithm of systolic blood pressure in the self-reported
-health category <code>Good</code> is significantly higher as compared
-two other groups:</p>
+<p>The mean logarithm of systolic blood pressure in the self-reported health
+category <code>Good</code> is significantly higher as compared two other groups:</p>
 <ul>
-<li>the <code>Vgood</code> group (adjusted p-value = &lt; 0.001, mean
-difference = -0.022653 mmHg, 95% CI [-0.032843; -0.012463])</li>
-<li>the <code>Excellent</code> group (adjusted p-value = 0.00362, mean
-difference = -0.018714 mmHg, 95% CI [-0.033021; -0.004408])</li>
+<li>the <code>Vgood</code> group (adjusted p-value = &lt; 0.001, mean difference = -0.022653 mmHg, 95% CI [-0.032843; -0.012463])</li>
+<li>the <code>Excellent</code> group (adjusted p-value = 0.00362, mean difference = -0.018714 mmHg, 95% CI [-0.033021; -0.004408])</li>
 </ul>
 <p>We do not find enough evidence to claim a difference in systolic
 blood pressure levels between the other groups.</p>
 <p>Note that in order to interpret the outcomes on the original scale,
-we should backtransform the outcomes with the <code>exp()</code>
-functions (interpretation on the geometric mean).</p>
+we should backtransform the outcomes with the <code>exp()</code> functions
+(interpretation on the geometric mean).</p>
 </div>
 </div>
 

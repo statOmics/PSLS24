@@ -6,6 +6,8 @@ date: "statOmics, Ghent University (https://statomics.github.io)"
 
 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gih6met-LSY?si=8D45xEsBKLwMulmc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 # Introduction
 ```{r setup, include=FALSE, cache=FALSE}
 knitr::opts_chunk$set(

@@ -14,7 +14,6 @@
 
 <title>Experimenteel Design II: replication en power - KPNA2</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,13 +546,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Experimenteel Design II: replication en
-power - KPNA2</h1>
-<h4 class="author">Lieven Clement, Alexandre Segers and Milan
-Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h1 class="title toc-ignore">Experimenteel Design II: replication en power - KPNA2</h1>
+<h4 class="author">Lieven Clement, Alexandre Segers and Milan Malfait</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
@@ -572,34 +567,20 @@ class="uri">https://statomics.github.io</a>)</h4>
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <div id="background" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Background</h1>
-<p>Histologic grade in breast cancer provides clinically important
-prognostic information. Researchers examined whether histologic grade
-was associated with gene expression profiles of breast cancers and
-whether such profiles could be used to improve histologic grading. In
-this tutorial we will assess the association between histologic grade
-and the expression of the KPNA2 gene that is known to be associated with
-poor BC prognosis. The patients, however, do not only differ in the
-histologic grade, but also on their lymph node status. The lymph nodes
-were not affected (0) or chirugically removed (1).</p>
+<p>Histologic grade in breast cancer provides clinically important prognostic information. Researchers examined whether histologic grade was associated with gene expression profiles of breast cancers and whether such profiles could be used to improve histologic grading. In this tutorial we will assess the association between histologic grade and the expression of the KPNA2 gene that is known to be associated with poor BC prognosis.
+The patients, however, do not only differ in the histologic grade, but also on their lymph node status.
+The lymph nodes were not affected (0) or chirugically removed (1).</p>
 <ul>
-<li>Redo data analysis (you can copy the results of the tutorial on
-multiple linear regression)</li>
-<li>What is the power to pick up each of the contrasts when their real
-effect sizes would be equal to the effect sizes we observed in the
-study?</li>
-<li>How does the power evolves if we have 2 upto 10 repeats for each
-factor combination of grade and node when their real effect sizes would
-be equal to the ones we observed in the study?</li>
-<li>What is the power to pick up each of the contrasts when the FC for
-grade for patients with unaffected lymph nodes equals 1.5 (<span
-class="math inline">\(\beta_g = log2(1.5)\)</span>)?</li>
+<li>Redo data analysis (you can copy the results of the tutorial on multiple linear regression)</li>
+<li>What is the power to pick up each of the contrasts when their real effect sizes would be equal to the effect sizes we observed in the study?</li>
+<li>How does the power evolves if we have 2 upto 10 repeats for each factor combination of grade and node when their real effect sizes would be equal to the ones we observed in the study?</li>
+<li>What is the power to pick up each of the contrasts when the FC for grade for patients with unaffected lymph nodes equals 1.5 (<span class="math inline">\(\beta_g = log2(1.5)\)</span>)?</li>
 </ul>
 </div>
 <div id="data-analysis" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Data analysis</h1>
 <div id="import-kpna2-data-in-r" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Import KPNA2 data in
-R</h2>
+<h2><span class="header-section-number">2.1</span> Import KPNA2 data in R</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>kpna2 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/statOmics/SGA21/master/data/kpna2.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>kpna2</span></code></pre></div>
 <div data-pagedtable="false">
@@ -607,8 +588,7 @@ R</h2>
 {"columns":[{"label":["grade"],"name":[1],"type":["int"],"align":["right"]},{"label":["node"],"name":[2],"type":["int"],"align":["right"]},{"label":["gene"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"3","2":"1","3":"367.8179"},{"1":"3","2":"1","3":"590.3576"},{"1":"1","2":"1","3":"346.6583"},{"1":"1","2":"1","3":"258.4455"},{"1":"1","2":"0","3":"153.8416"},{"1":"3","2":"0","3":"643.6799"},{"1":"3","2":"1","3":"817.8558"},{"1":"1","2":"1","3":"329.4113"},{"1":"3","2":"0","3":"746.4951"},{"1":"3","2":"0","3":"380.0940"},{"1":"1","2":"0","3":"205.2980"},{"1":"3","2":"0","3":"703.5070"},{"1":"1","2":"0","3":"223.5533"},{"1":"1","2":"0","3":"186.6673"},{"1":"1","2":"0","3":"165.5948"},{"1":"3","2":"1","3":"439.0382"},{"1":"1","2":"1","3":"252.0597"},{"1":"3","2":"0","3":"495.8720"},{"1":"1","2":"1","3":"286.7907"},{"1":"3","2":"1","3":"552.1972"},{"1":"1","2":"1","3":"233.5769"},{"1":"3","2":"0","3":"521.4048"},{"1":"3","2":"1","3":"474.2651"},{"1":"1","2":"0","3":"148.1059"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Because histolic grade and lymph node status are both categorical
-variables, we model them both as factors.</p>
+<p>Because histolic grade and lymph node status are both categorical variables, we model them both as factors.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>kpna2<span class="sc">$</span>grade <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(kpna2<span class="sc">$</span>grade)</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>kpna2<span class="sc">$</span>node <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(kpna2<span class="sc">$</span>node)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>kpna2 <span class="sc">%&gt;%</span></span>
@@ -616,16 +596,8 @@ variables, we model them both as factors.</p>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()</span></code></pre></div>
 <p><img src="08_ExperimentalDesignII_3_kpna2_sol_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>As discussed in a previous exercise, it seems that there is both an
-effect of histologic grade and lymph node status on the gene expression.
-There also seems to be a different effect of lymph node status on the
-gene expression for the different histologic grades.</p>
-<p>As we saw before, we can model this with a model that contains both
-histologic grade, lymph node status and the interaction term between
-both. When checking the linear model assumptions, we see that the
-variance is not equal. Therefore we model the gene expression with a
-log2-transformation, which makes that all the assumptions of the linear
-model are satisfied.</p>
+<p>As discussed in a previous exercise, it seems that there is both an effect of histologic grade and lymph node status on the gene expression. There also seems to be a different effect of lymph node status on the gene expression for the different histologic grades.</p>
+<p>As we saw before, we can model this with a model that contains both histologic grade, lymph node status and the interaction term between both. When checking the linear model assumptions, we see that the variance is not equal. Therefore we model the gene expression with a log2-transformation, which makes that all the assumptions of the linear model are satisfied.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log2</span>(gene) <span class="sc">~</span> grade <span class="sc">*</span> node, <span class="at">data =</span> kpna2)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">plot</span>(fit)</span></code></pre></div>
 <p><img src="08_ExperimentalDesignII_3_kpna2_sol_files/figure-html/unnamed-chunk-5-1.png" width="672" /><img src="08_ExperimentalDesignII_3_kpna2_sol_files/figure-html/unnamed-chunk-5-2.png" width="672" /><img src="08_ExperimentalDesignII_3_kpna2_sol_files/figure-html/unnamed-chunk-5-3.png" width="672" /><img src="08_ExperimentalDesignII_3_kpna2_sol_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
@@ -645,55 +617,33 @@ model are satisfied.</p>
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Sum Sq"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Df"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"335.6676323","2":"1","3":"3351.610907","4":"9.530118e-24","_rn_":"(Intercept)"},{"1":"8.3420526","2":"1","3":"83.294639","4":"1.437549e-08","_rn_":"grade"},{"1":"1.2978311","2":"1","3":"12.958726","4":"1.789077e-03","_rn_":"node"},{"1":"0.9003583","2":"1","3":"8.989996","4":"7.102512e-03","_rn_":"grade:node"},{"1":"2.0030227","2":"20","3":"NA","4":"NA","_rn_":"Residuals"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>When checking the significance of the interaction term, we see that
-it is significant on the 5% significance level. We therefore keep the
-full model.</p>
-<p>As we are dealing with a factorial design, we can calculate the mean
-gene expression for each group by the following parameter
-summations.</p>
+<p>When checking the significance of the interaction term, we see that it is significant on the 5% significance level. We therefore keep the full model.</p>
+<p>As we are dealing with a factorial design, we can calculate the mean gene expression for each group by the following parameter summations.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>ExploreModelMatrix<span class="sc">::</span><span class="fu">VisualizeDesign</span>(kpna2, <span class="sc">~</span> grade <span class="sc">*</span> node)<span class="sc">$</span>plotlist</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
 <p><img src="08_ExperimentalDesignII_3_kpna2_sol_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>The researchers want to know the power for testing following
-hypotheses (remark that we will have to adjust for multiple
-testing):</p>
+<p>The researchers want to know the power for testing following hypotheses (remark that we will have to adjust for multiple testing):</p>
 <ul>
-<li>Log fold change between histologic grade 3 and histologic grade 1
-for patients with unaffected lymph nodes (=0).</li>
+<li>Log fold change between histologic grade 3 and histologic grade 1 for patients with unaffected lymph nodes (=0).</li>
 </ul>
-<p><span class="math display">\[H_0: \log_2{FC}_{g3n0-g1n0} = \beta_{g3}
-= 0\]</span></p>
+<p><span class="math display">\[H_0: \log_2{FC}_{g3n0-g1n0} = \beta_{g3} = 0\]</span></p>
 <ul>
-<li>Log fold change between histologic grade 3 and histologic grade 1
-for patients with removed lymph nodes (=1).</li>
+<li>Log fold change between histologic grade 3 and histologic grade 1 for patients with removed lymph nodes (=1).</li>
 </ul>
-<p><span class="math display">\[H_0: \log_2{FC}_{g3n1-g1n1} = \beta_{g3}
-+ \beta_{g3n1} = 0\]</span></p>
+<p><span class="math display">\[H_0: \log_2{FC}_{g3n1-g1n1} = \beta_{g3} + \beta_{g3n1} = 0\]</span></p>
 <ul>
-<li>Log fold change between unaffected and removed lymph nodes for
-patients of histologic grade 1.</li>
+<li>Log fold change between unaffected and removed lymph nodes for patients of histologic grade 1.</li>
 </ul>
-<p><span class="math display">\[H_0: \log_2{FC}_{g1n1-g1n0} = \beta_{n1}
-= 0\]</span></p>
+<p><span class="math display">\[H_0: \log_2{FC}_{g1n1-g1n0} = \beta_{n1} = 0\]</span></p>
 <ul>
-<li>Log fold change between unaffected and removed lymph nodes for
-patients of histologic grade 3.</li>
+<li>Log fold change between unaffected and removed lymph nodes for patients of histologic grade 3.</li>
 </ul>
-<p><span class="math display">\[H_0: \log_2{FC}_{g3n1-g3n0} = \beta_{n1}
-+ \beta_{g3n1} = 0\]</span></p>
+<p><span class="math display">\[H_0: \log_2{FC}_{g3n1-g3n0} = \beta_{n1} + \beta_{g3n1} = 0\]</span></p>
 <ul>
-<li>Difference in log fold change between patients of histological grade
-3 and histological grade 1 with removed lymph nodes and log fold change
-between patients between patients of histological grade 3 and
-histological grade 1 with unaffected lymph nodes.</li>
+<li>Difference in log fold change between patients of histological grade 3 and histological grade 1 with removed lymph nodes and log fold change between patients between patients of histological grade 3 and histological grade 1 with unaffected lymph nodes.</li>
 </ul>
-<p><span class="math display">\[H_0: \log_2{FC}_{g3n1-g1n1} -
-\log_2{FC}_{g3n0-g1n0} = \beta_{g3n1} = 0\]</span> which is an
-equivalent hypotheses with <span class="math display">\[H_0:
-\log_2{FC}_{g3n1-g3n0} - \log_2{FC}_{g1n1-g1n0} = \beta_{g3n1} =
-0\]</span></p>
-<p>We can test this using multcomp, which controls for multiple
-testing.</p>
+<p><span class="math display">\[H_0: \log_2{FC}_{g3n1-g1n1} - \log_2{FC}_{g3n0-g1n0} = \beta_{g3n1} = 0\]</span> which is an equivalent hypotheses with <span class="math display">\[H_0: \log_2{FC}_{g3n1-g3n0} - \log_2{FC}_{g1n1-g1n0} = \beta_{g3n1} = 0\]</span></p>
+<p>We can test this using multcomp, which controls for multiple testing.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span></code></pre></div>
 <pre><code>## Loading required package: mvtnorm</code></pre>
 <pre><code>## Loading required package: survival</code></pre>
@@ -726,26 +676,20 @@ testing.</p>
 ##                            Estimate Std. Error t value Pr(&gt;|t|)    
 ## grade3 == 0                  1.6675     0.1827   9.127  &lt; 0.001 ***
 ## grade3 + grade3:node1 == 0   0.8928     0.1827   4.886  &lt; 0.001 ***
-## node1 == 0                   0.6577     0.1827   3.600  0.00702 ** 
-## node1 + grade3:node1 == 0   -0.1170     0.1827  -0.640  0.89816    
-## grade3:node1 == 0           -0.7748     0.2584  -2.998  0.02656 *  
+## node1 == 0                   0.6577     0.1827   3.600  0.00712 ** 
+## node1 + grade3:node1 == 0   -0.1170     0.1827  -0.640  0.89817    
+## grade3:node1 == 0           -0.7748     0.2584  -2.998  0.02678 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- single-step method)</code></pre>
-<p>We get a significant p-value for the first, second, third and fifth
-hypothesis. The fourth hypothesis is not significant at the overall 5%
-significance level.</p>
+<p>We get a significant p-value for the first, second, third and fifth hypothesis. The fourth hypothesis is not significant at the overall 5% significance level.</p>
 </div>
 </div>
-<div id="power-of-the-tests-for-each-of-the-contrasts"
-class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Power of the tests for
-each of the contrasts</h1>
+<div id="power-of-the-tests-for-each-of-the-contrasts" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Power of the tests for each of the contrasts</h1>
 <div id="simulation-function" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Simulation
-function</h2>
-<p>Function to simulate data similar to that of our experiment under our
-model assumptions.</p>
+<h2><span class="header-section-number">3.1</span> Simulation function</h2>
+<p>Function to simulate data similar to that of our experiment under our model assumptions.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>simFastMultipleContrasts <span class="ot">&lt;-</span> <span class="cf">function</span>(form, data, betas, sd, contrasts, <span class="at">alpha =</span> .<span class="dv">05</span>, <span class="at">nSim =</span> <span class="dv">10000</span>, <span class="at">adjust =</span> <span class="st">&quot;holm&quot;</span>) {</span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  ySim <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(data) <span class="sc">*</span> nSim, <span class="at">sd =</span> sd)</span>
 <span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>  <span class="fu">dim</span>(ySim) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">nrow</span>(data), nSim)</span>
@@ -767,10 +711,8 @@ model assumptions.</p>
 <span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">colMeans</span>(pvals <span class="sc">&lt;</span> alpha))</span>
 <span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<div id="power-of-current-experiment" class="section level2"
-number="3.2">
-<h2><span class="header-section-number">3.2</span> power of current
-experiment</h2>
+<div id="power-of-current-experiment" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> power of current experiment</h2>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
 <span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>betas <span class="ot">&lt;-</span> fit<span class="sc">$</span>coefficients</span>
 <span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sigma</span>(fit)</span>
@@ -789,14 +731,11 @@ experiment</h2>
 <span id="cb27-16"><a href="#cb27-16" tabindex="-1"></a>power1 <span class="ot">&lt;-</span> <span class="fu">simFastMultipleContrasts</span>(form, kpna2, betas, sd, contrasts, <span class="at">nSim =</span> nSim)</span>
 <span id="cb27-17"><a href="#cb27-17" tabindex="-1"></a>power1</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     1.00000     0.98960     0.84135     0.08265     0.69950</code></pre>
-<p>We observe large powers for all contrasts, exept for contrast nodeg3,
-which has a small effect size.</p>
+##     1.00000     0.98895     0.83770     0.08445     0.69920</code></pre>
+<p>We observe large powers for all contrasts, exept for contrast nodeg3, which has a small effect size.</p>
 </div>
-<div id="power-for-increasing-sample-size" class="section level2"
-number="3.3">
-<h2><span class="header-section-number">3.3</span> Power for increasing
-sample size</h2>
+<div id="power-for-increasing-sample-size" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Power for increasing sample size</h2>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
 <span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>betas <span class="ot">&lt;-</span> fit<span class="sc">$</span>coefficients</span>
 <span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sigma</span>(fit)</span>
@@ -831,15 +770,15 @@ sample size</h2>
 <span id="cb29-32"><a href="#cb29-32" tabindex="-1"></a>}</span>
 <span id="cb29-33"><a href="#cb29-33" tabindex="-1"></a>powers</span></code></pre></div>
 <pre><code>##        n graden0 graden1  nodeg1  nodeg3 interaction
-##  [1,]  2 0.70070 0.25990 0.14795 0.03330     0.11280
-##  [2,]  3 0.99180 0.64970 0.38340 0.04520     0.28160
-##  [3,]  4 0.99995 0.87155 0.59050 0.05660     0.44465
-##  [4,]  5 1.00000 0.96145 0.74070 0.07160     0.59145
-##  [5,]  6 1.00000 0.99100 0.83740 0.08325     0.70165
-##  [6,]  7 1.00000 0.99830 0.90320 0.10190     0.78670
-##  [7,]  8 1.00000 0.99945 0.94775 0.11155     0.85440
-##  [8,]  9 1.00000 0.99970 0.96835 0.11910     0.89480
-##  [9,] 10 1.00000 0.99995 0.98255 0.12455     0.93060</code></pre>
+##  [1,]  2 0.70220 0.26765 0.15230 0.03240     0.11850
+##  [2,]  3 0.99375 0.64915 0.38200 0.04440     0.28205
+##  [3,]  4 0.99990 0.87290 0.58660 0.05840     0.44390
+##  [4,]  5 1.00000 0.95980 0.73550 0.07515     0.58890
+##  [5,]  6 1.00000 0.98955 0.84125 0.08815     0.70320
+##  [6,]  7 1.00000 0.99735 0.90810 0.10030     0.78525
+##  [7,]  8 1.00000 0.99895 0.94670 0.11020     0.85130
+##  [8,]  9 1.00000 0.99985 0.97025 0.11430     0.89795
+##  [9,] 10 1.00000 1.00000 0.98385 0.12570     0.93130</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>powers <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  <span class="fu">gather</span>(contrast, power, <span class="sc">-</span>n) <span class="sc">%&gt;%</span></span>
@@ -847,11 +786,8 @@ sample size</h2>
 <span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="08_ExperimentalDesignII_3_kpna2_sol_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
-<div
-id="power-when-fc-for-grade-in-patients-with-unaffected-lymph-nodes-equals-1.5"
-class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Power when FC for
-grade in patients with unaffected lymph nodes equals 1.5</h2>
+<div id="power-when-fc-for-grade-in-patients-with-unaffected-lymph-nodes-equals-1.5" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Power when FC for grade in patients with unaffected lymph nodes equals 1.5</h2>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
 <span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>betas2 <span class="ot">&lt;-</span> fit<span class="sc">$</span>coefficients</span>
 <span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>betas2[<span class="st">&quot;grade3&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">log2</span>(<span class="fl">1.5</span>)</span>
@@ -871,26 +807,19 @@ grade in patients with unaffected lymph nodes equals 1.5</h2>
 <span id="cb32-17"><a href="#cb32-17" tabindex="-1"></a>power3 <span class="ot">&lt;-</span> <span class="fu">simFastMultipleContrasts</span>(form, kpna2, betas2, sd, contrasts, <span class="at">nSim =</span> nSim)</span>
 <span id="cb32-18"><a href="#cb32-18" tabindex="-1"></a>power3</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     0.68815     0.10130     0.78525     0.05820     0.62575</code></pre>
+##     0.69070     0.10320     0.78965     0.05915     0.62650</code></pre>
 <p>We observe a drop in the power for all the contrasts!?</p>
-<p>We only would expect to loose power for the contrasts assessing the
-grade effect because both fold changes have been decreased.</p>
-<p>The reason why all powers are affected is because we also do multiple
-testing and the multiple testing using the pvalue correction using
-Holm’s method for a particular contrast is also depending on the order
-of significance of the tests within each simulation.</p>
-<p>When we do both simulations without correcting for multiple testing
-(adjust = “none”) we see that changing the size of the fold change for
-grade for patients with unaffected lymph nodes only impacts the power
-for the contrasts for assessing the grade effect.</p>
+<p>We only would expect to loose power for the contrasts assessing the grade effect because both fold changes have been decreased.</p>
+<p>The reason why all powers are affected is because we also do multiple testing and the multiple testing using the pvalue correction using Holm’s method for a particular contrast is also depending on the order of significance of the tests within each simulation.</p>
+<p>When we do both simulations without correcting for multiple testing (adjust = “none”) we see that changing the size of the fold change for grade for patients with unaffected lymph nodes only impacts the power for the contrasts for assessing the grade effect.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>power1None <span class="ot">&lt;-</span> <span class="fu">simFastMultipleContrasts</span>(form, kpna2, betas, sd, contrasts, <span class="at">nSim =</span> nSim, <span class="at">adjust =</span> <span class="st">&quot;none&quot;</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>power3None <span class="ot">&lt;-</span> <span class="fu">simFastMultipleContrasts</span>(form, kpna2, betas2, sd, contrasts, <span class="at">nSim =</span> nSim, <span class="at">adjust =</span> <span class="st">&quot;none&quot;</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>power1None</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     1.00000     0.99560     0.93115     0.09370     0.81800</code></pre>
+##     1.00000     0.99695     0.92695     0.09405     0.81355</code></pre>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>power3None</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     0.86035     0.16460     0.92490     0.09805     0.81470</code></pre>
+##     0.86195     0.16885     0.92630     0.09575     0.81365</code></pre>
 </div>
 </div>
 

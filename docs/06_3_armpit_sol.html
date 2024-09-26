@@ -14,7 +14,6 @@
 
 <title>Exercise 6.3: Linear regression vs t-test on the armpit dataset</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,37 +546,33 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 6.3: Linear regression vs t-test
-on the armpit dataset</h1>
+<h1 class="title toc-ignore">Exercise 6.3: Linear regression vs t-test on the armpit dataset</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="smelly-armpit-dataset" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Smelly armpit
-dataset</h1>
+<h1><span class="header-section-number">1</span> Smelly armpit dataset</h1>
 <p>Smelly armpits are not caused by sweat, itself. The smell is caused
 by specific micro-organisms belonging to the group of
-<em>Corynebacterium spp.</em> that metabolise sweat. Another group of
-abundant bacteria are the <em>Staphylococcus spp.</em>, these bacteria
-do not metabolise sweat in smelly compounds.</p>
-<p>The CMET-group at Ghent University does research to on transplanting
-the armpit microbiome to save people with smelly armpits.</p>
+<em>Corynebacterium spp.</em> that metabolise sweat. Another group of abundant bacteria
+are the <em>Staphylococcus spp.</em>, these bacteria do not metabolise sweat in smelly
+compounds.</p>
+<p>The CMET-group at Ghent University does research to on transplanting the armpit
+microbiome to save people with smelly armpits.</p>
 <ul>
 <li><p>Proposed Therapy:</p>
 <ol style="list-style-type: decimal">
 <li>Remove armpit-microbiome with antibiotics</li>
-<li>Influence armpit microbiome with microbial transplant, see this 2
-minute talk on <a href="https://youtu.be/9RIFyqLXdVw">youtube</a></li>
+<li>Influence armpit microbiome with microbial transplant, see this 2 minute
+talk on <a href="https://youtu.be/9RIFyqLXdVw">youtube</a></li>
 </ol></li>
 <li><p>Experiment:</p>
 <ul>
-<li>20 students with smelly armpits are attributed to one of two
-treatment groups</li>
+<li>20 students with smelly armpits are attributed to one of
+two treatment groups</li>
 <li>placebo (only antibiotics)</li>
 <li>transplant (antibiotica followed by microbial transplant).</li>
 <li>The microbiome is sampled 6 weeks upon the treatment</li>
@@ -590,14 +585,14 @@ Electrophoresis</em>).</li>
 </div>
 <div id="goal" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Goal</h1>
-<p>The overarching goal of this research was to assess if the relative
-abundance <em>Staphylococcus spp.</em> in the microbiome of the armpit
-is affected by transplanting the microbiome. To this end the researchers
-randomized patients to two treatment: A treatment with antibiotics only
-and a treatment with antibiotics and a microbial transplant.</p>
-<p>In the tutorial on hypotheses testing we will use a formal
-statistical test to generalize the results from the sample to that of
-the population.</p>
+<p>The overarching goal of this research was to assess if the relative abundance
+<em>Staphylococcus spp.</em>
+in the microbiome of the armpit is affected by transplanting the microbiome.
+To this end the researchers randomized patients to two treatment:
+A treatment with antibiotics only and a treatment with
+antibiotics and a microbial transplant.</p>
+<p>In the tutorial on hypotheses testing we will use a formal statistical test to
+generalize the results from the sample to that of the population.</p>
 </div>
 <div id="import-the-dataset" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Import the dataset</h1>
@@ -621,8 +616,8 @@ the population.</p>
 </div>
 <div id="data-exploration" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Data Exploration</h1>
-<p>A crucial first step in a data analysis is to visualize and to
-explore the raw data.</p>
+<p>A crucial first step in a data analysis is to visualize and to explore the raw
+data.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>ap <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> rel, <span class="at">fill =</span> trt)) <span class="sc">+</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
@@ -634,30 +629,28 @@ explore the raw data.</p>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
 <span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="06_3_armpit_sol_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>We clearly see that, on average, the subjects who had a microbial
-transplant have a higher relative abundance of Staphylococcus spp. But
-is this difference statistically <em>significant</em> so that we can
-generalized what we observe in the sample to the population?</p>
-<p>We can test this with an unpaired, two-sample t-test, which falsifies
-the null hypothesis that there is on average no difference in relative
-abundance of <em>Staphylococcus</em> in the armpit microbiome between
-the transplant and the placebo group against the alternative hypothesis
-that there is a difference in average abundance of
-<em>Staphyloccocus</em> in the armpit microbiome between the transplant
-and placebo treatment.</p>
-<p>But, before we can start the analysis, we must check if all
-assumptions to perform a t-test are met.</p>
+<p>We clearly see that, on average, the subjects who had a
+microbial transplant have a higher relative abundance of
+Staphylococcus spp. But is this difference statistically
+<em>significant</em> so that we can generalized what we observe
+in the sample to the population?</p>
+<p>We can test this with an unpaired, two-sample t-test, which falsifies the null
+hypothesis that there is on average no difference in relative abundance of
+<em>Staphylococcus</em> in the armpit microbiome between the transplant and the
+placebo group against the alternative hypothesis that there is a difference
+in average abundance of <em>Staphyloccocus</em> in the armpit microbiome between
+the transplant and placebo treatment.</p>
+<p>But, before we can start the analysis, we must check if all assumptions to
+perform a t-test are met.</p>
 </div>
 <div id="analysis" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Analysis</h1>
 <div id="check-the-assumptions" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Check the
-assumptions</h2>
+<h2><span class="header-section-number">5.1</span> Check the assumptions</h2>
 <ol style="list-style-type: decimal">
-<li><p>The observations are independent. This has to be guaranteed by
-the design.</p></li>
-<li><p>The data (rel) are normally distributed in each of the
-groups</p></li>
+<li><p>The observations are independent. This has to be
+guaranteed by the design.</p></li>
+<li><p>The data (rel) are normally distributed in each of the groups</p></li>
 <li><p>The variability within both groups is similar.</p></li>
 </ol>
 <p>To check the normality assumption, we will use QQ plots.</p>
@@ -667,9 +660,8 @@ groups</p></li>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(trt))</span></code></pre></div>
 <p><img src="06_3_armpit_sol_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>We can see that all of the data lies nicely around the
-quantile-quantile line (black line). As such, we may assume that our
-data are normally distributed.</p>
+<p>We can see that all of the data lies nicely around the quantile-quantile
+line (black line). As such, we may assume that our data are normally distributed.</p>
 <p>For the third assumption, we must compare the within-group
 variability of both groups. We can do this visually:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>ap <span class="sc">%&gt;%</span></span>
@@ -683,10 +675,9 @@ variability of both groups. We can do this visually:</p>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="06_3_armpit_sol_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Here we can see that the interquartile range is approximately equal
-for groups.</p>
-<p>As all three assumptions are met we may continue with performing the
-unpaired two-sample t-test.</p>
+<p>Here we can see that the interquartile range is approximately equal for groups.</p>
+<p>As all three assumptions are met we may continue with
+performing the unpaired two-sample t-test.</p>
 </div>
 <div id="hypothesis-test" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Hypothesis test</h2>
@@ -711,23 +702,14 @@ unpaired two-sample t-test.</p>
 </div>
 <div id="conclusion" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Conclusion</h2>
-<p>On average the relative abundance of <em>Staphylococcus spp.</em> in
-the microbiome of the armpit in the transplant group is extremely
-significantly different from that in the placebo group (<span
-class="math inline">\(p&lt;&lt;0.001\)</span>). The relative abundance
-of <em>Staphylococcus spp.</em> is on average 22.2% larger in the
-transplant group than in the placebo group (95% CI [13.0,31.5]%).</p>
+<p>On average the relative abundance of <em>Staphylococcus spp.</em> in the microbiome of the armpit in the transplant group is extremely significantly different from that in the placebo group (<span class="math inline">\(p&lt;&lt;0.001\)</span>). The relative abundance of <em>Staphylococcus spp.</em> is on average 22.2% larger in the transplant group than in the placebo group (95% CI [13.0,31.5]%).</p>
 </div>
 </div>
-<div id="data-analysis-with-a-linear-model" class="section level1"
-number="6">
-<h1><span class="header-section-number">6</span> Data Analysis with a
-linear model</h1>
+<div id="data-analysis-with-a-linear-model" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Data Analysis with a linear model</h1>
 <div id="fit-the-model" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Fit the model</h2>
-<p>We do not need to check the assumptions again because we have done
-this already in the data exploration when analysing the data using the
-t-test.</p>
+<p>We do not need to check the assumptions again because we have done this already in the data exploration when analysing the data using the t-test.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(rel <span class="sc">~</span> trt, <span class="at">data =</span> ap)</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>mod</span></code></pre></div>
 <pre><code>## 
@@ -770,10 +752,8 @@ t-test.</p>
 ## (Intercept)   37.58905 50.72086
 ## trttransplant 12.96072 31.53191</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>How do your results compare to the analysis with the
-t-test.</p></li>
-<li><p>Formulate your conclusion based on the output of the linear
-model.</p></li>
+<li><p>How do your results compare to the analysis with the t-test.</p></li>
+<li><p>Formulate your conclusion based on the output of the linear model.</p></li>
 </ol>
 </div>
 </div>

@@ -14,7 +14,6 @@
 
 <title>Exercise 5.1: Hypothesis testing on the diabetes example</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,58 +546,43 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 5.1: Hypothesis testing on the
-diabetes example</h1>
+<h1 class="title toc-ignore">Exercise 5.1: Hypothesis testing on the diabetes example</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="aims" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Aims</h1>
-<p>In this exercise, you will revisit the basics of statistical
-hypothesis testing.</p>
+<p>In this exercise, you will revisit the basics of statistical hypothesis testing.</p>
 <p>You will acquire the skills</p>
 <ol style="list-style-type: decimal">
-<li>to assess the assumptions of a one-sample and a paired t-test in a
-data exploration.</li>
-<li>to conduct a one-sample t-test in R and to interpret the
-results.</li>
+<li>to assess the assumptions of a one-sample and a paired t-test in a data exploration.</li>
+<li>to conduct a one-sample t-test in R and to interpret the results.</li>
 <li>to conduct a paired t-test in R and to interpret the results.</li>
 </ol>
 </div>
 <div id="the-diabetes-dataset" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> The diabetes
-dataset</h1>
-<p>The <code>diabetes</code> dataset holds information on a small
-experiment with 8 patients that are subjected to a glucose tolerance
-test.</p>
-<p>Patients had to fast for eight hours before the test. When the
-patients entered the hospital their baseline glucose level was measured
-(mmol/l).</p>
-<p>Patients then had to drink 250 ml of a syrupy glucose solution
-containing 100 grams of sugar. Two hours later, their blood glucose
-level was measured again.</p>
+<h1><span class="header-section-number">2</span> The diabetes dataset</h1>
+<p>The <code>diabetes</code> dataset holds information on a small experiment with
+8 patients that are subjected to a glucose tolerance test.</p>
+<p>Patients had to fast for eight hours before the test.
+When the patients entered the hospital their baseline glucose level was measured (mmol/l).</p>
+<p>Patients then had to drink 250 ml of a syrupy glucose solution containing 100
+grams of sugar. Two hours later, their blood glucose level was measured again.</p>
 <p>The data consist of three variables:</p>
 <ul>
-<li><code>before</code>: glucose concentration upon 8 hours of fasting
-(mmol/l)</li>
-<li><code>after</code>: glucose concentration 2 hours after drinking
-glucose solution (mmol/l).</li>
+<li><code>before</code>: glucose concentration upon 8 hours of fasting (mmol/l)</li>
+<li><code>after</code>: glucose concentration 2 hours after drinking glucose solution (mmol/l).</li>
 <li><code>patient</code>: identifier for the patient</li>
 </ul>
 <div id="research-questions" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Research
-questions</h2>
+<h2><span class="header-section-number">2.1</span> Research questions</h2>
 <p>The goal is to answer two research questions;</p>
 <ol style="list-style-type: decimal">
-<li><p>Is the average glucose level after the sugar intake different
-from the average glucose level before sugar intake?</p></li>
-<li><p>Is the average glucose level of the patients two hours after the
-sugar intake higher than 7.8 mmol/L?</p></li>
+<li><p>Is the average glucose level after the sugar intake different from the average glucose level before sugar intake?</p></li>
+<li><p>Is the average glucose level of the patients two hours after the sugar intake higher than 7.8 mmol/L?</p></li>
 </ol>
 </div>
 <div id="import-the-data" class="section level2" number="2.2">
@@ -609,26 +593,24 @@ sugar intake higher than 7.8 mmol/L?</p></li>
 </div>
 <div id="data-exploration" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Data exploration</h1>
-<p>We will start with a data exploration. Have a first look at the raw
-data. How is the data structured? Is this data <em>tidy</em>?</p>
+<p>We will start with a data exploration.
+Have a first look at the raw data. How is the data structured?
+Is this data <em>tidy</em>?</p>
 </div>
 <div id="question-1" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Question 1</h1>
-<p>Is the glucose level after 8 hours of fasting on average different
-from the glucose level two hours after intake of 100g of glucose?</p>
-<p>As the data are paired, we can expect that the measurements before
-and after the glucose intake are correlated. We can illustrate this with
-a scatterplot.</p>
+<p>Is the glucose level after 8 hours of fasting on average different from the glucose level two hours after intake of 100g of glucose?</p>
+<p>As the data are paired, we can expect that the measurements before and after the glucose intake are correlated.
+We can illustrate this with a scatterplot.</p>
 <div id="check-the-assumptions" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Check the
-assumptions</h2>
-<p>State the assumptions that you have to check and include the
-diagnostic plots to assess the assumption.</p>
+<h2><span class="header-section-number">4.1</span> Check the assumptions</h2>
+<p>State the assumptions that you have to check and include the diagnostic plots to
+assess the assumption.</p>
 </div>
 <div id="hypothesis-test" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Hypothesis test</h2>
-<p>If all assumptions are met, we may continue with performing the
-paired two-sample t-test.</p>
+<p>If all assumptions are met, we may continue with
+performing the paired two-sample t-test.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>paired_t <span class="ot">&lt;-</span> <span class="fu">t.test</span>(..., ..., <span class="at">paired =</span> ...)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>paired_t</span></code></pre></div>
 </div>
@@ -637,35 +619,30 @@ paired two-sample t-test.</p>
 <p>Formulate a conclusion based on the output.</p>
 </div>
 </div>
-<div id="alternative-solution-one-sample-t-test-on-the-difference"
-class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Alternative solution:
-One-sample t-test on the difference</h1>
-<p>Since the data is paired, we can also simply calculate the
-differences in glucose level before and after sugar intake for each
-patient. We can then perform a one-sample t-test on these differences,
-testing whether they are significantly different from zero. This is
-equivalent to the paired t-test we performed above.</p>
+<div id="alternative-solution-one-sample-t-test-on-the-difference" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Alternative solution: One-sample t-test on the difference</h1>
+<p>Since the data is paired, we can also simply calculate the differences in
+glucose level before and after sugar intake for each patient. We can then
+perform a one-sample t-test on these differences, testing whether they are
+significantly different from zero. This is equivalent to the paired t-test we
+performed above.</p>
 <p>We can verify this with the analysis below</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">t.test</span>(... <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> ..., <span class="at">mu =</span> ...)</span></code></pre></div>
 <hr />
 </div>
 <div id="question-2" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Question 2</h1>
-<p>Is the average glucose level two hours after sugar intake higher than
-the threshold of 7.8 mmol/l for pre-diabetes?</p>
-<p>We can test this hypothesis using a <strong>one-sample
-t-test</strong>. Indeed we are interested to compare the average glucose
-level to a known threshold for pre-diabetes.</p>
+<p>Is the average glucose level two hours after sugar intake
+higher than the threshold of 7.8 mmol/l for pre-diabetes?</p>
+<p>We can test this hypothesis using a <strong>one-sample t-test</strong>.
+Indeed we are interested to compare the average glucose level to a known threshold for pre-diabetes.</p>
 <div id="assess-the-assumptions" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Assess the
-assumptions</h2>
-<p>Before we can perform a one sample t-test, we must check that the
-required assumptions are met!</p>
+<h2><span class="header-section-number">6.1</span> Assess the assumptions</h2>
+<p>Before we can perform a one sample t-test, we must check that the required
+assumptions are met!</p>
 <ol style="list-style-type: decimal">
 <li>The observations are independent</li>
-<li>The glucose levels two hours after the treatment are normally
-distributed</li>
+<li>The glucose levels two hours after the treatment are normally distributed</li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## First filter the data on the desired group</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>diabetes_after <span class="ot">&lt;-</span> ... <span class="sc">%&gt;%</span></span>
@@ -678,9 +655,8 @@ distributed</li>
 </div>
 <div id="hypothesis-test-1" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Hypothesis test</h2>
-<p>Here, we will test if mean glucose level 2 hours after sugar intake
-is significantly higher than the threshold for pre-diabetes of 7.8
-mmol/l. More specifically, we will test the null hypothesis;</p>
+<p>Here, we will test if mean glucose level 2 hours after sugar intake is significantly
+higher than the threshold for pre-diabetes of 7.8 mmol/l. More specifically, we will test the null hypothesis;</p>
 <p><span class="math inline">\(H_0:\)</span> …</p>
 <p>versus the alternative hypothesis;</p>
 <p><span class="math inline">\(H_1:\)</span> …</p>
@@ -694,8 +670,8 @@ mmol/l. More specifically, we will test the null hypothesis;</p>
 </div>
 <div id="conclusion-1" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Conclusion</h2>
-<p>When writing a conclusion on your research hypothesis, it is very
-important to be precise, concise, and complete.</p>
+<p>When writing a conclusion on your research hypothesis,
+it is very important to be precise, concise, and complete.</p>
 <p>…</p>
 </div>
 </div>

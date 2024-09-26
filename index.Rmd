@@ -93,6 +93,10 @@ source("https://raw.githubusercontent.com/statOmics/PSLS/master/install.R")
     - [Rmarkdown](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
     - [Other](https://www.rstudio.com/resources/cheatsheets/)
 
+## Course Organisation 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9FVzgBO6DYw?si=EZitBiG1oZEsheXH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## Learning materials
 
 1. [Introduction](./01-intro.html)

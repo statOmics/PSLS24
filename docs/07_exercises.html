@@ -14,7 +14,6 @@
 
 <title>Exercises on chapter 7: ANOVA</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -439,54 +438,42 @@ div.tocify {
 
 <h1 class="title toc-ignore">Exercises on chapter 7: ANOVA</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
-<p>In this hands-on tutorial session you will perform three exercises on
-one-way Anova.,</p>
-<p>For your reference you can find the code for the prostacyclin case
-study from the lecture for chapter 7: <a
-href="./07_prostacyclin_example.html">prostacyclin example</a></p>
-<div id="the-lettuce-freshweight-dataset" class="section level1"
-number="1">
-<h1><span class="header-section-number">1</span> The lettuce freshweight
-dataset</h1>
-<p>In agriculture, it is important to have a high yield of crops. One
-way to increase the number of leaves (or better, total leaf weight) is
-by using a fertilizer.</p>
+<p>In this hands-on tutorial session you will perform three exercises on one-way Anova.,</p>
+<p>For your reference you can find the code for the prostacyclin case study from the lecture for chapter 7: <a href="./07_prostacyclin_example.html">prostacyclin example</a></p>
+<div id="the-lettuce-freshweight-dataset" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> The lettuce freshweight dataset</h1>
+<p>In agriculture, it is important to have a high yield of crops. One way to
+increase the number of leaves (or better, total leaf weight) is by using a
+fertilizer.</p>
 <p>Here, we consider three types of fertilizers:</p>
 <ul>
 <li>biochar</li>
 <li>compost</li>
 <li>cobc (combination of biochar and compost)</li>
 </ul>
-<p>The researchers want to find out if either of these fertilizers have
-a positive influence on the growth of lettuce plants. To this end, they
-grew up lettuce plants in a greenhouse. The pots were filled with one of
-four soil types;</p>
+<p>The researchers want to find out if either of these fertilizers have a positive
+influence on the growth of lettuce plants. To this end, they grew up lettuce
+plants in a greenhouse. The pots were filled with one of four soil types;</p>
 <ul>
 <li>Soil only (control)</li>
 <li>Soil supplemented with biochar (refoak)</li>
 <li>Soil supplemented with compost (compost)</li>
 <li>Soil supplemented with both biochar and compost (cobc)</li>
 </ul>
-<p>The dataset <code>freshweight_lettuce.txt</code> contains the
-freshweight for 28 lettuce plants. The researchers want to test if there
-is an effect of one or more of the treatments on the growth of lettuce
-plants.</p>
+<p>The dataset <code>freshweight_lettuce.txt</code> contains the freshweight for 28 lettuce
+plants. The researchers want to test if there is an effect of one or more of
+the treatments on the growth of lettuce plants.</p>
 <p>The aims of this exercise are to learn how to:</p>
 <ul>
 <li><p>formulate the null and alternative hypotheses for ANOVA</p></li>
-<li><p>assess the assumptions for one-way ANOVA in a data
-exploration</p></li>
-<li><p>conduct a one-way anova and posthoc tests using a linear
-model</p></li>
-<li><p>interpret the results from an anova analysis in the context of
-the research question</p></li>
+<li><p>assess the assumptions for one-way ANOVA in a data exploration</p></li>
+<li><p>conduct a one-way anova and posthoc tests using a linear model</p></li>
+<li><p>interpret the results from an anova analysis in the context of the research question</p></li>
 </ul>
 <p>Files:</p>
 <ul>
@@ -501,20 +488,17 @@ the research question</p></li>
 </div>
 <div id="the-cuckoo-dataset" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> The cuckoo dataset</h1>
-<p>The common cuckoo does not build its own nest: it prefers to lay its
-eggs in another birds’ nest. It is known, since 1892, that the type of
-cuckoo bird eggs are different between different locations. In a study
-from 1940, it was shown that cuckoos return to the same nesting area
-each year, and that they always pick the same bird species to be a
-“foster parent” for their eggs.</p>
-<p>Over the years, this has lead to the development of geographically
-determined subspecies of cuckoos. These subspecies have evolved in such
-a way that their eggs look as similar as possible as those of their
-foster parents.</p>
-<p>The cuckoo dataset contains information on 120 Cuckoo eggs, obtained
-from randomly selected “foster” nests. The researchers want to test if
-the type of foster parent has an effect on the average length of the
-cuckoo eggs.</p>
+<p>The common cuckoo does not build its own nest: it prefers to lay its eggs in
+another birds’ nest. It is known, since 1892, that the type of cuckoo bird eggs
+are different between different locations. In a study from 1940, it was shown
+that cuckoos return to the same nesting area each year, and that they always
+pick the same bird species to be a “foster parent” for their eggs.</p>
+<p>Over the years, this has lead to the development of geographically determined
+subspecies of cuckoos. These subspecies have evolved in such a way that their
+eggs look as similar as possible as those of their foster parents.</p>
+<p>The cuckoo dataset contains information on 120 Cuckoo eggs, obtained from
+randomly selected “foster” nests. The researchers want to test if the type of
+foster parent has an effect on the average length of the cuckoo eggs.</p>
 <ul>
 <li><p>Exercise: <a href="./07_2_cuckoo.html">Exercise2</a></p></li>
 <li><p>Data path:</p>
@@ -526,17 +510,15 @@ cuckoo eggs.</p>
 <hr />
 </div>
 <div id="the-nhanes-dataset" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> The NHANES
-dataset:</h1>
-<p>The National Health and Nutrition Examination Survey (NHANES)
-contains data that has been collected since 1960. For this tutorial, we
-will make use of the data that was collected between 2009 and 2012, for
-10.000 U.S. civilians. The dataset contains a large number of physical,
-demographic, nutritional and life-style-related parameters.</p>
+<h1><span class="header-section-number">3</span> The NHANES dataset:</h1>
+<p>The National Health and Nutrition Examination Survey (NHANES) contains data
+that has been collected since 1960. For this tutorial, we will make use of the
+data that was collected between 2009 and 2012, for 10.000 U.S. civilians.
+The dataset contains a large number of physical, demographic, nutritional and
+life-style-related parameters.</p>
 <p>We want to test whether or not the mean systolic blood pressure value
-(take column <code>BPSys1</code>) is equal between the five
-self-reported health categories. To this end, we will use an ANOVA
-analysis.</p>
+(take column <code>BPSys1</code>) is equal between the five self-reported health
+categories. To this end, we will use an ANOVA analysis.</p>
 <ul>
 <li><p>Exercise: <a href="./07_3_NHANES.html">Exercise3</a></p></li>
 <li><p>Data path:</p>

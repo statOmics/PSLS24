@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,10 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -46,18 +44,22 @@
   ul.task-list{list-style: none;}
     </style>
 
-
-
-
-
-<style type="text/css">
-#rmd-source-code {
-  display: none;
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
-</style>
+</script>
 
 
-<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+
 
 
 
@@ -216,9 +218,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -348,16 +347,6 @@ $(document).ready(function () {
 
 <div id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-<li role="separator" class="divider"></li>
-<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
-</ul>
-</div>
-
 
 
 <h1 class="title toc-ignore">Instructors</h1>
@@ -395,12 +384,6 @@ Affiliation: Department of Applied Mathematics, Computer Science and Statistics,
 -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW5zdHJ1Y3RvcnMiCm91dHB1dDoKICAgIGh0bWxfZG9jdW1lbnQ6CiAgICAgICAgbnVtYmVyX3NlY3Rpb25zOiBmYWxzZQogICAgICAgIHRvYzogZmFsc2UKLS0tCgojIyMgTGlldmVuIENsZW1lbnQKCmBgYHtyIGVjaG89RkFMU0Usb3V0LndpZHRoPSIxNyUiLG91dC5leHRyYT0nc3R5bGU9ImZsb2F0OmxlZnQ7IHBhZGRpbmc6MTBweCInfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiLi9maWd1cmVzL2xpZXZlbi5qcGciKQpgYGAKCkxpZXZlbiBDbGVtZW50IGlzIGFuIEFzc29jaWF0ZSBQcm9mZXNzb3Igb2YgU3RhdGlzdGljYWwgR2Vub21pY3MgYXQgR2hlbnQgVW5pdmVyc2l0eSwgd2hlcmUgaGUgbGVhZHMgdGhlIFtzdGF0T21pY3NdKGh0dHBzOi8vc3RhdG9taWNzLmdpdGh1Yi5pby8pIEdyb3VwLiBIZSBpcyBhbiBleHBlcnQgaW4gZGV2ZWxvcGluZyBzdGF0aXN0aWNhbCBtZXRob2RzIGFuZCBvcGVuIHNvdXJjZSB0b29scyBmb3IgZGlmZmVyZW50aWFsIG9taWNzIGRhdGEgYW5hbHlzaXMuIEhpcyByZXNlYXJjaCBlZmZvcnRzIHJlc3VsdGVkIGluIG51bWVyb3VzIHB1YmxpY2F0aW9ucyBvbiBub3ZlbCBtZXRob2RzIGFuZCB0b29scyBmb3IsIGFuZCBhcHBsaWVkIHJlc2VhcmNoIGluIG9taWNzIGRhdGEgYW5hbHlzaXMuIEhpcyBsYWIgaXMgYnVpbHQgYXJvdW5kIHR3byBzdHJhdGVnaWMgcmVzZWFyY2ggcGlsbGFycyBlYWNoIGNvbm5lY3RlZCB0byBhbiBvbWljcyBkb21haW46IChzaW5nbGUgY2VsbCkgdHJhbnNjcmlwdG9taWNzIGFuZCBwcm90ZW9taWNzIGFuZCBoZSBoYXMgYSBzdHJvbmcgaW50ZXJlc3QgaW4gbGV2ZXJhZ2luZyBoaXMgZXhwZXJ0aXNlIHRvIHRyYW5zbGF0aW9uYWwgcmVzZWFyY2guIEhlIGFsc28gc2VydmVzIGFzIGEgbWVtYmVyIG9mIHRoZSBjb3JlIHRlYW0gdGhhdCBlc3RhYmxpc2hlZCBhIG5ldyBNYXN0ZXIgb2YgU2NpZW5jZSBpbiBCaW9pbmZvcm1hdGljcyBhdCBHaGVudCBVbml2ZXJzaXR5IGFuZCBhcyBhIGJvYXJkIG1lbWJlciBvZiB0aGUgQmVsZ2lhbiBQcm90ZW9taWNzIEFzc29jaWF0aW9uLgoKQWZmaWxpYXRpb246IERlcGFydG1lbnQgb2YgQXBwbGllZCBNYXRoZW1hdGljcywgQ29tcHV0ZXIgU2NpZW5jZSBhbmQgU3RhdGlzdGljcywgR2hlbnQgVW5pdmVyc2l0eSwgR2hlbnQsIEJFCgoKPCEtLQojIyMgTWlsYW4gTWFsZmFpdAoKYGBge3IgZWNobz1GQUxTRSxvdXQud2lkdGg9IjE3JSIsb3V0LmV4dHJhPSdzdHlsZT0iZmxvYXQ6bGVmdDsgcGFkZGluZzoxMHB4Iid9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCIuL2ZpZ3VyZXMvbWlsYW4uanBnIikKYGBgCgpNaWxhbiBNYWxmYWl0IGlzIGEgUGhEIHN0dWRlbnQgaW4gdGhlIFtzdGF0T21pY3NdKGh0dHBzOi8vc3RhdG9taWNzLmdpdGh1Yi5pby8pIEdyb3VwIGF0IEdoZW50IFVuaXZlcnNpdHksIGhlYWRlZCBieSBwcm9mLiBMaWV2ZW4gQ2xlbWVudC4gSGUgaGFzIGEgYmFja2dyb3VuZCBpbiBiaW9lbmdpbmVlcmluZyBhbmQgYmlvaW5mb3JtYXRpY3MgYW5kIGlzIGN1cnJlbnRseSBwdXJzdWluZyBhIFBoRCBpbiBzdGF0aXN0aWNhbCBkYXRhIGFuYWx5c2lzIGluIGNvbGxhYm9yYXRpb24gd2l0aCBKYW5zc2VuIFBoYXJtYWNldXRpY2EuIEhpcyBtYWluIHJlc2VhcmNoIHRvcGljIGlzIHRvIGRldmVsb3Agcm9idXN0IGFuZCBzY2FsYWJsZSBzdGF0aXN0aWNhbCBtZXRob2RzIGZvciBkaWZmZXJlbnRpYWwgZXhwcmVzc2lvbiBhbmFseXNpcyB3aXRoIHNpbmdsZS1jZWxsIHRyYW5zY3JpcHRvbWljcyBkYXRhLgoKQWZmaWxpYXRpb246IERlcGFydG1lbnQgb2YgQXBwbGllZCBNYXRoZW1hdGljcywgQ29tcHV0ZXIgU2NpZW5jZSBhbmQgU3RhdGlzdGljcywgR2hlbnQgVW5pdmVyc2l0eSwgR2hlbnQsIEJFCgotLT4=</div>
-<div class="footer">
-    <hr>
-    This work is licensed under the <a href= "https://creativecommons.org/licenses/by-nc-sa/4.0">
-    CC BY-NC-SA 4.0</a> licence.
-</div>
 
 
 
@@ -434,12 +417,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeSourceEmbed("instructors.Rmd");
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

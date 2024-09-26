@@ -14,7 +14,6 @@
 
 <title>Exercise 5.4: Hypothesis testing on the shrimps dataset - solution</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,43 +546,37 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 5.4: Hypothesis testing on the
-shrimps dataset - solution</h1>
+<h1 class="title toc-ignore">Exercise 5.4: Hypothesis testing on the shrimps dataset - solution</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="aims-of-this-exercise" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Aims of this
-exercise</h1>
+<h1><span class="header-section-number">1</span> Aims of this exercise</h1>
 <p>This exercise aims to further sharpen your skills in</p>
 <ul>
-<li>translating the research question in a a null and alternative
-hypothesis of t-tests</li>
+<li>translating the research question in a a null and alternative hypothesis of t-tests</li>
 <li>critically evaluating the assumptions of t-tests, and</li>
-<li>selecting the appropriate test for answering the research
-question.</li>
+<li>selecting the appropriate test for answering the research question.</li>
 </ul>
 </div>
 <div id="the-shrimps-dataset" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> The shrimps
-dataset</h1>
-<p>Dataset on the accumulation of PCBs (Polychlorinated biphenyls) in
-the adipose tissue of shrimps. PCBs are often present in coolants, and
-are know to accumulate easily in the adipose tissue of shrimps. In this
-experiment, two groups of 18 samples (each 100 grams) of shrimps each
-were cultivated in different conditions, one control condition and one
-condition where the medium was poluted with PCBs. Note that the PCB
-concentrations were measured in pg/g adipose tissue.</p>
+<h1><span class="header-section-number">2</span> The shrimps dataset</h1>
+<p>Dataset on the accumulation of PCBs (Polychlorinated biphenyls)
+in the adipose tissue of shrimps. PCBs are often present in coolants, and are
+know to accumulate easily in the adipose tissue of shrimps. In this experiment,
+two groups of 18 samples (each 100 grams) of shrimps each were cultivated
+in different conditions, one control condition and one condition
+where the medium was poluted with PCBs. Note that the PCB concentrations were
+measured in pg/g adipose tissue.</p>
 </div>
 <div id="research-question" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Research question</h1>
-<p>Is there an effect of the growth condition on the PCB concentration
-in the adipose tissue of shrimps?</p>
+<p>Is there an effect of the
+growth condition on the PCB concentration in the adipose
+tissue of shrimps?</p>
 <p>Load libraries:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 </div>
@@ -634,24 +627,24 @@ in the adipose tissue of shrimps?</p>
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
 <span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="05_4_shrimps_sol_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>We can see that for group 1 we have four very clear outliers in the
-data. These values were double-checked (i.e for typing errors), but
-there was no reason found to believe that these values are
-incorrect.</p>
+<p>We can see that for group 1 we have four very clear outliers
+in the data. These values were double-checked (i.e for
+typing errors), but there was no reason found to believe
+that these values are incorrect.</p>
 </div>
 <div id="analysis" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Analysis</h1>
-<p>A good way for testing the research hypothesis is to perform an
-unpaired two-sample t-test to find out whether there is a significant
-difference in the mean PCB concentrations between both groups of
-samples. Before we can do this, we must check if all the required
-assumptions are met.</p>
+<p>A good way for
+testing the research hypothesis is to perform an unpaired
+two-sample t-test to find out whether there is a significant
+difference in the mean PCB concentrations between both groups
+of samples. Before we can do this, we must check if all the
+required assumptions are met.</p>
 <div id="assumptions" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Assumptions</h2>
 <ol style="list-style-type: decimal">
 <li>The observations are independent of each other (in both groups)</li>
-<li>The data (PCB.conc) must be normally distributed (in both
-groups)</li>
+<li>The data (PCB.conc) must be normally distributed (in both groups)</li>
 <li>The variance is equal in the two groups.</li>
 </ol>
 <p>The first assumption is met, as we randomly selected shrimps and
@@ -664,16 +657,15 @@ correlation patterns are expected.</p>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> group)</span></code></pre></div>
 <p><img src="05_4_shrimps_sol_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>We clearly see that we have strong deviations from normality. Many
-datapoints do not lie near the quantile-quantile line. As such, we may
-conclude that our data are not normally distributed. In addition, the
-boxplots suggest that the variability differs between the two
-groups.</p>
-<p>Given the location of the outliers transformation will not help here.
-Therefore, the t-test is not appropriate here. We will revisit this
-dataset in <a href="./09_1_shrimps.html">exercise 9.1</a> and consider
-an alternative analysis using a <strong>non-parametric</strong>
-test.</p>
+<p>We clearly see that we have strong deviations from
+normality. Many datapoints do not lie near the quantile-quantile
+line. As such, we may conclude that our data are not normally distributed.
+In addition, the boxplots suggest that the
+variability differs between the two groups.</p>
+<p>Given the location of the outliers transformation will not help here. Therefore,
+the t-test is not appropriate here. We will revisit this dataset in <a href="./09_1_shrimps.html">exercise
+9.1</a> and consider an alternative analysis using a
+<strong>non-parametric</strong> test.</p>
 </div>
 </div>
 

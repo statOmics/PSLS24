@@ -14,7 +14,6 @@
 
 <title>10. Categorical Data Analysis</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -549,9 +548,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">10. Categorical Data Analysis</h1>
 <h4 class="author">Lieven Clement</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
@@ -562,20 +559,15 @@ class="uri">https://statomics.github.io</a>)</h4>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(NHANES)</span></code></pre></div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>Until now we used models for a continuous response in function of
-categorical or continuous predictor. Here we will focus on a categorical
-response.</p>
+<p>Until now we used models for a continuous response in function of categorical or continuous predictor. Here we will focus on a categorical response.</p>
 <ul>
-<li>we study the association of a categorical outcome and a categorical
-predictor and</li>
-<li>touch upon methods to model a categorical outcome with a continuous
-response.</li>
+<li>we study the association of a categorical outcome and a categorical predictor and</li>
+<li>touch upon methods to model a categorical outcome with a continuous response.</li>
 </ul>
 <hr />
 </div>
 <div id="test-for-a-proportion" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Test for a
-proportion</h1>
+<h1><span class="header-section-number">2</span> Test for a proportion</h1>
 <div id="saksen-study" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Saksen-study</h2>
 <ul>
@@ -586,101 +578,76 @@ proportion</h1>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">6155</span></span></code></pre></div>
 <ul>
 <li>On 6155 unborn children 3175 boys are observed.</li>
-<li>Is there a difference in the probability on the gender of an unborn
-child?</li>
+<li>Is there a difference in the probability on the gender of an unborn child?</li>
 </ul>
 <hr />
 <ul>
-<li><p>The data are derived from a binary random variable <span
-class="math inline">\(X\)</span></p>
+<li><p>The data are derived from a binary random variable <span class="math inline">\(X\)</span></p>
 <ul>
 <li><span class="math inline">\(X=1\)</span> for a boy and</li>
 <li><span class="math inline">\(X=0\)</span> for a girl.</li>
 </ul></li>
-<li><p>Note: count problem: the outcome is a count (number of
-boys)</p></li>
-<li><p>Formally we have considered a population of unborn children where
-each individual is characterized by a 0 or 1.</p></li>
+<li><p>Note: count problem: the outcome is a count (number of boys)</p></li>
+<li><p>Formally we have considered a population of unborn children where each individual is characterized by a 0 or 1.</p></li>
 </ul>
 <hr />
 </div>
-<div id="bernoulli-probability-mass-distribution" class="section level2"
-number="2.2">
-<h2><span class="header-section-number">2.2</span> Bernoulli Probability
-Mass Distribution</h2>
+<div id="bernoulli-probability-mass-distribution" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Bernoulli Probability Mass Distribution</h2>
 <ul>
-<li><p>Binary data can be modelled using a Bernoulli distribution: <span
-class="math display">\[\begin{eqnarray*}
+<li><p>Binary data can be modelled using a Bernoulli distribution:
+<span class="math display">\[\begin{eqnarray*}
 X_i &amp;\sim&amp; B(\pi) \text{ with}\\
 B(\pi)&amp;=&amp;\pi^{X_i}(1-\pi)^{(1-X_i)},
 \end{eqnarray*}\]</span></p></li>
-<li><p>It has one model parameter <span
-class="math inline">\(\pi\)</span></p>
+<li><p>It has one model parameter <span class="math inline">\(\pi\)</span></p>
 <ul>
-<li>Expected value of <span class="math inline">\(X_i\)</span>: <span
-class="math inline">\(\text{E}[X_i]=\pi,\)</span></li>
-<li>Proportion of unborn boys (children with <span
-class="math inline">\(X=1\)</span>) in the population.</li>
-<li>Hence <span class="math inline">\(\pi\)</span> is the probability
-that a random individual from the population is a boy (an observation
-with <span class="math inline">\(X=1\)</span>).</li>
+<li>Expected value of <span class="math inline">\(X_i\)</span>: <span class="math inline">\(\text{E}[X_i]=\pi,\)</span></li>
+<li>Proportion of unborn boys (children with <span class="math inline">\(X=1\)</span>) in the population.</li>
+<li>Hence <span class="math inline">\(\pi\)</span> is the probability that a random individual from the population is a boy (an observation with <span class="math inline">\(X=1\)</span>).</li>
 </ul></li>
-<li><p>The variance of Bernoulli data is also related to <span
-class="math inline">\(\pi\)</span>. <span
-class="math display">\[\text{Var}[X_i]=\pi (1-\pi).\]</span></p></li>
+<li><p>The variance of Bernoulli data is also related to <span class="math inline">\(\pi\)</span>.
+<span class="math display">\[\text{Var}[X_i]=\pi (1-\pi).\]</span></p></li>
 </ul>
 <hr />
 <p>Some Bernoulli probability mass functions</p>
 <p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <hr />
 <ul>
-<li>In the Saksen study 6155 observaties were sampled at random from the
-population.</li>
-<li>We can estimate <span class="math inline">\(\pi\)</span> using the
-sample mean: <span class="math display">\[\hat \pi = \bar X =
-\frac{\sum\limits_{i=1}^n X_i}{n},\]</span></li>
+<li>In the Saksen study 6155 observaties were sampled at random from the population.</li>
+<li>We can estimate <span class="math inline">\(\pi\)</span> using the sample mean:
+<span class="math display">\[\hat \pi = \bar X = \frac{\sum\limits_{i=1}^n X_i}{n},\]</span></li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>pi <span class="ot">&lt;-</span> boys <span class="sc">/</span> n</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>pi</span></code></pre></div>
 <pre><code>[1] 0.5158408</code></pre>
-<p>In our example <span class="math inline">\(\bar x =\)</span> 3175 /
-6155 = 51.6%.</p>
+<p>In our example <span class="math inline">\(\bar x =\)</span> 3175 / 6155 = 51.6%.</p>
 <hr />
 </div>
 <div id="binomial-test" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Binomial test</h2>
 <ul>
-<li><p>Is the observed probability 51.6% that an unborn child is male,
-sufficient evidence to conclude that there is a higher chance on a boy
-than on a girl?</p></li>
-<li><p>Statistical test for <span class="math display">\[H_0: \pi=1/2
-\text{ versus } H_1: \pi\neq 1/2,\]</span></p></li>
+<li><p>Is the observed probability 51.6% that an unborn child is male, sufficient evidence to conclude that there is a higher chance on a boy than on a girl?</p></li>
+<li><p>Statistical test for
+<span class="math display">\[H_0: \pi=1/2 \text{ versus } H_1: \pi\neq 1/2,\]</span></p></li>
 <li><p>We need known the distribution of</p>
 <ul>
-<li><span class="math inline">\(X\)</span> and <span
-class="math inline">\(\bar X\)</span></li>
+<li><span class="math inline">\(X\)</span> and <span class="math inline">\(\bar X\)</span></li>
 <li>or of the sum <span class="math inline">\(S=n\bar X\)</span>.</li>
 </ul></li>
 </ul>
 <hr />
 <ul>
-<li><p>Suppose that <span class="math inline">\(H_0:\pi=1/2\)</span> is
-true (boys and girls have an equal frequency in the population)</p></li>
-<li><p>A random individual from the population has a probability of
-<span class="math display">\[P(X=1)=\pi=1/2.\]</span> to be a
-boy</p></li>
+<li><p>Suppose that <span class="math inline">\(H_0:\pi=1/2\)</span> is true (boys and girls have an equal frequency in the population)</p></li>
+<li><p>A random individual from the population has a probability of <span class="math display">\[P(X=1)=\pi=1/2.\]</span> to be a boy</p></li>
 <li><p>Two children that are drawn independently :</p>
 <ul>
-<li>Probability of <span class="math inline">\(\pi=1/2\)</span> on a boy
-for the first and second child (independent from each other)</li>
-<li>Outcomes <span class="math inline">\((x_1, x_2)\)</span> for both
-children have 4 possible combinations: <span
-class="math inline">\((0,0),(0,1),(1,0)\text{ en }(1,1).\)</span></li>
-<li>Each of them has a probability of <span class="math inline">\(1/4 =
-1/2 \times 1/2\)</span>.</li>
+<li>Probability of <span class="math inline">\(\pi=1/2\)</span> on a boy for the first and second child (independent from each other)</li>
+<li>Outcomes <span class="math inline">\((x_1, x_2)\)</span> for both children have 4 possible combinations:
+<span class="math inline">\((0,0),(0,1),(1,0)\text{ en }(1,1).\)</span></li>
+<li>Each of them has a probability of <span class="math inline">\(1/4 = 1/2 \times 1/2\)</span>.</li>
 </ul></li>
-<li><p>Random variable <span class="math inline">\(S\)</span> is the sum
-of the outcomes :</p></li>
+<li><p>Random variable <span class="math inline">\(S\)</span> is the sum of the outcomes :</p></li>
 </ul>
 <table>
 <thead>
@@ -709,19 +676,14 @@ of the outcomes :</p></li>
 </tbody>
 </table>
 <hr />
-<div id="general-n-independent-samples" class="section level3"
-number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> General: <span
-class="math inline">\(n\)</span> independent samples</h3>
+<div id="general-n-independent-samples" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> General: <span class="math inline">\(n\)</span> independent samples</h3>
 <ul>
-<li><p>Probability for <span class="math inline">\(\pi\)</span> on
-success (<span class="math inline">\(X=1\)</span>)</p></li>
-<li><p>Total number of successes <span class="math inline">\(S\)</span>
-(sum of all values of 1) can take <span
-class="math inline">\(n+1\)</span> possible values <span
-class="math display">\[S=k\text{, met }k=0,\ldots,n\]</span></p></li>
-<li><p>Distribution of <span class="math inline">\(S\)</span>? <span
-class="math display">\[\begin{equation}
+<li><p>Probability for <span class="math inline">\(\pi\)</span> on success (<span class="math inline">\(X=1\)</span>)</p></li>
+<li><p>Total number of successes <span class="math inline">\(S\)</span> (sum of all values of 1) can take <span class="math inline">\(n+1\)</span> possible values
+<span class="math display">\[S=k\text{, met }k=0,\ldots,n\]</span></p></li>
+<li><p>Distribution of <span class="math inline">\(S\)</span>?
+<span class="math display">\[\begin{equation}
 P(S=k) = \left (
 \begin{array}{c}
 n \\
@@ -729,109 +691,74 @@ k \\
 \end{array}
 \right ) \pi^k (1-\pi)^{n-k}
 \end{equation}\]</span></p></li>
-<li><p><span class="math inline">\(1-\pi\)</span>: probability on 0 for
-individual observation and</p></li>
-<li><p>binomial coefficient <span
-class="math display">\[\begin{equation*}
+<li><p><span class="math inline">\(1-\pi\)</span>: probability on 0 for individual observation and</p></li>
+<li><p>binomial coefficient
+<span class="math display">\[\begin{equation*}
 \left (
 \begin{array}{c}
 n \\
 k \\
 \end{array}
-\right ) = \frac{n \times (n-1) \times ...\times (n-k+1) }{ k!} = \frac{
-n!}{ k!(n-k)! }
+\right ) = \frac{n \times (n-1) \times ...\times (n-k+1) }{ k!} = \frac{ n!}{ k!(n-k)! }
 \end{equation*}\]</span></p></li>
-<li><p>In R you can calculate the probabilities on each <span
-class="math inline">\(S=k\)</span> with the function
-<code>dbinom(k,n,p)</code></p></li>
+<li><p>In R you can calculate the probabilities on each <span class="math inline">\(S=k\)</span> with the function <code>dbinom(k,n,p)</code></p></li>
 </ul>
 <hr />
 </div>
 <div id="binomial-distribution" class="section level3" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Binomial
-Distribution</h3>
+<h3><span class="header-section-number">2.3.2</span> Binomial Distribution</h3>
 <p>S is a:</p>
 <ul>
-<li><p><em>Binomial distributed random variable</em> with <em>Binomial
-probability mass function</em></p></li>
+<li><p><em>Binomial distributed random variable</em> with <em>Binomial probability mass function</em></p></li>
 <li><p>Parameters</p>
 <ul>
-<li><span class="math inline">\(n\)</span> (total number of draws from
-the population, is equivalent to maximal value of the outcome)</li>
-<li><span class="math inline">\(\pi\)</span> (probability on
-<code>success</code> for each draw).</li>
+<li><span class="math inline">\(n\)</span> (total number of draws from the population, is equivalent to maximal value of the outcome)</li>
+<li><span class="math inline">\(\pi\)</span> (probability on <code>success</code> for each draw).</li>
 </ul></li>
-<li><p>Calculate probability on <span class="math inline">\(k\)</span>
-successes on <span class="math inline">\(n\)</span> independent draws
-each with a succes probability of <span
-class="math inline">\(\pi\)</span>.</p></li>
+<li><p>Calculate probability on <span class="math inline">\(k\)</span> successes on <span class="math inline">\(n\)</span> independent draws each with a succes probability of <span class="math inline">\(\pi\)</span>.</p></li>
 <li><p>For binary data X.</p></li>
-<li><p>e.g.: wild type vs mutant of a gene, infected or not infected
-with HIV, …</p></li>
-<li><p>Use: Compare proportions or risks on a particular event between
-groups.</p></li>
+<li><p>e.g.: wild type vs mutant of a gene, infected or not infected with HIV, …</p></li>
+<li><p>Use: Compare proportions or risks on a particular event between groups.</p></li>
 </ul>
 <hr />
 </div>
-<div id="some-binomial-probability-mass-functions."
-class="section level3" number="2.3.3">
-<h3><span class="header-section-number">2.3.3</span> Some Binomial
-probability mass functions.</h3>
-<div class="figure" style="text-align: center">
+<div id="some-binomial-probability-mass-functions." class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Some Binomial probability mass functions.</h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:binoms"></span>
 <img src="10-categoricalDataAnalysis_files/figure-html/binoms-1.png" alt="Binomial distributions." width="80%" />
 <p class="caption">
-Binomial distributions.
+Figure 2.1: Binomial distributions.
 </p>
 </div>
 <hr />
-<p>Test statistic <span class="math display">\[H_0:\pi=1/2\text{ vs
-}H_1:\pi\neq 1/2\]</span></p>
+<p>Test statistic <span class="math display">\[H_0:\pi=1/2\text{ vs }H_1:\pi\neq 1/2\]</span></p>
 <ul>
 <li><span class="math inline">\(\bar X-1/2\)</span> or, equivalent,</li>
-<li><span class="math inline">\(\Delta=n(\bar
-X-\pi_0)=S-s_0\)</span>.</li>
-<li>Distribution of the latter test statistic can be derived immediately
-from the Binomial distribution:
+<li><span class="math inline">\(\Delta=n(\bar X-\pi_0)=S-s_0\)</span>.</li>
+<li>Distribution of the latter test statistic can be derived immediately from the Binomial distribution:
 <ul>
-<li>We observe <span class="math inline">\(s=\)</span> 3175 and thus
-<span class="math inline">\(\delta=s-s_0=\)</span> 3175 <span
-class="math inline">\(-\)</span> 6155 <span class="math inline">\(\times
-0.5=\)</span> 97.5.</li>
-<li>When boys and girls are equally likely, i.e. under <span
-class="math inline">\(H_0:\pi=1/2\)</span>, we will get following
-two-sided p-value: <span
-class="math display">\[p=\text{P}_0\left[S-s_0\geq \vert \delta\vert
-\right] + \text{P}_0\left[S-s_0\leq - \vert \delta\vert
-\right].\]</span></li>
+<li>We observe <span class="math inline">\(s=\)</span> 3175 and thus <span class="math inline">\(\delta=s-s_0=\)</span> 3175 <span class="math inline">\(-\)</span> 6155 <span class="math inline">\(\times 0.5=\)</span> 97.5.</li>
+<li>When boys and girls are equally likely, i.e. under <span class="math inline">\(H_0:\pi=1/2\)</span>, we will get following two-sided p-value:
+<span class="math display">\[p=\text{P}_0\left[S-s_0\geq \vert \delta\vert \right] + \text{P}_0\left[S-s_0\leq - \vert \delta\vert \right].\]</span></li>
 </ul></li>
-<li>Note, that we can rewrite it in terms of S. <span
-class="math display">\[p=\text{P}_0\left[S\geq s_0+ \vert \delta\vert
-\right] + \text{P}_0\left[S \leq s_0 - \vert \delta\vert
-\right].\]</span></li>
+<li>Note, that we can rewrite it in terms of S.
+<span class="math display">\[p=\text{P}_0\left[S\geq s_0+ \vert \delta\vert \right] + \text{P}_0\left[S \leq s_0 - \vert \delta\vert \right].\]</span></li>
 </ul>
 <hr />
 <ul>
 <li>For the Saksen study we calculate:</li>
 </ul>
 <p><span class="math display">\[\begin{eqnarray*}
-\text{P}_0\left[S\geq s_0+ \vert \delta\vert \right] &amp;=&amp; P(S
-\geq 6155 \times 0.5 + \vert 3175 - 6155 \times 0.5\vert ) \\&amp;=&amp;
-P(S \geq 3175)\\
+\text{P}_0\left[S\geq s_0+ \vert \delta\vert \right] &amp;=&amp; P(S \geq 6155 \times 0.5 + \vert 3175 - 6155 \times 0.5\vert ) \\&amp;=&amp; P(S \geq 3175)\\
 &amp;= &amp;P(S= 3175) + P(S=3176) + ... + P(S=6155)\\
 &amp; =&amp; 0.0067\\\\
-\text{P}_0\left[S \leq s_0 - \vert \delta\vert \right] &amp;=&amp; P(S
-\leq  6155 \times 0.5 - \vert 3175- 6155 \times 0.5\vert) \\&amp;=&amp;
-P(S \leq 2980)\\ &amp;= &amp;P(S=0) + ... + P(S=2980) \\
+\text{P}_0\left[S \leq s_0 - \vert \delta\vert \right] &amp;=&amp; P(S \leq  6155 \times 0.5 - \vert 3175- 6155 \times 0.5\vert) \\&amp;=&amp; P(S \leq 2980)\\ &amp;= &amp;P(S=0) + ... + P(S=2980) \\
 &amp;=&amp;0.0067
 \end{eqnarray*}\]</span></p>
 <ul>
-<li>The Binomial distribution is symmetric for<span
-class="math inline">\(\pi=1/2\)</span>: <span
-class="math display">\[\text{P}_0\left[S\geq s_0+ \vert \delta\vert
-\right] = \text{P}_0\left[S \leq s_0 - \vert \delta\vert
-\right]\]</span></li>
-<li>This is no longer the case when <span
-class="math inline">\(\pi\)</span> deviate from 0.5.</li>
+<li>The Binomial distribution is symmetric for<span class="math inline">\(\pi=1/2\)</span>:
+<span class="math display">\[\text{P}_0\left[S\geq s_0+ \vert \delta\vert \right] = \text{P}_0\left[S \leq s_0 - \vert \delta\vert \right]\]</span></li>
+<li>This is no longer the case when <span class="math inline">\(\pi\)</span> deviate from 0.5.</li>
 </ul>
 <hr />
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>pi0 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
@@ -850,23 +777,14 @@ class="math inline">\(\pi\)</span> deviate from 0.5.</li>
 <pre><code>[1] 0.006699883 0.006699883 0.013399766</code></pre>
 <hr />
 <ul>
-<li>If <span class="math inline">\(\pi= 1/2\)</span>, the probability to
-observe at least <span class="math inline">\(\delta=\)</span> 97.5 boys
-more or less than the mean under <span class="math inline">\(H_0:
-s_0=\)</span> 3077.5 in a random sample under H_0 is only 1.34% is:
-<strong><span class="math inline">\(p\)</span>-value of binomial
-test.</strong></li>
-<li>Very unlikely to observe such a large number of boys in a random
-sample when boys and girls have the same frequency in the population
-(under <span class="math inline">\(H_0\)</span>).</li>
-<li>Hence the hypothesis that the frequency of boys and girls is the
-same is not supported by the data.</li>
+<li>If <span class="math inline">\(\pi= 1/2\)</span>, the probability to observe at least <span class="math inline">\(\delta=\)</span> 97.5 boys more or less than the mean under <span class="math inline">\(H_0: s_0=\)</span> 3077.5 in a random sample under H_0 is only 1.34% is: <strong><span class="math inline">\(p\)</span>-value of binomial test.</strong></li>
+<li>Very unlikely to observe such a large number of boys in a random sample when boys and girls have the same frequency in the population (under <span class="math inline">\(H_0\)</span>).</li>
+<li>Hence the hypothesis that the frequency of boys and girls is the same is not supported by the data.</li>
 </ul>
 <hr />
 <p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <hr />
-<p>The test can immediately be conducted using the
-<code>binomial.test</code> function in R.</p>
+<p>The test can immediately be conducted using the <code>binomial.test</code> function in R.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> boys, <span class="at">n =</span> n, <span class="at">p =</span> pi0)</span></code></pre></div>
 <pre><code>
     Exact binomial test
@@ -879,35 +797,25 @@ alternative hypothesis: true probability of success is not equal to 0.5
 sample estimates:
 probability of success 
              0.5158408 </code></pre>
-<p>On the 5% significance-level we conclude that there is on average a
-higher probability on a unborn male child than an unborn female
-child.</p>
+<p>On the 5% significance-level we conclude that there is on average a higher probability on a unborn male child than an unborn female child.</p>
 <hr />
 </div>
-<div id="confidence-interval-on-a-proportion" class="section level3"
-number="2.3.4">
-<h3><span class="header-section-number">2.3.4</span> Confidence interval
-on a proportion</h3>
+<div id="confidence-interval-on-a-proportion" class="section level3" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Confidence interval on a proportion</h3>
 <ul>
-<li>Estimator of the proportion of boys in the population is the sample
-mean <span class="math inline">\(\hat \pi=\bar x=\)</span> 0.516</li>
-<li>The standard error is <span class="math display">\[SE_{\bar
-x}=\sqrt{\frac{\text{Var}[X]}{n}}=\sqrt{\frac{\pi(1-\pi)}{n}}\]</span></li>
-<li>We can estimate this based on the sample: <span
-class="math inline">\(SE_{\bar
-x}=\sqrt{\frac{\hat\pi(1-\hat\pi)}{n}}=\)</span> 0.0064.</li>
-<li>95% CI via CLT: <span class="math inline">\(\hat\pi \pm 1.96
-SE_{\hat\pi}.\)</span></li>
+<li>Estimator of the proportion of boys in the population is the sample mean <span class="math inline">\(\hat \pi=\bar x=\)</span> 0.516</li>
+<li>The standard error is
+<span class="math display">\[SE_{\bar x}=\sqrt{\frac{\text{Var}[X]}{n}}=\sqrt{\frac{\pi(1-\pi)}{n}}\]</span></li>
+<li>We can estimate this based on the sample: <span class="math inline">\(SE_{\bar x}=\sqrt{\frac{\hat\pi(1-\hat\pi)}{n}}=\)</span> 0.0064.</li>
+<li>95% CI via CLT: <span class="math inline">\(\hat\pi \pm 1.96 SE_{\hat\pi}.\)</span></li>
 </ul>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> n)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>pi <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se</span></code></pre></div>
 <pre><code>[1] 0.5033559 0.5283257</code></pre>
 <hr />
 </div>
-<div id="ci-on-proportion-in-small-sample" class="section level3"
-number="2.3.5">
-<h3><span class="header-section-number">2.3.5</span> CI on proportion in
-small sample?</h3>
+<div id="ci-on-proportion-in-small-sample" class="section level3" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> CI on proportion in small sample?</h3>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>CI <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> boys, <span class="at">n =</span> n, <span class="at">p =</span> pi0)<span class="sc">$</span>conf.int</span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>CI</span></code></pre></div>
 <pre><code>[1] 0.5032696 0.5283969
@@ -918,25 +826,18 @@ attr(,&quot;conf.level&quot;)
 <div id="conclusion" class="section level3" number="2.3.6">
 <h3><span class="header-section-number">2.3.6</span> Conclusion</h3>
 <ul>
-<li><p>Note that the test for a proportion is equivalent to a one-sample
-t-test for binary data.</p></li>
-<li><p>For the Saksen population we conclude at the 5% significance
-level that the gender of unborn children is more likely to be male than
-female (<span class="math inline">\(p=\)</span> 0.013). The probability
-that an unborn child is male equals 51.6% (95% CI
-[50.3,52.8]%).</p></li>
+<li><p>Note that the test for a proportion is equivalent to a one-sample t-test for binary data.</p></li>
+<li><p>For the Saksen population we conclude at the 5% significance level that the gender of unborn children is more likely to be male than female (<span class="math inline">\(p=\)</span> 0.013).
+The probability that an unborn child is male equals 51.6% (95% CI [50.3,52.8]%).</p></li>
 </ul>
 <hr />
 </div>
 </div>
 </div>
-<div id="test-for-association-between-two-qualitative-variables"
-class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Test for association
-between two qualitative variables</h1>
+<div id="test-for-association-between-two-qualitative-variables" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Test for association between two qualitative variables</h1>
 <div id="paired-observations" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Paired
-observations</h2>
+<h2><span class="header-section-number">3.1</span> Paired observations</h2>
 <ul>
 <li>2 measurements on same individual</li>
 <li>e.g. before and after exposure to a chemical substance</li>
@@ -945,12 +846,8 @@ observations</h2>
 <li>Statistical analysis has to account for paired design.</li>
 </ul>
 <hr />
-<div
-id="example-females-choose-gentle-but-not-healthy-or-macho-males-in-campbell-dwarf-hamsters-rogovin-et-al.-2017"
-class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Example: Females
-choose gentle, but not healthy or macho males in Campbell dwarf hamsters
-(Rogovin et al. 2017)</h3>
+<div id="example-females-choose-gentle-but-not-healthy-or-macho-males-in-campbell-dwarf-hamsters-rogovin-et-al.-2017" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Example: Females choose gentle, but not healthy or macho males in Campbell dwarf hamsters (Rogovin et al. 2017)</h3>
 <p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <hr />
 <ul>
@@ -958,8 +855,7 @@ choose gentle, but not healthy or macho males in Campbell dwarf hamsters
 <li><p>aggressive vs non-agressive male</p></li>
 <li><p>Each female undergoes the test twice:</p>
 <ul>
-<li>once upon stay in hostile environment (high population density,
-shortage of feed, a lot of competition)</li>
+<li>once upon stay in hostile environment (high population density, shortage of feed, a lot of competition)</li>
 <li>and once upon stay in gentle evironment.</li>
 </ul></li>
 </ul>
@@ -1001,38 +897,28 @@ shortage of feed, a lot of competition)</li>
 </table>
 <hr />
 </div>
-<div id="absolute-risk-difference-ard" class="section level3"
-number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Absolute risk
-difference (ARD)</h3>
+<div id="absolute-risk-difference-ard" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Absolute risk difference (ARD)</h3>
 <ul>
-<li><p><span class="math inline">\(\pi_1=P[\text{agressive male } \vert
-\text{hostile}]\)</span></p></li>
-<li><p><span class="math inline">\(\hat \pi_1=(e+f)/n\)</span>, with
-<span class="math inline">\(n=e+f+g+h\)</span>.</p></li>
-<li><p><span class="math inline">\(\pi_0=P[\text{agressive male } \vert
-\text{ friendly}]\)</span></p></li>
-<li><p><span class="math inline">\(\hat \pi_0=(e+g)/n\)</span> <span
-class="math display">\[\begin{equation*}
+<li><p><span class="math inline">\(\pi_1=P[\text{agressive male } \vert \text{hostile}]\)</span></p></li>
+<li><p><span class="math inline">\(\hat \pi_1=(e+f)/n\)</span>, with <span class="math inline">\(n=e+f+g+h\)</span>.</p></li>
+<li><p><span class="math inline">\(\pi_0=P[\text{agressive male } \vert \text{ friendly}]\)</span></p></li>
+<li><p><span class="math inline">\(\hat \pi_0=(e+g)/n\)</span>
+<span class="math display">\[\begin{equation*}
 \widehat{\text{ARD}}=\hat\pi_1-\hat\pi_0=\frac{e+f}{n}-\frac{e+g}{n}=\frac{f-g}{n}
 \end{equation*}\]</span></p></li>
-<li><p>Only affected by discordant pairs <span
-class="math inline">\(f\)</span> en <span
-class="math inline">\(g\)</span></p></li>
+<li><p>Only affected by discordant pairs <span class="math inline">\(f\)</span> en <span class="math inline">\(g\)</span></p></li>
 </ul>
 <hr />
 <ul>
-<li><p>Standard error on ARD <span
-class="math display">\[\begin{equation*}
+<li><p>Standard error on ARD
+<span class="math display">\[\begin{equation*}
 \text{SE}_{\widehat{\text{ARD}}}=\frac{1}{n}\sqrt{f+g-\frac{(f-g)^2}{n}}
 \end{equation*}\]</span></p></li>
-<li><p>If we have large number of observations we can use the CLT to
-establish an <span class="math inline">\((1-\alpha)100\%\)</span> CI on
-the ARD <span
-class="math display">\[\left[\widehat{\text{ARD}}-z_{\alpha/2}\text{SE}_{\widehat{\text{ARD}}},\widehat{\text{ARD}}-z_{\alpha/2}\text{SE}_{\widehat{\text{ARD}}}\right]\]</span>
-or <span
-class="math display">\[\left[\frac{f-g}{n}-\frac{z_{\alpha/2}}{n}\sqrt{f+g-\frac{(f-g)^2}{n}},\frac{f-g}{n}+\frac{z_{\alpha/2}}{n}\sqrt{f+g-\frac{(f-g)^2}{n}}\right]
-\]</span></p></li>
+<li><p>If we have large number of observations we can use the CLT to establish an <span class="math inline">\((1-\alpha)100\%\)</span> CI on the ARD
+<span class="math display">\[\left[\widehat{\text{ARD}}-z_{\alpha/2}\text{SE}_{\widehat{\text{ARD}}},\widehat{\text{ARD}}-z_{\alpha/2}\text{SE}_{\widehat{\text{ARD}}}\right]\]</span>
+or
+<span class="math display">\[\left[\frac{f-g}{n}-\frac{z_{\alpha/2}}{n}\sqrt{f+g-\frac{(f-g)^2}{n}},\frac{f-g}{n}+\frac{z_{\alpha/2}}{n}\sqrt{f+g-\frac{(f-g)^2}{n}}\right] \]</span></p></li>
 </ul>
 <hr />
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>hamster <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>, <span class="dv">1</span>, <span class="dv">13</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
@@ -1054,15 +940,15 @@ class="math display">\[\left[\frac{f-g}{n}-\frac{z_{\alpha/2}}{n}\sqrt{f+g-\frac
 <hr />
 <p><span class="math display">\[\begin{equation*}
 \widehat{\text{ARD}}=\frac{17-1}{34}=0.471
-\end{equation*}\]</span> The absolute risk difference on choosing for an
-agressive male is 47.1% larger upon staying in a hostile environment
-that when residing in a gentle environment. - The standard error <span
-class="math display">\[\begin{equation*}
+\end{equation*}\]</span>
+The absolute risk difference on choosing for an agressive male is 47.1% larger upon staying in a hostile environment that when residing in a gentle environment.
+- The standard error
+<span class="math display">\[\begin{equation*}
 \text{SE}_{\widehat{\text{ARD}}}=\frac{1}{34}\sqrt{17+1-\frac{(17-1)^2}{34}}=0.0952
-\end{equation*}\]</span> - A 95% confidence interval on this absolute
-risk difference is <span class="math display">\[\begin{equation*}
-\left[0.471-1.96\times 0.0952,0.471+1.96\times
-0.0952\right]=[0.284,0.658]
+\end{equation*}\]</span>
+- A 95% confidence interval on this absolute risk difference is
+<span class="math display">\[\begin{equation*}
+\left[0.471-1.96\times 0.0952,0.471+1.96\times 0.0952\right]=[0.284,0.658]
 \end{equation*}\]</span></p>
 <hr />
 </div>
@@ -1106,41 +992,32 @@ risk difference is <span class="math display">\[\begin{equation*}
 </tbody>
 </table>
 <ul>
-<li>Assess if risk on choice for agressive male differs between residing
-in hostile and friendly environment.</li>
+<li>Assess if risk on choice for agressive male differs between residing in hostile and friendly environment.</li>
 <li>Only discordant pairs give information.</li>
-<li><span class="math inline">\(f&gt;g\)</span> indication against <span
-class="math inline">\(H_0\)</span>: choice of partner not associated
-with environment.</li>
-<li>Evaluate probability that in a random discordant pair, a female
-chooses an agressive male upon a stay in a hostile environment.</li>
-<li>We estimate the probability as <span
-class="math display">\[\frac{f}{f+g}\]</span></li>
+<li><span class="math inline">\(f&gt;g\)</span> indication against <span class="math inline">\(H_0\)</span>: choice of partner not associated with environment.</li>
+<li>Evaluate probability that in a random discordant pair, a female chooses an agressive male upon a stay in a hostile environment.</li>
+<li>We estimate the probability as
+<span class="math display">\[\frac{f}{f+g}\]</span></li>
 </ul>
 <hr />
 <p><span class="math display">\[\begin{eqnarray*}
   \text{E}\left[f/(f+g)\right]&amp;\stackrel{H_0}{=}&amp; 0.5\\
   f &amp; \stackrel{H_0}{\sim}&amp; \text{Binom}(n=f+g,\pi=0.5)\\
-  \text{SE}_{\frac{f}{f+g}} &amp; \stackrel{H_0}{=}&amp;
-\sqrt{(f+g)\times 0.5\times 0.5}=\frac{\sqrt{f+g}}{2}
+  \text{SE}_{\frac{f}{f+g}} &amp; \stackrel{H_0}{=}&amp; \sqrt{(f+g)\times 0.5\times 0.5}=\frac{\sqrt{f+g}}{2}
 \end{eqnarray*}\]</span></p>
 <hr />
 <ul>
-<li>Asymptotically a one-sample z-test (based on the Normal
-distribution)</li>
+<li>Asymptotically a one-sample z-test (based on the Normal distribution)</li>
 </ul>
 <p><span class="math display">\[\begin{equation*}
 z=\frac{f-(f+g)/2}{\sqrt{f+g}/2}=\frac{f-g}{\sqrt{f+g}}
 \end{equation*}\]</span></p>
 <ul>
-<li>Normal approximation is good if <span class="math display">\[f
-\times g/(f+g) \geq 5\]</span></li>
+<li>Normal approximation is good if <span class="math display">\[f \times g/(f+g) \geq 5\]</span></li>
 </ul>
-<p>The <strong>Mc Nemar test</strong> is the analogon of the paired
-t-test for binary qualitative variables.</p>
+<p>The <strong>Mc Nemar test</strong> is the analogon of the paired t-test for binary qualitative variables.</p>
 <hr />
-<p>In R we can conduct the analysis using the <code>mcnemar.test</code>
-function</p>
+<p>In R we can conduct the analysis using the <code>mcnemar.test</code> function</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">mcnemar.test</span>(hamster)</span></code></pre></div>
 <pre><code>
     McNemar&#39;s Chi-squared test with continuity correction
@@ -1149,13 +1026,11 @@ data:  hamster
 McNemar&#39;s chi-squared = 12.5, df = 1, p-value = 0.000407</code></pre>
 <ul>
 <li>We reject the null hypothesis at the 5% significance level</li>
-<li>We conclude that the choice of partner is extremely significantly
-associated with the environment.</li>
+<li>We conclude that the choice of partner is extremely significantly associated with the environment.</li>
 </ul>
 <hr />
 <ul>
-<li>Normale approximation is not optimal and we can perform an exact
-test using the binomial test</li>
+<li>Normale approximation is not optimal and we can perform an exact test using the binomial test</li>
 </ul>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> f, <span class="at">n =</span> f <span class="sc">+</span> g, <span class="at">p =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>
@@ -1173,28 +1048,20 @@ probability of success
 <div id="conclusion-1" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Conclusion</h3>
 <ul>
-<li>We conclude that the partner choice is extremely signficantly
-associated with the environment (<span
-class="math inline">\(p&lt;0.001\)</span>).</li>
-<li>The probability on choosing an agressive male is on average 47.1%
-higher when a female hamster resides in a hostile environment than when
-she resides in a friendly environment (95% CI [28.4,65.7]%).</li>
+<li>We conclude that the partner choice is extremely signficantly associated with the environment (<span class="math inline">\(p&lt;0.001\)</span>).</li>
+<li>The probability on choosing an agressive male is on average 47.1% higher when a female hamster resides in a hostile environment than when she resides in a friendly environment (95% CI [28.4,65.7]%).</li>
 </ul>
 <hr />
 </div>
 </div>
 </div>
 <div id="unpaired-observations" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Unpaired
-observations</h1>
+<h1><span class="header-section-number">4</span> Unpaired observations</h1>
 <div id="genetic-association-study" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Genetic association
-study</h2>
+<h2><span class="header-section-number">4.1</span> Genetic association study</h2>
 <ul>
-<li>Are genetic polymorphisms in the BRCA1 gene associated with breast
-cancer?</li>
-<li>Retrospective case-control study with 800 breast cancer cases en 572
-controls</li>
+<li>Are genetic polymorphisms in the BRCA1 gene associated with breast cancer?</li>
+<li>Retrospective case-control study with 800 breast cancer cases en 572 controls</li>
 </ul>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>brca <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/GTPB/PSLS20/master/data/brca.csv&quot;</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">head</span>(brca)</span></code></pre></div>
@@ -1246,12 +1113,9 @@ controls</li>
 </tbody>
 </table>
 <ul>
-<li>In case-control study one chooses a fixed number of cases and
-controls and registers which exposures they had in the past.</li>
+<li>In case-control study one chooses a fixed number of cases and controls and registers which exposures they had in the past.</li>
 <li>Retrospective study</li>
-<li>Impossible to assess risks and risk-differences on breast cancer
-because the proportion of cases and controls does not reflect that in
-the population!</li>
+<li>Impossible to assess risks and risk-differences on breast cancer because the proportion of cases and controls does not reflect that in the population!</li>
 </ul>
 <hr />
 <table>
@@ -1293,34 +1157,25 @@ the population!</li>
 <ul>
 <li>Is possible to assess probability on allel Leu/Leu
 <ul>
-<li>cases: <span
-class="math inline">\(\pi_1=f/(d+e+f)=89/800=11.1\%\)</span></li>
-<li>controls:<span
-class="math inline">\(\pi_0=c/(a+b+c)=56/572=9.8\%\)</span></li>
+<li>cases: <span class="math inline">\(\pi_1=f/(d+e+f)=89/800=11.1\%\)</span></li>
+<li>controls:<span class="math inline">\(\pi_0=c/(a+b+c)=56/572=9.8\%\)</span></li>
 </ul></li>
-<li>Relative risk on exposure for cases versus controls is <span
-class="math inline">\(11.1/9.8=1.14\)</span>.</li>
-<li>The probability on the Leu/Leu genotype is 14% higher for women with
-breast cancer than for women without borstkanker.</li>
-<li>It suggests an association, but it does not let us conclude how much
-higher the risk is on breast cancer for women with the Leu/Leu genotype
-as compared to the other women.</li>
+<li>Relative risk on exposure for cases versus controls is <span class="math inline">\(11.1/9.8=1.14\)</span>.</li>
+<li>The probability on the Leu/Leu genotype is 14% higher for women with breast cancer than for women without borstkanker.</li>
+<li>It suggests an association, but it does not let us conclude how much higher the risk is on breast cancer for women with the Leu/Leu genotype as compared to the other women.</li>
 <li>Other statistic?</li>
 </ul>
 <hr />
 <p><span class="math display">\[\begin{equation*}
 Odds=\frac{p}{1-p}
-\end{equation*}\]</span> with <span class="math inline">\(p\)</span> the
-probability on the event.</p>
+\end{equation*}\]</span>
+with <span class="math inline">\(p\)</span> the probability on the event.</p>
 <p>Transformation of risk with following properties:</p>
 <ul>
-<li><p>odds has value between 1 and <span
-class="math inline">\(\infty\)</span>.</p></li>
-<li><p>odds only equals 1 for probability <span
-class="math inline">\(p=1/2\)</span>.</p></li>
+<li><p>odds has value between 1 and <span class="math inline">\(\infty\)</span>.</p></li>
+<li><p>odds only equals 1 for probability <span class="math inline">\(p=1/2\)</span>.</p></li>
 <li><p>de odds increases if probability increases.</p></li>
-<li><p>popular in gambling: how much more likely is it to win than to
-loose</p></li>
+<li><p>popular in gambling: how much more likely is it to win than to loose</p></li>
 </ul>
 <hr />
 <table>
@@ -1361,16 +1216,11 @@ loose</p></li>
 </table>
 <p>Odds on allel Leu/Leu</p>
 <ul>
-<li><p>Cases: <span class="math inline">\(\mbox{odds}_1=\frac{
-f/(d+e+f)}{(d+e)/(d+e+f)}=f/(d+e)=89/711=0.125\)</span>. The double
-Leu/Leu variant is 8 times less likely than other allele combinations in
-the breast cancer cases</p></li>
-<li><p>Controls: <span
-class="math inline">\(\mbox{odds}_2=c/(a+b)=56/516=0.109\)</span>.</p></li>
-<li><p>Association between exposure and outcome: <span
-class="math display">\[
-OR_{Leu/Leu}=\frac{\mbox{odds}_T}{\mbox{odds}_C}=
-\frac{f/(d+e)}{c/(a+b)}=\frac{f/(d+e)}{c/(a+b)}=1.15
+<li><p>Cases: <span class="math inline">\(\mbox{odds}_1=\frac{ f/(d+e+f)}{(d+e)/(d+e+f)}=f/(d+e)=89/711=0.125\)</span>. The double Leu/Leu variant is 8 times less likely than other allele combinations in the breast cancer cases</p></li>
+<li><p>Controls: <span class="math inline">\(\mbox{odds}_2=c/(a+b)=56/516=0.109\)</span>.</p></li>
+<li><p>Association between exposure and outcome:
+<span class="math display">\[
+OR_{Leu/Leu}=\frac{\mbox{odds}_T}{\mbox{odds}_C}= \frac{f/(d+e)}{c/(a+b)}=\frac{f/(d+e)}{c/(a+b)}=1.15
 \]</span></p></li>
 </ul>
 <hr />
@@ -1411,23 +1261,17 @@ OR_{Leu/Leu}=\frac{\mbox{odds}_T}{\mbox{odds}_C}=
 </tbody>
 </table>
 <ul>
-<li>If the study would have been a random sample of the population
-(number of cases and controls not fixed by design) then we would be able
-to calculate the odds ratio on breast cancer for people with and without
-the double Leu/leu variant. <span
-class="math display">\[\begin{equation*}
-OR_{case}=\frac{ \frac{ f}{c}}{ \frac{(d+e)}{(a+b)}} =
-\frac{f(a+b)}{c(d+e)}=OR_{Leu/Leu}=1.15,
+<li>If the study would have been a random sample of the population (number of cases and controls not fixed by design) then we would be able to calculate the odds ratio on breast cancer for people with and without the double Leu/leu variant.
+<span class="math display">\[\begin{equation*}
+OR_{case}=\frac{ \frac{ f}{c}}{ \frac{(d+e)}{(a+b)}} = \frac{f(a+b)}{c(d+e)}=OR_{Leu/Leu}=1.15,
 \end{equation*}\]</span></li>
 <li>OR is a symmetric statistic!</li>
 <li>OR on borstcancer can be estimated!</li>
-<li>The odds on borstcancer is 15% higher for women with this specific
-allele combination.</li>
+<li>The odds on borstcancer is 15% higher for women with this specific allele combination.</li>
 </ul>
 <hr />
 <ul>
-<li><p>Is the difference large enough to generalize the effect in the
-sample towards the population?</p></li>
+<li><p>Is the difference large enough to generalize the effect in the sample towards the population?</p></li>
 <li><p>We will first rewrite the data in a 2x2 table</p></li>
 </ul>
 <table>
@@ -1462,60 +1306,33 @@ sample towards the population?</p></li>
 </table>
 <hr />
 </div>
-<div id="pearson-chi-square-test-for-independent-samples"
-class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Pearson Chi-square
-test for independent samples</h2>
+<div id="pearson-chi-square-test-for-independent-samples" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Pearson Chi-square test for independent samples</h2>
 <ul>
-<li><p>Test association between categorical exposure(e.g. variant, X) en
-categorical response (e.g. disease, Y). <span
-class="math display">\[H_0: \text{There is no association between } X
-\text{ and } Y \text{ vs } H_1: X \text{ and } Y \text{ are
-associated}\]</span></p></li>
-<li><p>Consider row totals <span
-class="math inline">\(n_\text{other}=a+c\)</span>, <span
-class="math inline">\(n_\text{leu,leu}=b+d\)</span> and</p></li>
-<li><p>column totals <span
-class="math inline">\(n_\text{contr}=a+b\)</span> en <span
-class="math inline">\(n_\text{case}=c+d\)</span>.</p></li>
-<li><p>They give information on <em>marginal distribution</em> of the
-exposure (variant, X) and outcome (disease, Y), but not on the
-association between these variables.</p></li>
-<li><p>Under <span class="math inline">\(H_0\)</span> <span
-class="math inline">\(X\)</span> and <span
-class="math inline">\(Y\)</span> are independent and one expects that
-<span class="math inline">\((b+d)/n\)</span> of the <span
-class="math inline">\(a+b\)</span> controls have a Leu/Leu variant, or
-that <span class="math inline">\((a+b)(b+d)/n\)</span> of them has a
-Leu/Leu variant</p></li>
-<li><p>We can calculate this expected number <span
-class="math inline">\(E_{ij}\)</span> under the null hypothesis for
-<em>each cell</em> of the <span class="math inline">\(2 \times
-2\)</span> table.</p></li>
+<li><p>Test association between categorical exposure(e.g. variant, X) en categorical response (e.g. disease, Y).
+<span class="math display">\[H_0: \text{There is no association between } X \text{ and } Y \text{ vs } H_1: X \text{ and } Y \text{ are associated}\]</span></p></li>
+<li><p>Consider row totals <span class="math inline">\(n_\text{other}=a+c\)</span>, <span class="math inline">\(n_\text{leu,leu}=b+d\)</span> and</p></li>
+<li><p>column totals <span class="math inline">\(n_\text{contr}=a+b\)</span> en <span class="math inline">\(n_\text{case}=c+d\)</span>.</p></li>
+<li><p>They give information on <em>marginal distribution</em> of the exposure (variant, X) and outcome (disease, Y),
+but not on the association between these variables.</p></li>
+<li><p>Under <span class="math inline">\(H_0\)</span> <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent and one expects that <span class="math inline">\((b+d)/n\)</span>
+of the <span class="math inline">\(a+b\)</span> controls have a Leu/Leu variant, or that <span class="math inline">\((a+b)(b+d)/n\)</span> of them has a Leu/Leu variant</p></li>
+<li><p>We can calculate this expected number <span class="math inline">\(E_{ij}\)</span> under the null hypothesis for <em>each cell</em> of the <span class="math inline">\(2 \times 2\)</span> table.</p></li>
 </ul>
 <hr />
 <ul>
-<li><p><span class="math inline">\(E_{11}\)</span> = Expected number
-under <span class="math inline">\(H_0\)</span> in (1,1)-cell = 1227
-<span class="math inline">\(\times\)</span> 800/1372 = 715.5 ;</p></li>
-<li><p><span class="math inline">\(E_{12}\)</span> = Expected number
-under <span class="math inline">\(H_0\)</span> in (1,2)-cell = 1227
-<span class="math inline">\(\times\)</span> 572/1372 = 511.5 ;</p></li>
-<li><p><span class="math inline">\(E_{21}\)</span> = Expected number
-under <span class="math inline">\(H_0\)</span> in (2,1)-cell = 145 <span
-class="math inline">\(\times\)</span> 800/1372 = 84.55 ;</p></li>
-<li><p><span class="math inline">\(E_{22}\)</span> = Expected number
-under <span class="math inline">\(H_0\)</span> in (2,2)-cell = 145 <span
-class="math inline">\(\times\)</span> 572/1372 = 60.45 ;</p></li>
+<li><p><span class="math inline">\(E_{11}\)</span> = Expected number under <span class="math inline">\(H_0\)</span> in (1,1)-cell = 1227 <span class="math inline">\(\times\)</span> 800/1372 = 715.5 ;</p></li>
+<li><p><span class="math inline">\(E_{12}\)</span> = Expected number under <span class="math inline">\(H_0\)</span> in (1,2)-cell = 1227 <span class="math inline">\(\times\)</span> 572/1372 = 511.5 ;</p></li>
+<li><p><span class="math inline">\(E_{21}\)</span> = Expected number under <span class="math inline">\(H_0\)</span> in (2,1)-cell = 145 <span class="math inline">\(\times\)</span> 800/1372 = 84.55 ;</p></li>
+<li><p><span class="math inline">\(E_{22}\)</span> = Expected number under <span class="math inline">\(H_0\)</span> in (2,2)-cell = 145 <span class="math inline">\(\times\)</span> 572/1372 = 60.45 ;</p></li>
 </ul>
-<p>Test-statistic: <span class="math display">\[\begin{eqnarray*}
-X^2 &amp;=&amp; \frac{\left (|O_{11} - E_{11}| - .5 \right)^2 }{ E_{11}}
-+ \frac{
+<p>Test-statistic:
+<span class="math display">\[\begin{eqnarray*}
+X^2 &amp;=&amp; \frac{\left (|O_{11} - E_{11}| - .5 \right)^2 }{ E_{11}} + \frac{
 \left ( |O_{12} - E_{12}| - .5 \right)^2 }{E_{12} }+ \\
 &amp;&amp;\quad\quad
 \frac{ \left ( |O_{21}
-- E_{21}| - .5 \right)^2 }{E_{21}}+ \frac{ \left ( |O_{22} - E_{22}| -
-.5
+- E_{21}| - .5 \right)^2 }{E_{21}}+ \frac{ \left ( |O_{22} - E_{22}| - .5
 \right)^2 }{E_{22} }\\
 X^2 &amp;\stackrel{H_0}{\longrightarrow}&amp; \chi^2(df=1)
 \end{eqnarray*}\]</span></p>
@@ -1523,20 +1340,12 @@ X^2 &amp;\stackrel{H_0}{\longrightarrow}&amp; \chi^2(df=1)
 <p><img src="10-categoricalDataAnalysis_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <hr />
 <ul>
-<li>A large value of the test statistic gives an indication that the
-null hypothesis is false.</li>
-<li>The test will reject <span class="math inline">\(H_0\)</span> at the
-<span class="math inline">\(\alpha 100\%\)</span> significance level as
-soon as the observed test-statistic is larger than the <span
-class="math inline">\(100\%(1-\alpha)\)</span>-quantile, <span
-class="math inline">\(\chi^2_{1, \alpha}\)</span>, of the <span
-class="math inline">\(\chi^2_1\)</span>-distribution.</li>
-<li>Otherwise we do not reject <span
-class="math inline">\(H_0\)</span>.</li>
-<li>The p-value of a 2-sided test is the probability to observe a larger
-test-statistic in a random sample under the null than what we observed
-in our sample. <span class="math display">\[p=P_0[\chi^2_1 \geq
-x^2]\]</span>.</li>
+<li>A large value of the test statistic gives an indication that the null hypothesis is false.</li>
+<li>The test will reject <span class="math inline">\(H_0\)</span> at the <span class="math inline">\(\alpha 100\%\)</span>
+significance level as soon as the observed test-statistic is larger than the <span class="math inline">\(100\%(1-\alpha)\)</span>-quantile, <span class="math inline">\(\chi^2_{1, \alpha}\)</span>, of the <span class="math inline">\(\chi^2_1\)</span>-distribution.</li>
+<li>Otherwise we do not reject <span class="math inline">\(H_0\)</span>.</li>
+<li>The p-value of a 2-sided test is the probability to observe a larger test-statistic in a random sample under the null than what we observed in our sample.
+<span class="math display">\[p=P_0[\chi^2_1 \geq x^2]\]</span>.</li>
 </ul>
 <hr />
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
@@ -1555,22 +1364,14 @@ x^2]\]</span>.</li>
 <pre><code>[1] 0.481519</code></pre>
 <hr />
 <ul>
-<li>Because <span class="math inline">\(O_{ij}\)</span> are discrete
-values, the <span class="math inline">\(X^2\)</span> can only take
-discrete values and the continuouss <span
-class="math inline">\(\chi^2_1\)</span>-distribution is only an
-approximation of the real distribution.</li>
-<li>To improve the approximation one substracts 0.5 from the value in
-each cell: <em>continuity-correction</em></li>
-<li>We refer to this test as <em>Pearson Chi-squared test with Yates
-correction</em>.</li>
-<li>When the correction is not used (i.e. when the values of `0.5’ in
-the estimator <span class="math inline">\(X^2\)</span> are replaced) we
-use the <em>Pearson Chi-squared test</em>.</li>
+<li>Because <span class="math inline">\(O_{ij}\)</span> are discrete values, the <span class="math inline">\(X^2\)</span> can only take discrete values and the continuouss <span class="math inline">\(\chi^2_1\)</span>-distribution is only an approximation of the real distribution.</li>
+<li>To improve the approximation one substracts 0.5 from the value in each cell:
+<em>continuity-correction</em></li>
+<li>We refer to this test as <em>Pearson Chi-squared test with Yates correction</em>.</li>
+<li>When the correction is not used (i.e. when the values of `0.5’ in the estimator <span class="math inline">\(X^2\)</span> are replaced) we use the <em>Pearson Chi-squared test</em>.</li>
 </ul>
 <hr />
-<p>In R you can switch the correction on or off by setting the argument
-<code>correct</code> on TRUE or FALSE, respectively:</p>
+<p>In R you can switch the correction on or off by setting the argument <code>correct</code> on TRUE or FALSE, respectively:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">chisq.test</span>(brcaTab2)</span></code></pre></div>
 <pre><code>
     Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
@@ -1585,16 +1386,9 @@ data:  brcaTab2
 X-squared = 0.62871, df = 1, p-value = 0.4278</code></pre>
 <hr />
 <ul>
-<li>Even with the <span class="math inline">\(\chi^2_1\)</span>
-correction the approximation is only valid if non of the cells has an
-expected count below 5 under <span
-class="math inline">\(H_0\)</span>.</li>
-<li>When the <span class="math inline">\(\chi^2\)</span>-approximation
-is invalid we will use <em>Fisher’s exact test</em>.</li>
-<li>Null hypothesis is also that <span class="math inline">\(X\)</span>
-and <span class="math inline">\(Y\)</span> are independent, and, the
-alternative hypothesis that <span class="math inline">\(X\)</span> and
-<span class="math inline">\(Y\)</span> are dependent.</li>
+<li>Even with the <span class="math inline">\(\chi^2_1\)</span> correction the approximation is only valid if non of the cells has an expected count below 5 under <span class="math inline">\(H_0\)</span>.</li>
+<li>When the <span class="math inline">\(\chi^2\)</span>-approximation is invalid we will use <em>Fisher’s exact test</em>.</li>
+<li>Null hypothesis is also that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, and, the alternative hypothesis that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are dependent.</li>
 </ul>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">fisher.test</span>(brcaTab2)</span></code></pre></div>
 <pre><code>
@@ -1610,49 +1404,24 @@ odds ratio
  0.8670925 </code></pre>
 <hr />
 </div>
-<div id="extension-to-categorical-variables-with-multiple-levels"
-class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Extension to
-categorical variables with multiple levels</h2>
+<div id="extension-to-categorical-variables-with-multiple-levels" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Extension to categorical variables with multiple levels</h2>
 <ul>
-<li><p>The <span class="math inline">\(\chi^2\)</span>-test can also be
-used if one of the categorical variables <span
-class="math inline">\(X\)</span> and <span
-class="math inline">\(Y\)</span> has more than 2 levels</p></li>
-<li><p>Again: the null hypothesis <span
-class="math inline">\(H_0\)</span>: <span
-class="math inline">\(X\)</span> and <span
-class="math inline">\(Y\)</span> are independent (not associated),
-against the alternative <span class="math inline">\(H_A: X\)</span> and
-<span class="math inline">\(Y\)</span> are associated.</p></li>
-<li><p>Let the variable in the rows have <span
-class="math inline">\(r\)</span> different possible outcomes and the one
-in the columns <span class="math inline">\(c\)</span> possible outcomes,
-then we obtain an <span class="math inline">\(r \times c\)</span>
-table.</p></li>
-<li><p>Again we will compare the observed values in cell <span
-class="math inline">\((i,j)\)</span>, referred to as <span
-class="math inline">\(O_{ij}\)</span>, with the expected number under
-<span class="math inline">\(H_0\)</span>, <span
-class="math inline">\(E_{ij}\)</span></p></li>
-<li><p>Again <span class="math inline">\(E_{ij}\)</span> is the product
-of the <span class="math inline">\(i^\text{th}\)</span> row-total and
-the <span class="math inline">\(j^\text{th}\)</span> column total
-devided by the overall total.</p></li>
+<li><p>The <span class="math inline">\(\chi^2\)</span>-test can also be used if one of the categorical variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> has more than 2 levels</p></li>
+<li><p>Again: the null hypothesis <span class="math inline">\(H_0\)</span>: <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent (not associated), against the alternative <span class="math inline">\(H_A: X\)</span> and <span class="math inline">\(Y\)</span>
+are associated.</p></li>
+<li><p>Let the variable in the rows have <span class="math inline">\(r\)</span> different possible outcomes and the one in the columns <span class="math inline">\(c\)</span> possible outcomes, then we obtain an <span class="math inline">\(r \times c\)</span> table.</p></li>
+<li><p>Again we will compare the observed values in cell <span class="math inline">\((i,j)\)</span>, referred to as <span class="math inline">\(O_{ij}\)</span>, with the expected number under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(E_{ij}\)</span></p></li>
+<li><p>Again <span class="math inline">\(E_{ij}\)</span> is the product of the <span class="math inline">\(i^\text{th}\)</span> row-total and the <span class="math inline">\(j^\text{th}\)</span> column total devided by the overall total.</p></li>
 </ul>
 <p><span class="math display">\[\begin{equation*}
 X^2 = \sum_{ij} \frac{\left (O_{ij} - E_{ij}\right)^2 }{ E_{ij}}
 \end{equation*}\]</span></p>
 <hr />
 <ul>
-<li>We can show that the statistic follows a <span
-class="math inline">\(\chi^2\)</span> distribution with <span
-class="math inline">\((r-1) \times (c-1)\)</span> degrees of freedom
-under <span class="math inline">\(H_0\)</span>.</li>
+<li>We can show that the statistic follows a <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\((r-1) \times (c-1)\)</span> degrees of freedom under <span class="math inline">\(H_0\)</span>.</li>
 <li>No continuity correction</li>
-<li><strong>Pearson <span class="math inline">\(\chi^2\)</span>
-test</strong> is analogon of one-way ANOVA for qualitative
-variables.</li>
+<li><strong>Pearson <span class="math inline">\(\chi^2\)</span> test</strong> is analogon of one-way ANOVA for qualitative variables.</li>
 </ul>
 <hr />
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>brcaTab <span class="ot">&lt;-</span> <span class="fu">table</span>(brca<span class="sc">$</span>variant, brca<span class="sc">$</span>cancer)</span>
@@ -1663,82 +1432,54 @@ variables.</li>
 data:  brcaTab
 X-squared = 2.0551, df = 2, p-value = 0.3579</code></pre>
 <ul>
-<li>To assess if the variant of the BRCA1 gene is associated with breast
-cancer we conducted a Pearson <span
-class="math inline">\(\chi^2\)</span>test for the <span
-class="math inline">\(3 \times 2\)</span> table.</li>
-<li>The statistic is now 2.055 and follows a <span
-class="math inline">\(\chi^2\)</span> distribution with 2 degrees of
-freedom under <span class="math inline">\(H_0\)</span>. The probability
-to obtain a <span class="math inline">\(\chi^2\)</span>-test statistic
-in a random sample under <span class="math inline">\(H_0\)</span> that
-is more extreme than 2.055, is 36%.</li>
-<li>On the 5% level of significance we conclude that the variant of the
-BRCA-gene is not associated with breast cancer.</li>
+<li>To assess if the variant of the BRCA1 gene is associated with breast cancer we conducted a Pearson <span class="math inline">\(\chi^2\)</span>test for the <span class="math inline">\(3 \times 2\)</span> table.</li>
+<li>The statistic is now 2.055 and follows a <span class="math inline">\(\chi^2\)</span> distribution with 2 degrees of freedom under <span class="math inline">\(H_0\)</span>. The probability to obtain a <span class="math inline">\(\chi^2\)</span>-test statistic in a random sample under <span class="math inline">\(H_0\)</span> that is more extreme than 2.055, is 36%.</li>
+<li>On the 5% level of significance we conclude that the variant of the BRCA-gene is not associated with breast cancer.</li>
 </ul>
 <hr />
 </div>
 </div>
 <div id="logistic-regression" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Logistic
-regression</h1>
+<h1><span class="header-section-number">5</span> Logistic regression</h1>
 <ul>
-<li><p>Framework to model binary data (e.g cancer vs no cancer):
-<em>logistic regression model</em>.</p></li>
-<li><p>Model binary data with continuous and/or dummy
-variables.</p></li>
-<li><p>The model assumes that observations for subject <span
-class="math inline">\(i=1,\ldots,n\)</span> are independent and follow a
-Bernoulli distribution.</p></li>
-<li><p>The logarithm of the odds is modelled using a linear model, also
-referred to as linear predictor: <span
-class="math display">\[\begin{equation}
+<li><p>Framework to model binary data (e.g cancer vs no cancer): <em>logistic regression model</em>.</p></li>
+<li><p>Model binary data with continuous and/or dummy variables.</p></li>
+<li><p>The model assumes that observations for subject <span class="math inline">\(i=1,\ldots,n\)</span> are independent and follow a Bernoulli distribution.</p></li>
+<li><p>The logarithm of the odds is modelled using a linear model, also referred to as linear predictor:
+<span class="math display">\[\begin{equation}
 \left\{
 \begin{array}{ccl}
 Y_i&amp;\sim&amp;B(\pi_i)\\\\
-\log \frac{\pi_i}{1-\pi_i}&amp;=&amp;\beta_0 + \beta_1X_{i1} + \ldots +
-\beta_p X_{ip}
+\log \frac{\pi_i}{1-\pi_i}&amp;=&amp;\beta_0 + \beta_1X_{i1} + \ldots + \beta_p X_{ip}
 \end{array}\right.
 \end{equation}\]</span></p></li>
 </ul>
 <hr />
 <div id="categorical-predictor" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Categorical
-predictor</h2>
+<h2><span class="header-section-number">5.1</span> Categorical predictor</h2>
 <ul>
-<li><p>breast cancer example: is BRCA 1 variant associated with breast
-cancer.</p></li>
-<li><p>As in the Anova context, a factor in logistic regression is coded
-using dummy variables.</p></li>
+<li><p>breast cancer example: is BRCA 1 variant associated with breast cancer.</p></li>
+<li><p>As in the Anova context, a factor in logistic regression is coded using dummy variables.</p></li>
 <li><p>1 dummy variable less than the number of groups.</p></li>
-<li><p>For BRCA 1 we need two dummy variables and obtain the following
-linear predictor:</p></li>
+<li><p>For BRCA 1 we need two dummy variables and obtain the following linear predictor:</p></li>
 </ul>
 <p><span class="math display">\[\begin{eqnarray*}
-  \log \frac{\pi_i}{1-\pi_i} &amp;=&amp; \beta_0+\beta_1 x_{i1} +\beta_2
-x_{i2}
+  \log \frac{\pi_i}{1-\pi_i} &amp;=&amp; \beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}
 \end{eqnarray*}\]</span></p>
 <ul>
-<li><p>with : <span class="math display">\[x_{i1} = \left\{
-\begin{array}{ll}
+<li><p>with :
+<span class="math display">\[x_{i1} = \left\{ \begin{array}{ll}
 1 &amp; \text{ if subject $i$ is heterozygous, Pro/Leu variant} \\
-0 &amp; \text{if subject $i$ is homozygous, (Pro/Pro or Leu/Leu
-variant)} \end{array}\right. .\]</span> <span
-class="math display">\[x_{i2} = \left\{ \begin{array}{ll}
-1 &amp; \text{ if subject $i$ is homozygous is the Leucine mutation:
-Leu/Leu } \\
-0 &amp; \text{ of subject $i$ is not homozygous in the Leu/Leu variant}
-\end{array}\right. .\]</span></p></li>
-<li><p>Homozygosity in the wild type allele Pro/Pro is the
-<strong>reference group</strong>.</p></li>
+0 &amp; \text{if subject $i$ is homozygous, (Pro/Pro or Leu/Leu variant)} \end{array}\right. .\]</span>
+<span class="math display">\[x_{i2} = \left\{ \begin{array}{ll}
+1 &amp; \text{ if subject $i$ is homozygous is the Leucine mutation: Leu/Leu } \\
+0 &amp; \text{ of subject $i$ is not homozygous in the Leu/Leu variant} \end{array}\right. .\]</span></p></li>
+<li><p>Homozygosity in the wild type allele Pro/Pro is the <strong>reference group</strong>.</p></li>
 </ul>
 <hr />
 <p>We fit the model in R.</p>
 <ul>
-<li>Note that we use the function <code>as.factor</code> to convert the
-cancer variable to a factor variable. - We further use the function
-<code>relevel</code> to specify the control treatment as the reference
-group.</li>
+<li>Note that we use the function <code>as.factor</code> to convert the cancer variable to a factor variable. - We further use the function <code>relevel</code> to specify the control treatment as the reference group.</li>
 </ul>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>brca<span class="sc">$</span>cancer <span class="ot">&lt;-</span> brca<span class="sc">$</span>cancer <span class="sc">%&gt;%</span></span>
 <span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="fu">as.factor</span>() <span class="sc">%&gt;%</span></span>
@@ -1767,20 +1508,17 @@ Residual deviance: 1861.9  on 1369  degrees of freedom
 AIC: 1867.9
 
 Number of Fisher Scoring iterations: 4</code></pre>
-<p>The intercept is the log-odds on cancer in the reference class
-(Pro/Pro) and the slope terms are log odds ratios between treatment and
-reference class: <span class="math display">\[\begin{eqnarray*}
+<p>The intercept is the log-odds on cancer in the reference class (Pro/Pro) and the slope terms are log odds ratios between treatment and reference class:
+<span class="math display">\[\begin{eqnarray*}
 \log \text{ODDS}_\text{Pro/Pro}&amp;=&amp;\beta_0\\\\
 \log \text{ODDS}_\text{Pro/Leu}&amp;=&amp;\beta_0+\beta_1\\\\
 \log \text{ODDS}_\text{Leu/Leu}&amp;=&amp;\beta_0+\beta_2\\\\
-\log  \frac{\text{ODDS}_\text{Pro/Leu}}{\text{ODDS}_\text{Pro/Pro}}&amp;=&amp;\log
-\text{ODDS}_\text{Pro/Leu}-\log ODDS_{Pro/Pro}\\
+\log  \frac{\text{ODDS}_\text{Pro/Leu}}{\text{ODDS}_\text{Pro/Pro}}&amp;=&amp;\log \text{ODDS}_\text{Pro/Leu}-\log ODDS_{Pro/Pro}\\
 &amp;=&amp;\beta_0+\beta_1-\beta_0=\beta_1\\\\
 \log  \frac{\text{ODDS}_\text{Leu/Leu}}{\text{ODDS}_\text{Pro/Pro}}&amp;=&amp;\beta_2
 \end{eqnarray*}\]</span></p>
 <ul>
-<li>The analysis allows us to interpret the result immediately in oddses
-and odds ratios!</li>
+<li>The analysis allows us to interpret the result immediately in oddses and odds ratios!</li>
 </ul>
 <hr />
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">anova</span>(brcaLogit, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
@@ -1789,22 +1527,15 @@ and odds ratios!</li>
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["Deviance"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Resid. Df"],"name":[3],"type":["int"],"align":["right"]},{"label":["Resid. Dev"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Pr(>Chi)"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"NA","2":"NA","3":"1371","4":"1863.930","5":"NA","_rn_":"NULL"},{"1":"2","2":"2.05616","3":"1369","4":"1861.874","5":"0.3576931","_rn_":"variant"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>The <span class="math inline">\(\chi^2\)</span>-test on the logsitic
-regression model also indicates that there is no significant association
-between cancer status and the genetic variant of the BRCA gene (<span
-class="math inline">\(p=\)</span> 0.358). De p-value is almost
-equivalent to the one of the <span
-class="math inline">\(\chi^2\)</span>-test (see previous section).</p>
+<p>The <span class="math inline">\(\chi^2\)</span>-test on the logsitic regression model also indicates that there is no significant association between cancer status and the genetic variant of the BRCA gene (<span class="math inline">\(p=\)</span> 0.358).
+De p-value is almost equivalent to the one of the <span class="math inline">\(\chi^2\)</span>-test (see previous section).</p>
 <hr />
 <ul>
 <li><p>Significant association?</p>
 <ul>
-<li>Post-hoc tests to evaluate which of the odds ratios are different
-from 1.</li>
-<li>For BRCA1 example we did not reject the omnibus hypothesis so no
-post-hoc analysis</li>
-<li>For your reference we include the post hoc analysis so that you
-would have the code.</li>
+<li>Post-hoc tests to evaluate which of the odds ratios are different from 1.</li>
+<li>For BRCA1 example we did not reject the omnibus hypothesis so no post-hoc analysis</li>
+<li>For your reference we include the post hoc analysis so that you would have the code.</li>
 </ul></li>
 </ul>
 <hr />
@@ -1839,18 +1570,17 @@ Multiple Comparisons of Means: Tukey Contrasts
 
 Fit: glm(formula = cancer ~ variant, family = binomial, data = brca)
 
-Quantile = 2.3252
+Quantile = 2.3239
 95% family-wise confidence level
  
 
 Linear Hypotheses:
                        Estimate lwr      upr     
-leu/leu - pro/pro == 0  0.21197 -0.22783  0.65177
-pro/leu - pro/pro == 0  0.13802 -0.13107  0.40711
-pro/leu - leu/leu == 0 -0.07395 -0.51391  0.36601</code></pre>
+leu/leu - pro/pro == 0  0.21197 -0.22759  0.65153
+pro/leu - pro/pro == 0  0.13802 -0.13092  0.40697
+pro/leu - leu/leu == 0 -0.07395 -0.51367  0.36577</code></pre>
 <ul>
-<li>With the <code>confint</code> function CI are obtained on the
-log-odds ratios corrected for multiple testing.</li>
+<li>With the <code>confint</code> function CI are obtained on the log-odds ratios corrected for multiple testing.</li>
 </ul>
 <hr />
 <ul>
@@ -1859,41 +1589,31 @@ log-odds ratios corrected for multiple testing.</li>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(posthocCI<span class="sc">$</span>confint)</span>
 <span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>OR</span></code></pre></div>
 <pre><code>                   Estimate       lwr      upr
-leu/leu - pro/pro 1.2361111 0.7962633 1.918926
-pro/leu - pro/pro 1.1480000 0.8771575 1.502471
-pro/leu - leu/leu 0.9287191 0.5981532 1.441970
+leu/leu - pro/pro 1.2361111 0.7964509 1.918474
+pro/leu - pro/pro 1.1480000 0.8772839 1.502255
+pro/leu - leu/leu 0.9287191 0.5982942 1.441630
 attr(,&quot;conf.level&quot;)
 [1] 0.95
 attr(,&quot;calpha&quot;)
-[1] 2.325156</code></pre>
+[1] 2.323911</code></pre>
 <ul>
-<li><p>De odds ratios that we obtain is exactly equal to the one we
-calculated based on the contingency table:</p></li>
-<li><p>e.g <span
-class="math inline">\(\text{OR}_\text{Leu/Leu-Pro/Pro}=89\times
-266/(56\times 342)=\)</span> 1.236.</p></li>
-<li><p>Note, that statistical inference for logistic regression relies
-on asymptotic theory.</p></li>
+<li><p>De odds ratios that we obtain is exactly equal to the one we calculated based on the contingency table:</p></li>
+<li><p>e.g <span class="math inline">\(\text{OR}_\text{Leu/Leu-Pro/Pro}=89\times 266/(56\times 342)=\)</span> 1.236.</p></li>
+<li><p>Note, that statistical inference for logistic regression relies on asymptotic theory.</p></li>
 </ul>
 <hr />
 </div>
 <div id="continuous-predictor" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Continuous
-Predictor</h2>
+<h2><span class="header-section-number">5.2</span> Continuous Predictor</h2>
 <ul>
-<li>Toxicolocal effect of carbon disulfite (CS<span
-class="math inline">\(_2\)</span>) on beetles.</li>
-<li>Research hypothesis is there an effect of the CS<span
-class="math inline">\(_2\)</span> concentration on the mortality of
-beetles?</li>
+<li>Toxicolocal effect of carbon disulfite (CS<span class="math inline">\(_2\)</span>) on beetles.</li>
+<li>Research hypothesis is there an effect of the CS<span class="math inline">\(_2\)</span> concentration on the mortality of beetles?</li>
 </ul>
 <p>Design:</p>
 <ul>
 <li>32 independent experiments</li>
-<li>Each time 1 beatle is exposed to one of 8 CS<span
-class="math inline">\(_2\)</span> concentrations (mg/l).</li>
-<li>The outcome: mortality (<span class="math inline">\(y=1\)</span>) or
-survival (<span class="math inline">\(y=0\)</span>).</li>
+<li>Each time 1 beatle is exposed to one of 8 CS<span class="math inline">\(_2\)</span> concentrations (mg/l).</li>
+<li>The outcome: mortality (<span class="math inline">\(y=1\)</span>) or survival (<span class="math inline">\(y=0\)</span>).</li>
 </ul>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a>beetles <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/GTPB/PSLS20/master/data/beetles.csv&quot;</span>)</span>
 <span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a><span class="fu">head</span>(beetles)</span></code></pre></div>
@@ -1914,9 +1634,8 @@ survival (<span class="math inline">\(y=0\)</span>).</li>
   186.1  0 4
   188.39 0 4</code></pre>
 <hr />
-<p>We build a model for the log odds in function of the dose <span
-class="math inline">\(x_i\)</span>: <span class="math display">\[\log
-\frac{\pi_i}{1-\pi_i}=\beta_0+\beta_1 \times x_i.\]</span></p>
+<p>We build a model for the log odds in function of the dose <span class="math inline">\(x_i\)</span>:
+<span class="math display">\[\log \frac{\pi_i}{1-\pi_i}=\beta_0+\beta_1 \times x_i.\]</span></p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>beatleModel <span class="ot">&lt;-</span> <span class="fu">glm</span>(status <span class="sc">~</span> dose, <span class="at">data =</span> beetles, <span class="at">family =</span> binomial)</span>
 <span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">summary</span>(beatleModel)</span></code></pre></div>
 <pre><code>
@@ -1939,28 +1658,16 @@ AIC: 30.796
 Number of Fisher Scoring iterations: 5</code></pre>
 <hr />
 <ul>
-<li><p>Intercept has an interpretation of a log odds on mortality when
-no <span class="math inline">\(\text{CS}_2\)</span> gas is
-applied.</p></li>
-<li><p>Very small odds on mortality (<span
-class="math inline">\(\pi/(1-\pi)=\exp(-53.2)\)</span>) so the
-probability is almost 0.</p></li>
-<li><p>Note that this is a very large extrapolation: minimum dose in
-dataset is 169.07 mg/l.</p></li>
-<li><p>Estimated odds ratio for the effect of dose on the mortality
-probability is <span
-class="math inline">\(\exp(0.3013)=1.35\)</span>.</p></li>
-<li><p>So a beatle exposed to a CS<span
-class="math inline">\(_2\)</span> concentration that is 1 mg/l larger
-than another beatle, will on average have an odds ratio on mortality of
-<span class="math inline">\(1.35\)</span>.</p></li>
+<li><p>Intercept has an interpretation of a log odds on mortality when no <span class="math inline">\(\text{CS}_2\)</span> gas is applied.</p></li>
+<li><p>Very small odds on mortality (<span class="math inline">\(\pi/(1-\pi)=\exp(-53.2)\)</span>) so the probability is almost 0.</p></li>
+<li><p>Note that this is a very large extrapolation: minimum dose in dataset is 169.07 mg/l.</p></li>
+<li><p>Estimated odds ratio for the effect of dose on the mortality probability is <span class="math inline">\(\exp(0.3013)=1.35\)</span>.</p></li>
+<li><p>So a beatle exposed to a CS<span class="math inline">\(_2\)</span> concentration that is 1 mg/l larger than another beatle, will on average have an odds ratio on mortality of <span class="math inline">\(1.35\)</span>.</p></li>
 </ul>
 <hr />
 <ul>
-<li>We conclude that this effect is very significant (<span
-class="math inline">\(p=\)</span> 0.003).</li>
-<li>Increasing the CS<span class="math inline">\(_2\)</span> dose
-increases the mortality.</li>
+<li>We conclude that this effect is very significant (<span class="math inline">\(p=\)</span> 0.003).</li>
+<li>Increasing the CS<span class="math inline">\(_2\)</span> dose increases the mortality.</li>
 </ul>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>beetlesTab <span class="ot">&lt;-</span> <span class="fu">table</span>(beetles) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
 <span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a></span>

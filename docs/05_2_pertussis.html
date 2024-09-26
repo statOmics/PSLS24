@@ -14,7 +14,6 @@
 
 <title>Exercise 5.2: Hypothesis testing on the pertussis example</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,40 +546,32 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 5.2: Hypothesis testing on the
-pertussis example</h1>
+<h1 class="title toc-ignore">Exercise 5.2: Hypothesis testing on the pertussis example</h1>
 <h4 class="author">Lieven Clement, and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="aim-of-this-tutorial" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Aim of this
-tutorial</h1>
+<h1><span class="header-section-number">1</span> Aim of this tutorial</h1>
 <p>Upon this exercise you can</p>
 <ol style="list-style-type: decimal">
-<li>conduct a statistical hypothesis test for a two group comparison in
-R and to interpret the results.</li>
+<li>conduct a statistical hypothesis test for a two group comparison in R and to interpret the results.</li>
 <li>critically evaluate the assumptions for a two sample t-test</li>
-<li>use simulations to assist you when evaluating the assumptions of a
-two group comparison</li>
+<li>use simulations to assist you when evaluating the assumptions of a two group comparison</li>
 <li>select the correct test based on the data exploration.</li>
 </ol>
 </div>
 <div id="background" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Background</h1>
-<p>Researchers wanted to study the immune response on pertussis. They
-have set up an experiments with 40 rats. 16 rats were infected with
-pertussis and 24 rats received a control treatment. Researchers measured
-the white blood cell concentration (WBC) in each rat (count per mm<span
-class="math inline">\(^3\)</span>).</p>
+<p>Researchers wanted to study the immune response on pertussis.
+They have set up an experiments with 40 rats.
+16 rats were infected with pertussis and 24 rats received a control treatment.
+Researchers measured the white blood cell concentration (WBC) in each rat (count per mm<span class="math inline">\(^3\)</span>).</p>
 <p>De data consists of two variables:</p>
 <ul>
-<li><p>WBC: white blood cell count (counts/mm<span
-class="math inline">\(^3\)</span>).</p></li>
+<li><p>WBC: white blood cell count (counts/mm<span class="math inline">\(^3\)</span>).</p></li>
 <li><p>trt: treatment</p>
 <ul>
 <li>control: rat recieved control treatment</li>
@@ -598,41 +589,27 @@ class="math inline">\(^3\)</span>).</p></li>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">glimpse</span>(...)</span></code></pre></div>
 <div id="aim-of-the-study" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Aim of the study</h2>
-<p>The overarching goal of this study was to assess if the white blood
-cell count changes upon pertussis infection. To this end, researchers
-randomized 40 rats to two treatments: A control treatment and a
-treatment in which the rat was infected with pertussis.</p>
+<p>The overarching goal of this study was to assess if the white blood cell count changes upon pertussis infection. To this end, researchers randomized 40 rats
+to two treatments: A control treatment and a treatment in which the rat was infected with pertussis.</p>
 </div>
 </div>
 <div id="data-exploration" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Data exploration</h1>
-<p>A crucial first step in a data analysis is to visualize and to
-explore the raw data.</p>
+<p>A crucial first step in a data analysis is to visualize and to explore the raw data.</p>
 <p>This will allow us to gain insight in the data.</p>
-<p>A secondary goal of the data exploration is to check the assumptions
-of the test that we will perform.</p>
-<div
-id="which-test-will-you-perform-to-compare-the-white-blood-cell-count-between-infected-and-control-rats"
-class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Which test will you
-perform to compare the white blood cell count between infected and
-control rats?</h2>
+<p>A secondary goal of the data exploration is to check the assumptions of the test that we will perform.</p>
+<div id="which-test-will-you-perform-to-compare-the-white-blood-cell-count-between-infected-and-control-rats" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Which test will you perform to compare the white blood cell count between infected and control rats?</h2>
 </div>
-<div id="what-are-the-assumptions-of-this-test" class="section level2"
-number="4.2">
-<h2><span class="header-section-number">4.2</span> What are the
-assumptions of this test?</h2>
+<div id="what-are-the-assumptions-of-this-test" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> What are the assumptions of this test?</h2>
 </div>
-<div id="use-the-appropriate-plots-to-assess-the-assumptions"
-class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Use the appropriate
-plots to assess the assumptions</h2>
+<div id="use-the-appropriate-plots-to-assess-the-assumptions" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Use the appropriate plots to assess the assumptions</h2>
 </div>
 </div>
-<div id="assess-the-research-question-with-the-appropriate-t-test"
-class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Assess the research
-question with the appropriate t-test</h1>
+<div id="assess-the-research-question-with-the-appropriate-t-test" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Assess the research question with the appropriate t-test</h1>
 <div id="analysis" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Analysis</h2>
 </div>

@@ -14,7 +14,6 @@
 
 <title>Breast cancer example</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -549,38 +548,27 @@ div.tocify {
 
 <h1 class="title toc-ignore">Breast cancer example</h1>
 <h4 class="author">Lieven Clement</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="breast-cancer-dataset" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Breast cancer
-dataset</h1>
+<h1><span class="header-section-number">1</span> Breast cancer dataset</h1>
 <ul>
-<li><p>Subset of study <a href="https://doi.org/10.1093/jnci/djj052"
-class="uri">https://doi.org/10.1093/jnci/djj052</a></p></li>
-<li><p>32 breast cancer patients with estrogen receptor positive tumour
-that had tamoxifen chemotherapy. Variables:</p>
+<li><p>Subset of study <a href="https://doi.org/10.1093/jnci/djj052" class="uri">https://doi.org/10.1093/jnci/djj052</a></p></li>
+<li><p>32 breast cancer patients with estrogen receptor positive tumour that had tamoxifen chemotherapy. Variables:</p>
 <ul>
 <li>grade: histological grade of tumour (grade 1 vs 3),</li>
-<li>node: lymph node status (0: not affected, 1: lymph nodes affected
-and removed),</li>
+<li>node: lymph node status (0: not affected, 1: lymph nodes affected and removed),</li>
 <li>size: tumour size in cm,</li>
-<li>ESR1 and S100A8 gene expression in tumour biopsy (microarray
-technology)</li>
+<li>ESR1 and S100A8 gene expression in tumour biopsy (microarray technology)</li>
 </ul></li>
-<li><p>ESR1 in active in <span class="math inline">\(\pm\)</span> 75% of
-breast cancer tumours.</p></li>
-<li><p>Expression of ER gene positive for treatment: tumour responds to
-hormone therapy</p></li>
-<li><p>Tamoxifen interacts with ER and modulates gene
-expression.</p></li>
+<li><p>ESR1 in active in <span class="math inline">\(\pm\)</span> 75% of breast cancer tumours.</p></li>
+<li><p>Expression of ER gene positive for treatment: tumour responds to hormone therapy</p></li>
+<li><p>Tamoxifen interacts with ER and modulates gene expression.</p></li>
 <li><p>Proteins of S100 family often dysregulated in cancer</p></li>
-<li><p>S100A8 expression represses immune system in tumour en creates an
-environment of inflammation that promotes tumour growth.</p></li>
+<li><p>S100A8 expression represses immune system in tumour en creates an environment of inflammation that promotes tumour growth.</p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(Rmisc)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -595,17 +583,14 @@ environment of inflammation that promotes tumour growth.</p></li>
 </div>
 <div id="research-question" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Research question</h1>
-<p>Is the expression of the S100A8 gene associated with that of that of
-the ESR1 gene?</p>
+<p>Is the expression of the S100A8 gene associated with that of that of the ESR1 gene?</p>
 </div>
 <div id="data-exploration" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Data exploration</h1>
-<p>There are many variables in the data, we will plot all variables in a
-scatterplot matrix using the GGally package.</p>
+<p>There are many variables in the data, we will plot all variables in a scatterplot matrix using the GGally package.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggpairs</span>(brca[, <span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)])</span></code></pre></div>
 <p><img src="breastcancerExample_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>We now focus on the association between S100A8 expression and the
-ESR1 expression.</p>
+<p>We now focus on the association between S100A8 expression and the ESR1 expression.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>brca <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ESR1, <span class="at">y =</span> S100A8)) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -623,15 +608,11 @@ ESR1 expression.</p>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="breastcancerExample_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Upon log transformation the data are showing a linear association. Is
-this association strong enough to be able to conclude that the S100A8
-gene expression is associated to the ESR1 gene expression?</p>
+<p>Upon log transformation the data are showing a linear association. Is this association strong enough to be able to conclude that the S100A8 gene expression is associated to the ESR1 gene expression?</p>
 </div>
 <div id="descriptive-statistics" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Descriptive
-statistics</h1>
-<p>We first calculate the Pearson and Spearman correlation based on the
-original data and the log2 transformed data</p>
+<h1><span class="header-section-number">4</span> Descriptive statistics</h1>
+<p>We first calculate the Pearson and Spearman correlation based on the original data and the log2 transformed data</p>
 <p>Pearson correlation</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>brca <span class="ot">&lt;-</span> brca <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">S100A8_log2 =</span> <span class="fu">log2</span>(S100A8), <span class="at">ESR1_log2 =</span> <span class="fu">log2</span>(ESR1))</span>
@@ -649,30 +630,18 @@ ESR1_log2     -0.891199  1.000000</code></pre>
 <pre><code>            S100A8_log2 ESR1_log2
 S100A8_log2    1.000000 -0.733871
 ESR1_log2     -0.733871  1.000000</code></pre>
-<p>Both the Pearson and Spearman correlation are negative. Note, that
-the Spearman correlation is much larger in absolute value than the
-Pearson correlation on the original expression measurements. Indeed, the
-Pearson correlation is affected by the non linear association at the
-original scale.</p>
-<p>On the log scale the Pearson correlation is much higher. The spearman
-correlation, however, remains because it is based on rank transformed
-data.</p>
+<p>Both the Pearson and Spearman correlation are negative. Note, that the Spearman correlation is much larger in absolute value than the Pearson correlation on the original expression measurements. Indeed, the Pearson correlation is affected by the non linear association at the original scale.</p>
+<p>On the log scale the Pearson correlation is much higher.
+The spearman correlation, however, remains because it is based on rank transformed data.</p>
 </div>
 <div id="model" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Model</h1>
-<p>We will model the data on the log2 scale and we assume the following
-statistical model:</p>
-<p><span class="math display">\[Y_i\vert X_i\sim
-N(\beta_0+\beta_1X_i,\sigma^2)\]</span></p>
-<p>with <span class="math inline">\(Y_i\)</span> the log2 transformed
-S100A8 gene expression and <span class="math inline">\(X_i\)</span> the
-log2 transformed ESR1 gene expression.</p>
+<p>We will model the data on the log2 scale and we assume the following statistical model:</p>
+<p><span class="math display">\[Y_i\vert X_i\sim N(\beta_0+\beta_1X_i,\sigma^2)\]</span></p>
+<p>with <span class="math inline">\(Y_i\)</span> the log2 transformed S100A8 gene expression and <span class="math inline">\(X_i\)</span> the log2 transformed ESR1 gene expression.</p>
 <div id="model-fitting" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Model fitting</h2>
-<p>We fit the model to the data using the lm function and we first
-assess the assumptions. Because the subjects were selected at random
-from the population they are independent. We still have to check the
-following assumptions.</p>
+<p>We fit the model to the data using the lm function and we first assess the assumptions. Because the subjects were selected at random from the population they are independent. We still have to check the following assumptions.</p>
 <ol style="list-style-type: decimal">
 <li>Linearity</li>
 <li>Equality of the variance</li>
@@ -700,26 +669,14 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 1.026 on 30 degrees of freedom
 Multiple R-squared:  0.7942,    Adjusted R-squared:  0.7874 
 F-statistic: 115.8 on 1 and 30 DF,  p-value: 8.07e-12</code></pre>
-<p>In the residuals vs fitted values plot we observe that the residuals
-are nicely spread around zero with more or less the same variance and we
-do not observed a trend in the residuals so there is no indication on
-deviations from linearity and homoscedasticity.</p>
-<p>The QQ-plot further shows no substantial deviations from normality.
-So the assumptions hold.</p>
-<p>We can now assess a formal hypothesis test to for the linear
-association between the S100A8 gene and the ESR1 gene expression at the
-log2 scale.</p>
-<p>We can translate the hypothesis that there is an association between
-the S100A8 and ESR1 gene expression in terms of the slope of the model,
-so under the alternative hypothesis <span
-class="math inline">\(\beta_1\)</span> is different from zero. <span
-class="math display">\[H_1: \beta_1 \neq 0\]</span></p>
-<p>With data we can never prove a hypothesis, so we therefore falsify
-the opposite: the null hypothesis the there is no association between
-the expression of both genes:</p>
-<p><span class="math display">\[H_0: \beta_0 = 0\]</span> We can do this
-by adopting a t-test on the slope and by using confidence intervals on
-the slope.</p>
+<p>In the residuals vs fitted values plot we observe that the residuals are nicely spread around zero with more or less the same variance and we do not observed a trend in the residuals so there is no indication on deviations from linearity and homoscedasticity.</p>
+<p>The QQ-plot further shows no substantial deviations from normality. So the assumptions hold.</p>
+<p>We can now assess a formal hypothesis test to for the linear association between the S100A8 gene and the ESR1 gene expression at the log2 scale.</p>
+<p>We can translate the hypothesis that there is an association between the S100A8 and ESR1 gene expression in terms of the slope of the model, so under the alternative hypothesis <span class="math inline">\(\beta_1\)</span> is different from zero.
+<span class="math display">\[H_1: \beta_1 \neq 0\]</span></p>
+<p>With data we can never prove a hypothesis, so we therefore falsify the opposite: the null hypothesis the there is no association between the expression of both genes:</p>
+<p><span class="math display">\[H_0: \beta_0 = 0\]</span>
+We can do this by adopting a t-test on the slope and by using confidence intervals on the slope.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">summary</span>(lm2)</span></code></pre></div>
 <pre><code>
 Call:
@@ -743,11 +700,9 @@ F-statistic: 115.8 on 1 and 30 DF,  p-value: 8.07e-12</code></pre>
 <pre><code>                2.5 %    97.5 %
 (Intercept) 20.128645 26.674023
 ESR1_log2   -1.921047 -1.308185</code></pre>
-<p>Both the t-test and the confidence interval indicate that association
-is extremely significant. The interval moreover shows that the
-association is biologically relevant.</p>
-<p>We will transform slope and the confidence interval back to the
-original scale to interpret the results in terms of fold changes.</p>
+<p>Both the t-test and the confidence interval indicate that association is extremely significant.
+The interval moreover shows that the association is biologically relevant.</p>
+<p>We will transform slope and the confidence interval back to the original scale to interpret the results in terms of fold changes.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span>(<span class="fu">coef</span>(lm2))</span></code></pre></div>
 <pre><code> (Intercept)    ESR1_log2 
 1.107908e+07 3.265519e-01 </code></pre>
@@ -759,12 +714,8 @@ ESR1_log2   2.640628e-01 4.038287e-01</code></pre>
 </div>
 <div id="conclusion" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Conclusion</h1>
-<p>There is an extremely significant negative association between the
-S100A8 gene expression and that of ESR1 (<span
-class="math inline">\(p&lt;&lt;0.001\)</span>).</p>
-<p>A patient with an ESR1 expression that is 2 times the expression of
-that of another patient will on average have an S100A8 expression that
-is 3.06 times lower (95% CI [2.48,3.79]).</p>
+<p>There is an extremely significant negative association between the S100A8 gene expression and that of ESR1 (<span class="math inline">\(p&lt;&lt;0.001\)</span>).</p>
+<p>A patient with an ESR1 expression that is 2 times the expression of that of another patient will on average have an S100A8 expression that is 3.06 times lower (95% CI [2.48,3.79]).</p>
 </div>
 
 <div id="rmd-source-code">LS0tCnRpdGxlOiAiQnJlYXN0IGNhbmNlciBleGFtcGxlIgphdXRob3I6ICJMaWV2ZW4gQ2xlbWVudCIKZGF0ZTogInN0YXRPbWljcywgR2hlbnQgVW5pdmVyc2l0eSAoaHR0cHM6Ly9zdGF0b21pY3MuZ2l0aHViLmlvKSIKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGluY2x1ZGUgPSBUUlVFLCBjb21tZW50ID0gTkEsIGVjaG8gPSBUUlVFLAogICAgICAgICAgICAgICAgICAgICAgbWVzc2FnZSA9IEZBTFNFLCB3YXJuaW5nID0gRkFMU0UpCmBgYAoKCiMgQnJlYXN0IGNhbmNlciBkYXRhc2V0Ci0gU3Vic2V0IG9mIHN0dWR5IGh0dHBzOi8vZG9pLm9yZy8xMC4xMDkzL2puY2kvZGpqMDUyCgotIDMyIGJyZWFzdCBjYW5jZXIgcGF0aWVudHMgd2l0aCBlc3Ryb2dlbiByZWNlcHRvciBwb3NpdGl2ZSB0dW1vdXIgdGhhdCBoYWQgdGFtb3hpZmVuIGNoZW1vdGhlcmFweS4gVmFyaWFibGVzOgoKICAgIC0gZ3JhZGU6IGhpc3RvbG9naWNhbCBncmFkZSBvZiB0dW1vdXIgKGdyYWRlIDEgdnMgMyksCiAgICAtIG5vZGU6IGx5bXBoIG5vZGUgc3RhdHVzICAoMDogbm90IGFmZmVjdGVkLCAxOiBseW1waCBub2RlcyBhZmZlY3RlZCBhbmQgcmVtb3ZlZCksCiAgICAtIHNpemU6IHR1bW91ciBzaXplIGluIGNtLAogICAgLSBFU1IxIGFuZCBTMTAwQTggZ2VuZSBleHByZXNzaW9uIGluIHR1bW91ciBiaW9wc3kgKG1pY3JvYXJyYXkgdGVjaG5vbG9neSkKCgotIEVTUjEgaW4gYWN0aXZlIGluICRccG0kIDc1JSBvZiBicmVhc3QgY2FuY2VyIHR1bW91cnMuCgotIEV4cHJlc3Npb24gb2YgRVIgZ2VuZSBwb3NpdGl2ZSBmb3IgdHJlYXRtZW50OiB0dW1vdXIgcmVzcG9uZHMgdG8gaG9ybW9uZSB0aGVyYXB5CgotIFRhbW94aWZlbiBpbnRlcmFjdHMgd2l0aCBFUiBhbmQgbW9kdWxhdGVzIGdlbmUgZXhwcmVzc2lvbi4KCi0gUHJvdGVpbnMgb2YgUzEwMCBmYW1pbHkgb2Z0ZW4gZHlzcmVndWxhdGVkIGluIGNhbmNlcgoKLSBTMTAwQTggZXhwcmVzc2lvbiByZXByZXNzZXMgaW1tdW5lIHN5c3RlbSBpbiB0dW1vdXIgZW4gY3JlYXRlcyBhbiBlbnZpcm9ubWVudCBvZiBpbmZsYW1tYXRpb24gdGhhdCBwcm9tb3RlcyB0dW1vdXIgZ3Jvd3RoLgoKCmBgYHtyIGxpYnJhcmllcywgbWVzc2FnZT1GQUxTRX0KbGlicmFyeShSbWlzYykKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoR0dhbGx5KQpgYGAKCmBgYHtyfQpicmNhIDwtIHJlYWRfY3N2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vR1RQQi9QU0xTMjAvbWFzdGVyL2RhdGEvYnJlYXN0Y2FuY2VyLmNzdiIpCmJyY2EKYGBgCgoKIyBSZXNlYXJjaCBxdWVzdGlvbgoKSXMgdGhlIGV4cHJlc3Npb24gb2YgdGhlIFMxMDBBOCBnZW5lIGFzc29jaWF0ZWQgd2l0aCB0aGF0IG9mIHRoYXQgb2YgdGhlIEVTUjEgZ2VuZT8KCiMgRGF0YSBleHBsb3JhdGlvbgoKVGhlcmUgYXJlIG1hbnkgdmFyaWFibGVzIGluIHRoZSBkYXRhLCB3ZSB3aWxsIHBsb3QgYWxsIHZhcmlhYmxlcyBpbiBhIHNjYXR0ZXJwbG90IG1hdHJpeCB1c2luZyB0aGUgR0dhbGx5IHBhY2thZ2UuCgpgYGB7cn0KZ2dwYWlycyhicmNhWywgLSgxOjQpXSkKYGBgCgpXZSBub3cgZm9jdXMgb24gdGhlIGFzc29jaWF0aW9uIGJldHdlZW4gUzEwMEE4IGV4cHJlc3Npb24gYW5kIHRoZSBFU1IxIGV4cHJlc3Npb24uCgpgYGB7ciBmaWcuYWxpZ249J2NlbnRlcid9CmJyY2EgJT4lCiAgZ2dwbG90KGFlcyh4ID0gRVNSMSwgeSA9IFMxMDBBOCkpICsKICBnZW9tX3BvaW50KCkgKwogIGdlb21fc21vb3RoKHNlID0gRkFMU0UsIGNvbCA9ICJncmV5IikgKwogIGdlb21fc21vb3RoKG1ldGhvZCA9ICJsbSIsIHNlID0gRkFMU0UpCmBgYAoKVGhlIGFzc29jaWF0aW9uIG9mIFMxMDBBIGFuZCBFU1IxIGRvZXMgbm90IGFwcGVhciB0byBiZSBsaW5lYXIuCgotIENvbmNlbnRyYXRpb24gbWVhc3VyZW1lbnRzIGFyZSBvZnRlbiBza2V3ZWQuCi0gV2Ugd2lsbCBsb2cyIHRyYW5zZm9ybSB0aGUgZGF0YS4KCmBgYHtyIGZpZy5hbGlnbj0nY2VudGVyJ30KYnJjYSAlPiUKICBnZ3Bsb3QoYWVzKHggPSBsb2cyKEVTUjEpLCB5ID0gbG9nMihTMTAwQTgpKSkgKwogIGdlb21fcG9pbnQoKSArCiAgZ2VvbV9zbW9vdGgoc2UgPSBGQUxTRSwgY29sID0gImdyZXkiKSArCiAgZ2VvbV9zbW9vdGgobWV0aG9kID0gImxtIiwgc2UgPSBGQUxTRSkKYGBgCgpVcG9uIGxvZyB0cmFuc2Zvcm1hdGlvbiB0aGUgZGF0YSBhcmUgc2hvd2luZyBhIGxpbmVhciBhc3NvY2lhdGlvbi4gSXMgdGhpcyBhc3NvY2lhdGlvbiBzdHJvbmcgZW5vdWdoIHRvIGJlIGFibGUgdG8gY29uY2x1ZGUgdGhhdCB0aGUgUzEwMEE4IGdlbmUgZXhwcmVzc2lvbiBpcyBhc3NvY2lhdGVkIHRvIHRoZSBFU1IxIGdlbmUgZXhwcmVzc2lvbj8KCiMgRGVzY3JpcHRpdmUgc3RhdGlzdGljcwoKV2UgZmlyc3QgY2FsY3VsYXRlIHRoZSBQZWFyc29uIGFuZCBTcGVhcm1hbiBjb3JyZWxhdGlvbiBiYXNlZCBvbiB0aGUgb3JpZ2luYWwgZGF0YSBhbmQgdGhlIGxvZzIgdHJhbnNmb3JtZWQgZGF0YQoKUGVhcnNvbiAgY29ycmVsYXRpb24KYGBge3J9CmJyY2EgPC0gYnJjYSAlPiUKICBtdXRhdGUoUzEwMEE4X2xvZzIgPSBsb2cyKFMxMDBBOCksIEVTUjFfbG9nMiA9IGxvZzIoRVNSMSkpCgpicmNhICU+JQogIHNlbGVjdChTMTAwQThfbG9nMiwgRVNSMV9sb2cyKSAlPiUKICBjb3IoKQpgYGAKClNwZWFybWFuIGNvcnJlbGF0aW9uCmBgYHtyfQpicmNhICU+JQogIHNlbGVjdChTMTAwQThfbG9nMiwgRVNSMV9sb2cyKSAlPiUKICBjb3IobWV0aG9kID0gInNwZWFybWFuIikKYGBgCgpCb3RoIHRoZSBQZWFyc29uIGFuZCBTcGVhcm1hbiBjb3JyZWxhdGlvbiBhcmUgbmVnYXRpdmUuIE5vdGUsIHRoYXQgdGhlIFNwZWFybWFuIGNvcnJlbGF0aW9uIGlzIG11Y2ggbGFyZ2VyIGluIGFic29sdXRlIHZhbHVlIHRoYW4gdGhlIFBlYXJzb24gY29ycmVsYXRpb24gb24gdGhlIG9yaWdpbmFsIGV4cHJlc3Npb24gbWVhc3VyZW1lbnRzLiBJbmRlZWQsIHRoZSBQZWFyc29uIGNvcnJlbGF0aW9uIGlzIGFmZmVjdGVkIGJ5IHRoZSBub24gbGluZWFyIGFzc29jaWF0aW9uIGF0IHRoZSBvcmlnaW5hbCBzY2FsZS4KCk9uIHRoZSBsb2cgc2NhbGUgdGhlIFBlYXJzb24gY29ycmVsYXRpb24gaXMgbXVjaCBoaWdoZXIuClRoZSBzcGVhcm1hbiBjb3JyZWxhdGlvbiwgaG93ZXZlciwgcmVtYWlucyBiZWNhdXNlIGl0IGlzIGJhc2VkIG9uIHJhbmsgdHJhbnNmb3JtZWQgZGF0YS4KCiMgTW9kZWwKCldlIHdpbGwgbW9kZWwgdGhlIGRhdGEgb24gdGhlIGxvZzIgc2NhbGUgYW5kIHdlIGFzc3VtZSB0aGUgZm9sbG93aW5nIHN0YXRpc3RpY2FsIG1vZGVsOgoKJCRZX2lcdmVydCBYX2lcc2ltIE4oXGJldGFfMCtcYmV0YV8xWF9pLFxzaWdtYV4yKSQkCgp3aXRoICRZX2kkIHRoZSBsb2cyIHRyYW5zZm9ybWVkIFMxMDBBOCBnZW5lIGV4cHJlc3Npb24gYW5kICRYX2kkIHRoZSBsb2cyIHRyYW5zZm9ybWVkIEVTUjEgZ2VuZSBleHByZXNzaW9uLgoKIyMgTW9kZWwgZml0dGluZwoKV2UgZml0IHRoZSBtb2RlbCB0byB0aGUgZGF0YSB1c2luZyB0aGUgbG0gZnVuY3Rpb24gYW5kIHdlIGZpcnN0IGFzc2VzcyB0aGUgYXNzdW1wdGlvbnMuIEJlY2F1c2UgdGhlIHN1YmplY3RzIHdlcmUgc2VsZWN0ZWQgYXQgcmFuZG9tIGZyb20gdGhlIHBvcHVsYXRpb24gdGhleSBhcmUgaW5kZXBlbmRlbnQuIFdlIHN0aWxsIGhhdmUgdG8gY2hlY2sgdGhlIGZvbGxvd2luZyBhc3N1bXB0aW9ucy4KCjEuIExpbmVhcml0eQoyLiBFcXVhbGl0eSBvZiB0aGUgdmFyaWFuY2UKMy4gVGhlIHJlc2lkdWFscyBhcmUgbm9ybWFsbHkgZGlzdHJpYnV0aW9uLgoKYGBge3J9CmxtMiA8LSBsbShTMTAwQThfbG9nMiB+IEVTUjFfbG9nMiwgZGF0YSA9IGJyY2EpCnBsb3QobG0yKQpzdW1tYXJ5KGxtMikKYGBgCgpJbiB0aGUgcmVzaWR1YWxzIHZzIGZpdHRlZCB2YWx1ZXMgcGxvdCB3ZSBvYnNlcnZlIHRoYXQgdGhlIHJlc2lkdWFscyBhcmUgbmljZWx5IHNwcmVhZCBhcm91bmQgemVybyB3aXRoIG1vcmUgb3IgbGVzcyB0aGUgc2FtZSB2YXJpYW5jZSBhbmQgd2UgZG8gbm90IG9ic2VydmVkIGEgdHJlbmQgaW4gdGhlIHJlc2lkdWFscyBzbyB0aGVyZSBpcyBubyBpbmRpY2F0aW9uIG9uIGRldmlhdGlvbnMgZnJvbSBsaW5lYXJpdHkgYW5kIGhvbW9zY2VkYXN0aWNpdHkuCgpUaGUgUVEtcGxvdCBmdXJ0aGVyIHNob3dzIG5vIHN1YnN0YW50aWFsIGRldmlhdGlvbnMgZnJvbSBub3JtYWxpdHkuIFNvIHRoZSBhc3N1bXB0aW9ucyBob2xkLgoKV2UgY2FuIG5vdyBhc3Nlc3MgYSBmb3JtYWwgaHlwb3RoZXNpcyB0ZXN0IHRvIGZvciB0aGUgbGluZWFyIGFzc29jaWF0aW9uIGJldHdlZW4gdGhlIFMxMDBBOCBnZW5lIGFuZCB0aGUgRVNSMSBnZW5lIGV4cHJlc3Npb24gYXQgdGhlIGxvZzIgc2NhbGUuCgpXZSBjYW4gdHJhbnNsYXRlIHRoZSBoeXBvdGhlc2lzIHRoYXQgdGhlcmUgaXMgYW4gYXNzb2NpYXRpb24gYmV0d2VlbiB0aGUgUzEwMEE4IGFuZCBFU1IxIGdlbmUgZXhwcmVzc2lvbiBpbiB0ZXJtcyBvZiB0aGUgc2xvcGUgb2YgdGhlIG1vZGVsLCBzbyB1bmRlciB0aGUgYWx0ZXJuYXRpdmUgaHlwb3RoZXNpcyAkXGJldGFfMSQgaXMgZGlmZmVyZW50IGZyb20gemVyby4KJCRIXzE6IFxiZXRhXzEgXG5lcSAwJCQKCldpdGggZGF0YSB3ZSBjYW4gbmV2ZXIgcHJvdmUgYSBoeXBvdGhlc2lzLCBzbyB3ZSB0aGVyZWZvcmUgZmFsc2lmeSB0aGUgb3Bwb3NpdGU6IHRoZSBudWxsIGh5cG90aGVzaXMgdGhlIHRoZXJlIGlzIG5vIGFzc29jaWF0aW9uIGJldHdlZW4gdGhlIGV4cHJlc3Npb24gb2YgYm90aCBnZW5lczoKCiQkSF8wOiBcYmV0YV8wID0gMCQkCldlIGNhbiBkbyB0aGlzIGJ5IGFkb3B0aW5nIGEgdC10ZXN0IG9uIHRoZSBzbG9wZSBhbmQgYnkgdXNpbmcgY29uZmlkZW5jZSBpbnRlcnZhbHMgb24gdGhlIHNsb3BlLgoKYGBge3J9CnN1bW1hcnkobG0yKQpjb25maW50KGxtMikKYGBgCgpCb3RoIHRoZSB0LXRlc3QgYW5kIHRoZSBjb25maWRlbmNlIGludGVydmFsIGluZGljYXRlIHRoYXQgYXNzb2NpYXRpb24gaXMgZXh0cmVtZWx5IHNpZ25pZmljYW50LgpUaGUgaW50ZXJ2YWwgbW9yZW92ZXIgc2hvd3MgdGhhdCB0aGUgYXNzb2NpYXRpb24gaXMgYmlvbG9naWNhbGx5IHJlbGV2YW50LgoKV2Ugd2lsbCB0cmFuc2Zvcm0gc2xvcGUgYW5kIHRoZSBjb25maWRlbmNlIGludGVydmFsIGJhY2sgdG8gdGhlIG9yaWdpbmFsIHNjYWxlIHRvIGludGVycHJldCB0aGUgcmVzdWx0cyBpbiB0ZXJtcyBvZiBmb2xkIGNoYW5nZXMuCgpgYGB7cn0KMl4oY29lZihsbTIpKQpgYGAKCmBgYHtyfQoyXmNvbmZpbnQobG0yKQpgYGAKCgojIENvbmNsdXNpb24KClRoZXJlIGlzIGFuIGV4dHJlbWVseSBzaWduaWZpY2FudCBuZWdhdGl2ZSBhc3NvY2lhdGlvbiBiZXR3ZWVuIHRoZSBTMTAwQTggZ2VuZSBleHByZXNzaW9uIGFuZCB0aGF0IG9mIEVTUjEgKCRwPDwwLjAwMSQpLgoKQSBwYXRpZW50IHdpdGggYW4gRVNSMSBleHByZXNzaW9uIHRoYXQgaXMgMiB0aW1lcyB0aGUgZXhwcmVzc2lvbiBvZiB0aGF0IG9mIGFub3RoZXIgcGF0aWVudCB3aWxsIG9uIGF2ZXJhZ2UgaGF2ZSBhbiAgUzEwMEE4IGV4cHJlc3Npb24gdGhhdCBpcyBgciByb3VuZCgyXi1sbTIkY29lZlsyXQosMilgIHRpbWVzIGxvd2VyICg5NVwlIENJIFtgciBwYXN0ZShzb3J0KHJvdW5kKDJeLWNvbmZpbnQobG0yKVsyLF0sMikpLGNvbGxhcHNlPSIsIilgXSkuCg==</div>

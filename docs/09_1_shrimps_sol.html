@@ -14,7 +14,6 @@
 
 <title>Exercise 9.1: Non-parametric statistics on the shrimps dataset - solution</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,31 +546,28 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 9.1: Non-parametric statistics on
-the shrimps dataset - solution</h1>
+<h1 class="title toc-ignore">Exercise 9.1: Non-parametric statistics on the shrimps dataset - solution</h1>
 <h4 class="author">Lieven Clement and Jeroen Gilis</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="the-shrimps-dataset" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> The shrimps
-dataset</h1>
-<p>Dataset on the accumulation of PCBs (Polychlorinated biphenyls) in
-the adipose tissue of shrimps. PCBs are often present in coolants, and
-are know to accumulate easily in the adipose tissue of shrimps. In this
-experiment, two groups of 18 samples (each 100 grams) of shrimps each
-were cultivated in different conditions, one control condition and one
-condition where the medium was poluted with PCBs. Note that the PCB
-concentrations were measured in pg/g adipose tissue.</p>
+<h1><span class="header-section-number">1</span> The shrimps dataset</h1>
+<p>Dataset on the accumulation of PCBs (Polychlorinated biphenyls)
+in the adipose tissue of shrimps. PCBs are often present in coolants, and are
+know to accumulate easily in the adipose tissue of shrimps. In this experiment,
+two groups of 18 samples (each 100 grams) of shrimps each were cultivated
+in different conditions, one control condition and one condition
+where the medium was poluted with PCBs. Note that the PCB concentrations were
+measured in pg/g adipose tissue.</p>
 </div>
 <div id="goal" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Goal</h1>
-<p>The research question is; is there an effect of the growth condition
-on the PCB concentration in the adipose tissue of shrimps?</p>
+<p>The research question is; is there an effect of the
+growth condition on the PCB concentration in the adipose
+tissue of shrimps?</p>
 <p>Load libraries:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
@@ -632,24 +628,24 @@ on the PCB concentration in the adipose tissue of shrimps?</p>
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="09_1_shrimps_sol_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>We can see that for group 1 we have four very clear outliers in the
-data. These values were double-checked (i.e for typing errors), but
-there was no reason found to believe that these values are
-incorrect.</p>
+<p>We can see that for group 1 we have four very clear outliers
+in the data. These values were double-checked (i.e for
+typing errors), but there was no reason found to believe
+that these values are incorrect.</p>
 </div>
 <div id="analysis" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Analysis</h1>
-<p>A good way for testing the research hypothesis is to perform an
-unpaired two-sample t-test to find out whether there is a significant
-difference in the mean PCB concentrations between both groups of
-samples. Before we can do this, we must check if all the required
-assumptions are met.</p>
+<p>A good way for
+testing the research hypothesis is to perform an unpaired
+two-sample t-test to find out whether there is a significant
+difference in the mean PCB concentrations between both groups
+of samples. Before we can do this, we must check if all the
+required assumptions are met.</p>
 <div id="assumptions" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Assumptions</h2>
 <ol style="list-style-type: decimal">
 <li>The observations are independent of each other (in both groups)</li>
-<li>The data (PCB.conc) must be normally distributed (in both
-groups)</li>
+<li>The data (PCB.conc) must be normally distributed (in both groups)</li>
 <li>The variance is equal in the two groups.</li>
 </ol>
 <p>The first assumption is met, as we randomly selected shrimps and
@@ -662,32 +658,31 @@ correlation patterns are expected.</p>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> group)</span></code></pre></div>
 <p><img src="09_1_shrimps_sol_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>We clearly see that we have strong deviations from normality. Many
-datapoints do not lie near the quantile-quantile line. As such, we may
-conclude that our data are not normally distributed. In addition, the
-boxplots suggest that the variability differs between the two
-groups.</p>
-<p>As such, we are not allowed to perform the t-test. Given the location
-of the outliers transformation will not help, so we will resort to
-non-parametric tests, i.e. to the Wilcoxon rank-sum test.</p>
+<p>We clearly see that we have strong deviations from
+normality. Many datapoints do not lie near the quantile-quantile
+line. As such, we may conclude that our data are not normally distributed.
+In addition, the boxplots suggest that the
+variability differs between the two groups.</p>
+<p>As such, we are not allowed to perform the t-test.
+Given the location of the outliers transformation will not help, so we will resort to non-parametric
+tests, i.e. to the Wilcoxon rank-sum test.</p>
 </div>
 <div id="wilcoxon-rank-sum-test" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Wilcoxon rank-sum
-test</h2>
-<p>The Wilcoxon rank-sum test (or the Mann-Whitney U test) is an
-important non-parametric data analysis method. In rank-based tests, the
-data <span class="math inline">\(Y_i\)</span> are first transformed to
-its ranked equivalent <span class="math display">\[ R_i=R(Y_i) =
-\#\{Y_j: Y_j\leq Y_i; j=1,\ldots, n\}. \]</span></p>
-<p>Ranks are very robust to outliers. For instance, it does not matter
-if the highest value in an hypothetical dataset has a value of 10 or
-100; it will keep the same rank (highest rank).</p>
-<p>Note, that there might be ties in the data, e.g., if two samples of
-shrimps have an equal concentration of PCBs. In this case, the Wilcoxon
-rank-sum test will compute mid-ranks, which are calculated as follows;
-<span class="math display">\[R(Y_i) = \frac{\sum\limits_{\forall j :
-Y_j=Y_i}R(Y_j)}{\#{\forall j:Y_j=Y_i}}  \]</span> i.e., the midrank is
-equal to the mean of the ranks of equal observations.</p>
+<h2><span class="header-section-number">6.2</span> Wilcoxon rank-sum test</h2>
+<p>The Wilcoxon rank-sum test (or the Mann-Whitney U test) is an important
+non-parametric data analysis method. In rank-based tests, the data
+<span class="math inline">\(Y_i\)</span> are first transformed to its ranked equivalent
+<span class="math display">\[ R_i=R(Y_i) = \#\{Y_j: Y_j\leq Y_i; j=1,\ldots, n\}. \]</span></p>
+<p>Ranks are very robust to outliers. For instance, it does not
+matter if the highest value in an hypothetical dataset has a
+value of 10 or 100; it will keep the same rank (highest rank).</p>
+<p>Note, that there might be ties in the data, e.g., if
+two samples of shrimps have an equal concentration of PCBs.
+In this case, the Wilcoxon rank-sum test will compute
+mid-ranks, which are calculated as follows;
+<span class="math display">\[R(Y_i) = \frac{\sum\limits_{\forall j : Y_j=Y_i}R(Y_j)}{\#{\forall j:Y_j=Y_i}}  \]</span>
+i.e., the midrank is equal to the mean of the ranks of equal
+observations.</p>
 <p>After computing the ranks and midranks, the Wilcoxon test will
 compare the mean rank between both treatment groups:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>wilcox_res <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(PCB.conc <span class="sc">~</span> group, <span class="at">data =</span> shrimps)</span>
@@ -698,44 +693,43 @@ compare the mean rank between both treatment groups:</p>
 ## data:  PCB.conc by group
 ## W = 88, p-value = 0.01871
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
-<p>We find that the test is significant on the 5% significance level (p
-= 0.01871). The value W=88 could be calculated manually as the
-Mann-Withney statistic that counts how many times a value from group 1
-is larger or equal than values of group 2.</p>
+<p>We find that the test is significant on the 5%
+significance level (p = 0.01871). The value W=88
+could be calculated manually as the Mann-Withney statistic
+that counts how many times a value from group 1 is larger or equal than values of group 2.</p>
 <div id="interpretation" class="section level3" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> Interpretation</h3>
-<p>The interpretation of the Wilcoxon rank-sum test is slightly more
-challenging than that of a t-test. Since we are no longer interpreting
-differences in the distributions between the groups in terms of the
-average differences but in in terms of the <em>probabilistic
-index</em>.</p>
-<p>The null hypothesis of the Wilcoxon test states that the
-distributions are equal for both groups:</p>
+<p>The interpretation of the Wilcoxon rank-sum test is
+slightly more challenging than that of a t-test.
+Since we are no longer interpreting differences in the distributions between the groups in terms of the average differences but in in terms of the
+<em>probabilistic index</em>.</p>
+<p>The null hypothesis of the Wilcoxon test states that
+the distributions
+are equal for both groups:</p>
 <p><span class="math display">\[ H_0: f_1 = f_2 \]</span></p>
-<p>In words: the distribution of PCB concentrations in shrimps are equal
-for both treatment conditions.</p>
+<p>In words: the distribution of PCB concentrations in
+shrimps are equal for both treatment conditions.</p>
 <p>against the alternative hypothesis that</p>
-<p><span class="math display">\[ H_1: P(Y_{1} \geq Y_{2}) \ne 1/2
-\]</span></p>
-<p>In words: The probability that a random observation of a PCB
-concentration derived from shrimps that was grown in the control
-condition <em>is larger than or equal to</em> than a random observation
-of a PCB concentration derived from a shrimps that was grown in the
-other condition <em>is not equal to 50%</em>.</p>
-<p>We can estimate this probability based on the observed test
-statistic.</p>
+<p><span class="math display">\[ H_1: P(Y_{1} \geq Y_{2}) \ne 1/2 \]</span></p>
+<p>In words: The probability that a random observation of a
+PCB concentration derived from shrimps that
+was grown in the control condition <em>is larger than or equal to</em>
+than a random observation of a PCB concentration
+derived from a shrimps that was grown in
+the other condition <em>is not equal to 50%</em>.</p>
+<p>We can estimate this probability based on the observed test statistic.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> n2 <span class="ot">&lt;-</span> <span class="dv">18</span> <span class="co"># 18 observations in each group</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>WObs <span class="ot">&lt;-</span> wilcox_res<span class="sc">$</span>statistic <span class="co"># get the observed test statistic</span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>WObs <span class="sc">/</span> (n1 <span class="sc">*</span> n2)</span></code></pre></div>
 <pre><code>##         W 
 ## 0.2716049</code></pre>
-<p>We can see that the point estimate of this probability is 27.2%.</p>
+<p>We can see that the point estimate of this probability
+is 27.2%.</p>
 <p>We can interpret it as follows;</p>
-<p>There is a probability of 27.2% that the PCB concentration in a
-random shrimp that was grown in the control condition is greater than or
-equal to the PCB concentration in a random shrimp that was grown in the
-treatment condition. This probability is significantly different from
-50% on the 5% significance level (p = 0.01871).</p>
+<p>There is a probability of 27.2% that the PCB concentration in a random
+shrimp that was grown in the control condition is
+greater than or equal to the PCB concentration in a random
+shrimp that was grown in the treatment condition. This probability is significantly different from 50% on the 5% significance level (p = 0.01871).</p>
 </div>
 </div>
 </div>

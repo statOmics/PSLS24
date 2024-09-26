@@ -14,7 +14,6 @@
 
 <title>Exercise 4.1: Exploring the NHANES dataset</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,48 +546,40 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 4.1: Exploring the NHANES
-dataset</h1>
+<h1 class="title toc-ignore">Exercise 4.1: Exploring the NHANES dataset</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="aims-of-this-exercise" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Aims of this
-exercise</h1>
+<h1><span class="header-section-number">1</span> Aims of this exercise</h1>
 <p>In this exercise, you will learn howto:</p>
 <ul>
 <li>import data into R</li>
 <li>tidy and wrangle data</li>
 <li>explore and visualize data</li>
 </ul>
-<p>by following and interpreting the code of this worked out R/Rmarkdown
-example.</p>
+<p>by following and interpreting the code of this worked out R/Rmarkdown example.</p>
 </div>
 <div id="the-nhanes-dataset" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> The NHANES dataset</h1>
 <p>The National Health and Nutrition Examination Survey (NHANES)
-contains data that has been collected since 1960. For this exercise, we
-will make use of the data that were collected between 2009 and 2012, for
-10.000 U.S. civilians. The dataset contains a large number of physical,
-demographic, nutritional and life-style-related parameters.</p>
-<p>Before we can actually start working with data, we will need to learn
-how to import the required datasets into our R session.</p>
+contains data that has been collected since 1960. For this exercise,
+we will make use of the data that were collected between 2009 and
+2012, for 10.000 U.S. civilians. The dataset contains a large number of
+physical, demographic, nutritional and life-style-related parameters.</p>
+<p>Before we can actually start working with data, we will need to learn how to
+import the required datasets into our R session.</p>
 </div>
-<div id="data-import-with-the-readr-r-package" class="section level1"
-number="3">
-<h1><span class="header-section-number">3</span> Data Import with the
-<code>readr</code> R package</h1>
+<div id="data-import-with-the-readr-r-package" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Data Import with the <code>readr</code> R package</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<p>Let’s try reading in some data. We will begin by reading in the
-<code>NHANES.csv</code> dataset.</p>
-<p>Note that we don’t need to download the dataset manually;
-<code>read_csv()</code> (or its base equivalent <code>read.csv()</code>)
-can take a URL as input and read in the data directly.</p>
+<p>Let’s try reading in some data. We will begin by
+reading in the <code>NHANES.csv</code> dataset.</p>
+<p>Note that we don’t need to download the dataset manually; <code>read_csv()</code> (or its base equivalent
+<code>read.csv()</code>) can take a URL as input and read in the data directly.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>NHANES <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/statOmics/PSLSData/main/NHANES.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 10000 Columns: 76
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -618,11 +609,11 @@ can take a URL as input and read in the data directly.</p>
   </script>
 </div>
 <div id="take-a-glimpse-at-your-data" class="section level2 unnumbered">
-<h2 class="unnumbered">Take a <code>glimpse()</code> at your data</h2>
-<p>The <code>glimpse()</code> function allows us to (obviously) take a
-first, informative glimpse at our data. The function is part of the
-<code>dplyr</code> package, which we will explore in much more detail
-below!</p>
+<h2>Take a <code>glimpse()</code> at your data</h2>
+<p>The <code>glimpse()</code> function allows us to (obviously) take
+a first, informative glimpse at our data. The function
+is part of the <code>dplyr</code> package, which we will explore in much
+more detail below!</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">glimpse</span>(NHANES[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
 <pre><code>## Rows: 10,000
 ## Columns: 10
@@ -641,32 +632,29 @@ below!</p>
 </div>
 <div id="data-tidying" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Data Tidying</h1>
-<p><strong>Important</strong>: If you are not familiar yet with the
-concepts of tidy data, have a look at the <a
-href="./extra1_preliminary_tidyverse.html"><em>tidyverse
-preliminary</em></a> first!</p>
-<p>If we consider our <code>NHANES</code> dataframe, we see it is
-already in a tidy format, as;</p>
+<p><strong>Important</strong>:
+If you are not familiar yet with the concepts of tidy data,
+have a look at the <a href="./extra1_preliminary_tidyverse.html"><em>tidyverse preliminary</em></a> first!</p>
+<p>If we consider our <code>NHANES</code> dataframe, we see it is already in
+a tidy format, as;</p>
 <ul>
 <li>Each variable forms a column.</li>
 <li>Each observation forms a row.</li>
 <li>Each type of observational unit forms a table.</li>
 </ul>
-<p>Each row contains all of the information on a single subject (US
-civilian) in the study.</p>
-<p>In te next tutorial, we will work with a dataset on the effects of
-sugar intake on the blood glucose level of patients. This will not be a
-<em>tidy</em> dataset. As such, the details of tidying data with
-tidyverse will be described there</p>
+<p>Each row contains all of the information on
+a single subject (US civilian) in the study.</p>
+<p>In te next tutorial, we will work with a dataset on the
+effects of sugar intake on the blood glucose level of patients. This will not be
+a <em>tidy</em> dataset. As such, the details of tidying data
+with tidyverse will be described there</p>
 </div>
 <div id="data-wrangling-with-dplyr" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Data wrangling with
-<code>dplyr</code></h1>
+<h1><span class="header-section-number">5</span> Data wrangling with <code>dplyr</code></h1>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
-<p>The <code>dplyr</code> package provides us with a large set of
-functions for handeling our data. We refer to the <a
-href="./extra1_preliminary_tidyverse.html"><em>preliminary</em></a> file
-for a more detailed description of these functions.</p>
+<p>The <code>dplyr</code> package provides us with a large set of functions for handeling our data. We refer to
+the <a href="./extra1_preliminary_tidyverse.html"><em>preliminary</em></a> file for a more detailed description of
+these functions.</p>
 <p>The most important <code>dplyr</code> functions to remember are:</p>
 <table>
 <colgroup>
@@ -702,20 +690,16 @@ for a more detailed description of these functions.</p>
 </tr>
 <tr class="even">
 <td align="left"><code>group_by()</code></td>
-<td align="left">allows for group operations in the
-“split-apply-combine” concept</td>
+<td align="left">allows for group operations in the “split-apply-combine” concept</td>
 </tr>
 </tbody>
 </table>
 <div id="the-pipe" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> The pipe</h2>
-<p>In addition, the tidyverse allows using the <a
-href="https://r4ds.had.co.nz/pipes.html#pipes">pipe operator</a>
-<code>%&gt;%</code> from the <code>magrittr</code> package to use the
-output of one function as an input to the next function. Instead of
-nesting functions (reading from the inside to the outside), piping can
-improve readability by allowing to write function calls from left to
-right or top to bottom.</p>
+<p>In addition, the tidyverse allows using the <a href="https://r4ds.had.co.nz/pipes.html#pipes">pipe operator</a>
+<code>%&gt;%</code> from the <code>magrittr</code> package to use the output of one function as an input to the next
+function. Instead of nesting functions (reading from the inside to the outside), piping can improve
+readability by allowing to write function calls from left to right or top to bottom.</p>
 <p>For example, the following nested expression</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">foo</span>(<span class="fu">bar</span>(<span class="fu">baz</span>(x)))</span></code></pre></div>
 <p>Could be rewritten as</p>
@@ -723,24 +707,19 @@ right or top to bottom.</p>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="fu">baz</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">bar</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="fu">foo</span>()</span></code></pre></div>
-<p>Note that the pipe should only be used when it <em>improves</em>
-readability! It’s a purely esthetic tool and does not change anyting to
-how the functions are evaluated.</p>
-<p>Note that the above example could also be rewritten using
-<em>intermediate steps</em>:</p>
+<p>Note that the pipe should only be used when it <em>improves</em> readability! It’s a purely esthetic tool
+and does not change anyting to how the functions are evaluated.</p>
+<p>Note that the above example could also be rewritten using <em>intermediate steps</em>:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">baz</span>(x)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">bar</span>(x1)</span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">foo</span>(x2)</span></code></pre></div>
-<p>Which in some cases might actually be more appropriate (for example
-when you need to debug the code or reuse the intermediate results) but
-has the downside of having to name each intermediate object.</p>
-<p>In short, be conscious about when it’s appropriate to use the pipe
-and don’t just blindly use it everywhere. <strong>Ask yourself whether
-it really improves the readability of your code.</strong></p>
+<p>Which in some cases might actually be more appropriate (for example when you need to debug the code
+or reuse the intermediate results) but has the downside of having to name each intermediate object.</p>
+<p>In short, be conscious about when it’s appropriate to use the pipe and don’t just blindly use it
+everywhere. <strong>Ask yourself whether it really improves the readability of your code.</strong></p>
 </div>
 <div id="select-and-filter" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Select and
-filter</h2>
+<h2><span class="header-section-number">5.2</span> Select and filter</h2>
 <p>Here we will demonstrate the <code>dplyr</code> functionalities with
 a couple of small examples.</p>
 <p>Let’s say we want to investigate how many subjects are</p>
@@ -762,21 +741,21 @@ a couple of small examples.</p>
 <span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div>
 <pre><code>## [1] 1286</code></pre>
-<p>Filtering the dataset based on thee three filtering criteria retain
-3.601 subjects. Note that the the <code>select</code> step wasn’t
-strictly necessary, but since we could answer the question based on only
-these 4 colums, there is no need to retain the the rest of the data (if
-this is the only question).</p>
+<p>Filtering the dataset based on thee three filtering criteria
+retain 3.601 subjects. Note that the the <code>select</code> step wasn’t
+strictly necessary, but since we could answer the question
+based on only these 4 colums, there is no need to retain the
+the rest of the data (if this is the only question).</p>
 </div>
 <div id="arrange" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Arrange</h2>
-<p>Next question; within the <code>Race1</code> category of
-<code>Hispanics</code>, select <code>men</code> that are
-<code>not married</code> and display the first five by descending
-height`</p>
+<p>Next question; within the <code>Race1</code> category of <code>Hispanics</code>, select
+<code>men</code> that are <code>not married</code> and display the first five by
+descending height`</p>
 <p><strong>Hint</strong>: use the <code>desc()</code> function inside of
-<code>arrange()</code> to order rows in a descending order. Use the base
-R function <code>head</code> to display the first five.</p>
+<code>arrange()</code> to order rows in a descending order.
+Use the base R function <code>head</code> to display the first
+five.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">&quot;Race1&quot;</span>, <span class="st">&quot;Gender&quot;</span>, <span class="st">&quot;MaritalStatus&quot;</span>, <span class="st">&quot;Height&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="fu">filter</span>(MaritalStatus <span class="sc">!=</span> <span class="st">&quot;Married&quot;</span>, Race1 <span class="sc">==</span> <span class="st">&quot;Hispanic&quot;</span>, Gender <span class="sc">==</span> <span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -792,13 +771,14 @@ functionalities. Let’s try to explore another one!</p>
 </div>
 <div id="mutate" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Mutate</h2>
-<p>Assume that we don’t trust the BMI values in our dataset and we
-decide to calculate them ourselves. BMI is typically calculated by
-taking a person’s weigth (in kg) and dividing it by the its height (in
-m) squared. Based on this rule, generate a new column,
-<code>BMI_self</code>, for the subset of the NHANES dataset that we
-obtained from the previous question. To create new columns, we will use
-the <code>mutate()</code> function in <code>dplyr</code>.</p>
+<p>Assume that we don’t trust the BMI values in our dataset
+and we decide to calculate them ourselves. BMI is typically
+calculated by taking a person’s weigth (in kg) and dividing
+it by the its height (in m) squared. Based on this rule,
+generate a new column, <code>BMI_self</code>, for the subset of the
+NHANES dataset that we obtained from the previous question.
+To create new columns, we will use the <code>mutate()</code> function
+in <code>dplyr</code>.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">&quot;Race1&quot;</span>, <span class="st">&quot;Gender&quot;</span>, <span class="st">&quot;MaritalStatus&quot;</span>, <span class="st">&quot;Height&quot;</span>, <span class="st">&quot;Weight&quot;</span>, <span class="st">&quot;BMI&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="fu">filter</span>(MaritalStatus <span class="sc">!=</span> <span class="st">&quot;Married&quot;</span>, Race1 <span class="sc">==</span> <span class="st">&quot;Hispanic&quot;</span>, Gender <span class="sc">==</span> <span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -809,17 +789,17 @@ the <code>mutate()</code> function in <code>dplyr</code>.</p>
   </script>
 </div>
 <p>Note that now we need to include the <em>Weight</em> and <em>BMI</em>
-columns in the <code>select</code> statement, because we need that input
-for the <code>mutate</code> function. Good news: It turns out that the
-BMI column in the original dataset was computed correctly after all! But
-now we are interested in the mean value of the BMI_Self column. This
-requires a fifth <code>dplyr</code> function:
-<code>summarise()</code>.</p>
+columns in the <code>select</code> statement, because we need that
+input for the <code>mutate</code> function. Good news: It turns out
+that the BMI column in the original dataset was computed
+correctly after all! But now we are interested in the
+mean value of the BMI_Self column. This requires a fifth
+<code>dplyr</code> function: <code>summarise()</code>.</p>
 </div>
 <div id="summarise" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Summarise</h2>
-<p>Given the filtering of the question above, compute the mean value of
-the <code>BMI_self</code> column.</p>
+<p>Given the filtering of the question above, compute the mean
+value of the <code>BMI_self</code> column.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">&quot;Race1&quot;</span>, <span class="st">&quot;Gender&quot;</span>, <span class="st">&quot;MaritalStatus&quot;</span>, <span class="st">&quot;Height&quot;</span>, <span class="st">&quot;Weight&quot;</span>, <span class="st">&quot;BMI&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="fu">filter</span>(MaritalStatus <span class="sc">!=</span> <span class="st">&quot;Married&quot;</span>, Race1 <span class="sc">==</span> <span class="st">&quot;Hispanic&quot;</span>, Gender <span class="sc">==</span> <span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -832,47 +812,46 @@ the <code>BMI_self</code> column.</p>
 </div>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="do">## the additional argument na.rm = TRUE makes sure to remove missing</span></span>
 <span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="do">## values for the purpose of calculating the mean</span></span></code></pre></div>
-<p>For this particular subset of the data, we find an average BMI value
-of <span class="math inline">\(28.59 kg/m^2\)</span></p>
-<p>There are many other summary statistics you could consider such
-<code>sd()</code>, <code>min()</code>, <code>median()</code>,
-<code>max()</code>, <code>sum()</code>, <code>n()</code> (returns the
-length of vector), <code>first()</code> (returns first value in vector),
-<code>last()</code> (returns last value in vector) and
-<code>n_distinct()</code> (number of distinct values in vector). We will
-elaborate on these functions later.</p>
-<p>Note that choosing the most informative summary statistic is very
-important! This can be shown with the following example;</p>
+<p>For this particular subset of the data, we find an
+average BMI value of <span class="math inline">\(28.59 kg/m^2\)</span></p>
+<p>There are many other summary statistics you could consider such <code>sd()</code>, <code>min()</code>, <code>median()</code>,
+<code>max()</code>, <code>sum()</code>, <code>n()</code> (returns the length of vector), <code>first()</code> (returns first value in vector),
+<code>last()</code> (returns last value in vector) and <code>n_distinct()</code> (number of distinct values in vector).
+We will elaborate on these functions later.</p>
+<p>Note that choosing the most informative summary statistic is very important! This can be shown with
+the following example;</p>
 <p><img src="figures/Figure_partners.png" width="446" /></p>
-<p>In this study, men and woman were asked about their “ideal number of
-partners desired over 30 years”. While almost all subjects desired a
-number between 0 and 50, three male subjects selected a number above
-100. These three <em>outliers</em> in the data can have a large impact
-on the data analysis, especially when we work with summary statistics
-that are sensitive to these outliers.</p>
-<p>When we look at the <em>mean</em>, for instance, we see that on
-average woman desire 2.8 partners, while men desire 64.3 partners on
-average, suggesting a large discrepancy between male and female
-desires.</p>
+<p>In this study, men and woman were asked about their
+“ideal number of partners desired over 30 years”.
+While almost all subjects desired a number between 0 and 50,
+three male subjects selected a number above 100.
+These three <em>outliers</em> in the data can have a large impact on
+the data analysis, especially when we work with summary
+statistics that are sensitive to these outliers.</p>
+<p>When we look at the <em>mean</em>, for instance, we see that on average
+woman desire 2.8 partners, while men desire 64.3 partners on average,
+suggesting a large discrepancy between male and female desires.</p>
 <p>However, if look at a more <em>robust</em> summary statistic such as
 the <em>median</em>, we see that the result is 1 for both men and woman.
-It is clear that the mean value was completely distorted by the three
-outliers in the data.</p>
-<p>Another example of a more robust summary statistic is the
-<em>geometric mean</em>.</p>
+It is clear that the mean value was completely distorted by the
+three outliers in the data.</p>
+<p>Another example of a more robust summary statistic is
+the <em>geometric mean</em>.</p>
 </div>
 <div id="group" class="section level2" number="5.6">
 <h2><span class="header-section-number">5.6</span> Group</h2>
-<p>We already combine 5 very important functions. Here, we will add a
-final one: <code>group_by()</code>.</p>
-<p>The <code>group_by()</code> verb is and incredibly powerful function
-in <code>dplyr</code>. It allows us, for example, to calculate summarisy
-statistics for different groups of observations.</p>
-<p>If we take our example from above, let’s say we want to split the
-data frame by some variable (e.g. <code>MaritalStatus</code>), apply a
-function (<code>mean</code>) to a column (e.g. BMI_self) of the
-individual data frames and then combine the output back into a summary
-data frame.</p>
+<p>We already combine 5 very important functions.
+Here, we will add a final one: <code>group_by()</code>.</p>
+<p>The <code>group_by()</code> verb is and incredibly powerful
+function in <code>dplyr</code>. It allows us, for example,
+to calculate summarisy statistics for different
+groups of observations.</p>
+<p>If we take our example from above, let’s say
+we want to split the data frame by some variable
+(e.g. <code>MaritalStatus</code>), apply a function (<code>mean</code>)
+to a column (e.g. BMI_self) of the individual
+data frames and then combine the output back into
+a summary data frame.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">&quot;Race1&quot;</span>, <span class="st">&quot;Gender&quot;</span>, <span class="st">&quot;MaritalStatus&quot;</span>, <span class="st">&quot;Height&quot;</span>, <span class="st">&quot;Weight&quot;</span>, <span class="st">&quot;BMI&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="fu">filter</span>(MaritalStatus <span class="sc">!=</span> <span class="st">&quot;Married&quot;</span>, Race1 <span class="sc">==</span> <span class="st">&quot;Hispanic&quot;</span>, Gender <span class="sc">==</span> <span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -886,33 +865,32 @@ data frame.</p>
 </div>
 <p>We have successfully combined six of the most important
 <code>dplyr</code> functionalities!</p>
-<p>Now that we have all the required functions for importing, tidying
-and wrangling data in place, we will learn how to visualize our data
-with the ggplot2 package.</p>
+<p>Now that we have all the required functions for importing, tidying and wrangling
+data in place, we will learn how to visualize our data with the ggplot2 package.</p>
 </div>
 </div>
 <div id="data-visualization" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Data Visualization</h1>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 <p>As you might have have already seen, there are many functions
-available in base R that can create plots (e.g. <code>plot()</code>,
-<code>boxplot()</code>). Others include: <code>hist()</code>,
-<code>qqplot()</code>, etc. These functions are great because they come
-with a basic installation of R and can be quite powerful when you need a
-quick visualization of something when you are exploring data.</p>
+available in base R that can create plots (e.g. <code>plot()</code>, <code>boxplot()</code>).
+Others include: <code>hist()</code>, <code>qqplot()</code>, etc.
+These functions are great because they come with a basic installation
+of R and can be quite powerful when you need a quick visualization
+of something when you are exploring data.</p>
 <p>We are choosing to introduce <code>ggplot2</code> because, in our
-opinion, it’s one of the simplest ways for beginners to create
-relatively complicated plots that are intuitive and aesthetically
-pleasing.</p>
+opinion, it’s one of the simplest ways for beginners to
+create relatively complicated plots that are intuitive
+and aesthetically pleasing.</p>
 <div id="univariate-statistics" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Univariate
-statistics</h2>
-<p>In univariate statistics, we focus on a single variable of interest.
-Here, we will show different ways to visualize the <code>BMI</code>
-variable from the NHANES dataset. Importantly, different types of
-visualizations will provide us with different types of information!</p>
-<p>Here we will visualize the same data using a histogram and a
-boxplot.</p>
+<h2><span class="header-section-number">6.1</span> Univariate statistics</h2>
+<p>In univariate statistics, we focus on a single variable
+of interest. Here, we will show different ways to visualize
+the <code>BMI</code> variable from the NHANES dataset. Importantly,
+different types of visualizations will provide us with
+different types of information!</p>
+<p>Here we will visualize the same data using
+a histogram and a boxplot.</p>
 <div id="histogram" class="section level3" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Histogram</h3>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
@@ -921,14 +899,13 @@ boxplot.</p>
 <span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04_1_NHANES_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<p>The information that can be obtained from this histogram is similar
-to that of the dotplot. Here, we can read immediately (i.e. without
-counting) that the BMI interval [29.5, 30.0[ contains 4 subjects. Again,
-the histogram does not provide us with information on the mean/median
-values of the data, but on its entire distribution.</p>
-<p>Histograms are typically useful to visualize data from experiments
-with large sample sizes. It is not useful to make histograms when the
-sample size is below 20 observations.</p>
+<p>The information that can be obtained from this histogram
+is similar to that of the dotplot. Here, we can read immediately
+(i.e. without counting) that the BMI interval [29.5, 30.0[
+contains 4 subjects. Again, the histogram does not provide us with
+information on the mean/median values of the data, but on
+its entire distribution.</p>
+<p>Histograms are typically useful to visualize data from experiments with large sample sizes. It is not useful to make histograms when the sample size is below 20 observations.</p>
 </div>
 <div id="boxplot" class="section level3" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Boxplot</h3>
@@ -952,47 +929,47 @@ sample size is below 20 observations.</p>
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.</code></pre>
 <p><img src="04_1_NHANES_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<p>Arguably, the boxplot is the most informative default visualization
-strategy. First, it provides us with similar insights to the shape of
-the distribution as the histogram. Second, It clearly displays several
-useful summary statistics such as the median, the interquartile range,
-whiskers and outliers. Third, with the geom_jitter functionality we can
-also project each individual value of the dataset on the plot.</p>
-<p>The latter is useful if you have small to medium sized datasets. It
-allows you to visualize the raw data! This however becomes cluttered for
-large experiments because they involve too many datapoints
-(&gt;100).</p>
-<p>The only disadvantage of the boxplot as compared to the histogram is
-that we cannot see (from the figure) how many subjects have a BMI value
-within a certain interval.</p>
+<p>Arguably, the boxplot is the most informative default
+visualization strategy. First, it provides us with
+similar insights to the shape of the distribution as
+the histogram. Second, It clearly displays several useful
+summary statistics such as the median, the interquartile
+range, whiskers and outliers. Third, with the geom_jitter
+functionality we can also project each individual value
+of the dataset on the plot.</p>
+<p>The latter is useful if you have small to medium sized datasets.
+It allows you to visualize the raw data!
+This however becomes cluttered for large experiments because they involve too many datapoints (&gt;100).</p>
+<p>The only disadvantage of the boxplot as compared to the histogram is that we cannot see (from the figure)
+how many subjects have a BMI value within a certain interval.</p>
 </div>
 </div>
 <div id="bivariate-statistics" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Bivariate
-statistics</h2>
+<h2><span class="header-section-number">6.2</span> Bivariate statistics</h2>
 <p>In bivariate statistics, the goal is to study two variables,
 including the relationship between both variables.</p>
-<p>In terms of visualizations, the scatterplot is the baseline method
-for displaying two variables.</p>
-<div id="create-scatter-plots-using-geom_point" class="section level3"
-number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Create scatter
-plots using <code>geom_point()</code></h3>
-<p>For the NHANES dataset, we can for instance look at the relationship
-between a person’s height and weigth values.</p>
+<p>In terms of visualizations, the scatterplot is the baseline
+method for displaying two variables.</p>
+<div id="create-scatter-plots-using-geom_point" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Create scatter plots using <code>geom_point()</code></h3>
+<p>For the NHANES dataset, we can for instance look
+at the relationship between a person’s height and weigth
+values.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Height, <span class="at">y =</span> Weight))</span>
 <span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Height (cm)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Weight (kg)&quot;</span>)</span></code></pre></div>
 <p><img src="04_1_NHANES_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>We used the <code>xlab()</code> and <code>ylab()</code> functions in
-<code>ggplot2</code> to specify the x-axis and y-axis labels. Note that
-NA values were automatically remove by the geom_point function.</p>
-<p>ggplot2 also has a very broad panel of aesthetic features for
-improving your plot. One very basic feature is that we can give colors
-to the ggplot object. For instance, we can give different colors to the
-dots in the previous scatterplot based on a subject’s gender.</p>
+<p>We used the <code>xlab()</code> and <code>ylab()</code> functions
+in <code>ggplot2</code> to specify the x-axis and y-axis
+labels. Note that NA values were automatically
+remove by the geom_point function.</p>
+<p>ggplot2 also has a very broad panel of aesthetic features
+for improving your plot. One very basic feature is that we
+can give colors to the ggplot object. For instance, we can
+give different colors to the dots in the previous
+scatterplot based on a subject’s gender.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Height, <span class="at">y =</span> Weight, <span class="at">color =</span> Gender)) <span class="sc">+</span></span>
 <span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
@@ -1003,18 +980,20 @@ dots in the previous scatterplot based on a subject’s gender.</p>
 </div>
 </div>
 <div id="combining-dplyr-and-ggplot2" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> Combining dplyr and
-ggplot2</h1>
-<p>Note that the previous functions from the dplyr package can be easily
-combined with ggplot through the concept of pipes %&gt;%.</p>
-<p>For instance, we could make the same scatterplot as above, but only
-for white, married adults.</p>
-<p>In addition, we here also show some convenient ggplot features; 1.
-Setting the colors manually 2. Set to have a white background 3. Set a
-(main) title for the plot 4. Pick a different shape for the dots in the
-scatterplot 5. Manually set the limits of the x- and y-axes</p>
-<p>Note that this a only the tip of the iceberg of the the ggplot
-functionalities!</p>
+<h1><span class="header-section-number">7</span> Combining dplyr and ggplot2</h1>
+<p>Note that the previous functions from the dplyr
+package can be easily combined with ggplot through
+the concept of pipes %&gt;%.</p>
+<p>For instance, we could make the same scatterplot as above,
+but only for white, married adults.</p>
+<p>In addition, we here also show some convenient ggplot features;
+1. Setting the colors manually
+2. Set to have a white background
+3. Set a (main) title for the plot
+4. Pick a different shape for the dots in the scatterplot
+5. Manually set the limits of the x- and y-axes</p>
+<p>Note that this a only the tip of the iceberg of the
+the ggplot functionalities!</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">&gt;=</span> <span class="dv">18</span>, Race1 <span class="sc">==</span> <span class="st">&quot;White&quot;</span>, MaritalStatus <span class="sc">==</span> <span class="st">&quot;Married&quot;</span>) <span class="sc">%&gt;%</span> <span class="do">## select the required data</span></span>
 <span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Height, <span class="at">y =</span> Weight, <span class="at">color =</span> Gender)) <span class="sc">+</span></span>
@@ -1027,31 +1006,32 @@ functionalities!</p>
 <span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span> <span class="do">## manually set colors</span></span>
 <span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="do">## set white background</span></span></code></pre></div>
 <p><img src="04_1_NHANES_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>Next to scatterplots, we have a large number of other types of plots
-at our disposal. Importantly, some plots will be more informative than
-others, depending on the research question. Therefore, choosing the plot
-that is most informative is crucial. We show this with a more elaborate
-example later (<code>captopril</code> exercise).</p>
+<p>Next to scatterplots, we have a large number of other
+types of plots at our disposal. Importantly, some plots
+will be more informative than others, depending on the
+research question. Therefore, choosing the plot that is
+most informative is crucial. We show this with a more
+elaborate example later (<code>captopril</code> exercise).</p>
 </div>
 <div id="final-example" class="section level1" number="8">
 <h1><span class="header-section-number">8</span> Final example</h1>
 <div id="goal" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Goal</h2>
-<p>Set up a reference interval for the systolic blood pressure in the
-NHANES dataset.</p>
+<p>Set up a reference interval for the systolic blood
+pressure in the NHANES dataset.</p>
 </div>
 <div id="background" class="section level2" number="8.2">
 <h2><span class="header-section-number">8.2</span> Background</h2>
-<p>The captopril dataset, which we will explore and analyse later, holds
-information on 15 patients that have increased blood pressure
+<p>The captopril dataset, which we will explore and analyse later,
+holds information on 15 patients that have increased blood pressure
 values.</p>
-<p>Before we may conduct such an experiment, we first need to know which
-values should be considered <em>increased</em> and which ones should be
-considered <em>normal</em>. To find an interval for values that are
-normal, we can set up a reference interval. To set up this interval, we
-will use the NHANES dataset. The <code>BPSysAve</code> column holds data
-on the systolic blood pressure. To select healthy subjects, we will need
-to subset the data.</p>
+<p>Before we may conduct such an experiment, we first need to know
+which values should be considered <em>increased</em> and which ones should be
+considered <em>normal</em>. To find an interval for values that are normal,
+we can set up a reference interval. To set up this interval, we will
+use the NHANES dataset. The <code>BPSysAve</code> column holds data on the systolic
+blood pressure. To select healthy subjects, we will need to subset the
+data.</p>
 </div>
 <div id="analysis" class="section level2" number="8.3">
 <h2><span class="header-section-number">8.3</span> Analysis</h2>
@@ -1066,17 +1046,17 @@ the required data and that are between 40 and 65 years old.</p>
 <span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04_1_NHANES_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p>An important requirement of calculating reference intervals is that
-the data is normally distributed. this is clearly not the case; the data
-has a long right tail, which is quite common in biological data (in this
-easier to have extreme values on the right-hand side than on the
-left-hand size, which is additionally bounded by zero for most
-biological variables).</p>
+<p>An important requirement of calculating reference intervals is
+that the data is normally distributed. this is clearly not the
+case; the data has a long right tail, which is quite common
+in biological data (in this easier to have extreme values on the
+right-hand side than on the left-hand size, which is additionally
+bounded by zero for most biological variables).</p>
 <p>By selecting only <em>healthy</em> subjects, we expect the data to be
-distributed more normally. We define <em>healthy</em> as being a
-non-smoker, without a history of diabetes, hard drugs or sleeping
-trouble, with a general health that is not considered poor and that has
-a BMI between 18.5 and 29.9.</p>
+distributed more normally. We define <em>healthy</em> as being a non-smoker,
+without a history of diabetes, hard drugs or sleeping trouble, with a
+general health that is not considered poor and that has a BMI between
+18.5 and 29.9.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="do">## histogram of BPSysAve for HEALTHY subjects wit age between 40 and 65 years old</span></span>
 <span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Race1), <span class="sc">!</span><span class="fu">is.na</span>(Smoke100n), <span class="sc">!</span><span class="fu">is.na</span>(BMI_WHO), <span class="sc">!</span><span class="fu">is.na</span>(Age), <span class="sc">!</span><span class="fu">is.na</span>(HardDrugs), <span class="sc">!</span><span class="fu">is.na</span>(HealthGen), <span class="sc">!</span><span class="fu">is.na</span>(Gender), <span class="sc">!</span><span class="fu">is.na</span>(AlcoholYear), <span class="sc">!</span><span class="fu">is.na</span>(BPSysAve), <span class="sc">!</span><span class="fu">is.na</span>(SleepTrouble)) <span class="sc">%&gt;%</span> <span class="do">## retains 4660 subjects with the required data</span></span>
@@ -1087,9 +1067,9 @@ a BMI between 18.5 and 29.9.</p>
 <span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04_1_NHANES_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<p>Now the data seems to be approximately normal on sight (we will later
-show how to assess data normality more formally). From this subset, we
-may calculate the reference interval.</p>
+<p>Now the data seems to be approximately normal on sight (we will later show how to
+assess data normality more formally). From this subset, we may calculate the
+reference interval.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="do">## to get the 95% reference interval for the healthy group;</span></span>
 <span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>summary_NHANES <span class="ot">&lt;-</span> NHANES <span class="sc">%&gt;%</span></span>
 <span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Race1), <span class="sc">!</span><span class="fu">is.na</span>(Smoke100n), <span class="sc">!</span><span class="fu">is.na</span>(BMI_WHO), <span class="sc">!</span><span class="fu">is.na</span>(Age), <span class="sc">!</span><span class="fu">is.na</span>(HardDrugs), <span class="sc">!</span><span class="fu">is.na</span>(HealthGen), <span class="sc">!</span><span class="fu">is.na</span>(Gender), <span class="sc">!</span><span class="fu">is.na</span>(AlcoholYear), <span class="sc">!</span><span class="fu">is.na</span>(BPSys1), <span class="sc">!</span><span class="fu">is.na</span>(BPSys2), <span class="sc">!</span><span class="fu">is.na</span>(BPSys3), <span class="sc">!</span><span class="fu">is.na</span>(SleepTrouble)) <span class="sc">%&gt;%</span> <span class="do">## retains 4660 subjects with the required data</span></span>
@@ -1106,20 +1086,18 @@ may calculate the reference interval.</p>
 <pre><code>## [1] &quot;Reference interval: [91.0654299484005;146.970933687963]&quot;</code></pre>
 <p>The systolic blood pressure for healthy subjects is distributed
 symmetrically, and in a later tutorial we will show that these values
-approximately follow a normal distribution. We have calculated the mean
-and standard deviation of blood pressure values in this healthy subset,
-which allows us to set up the (95%) reference interval, for what we can
-consider to be <em>normal</em> blood pressure values. Any of the later
-patients who’s values do not fall within this interval, we can consider
-<em>abnormal</em>.</p>
-<p>The <code>mean</code> blood pressure value of the healthy subset is
-119 mmHg, with a <code>standard deviation</code> of 14 mmHg. When we
-replace the population average and population standard deviation with
-these estimates, we obtain a <code>95% reference interval</code> of
-[91;147] mmHg.</p>
+approximately follow a normal distribution. We have calculated the
+mean and standard deviation of blood pressure values in this healthy
+subset, which allows us to set up the (95%) reference interval, for
+what we can consider to be <em>normal</em> blood pressure values. Any of the
+later patients who’s values do not fall within this interval, we can
+consider <em>abnormal</em>.</p>
+<p>The <code>mean</code> blood pressure value of the healthy subset is 119 mmHg, with
+a <code>standard deviation</code> of 14 mmHg. When we replace the population average
+and population standard deviation with these estimates, we obtain a
+<code>95% reference interval</code> of [91;147] mmHg.</p>
 <p>Note that in the literature a value 140 mmHg for the systolic blood
-pressure is typically considered to be the upper limit of
-<em>normality</em>.</p>
+pressure is typically considered to be the upper limit of <em>normality</em>.</p>
 </div>
 </div>
 

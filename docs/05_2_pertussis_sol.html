@@ -14,7 +14,6 @@
 
 <title>Exercise 5.2: Hypothesis testing on the pertussis example - solution</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,40 +546,32 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercise 5.2: Hypothesis testing on the
-pertussis example - solution</h1>
+<h1 class="title toc-ignore">Exercise 5.2: Hypothesis testing on the pertussis example - solution</h1>
 <h4 class="author">Lieven Clement, and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
 <div id="aim-of-this-tutorial" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Aim of this
-tutorial</h1>
+<h1><span class="header-section-number">1</span> Aim of this tutorial</h1>
 <p>Upon this exercise you can</p>
 <ol style="list-style-type: decimal">
-<li>conduct a statistical hypothesis test for a two group comparison in
-R and to interpret the results.</li>
+<li>conduct a statistical hypothesis test for a two group comparison in R and to interpret the results.</li>
 <li>critically evaluate the assumptions for a two sample t-test</li>
-<li>use simulations to assist you when evaluating the assumptions of a
-two group comparison</li>
+<li>use simulations to assist you when evaluating the assumptions of a two group comparison</li>
 <li>select the correct test based on the data exploration.</li>
 </ol>
 </div>
 <div id="background" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Background</h1>
-<p>Researchers wanted to study the immune response on pertussis. They
-have set up an experiments with 40 rats. 16 rats were infected with
-pertussis and 24 rats received a control treatment. Researchers measured
-the white blood cell concentration (WBC) in each rat (count per mm<span
-class="math inline">\(^3\)</span>).</p>
+<p>Researchers wanted to study the immune response on pertussis.
+They have set up an experiments with 40 rats.
+16 rats were infected with pertussis and 24 rats received a control treatment.
+Researchers measured the white blood cell concentration (WBC) in each rat (count per mm<span class="math inline">\(^3\)</span>).</p>
 <p>De data consists of two variables:</p>
 <ul>
-<li><p>WBC: white blood cell count (counts/mm<span
-class="math inline">\(^3\)</span>).</p></li>
+<li><p>WBC: white blood cell count (counts/mm<span class="math inline">\(^3\)</span>).</p></li>
 <li><p>trt: treatment</p>
 <ul>
 <li>control: rat recieved control treatment</li>
@@ -610,38 +601,24 @@ class="math inline">\(^3\)</span>).</p></li>
 ## $ trt &lt;chr&gt; &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, …</code></pre>
 <div id="aim-of-the-study" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Aim of the study</h2>
-<p>The overarching goal of this study was to assess if the white blood
-cell count changes upon pertussis infection. To this end, researchers
-randomized 40 rats to two treatments: A control treatment and a
-treatment in which the rat was infected with pertussis.</p>
+<p>The overarching goal of this study was to assess if the white blood cell count changes upon pertussis infection. To this end, researchers randomized 40 rats
+to two treatments: A control treatment and a treatment in which the rat was infected with pertussis.</p>
 </div>
 </div>
 <div id="data-exploration" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Data exploration</h1>
-<p>A crucial first step in a data analysis is to visualize and to
-explore the raw data.</p>
+<p>A crucial first step in a data analysis is to visualize and to explore the raw data.</p>
 <p>This will allow us to gain insight in the data.</p>
-<p>A secondary goal of the data exploration is to check the assumptions
-of the test that we will perform.</p>
-<div
-id="which-test-will-you-perform-to-compare-the-white-blood-cell-count-between-infected-and-control-rats"
-class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Which test will you
-perform to compare the white blood cell count between infected and
-control rats?</h2>
-<p>40 different rats are assigned at random to a control treatment or a
-treatment where they are infected with pertussis. The white blood cells
-of the rats are measured on different animals and we can assume that the
-data between rats are independent. Note, that this will not be the case
-if multiple rats are housed in the same cages!</p>
-<p>We will therefore perform a two-sample t-test to assess if the
-average white blood cell count differs between infected rats and rats
-that received the control treatment.</p>
+<p>A secondary goal of the data exploration is to check the assumptions of the test that we will perform.</p>
+<div id="which-test-will-you-perform-to-compare-the-white-blood-cell-count-between-infected-and-control-rats" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Which test will you perform to compare the white blood cell count between infected and control rats?</h2>
+<p>40 different rats are assigned at random to a control treatment or a treatment where they are infected with pertussis.
+The white blood cells of the rats are measured on different animals and we can assume that the data between rats are independent.
+Note, that this will not be the case if multiple rats are housed in the same cages!</p>
+<p>We will therefore perform a two-sample t-test to assess if the average white blood cell count differs between infected rats and rats that received the control treatment.</p>
 </div>
-<div id="what-are-the-assumptions-of-this-test" class="section level2"
-number="4.2">
-<h2><span class="header-section-number">4.2</span> What are the
-assumptions of this test?</h2>
+<div id="what-are-the-assumptions-of-this-test" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> What are the assumptions of this test?</h2>
 <ol style="list-style-type: decimal">
 <li>The data are independent</li>
 <li>The data in both groups have the same variance</li>
@@ -662,16 +639,13 @@ assumptions of this test?</h2>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="05_2_pertussis_sol_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>What do you observe?</p>
-<p>Both the mean and variance of the data seems to differ between
-control rats and rats infected with pertussis. So the second assumption
-is not valid. If the data are normally distributed we can compare the
-groups using a Welch modified t-test, which is valid if the data in both
-groups are exhibiting a different variance.</p>
+<p>Both the mean and variance of the data seems to differ between control rats and rats infected with pertussis.
+So the second assumption is not valid.
+If the data are normally distributed we can compare the groups using a Welch modified t-test, which is valid if the data in both groups are exhibiting a different variance.</p>
 </div>
 <div id="qq-plots" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> QQ-plots</h2>
-<p>To assess the assumption that the data are normally distributed in
-each treatment group, we will use QQ plots.</p>
+<p>To assess the assumption that the data are normally distributed in each treatment group, we will use QQ plots.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>wbcon <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> WBC)) <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
@@ -679,14 +653,11 @@ each treatment group, we will use QQ plots.</p>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(trt))</span></code></pre></div>
 <p><img src="05_2_pertussis_sol_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>What do you observe?</p>
-<p>The white blood cell counts appear to be normally distributed in both
-treatment groups.</p>
+<p>The white blood cell counts appear to be normally distributed in both treatment groups.</p>
 </div>
 </div>
-<div id="assess-the-research-question-with-the-appropriate-t-test"
-class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Assess the research
-question with the appropriate t-test</h1>
+<div id="assess-the-research-question-with-the-appropriate-t-test" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Assess the research question with the appropriate t-test</h1>
 <div id="analysis" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Analysis</h2>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">t.test</span>(WBC <span class="sc">~</span> trt, <span class="at">data =</span> wbcon, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
@@ -705,26 +676,16 @@ question with the appropriate t-test</h1>
 </div>
 <div id="conclusion" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Conclusion</h2>
-<p>The average white blood cell count is extremely different between
-rats that are infected with pertussis and rads that received a control
-treatment (p &lt;&lt; 0.001).</p>
-<p>The white blood cell count is on average 23535 blood cells/mm<span
-class="math inline">\(^3\)</span> higher for rats with pertussis than
-for rats that received a control treatment (95% CI [14758, 32311]).</p>
+<p>The average white blood cell count is extremely different between rats that are infected with pertussis and rads that received a control treatment (p &lt;&lt; 0.001).</p>
+<p>The white blood cell count is on average 23535 blood cells/mm<span class="math inline">\(^3\)</span> higher for rats with pertussis than for rats that received a control treatment (95% CI [14758, 32311]).</p>
 </div>
 </div>
-<div id="addendum-train-yourself-in-checking-the-assumptions"
-class="section level1" number="6">
-<h1><span class="header-section-number">6</span> ADDENDUM: Train
-yourself in checking the assumptions</h1>
-<p>In order for the learners to get more proficient in evaluating the
-assumptions we will simulate 8 dataset with sample sizes similar to our
-data for which the assumptions of normality and equal variance do hold.
-For the QQ-plots we will only plot the one from one of the groups.</p>
+<div id="addendum-train-yourself-in-checking-the-assumptions" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> ADDENDUM: Train yourself in checking the assumptions</h1>
+<p>In order for the learners to get more proficient in evaluating the assumptions we will simulate 8 dataset with sample sizes similar to our data for which the assumptions of normality and equal variance do hold. For the QQ-plots we will only plot the one from one of the groups.</p>
 <div id="simulate-data" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Simulate data</h2>
-<p>We simulate 8 datasets with the same sample sizes, means and pooled
-variance as in the sample.</p>
+<p>We simulate 8 datasets with the same sample sizes, means and pooled variance as in the sample.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21532</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">8</span></span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="do">## descriptive statistics</span></span>
@@ -754,8 +715,7 @@ variance as in the sample.</p>
 <span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trt =</span> wbcon<span class="sc">$</span>trt)</span></code></pre></div>
 </div>
 <div id="comparisons-of-variances" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Comparisons of
-variances</h2>
+<h2><span class="header-section-number">6.2</span> Comparisons of variances</h2>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">names</span>(normSim)[<span class="dv">1</span><span class="sc">:</span>(nSim<span class="sc">+</span><span class="dv">1</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;orig&quot;</span>,<span class="fu">paste0</span>(<span class="st">&quot;sim&quot;</span>,<span class="dv">1</span><span class="sc">:</span>nSim))</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>normSim <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="fu">gather</span>(samp, data, <span class="sc">-</span>trt) <span class="sc">%&gt;%</span></span>
@@ -763,14 +723,10 @@ variances</h2>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>samp)</span></code></pre></div>
 <p><img src="05_2_pertussis_sol_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>We observe that the difference in variability of the original
-observations (top left plot) is larger than in the each simulations.
-Indicating that there is indeed evidence that the variances in each
-group differ.</p>
+<p>We observe that the difference in variability of the original observations (top left plot) is larger than in the each simulations. Indicating that there is indeed evidence that the variances in each group differ.</p>
 </div>
 <div id="evaluation-of-normality" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Evaluation of
-normality</h2>
+<h2><span class="header-section-number">6.3</span> Evaluation of normality</h2>
 <div id="control-group" class="section level3" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> Control group</h3>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>normSim <span class="sc">%&gt;%</span></span>
@@ -783,8 +739,7 @@ normality</h2>
 <p><img src="05_2_pertussis_sol_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="pertussis-group" class="section level3" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> Pertussis
-group</h3>
+<h3><span class="header-section-number">6.3.2</span> Pertussis group</h3>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>normSim <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="fu">gather</span>(samp, data, <span class="sc">-</span>trt) <span class="sc">%&gt;%</span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">filter</span>(trt <span class="sc">==</span> <span class="st">&quot;pertussis&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -793,9 +748,7 @@ group</h3>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>samp)</span></code></pre></div>
 <p><img src="05_2_pertussis_sol_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>The data in each group does not show larger deviations from normality
-than what we observe in each of the eight datasets that were simulated
-under the model assumptions.</p>
+<p>The data in each group does not show larger deviations from normality than what we observe in each of the eight datasets that were simulated under the model assumptions.</p>
 </div>
 </div>
 </div>

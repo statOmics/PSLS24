@@ -15,7 +15,9 @@ library(tidyverse)
 # Motivation
 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 
-![](https://pimages.toolbox.com/300x219/wp-content/uploads/2021/12/14232929/ways_to_capture_b2b_customer_data_5bacd2dbe1a09.png)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SCw65jjaXPw?si=m2w_NqDgjgC9kbf9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PAJL2078O20?si=ZO2BnEhboX6F53x5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ![](./figures/wpGraph.jpeg)
 

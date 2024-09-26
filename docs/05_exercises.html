@@ -14,7 +14,6 @@
 
 <title>Exercises on chapter 5: Statistical inference</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -437,18 +436,15 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Exercises on chapter 5: Statistical
-inference</h1>
+<h1 class="title toc-ignore">Exercises on chapter 5: Statistical inference</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
 
-<p>In this hands-on tutorial session you will perform four exercises on
-statistical inference based on 4 different studies:</p>
+<p>In this hands-on tutorial session you will perform four exercises on statistical inference based on
+4 different studies:</p>
 <ul>
 <li><a href="#diabetes-example">Diabetes example</a></li>
 <li><a href="#pertussis-example">Pertussis example</a></li>
@@ -459,26 +455,20 @@ statistical inference based on 4 different studies:</p>
 <h1><span class="header-section-number">1</span> Diabetes example</h1>
 <p>The diabetes dataset consists of a small experiment with 8 patients
 that were subjected to a glucose tolerance test.</p>
-<p>Patients had to fast for eight hours before the test. When the
-patients entered the hospital their baseline glucose level was measured
-(mmol/l).</p>
-<p>Patients then had to drink 250 ml of a syrupy glucose solution
-containing 100 grams of sugar. Two hours later, their blood glucose
-level was measured again.</p>
+<p>Patients had to fast for eight hours before the test.
+When the patients entered the hospital their baseline glucose level was measured (mmol/l).</p>
+<p>Patients then had to drink 250 ml of a syrupy glucose solution containing 100 grams of sugar.
+Two hours later, their blood glucose level was measured again.</p>
 <p>The data consist of three variables:</p>
 <ul>
 <li>before: glucose concentration upon 8 hours of fasting (mmol/l)</li>
-<li>after: glucose concentration 2 hours after drinking glucose solution
-(mmol/l).</li>
+<li>after: glucose concentration 2 hours after drinking glucose solution (mmol/l).</li>
 <li>patient: identifier for the patient</li>
 </ul>
-<p>In this exercise, you will revisit the basics of statistical
-hypothesis testing. You will acquire the skills</p>
+<p>In this exercise, you will revisit the basics of statistical hypothesis testing. You will acquire the skills</p>
 <ol style="list-style-type: decimal">
-<li>to assess the assumptions of a one-sample and a paired t-test in a
-data exploration.</li>
-<li>to conduct a one-sample t-test in R and to interpret the
-results.</li>
+<li>to assess the assumptions of a one-sample and a paired t-test in a data exploration.</li>
+<li>to conduct a one-sample t-test in R and to interpret the results.</li>
 <li>to conduct a paired t-test in R and to interpret the results.</li>
 </ol>
 <p>Files:</p>
@@ -494,15 +484,13 @@ results.</li>
 </div>
 <div id="pertussis-example" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Pertussis example</h1>
-<p>Researchers wanted to study the immune response on pertussis. They
-have set up an experiments with 40 rats. 16 rats were infected with
-pertussis and 24 rats received a control treatment. Researchers measured
-the white blood cell concentration (WBC) in each rat (count per mm<span
-class="math inline">\(^3\)</span>).</p>
+<p>Researchers wanted to study the immune response on pertussis.
+They have set up an experiments with 40 rats.
+16 rats were infected with pertussis and 24 rats received a control treatment.
+Researchers measured the white blood cell concentration (WBC) in each rat (count per mm<span class="math inline">\(^3\)</span>).</p>
 <p>The data consist of two variables:</p>
 <ul>
-<li><p>WBC: white blood cell count (counts/mm<span
-class="math inline">\(^3\)</span>).</p></li>
+<li><p>WBC: white blood cell count (counts/mm<span class="math inline">\(^3\)</span>).</p></li>
 <li><p>trt: treatment</p>
 <ul>
 <li>control: rat recieved control treatment</li>
@@ -511,11 +499,9 @@ class="math inline">\(^3\)</span>).</p></li>
 </ul>
 <p>Upon this exercise you can</p>
 <ol style="list-style-type: decimal">
-<li>conduct a statistical hypothesis test for a two group comparison in
-R and to interpret the results.</li>
+<li>conduct a statistical hypothesis test for a two group comparison in R and to interpret the results.</li>
 <li>critically evaluate the assumptions for a two sample t-test</li>
-<li>use simulations to assist you when evaluating the assumptions of a
-two group comparison</li>
+<li>use simulations to assist you when evaluating the assumptions of a two group comparison</li>
 <li>select the correct test based on the data exploration.</li>
 </ol>
 <p>Files</p>
@@ -528,33 +514,28 @@ two group comparison</li>
 - Solution: [Solution2](./05_2_pertussis_sol.html)
 <!---->
 <hr />
-<p>Two-sample t-test: <a href="05_armpit_example.html">armpit
-example</a></p>
+<p>Two-sample t-test: <a href="05_armpit_example.html">armpit example</a></p>
 <hr />
 </div>
 <div id="cuckoo-example" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Cuckoo example</h1>
-<p>The common cuckoo does not build its own nest: it prefers to lay its
-eggs in another birds’ nest. It is known, since 1892, that the type of
-cuckoo bird eggs are different between different locations. In a study
-from 1940, it was shown that cuckoos return to the same nesting area
-each year, and that they always pick the same bird species to be a
-“foster parent” for their eggs.</p>
-<p>Over the years, this has lead to the development of geographically
-determined subspecies of cuckoos. These subspecies have evolved in such
-a way that their eggs look as similar as possible as those of their
-foster parents.</p>
-<p>The cuckoo dataset contains information on 120 Cuckoo eggs, obtained
-from randomly selected “foster” nests. The researchers want to test if
-the type of foster parent has an effect on the average length of the
-cuckoo eggs.</p>
+<p>The common cuckoo does not build its own nest: it prefers to lay its eggs in
+another birds’ nest. It is known, since 1892, that the type of cuckoo bird eggs
+are different between different locations. In a study from 1940, it was shown
+that cuckoos return to the same nesting area each year, and that they always
+pick the same bird species to be a “foster parent” for their eggs.</p>
+<p>Over the years, this has lead to the development of geographically determined
+subspecies of cuckoos. These subspecies have evolved in such a way that their
+eggs look as similar as possible as those of their foster parents.</p>
+<p>The cuckoo dataset contains information on 120 Cuckoo eggs, obtained from
+randomly selected “foster” nests. The researchers want to test if the type of
+foster parent has an effect on the average length of the cuckoo eggs.</p>
 <p>In this tutorial you will further sharpen your skills in</p>
 <ol style="list-style-type: decimal">
 <li>data wrangling</li>
 <li>formulating the null and alternative hypothesis of t-tests</li>
 <li>critically evaluating the assumptions of t-tests,</li>
-<li>selecting the appropriate test for answering the research question,
-and</li>
+<li>selecting the appropriate test for answering the research question, and</li>
 <li>formulating your conclusion in terms of the research question.</li>
 </ol>
 <p>Files:</p>
@@ -570,21 +551,18 @@ and</li>
 </div>
 <div id="shrimps-example" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Shrimps example</h1>
-<p>Dataset on the accumulation of PCBs (Polychlorinated biphenyls) in
-the adipose tissue of shrimps. PCBs are often present in coolants, and
-are know to accumulate easily in the adipose tissue of shrimps. In this
-experiment, two groups of 18 samples (each 100 grams) of shrimps each
-were cultivated in different conditions, one control condition and one
-condition where the medium was poluted with PCBs.</p>
-<p>The research question is to assess if there an effect of the growth
-condition on the PCB concentration in the adipose tissue of shrimps?</p>
+<p>Dataset on the accumulation of PCBs (Polychlorinated biphenyls)
+in the adipose tissue of shrimps. PCBs are often present in coolants, and are
+know to accumulate easily in the adipose tissue of shrimps. In this experiment,
+two groups of 18 samples (each 100 grams) of shrimps each were cultivated
+in different conditions, one control condition and one condition
+where the medium was poluted with PCBs.</p>
+<p>The research question is to assess if there an effect of the growth condition on the PCB concentration in the adipose tissue of shrimps?</p>
 <p>This exercise aims to further sharpen your skills in</p>
 <ul>
-<li><p>translating the research question in a a null and alternative
-hypothesis of t-tests</p></li>
+<li><p>translating the research question in a a null and alternative hypothesis of t-tests</p></li>
 <li><p>critically evaluating the assumptions of t-tests, and</p></li>
-<li><p>selecting the appropriate test for answering the research
-question.</p></li>
+<li><p>selecting the appropriate test for answering the research question.</p></li>
 <li><p>Exercise: <a href="./05_4_shrimps.html">Exercise4</a></p></li>
 <li><p>Data path:</p>
 <p><code>https://raw.githubusercontent.com/statOmics/PSLSData/main/shrimps.txt</code></p></li>

@@ -14,7 +14,6 @@
 
 <title>8.3. Multiple regression with interaction: puromycin example - solution</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -547,12 +546,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">8.3. Multiple regression with interaction:
-puromycin example - solution</h1>
+<h1 class="title toc-ignore">8.3. Multiple regression with interaction: puromycin example - solution</h1>
 <h4 class="author">Lieven Clement, Jeroen Gilis and Milan Malfait</h4>
-<h4 class="date">statOmics, Ghent University (<a
-href="https://statomics.github.io"
-class="uri">https://statomics.github.io</a>)</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
 
 </div>
 
@@ -562,16 +558,13 @@ class="uri">https://statomics.github.io</a>)</h4>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
 <div id="puromycin-data" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Puromycin data</h1>
-<p>Data on the velocity of an enzymatic reaction were obtained by
-Treloar (1974). The number of counts per minute of radioactive product
-from the reaction was measured as a function of substrate concentration
-in parts per million (ppm) and from these counts the initial rate (or
-velocity) of the reaction was calculated (counts/min/min). The
-experiment was conducted once with the enzyme treated with Puromycin,
-and once with the enzyme untreated.</p>
-<p>Assess if there is an association between the substrate concentration
-and rate <strong>for both the treated and untreated
-enzymes.</strong></p>
+<p>Data on the velocity of an enzymatic reaction were obtained by Treloar (1974).
+The number of counts per minute of radioactive product from the reaction was
+measured as a function of substrate concentration in parts per million (ppm) and
+from these counts the initial rate (or velocity) of the reaction was calculated (counts/min/min). The experiment was conducted once with the enzyme treated
+with Puromycin, and once with the enzyme untreated.</p>
+<p>Assess if there is an association between the substrate concentration and rate
+<strong>for both the treated and untreated enzymes.</strong></p>
 </div>
 <div id="import-data" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Import data</h1>
@@ -579,14 +572,14 @@ enzymes.</strong></p>
 </div>
 <div id="data-wrangling" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Data wrangling</h1>
-<p>For a clearer interpretation of the model parameters later on, we
-will make the untreated state enzymes the reference category.</p>
+<p>For a clearer interpretation of the model parameters later on, we will make
+the untreated state enzymes the reference category.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>Puromycin <span class="ot">&lt;-</span> Puromycin <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_relevel</span>(state, <span class="fu">c</span>(<span class="st">&quot;untreated&quot;</span>, <span class="st">&quot;treated&quot;</span>)))</span></code></pre></div>
 <div id="data-exploration" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Data Exploration</h2>
-<p>First, we visualize the association between the concentration and the
-enzyme rate, for both of the enzyme states.</p>
+<p>First, we visualize the association between the concentration and the enzyme
+rate, for both of the enzyme states.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>Puromycin <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(conc, rate)) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col =</span> state)) <span class="sc">+</span></span>
@@ -602,9 +595,8 @@ enzyme rate, for both of the enzyme states.</p>
 <p><img src="08_3_puromycin_sol_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>The plot shows that there is a relation between the velocity and the
 concentration, however, the relation does not seem to be linear.</p>
-<p>We will assess the impact of log-transforming the concentration.
-Because the concentration is measured in ppm we will log<span
-class="math inline">\(_{10}\)</span> transform the data.</p>
+<p>We will assess the impact of log-transforming the concentration. Because the
+concentration is measured in ppm we will log<span class="math inline">\(_{10}\)</span> transform the data.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>Puromycin <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(conc), <span class="at">y =</span> rate)) <span class="sc">+</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col =</span> state)) <span class="sc">+</span></span>
@@ -618,45 +610,33 @@ class="math inline">\(_{10}\)</span> transform the data.</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
 ## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="08_3_puromycin_sol_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>The relation between the velocity and the log<span
-class="math inline">\(_{10}\)</span> transformed concentration seems to
-be linear.</p>
+<p>The relation between the velocity and the log<span class="math inline">\(_{10}\)</span> transformed concentration
+seems to be linear.</p>
 </div>
 </div>
 <div id="linear-regression" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Linear regression</h1>
 <p>We will fit the following model to the data</p>
-<p><span class="math inline">\(Y_i = \beta_0 + \beta_c x_c+ \beta_s x_s
-+\beta_{c:s}x_{c}x_{s} + \epsilon_i\)</span></p>
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_c x_c+ \beta_s x_s +\beta_{c:s}x_{c}x_{s} + \epsilon_i\)</span></p>
 <p>with</p>
 <ul>
-<li><p><span class="math inline">\(Y_i\)</span> the reaction
-rate,</p></li>
-<li><p><span class="math inline">\(\beta_0\)</span> the
-intercept,</p></li>
-<li><p><span class="math inline">\(\beta_{c}\)</span> the main effect
-for log10 concentration,</p></li>
-<li><p><span class="math inline">\(x_c\)</span> the log10
-concentration,</p></li>
-<li><p><span class="math inline">\(\beta_{p}\)</span> the main effect
-for treatment ,</p></li>
-<li><p><span class="math inline">\(x_s\)</span> a dummy variable for
-“state” that is 0 if the enzymes that are untreated and 1 if the enzymes
-are treated with Puromycin,</p></li>
-<li><p><span class="math inline">\(\beta_{c:s}\)</span> the interaction
-effect between concentration and treatment state,</p></li>
-<li><p><span class="math inline">\(\epsilon_i\)</span> i.i.d. normally
-distributed with mean 0 and variance <span
-class="math inline">\(\sigma^2\)</span>.</p></li>
+<li><p><span class="math inline">\(Y_i\)</span> the reaction rate,</p></li>
+<li><p><span class="math inline">\(\beta_0\)</span> the intercept,</p></li>
+<li><p><span class="math inline">\(\beta_{c}\)</span> the main effect for log10 concentration,</p></li>
+<li><p><span class="math inline">\(x_c\)</span> the log10 concentration,</p></li>
+<li><p><span class="math inline">\(\beta_{p}\)</span> the main effect for treatment ,</p></li>
+<li><p><span class="math inline">\(x_s\)</span> a dummy variable for “state” that is 0 if the enzymes that are untreated and 1 if
+the enzymes are treated with Puromycin,</p></li>
+<li><p><span class="math inline">\(\beta_{c:s}\)</span> the interaction effect between concentration and treatment state,</p></li>
+<li><p><span class="math inline">\(\epsilon_i\)</span> i.i.d. normally distributed with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>.</p></li>
 </ul>
-<p>Note, that we write the substrate concentration with a small letter
-because the predictor is not random. The researchers have chosen the
-substrate concentrations in the design phase and it is thus no random
-variable.</p>
+<p>Note, that we write the substrate concentration with a small letter because
+the predictor is not random. The researchers have chosen the substrate
+concentrations in the design phase and it is thus no random variable.</p>
 <p>The model implies two different regression lines</p>
 <ul>
-<li>no treatment (<span class="math inline">\(x_s = 0\)</span>) <span
-class="math display">\[
+<li>no treatment (<span class="math inline">\(x_s = 0\)</span>)
+<span class="math display">\[
 Y_i = \beta_0 + \beta_c x_c + \epsilon
 \]</span></li>
 <li>treatment (x_s = 1)</li>
@@ -664,10 +644,8 @@ Y_i = \beta_0 + \beta_c x_c + \epsilon
 <p><span class="math display">\[
 Y_i = (\beta_0 + \beta_s)  + (\beta_c+\beta_{c:s}) x_c + \epsilon
 \]</span></p>
-<p>So the main effect for treatment has the interpretation as the change
-in intercept between treated and untreated samples.</p>
-<p>The interaction term has the interpretation as the change in slope
-between treated and untreated samples.</p>
+<p>So the main effect for treatment has the interpretation as the change in intercept between treated and untreated samples.</p>
+<p>The interaction term has the interpretation as the change in slope between treated and untreated samples.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>Puromycin <span class="ot">&lt;-</span> Puromycin <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log10conc =</span> <span class="fu">log10</span>(conc))</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
@@ -702,8 +680,7 @@ between treated and untreated samples.</p>
 <li>Normal distribution of the residuals</li>
 <li>Homoscedasticity</li>
 </ol>
-<p>We assume that the experiment was well designed and that the
-different reactions that were use in the experiment are independent.</p>
+<p>We assume that the experiment was well designed and that the different reactions that were use in the experiment are independent.</p>
 <div id="linearity" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Linearity</h3>
 <p>We assess linearity in a residual analysis</p>
@@ -717,29 +694,24 @@ different reactions that were use in the experiment are independent.</p>
 <p><img src="08_3_puromycin_sol_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>The QQ-plot does not show large deviations from normality.</p>
 </div>
-<div id="homoscedasticity-equality-of-the-variance"
-class="section level3" number="4.1.3">
-<h3><span class="header-section-number">4.1.3</span> Homoscedasticity:
-equality of the variance</h3>
-<p>We can again use the residual plot for assessing this assumption or
-the plot were we plot the square root of the standardized residuals in
-function of the fit.</p>
+<div id="homoscedasticity-equality-of-the-variance" class="section level3" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Homoscedasticity: equality of the variance</h3>
+<p>We can again use the residual plot for assessing this assumption or the plot
+were we plot the square root of the standardized residuals in function of
+the fit.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">plot</span>(mod1, <span class="at">which =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="08_3_puromycin_sol_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>We see that the spread of the majority of the residuals is more or
-less similar. As such, we may assume homoscedasticity of the data.</p>
+<p>We see that the spread of the majority of the residuals is more or less similar.
+As such, we may assume homoscedasticity of the data.</p>
 </div>
 </div>
-<div id="intermezzo-graphical-interpretation-of-the-parameters"
-class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Intermezzo: Graphical
-interpretation of the parameters</h2>
+<div id="intermezzo-graphical-interpretation-of-the-parameters" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Intermezzo: Graphical interpretation of the parameters</h2>
 <div id="simple-linear-model-1-slope" class="section level3 unnumbered">
-<h3 class="unnumbered">Simple linear model: 1 slope</h3>
-<p>This is the same model that we fit in the <a
-href="./06_1_puromycin.html">Chapter 6 exercise</a>:</p>
-<p><span class="math display">\[ Y_i = \beta_0 + \beta_{\text{rate}}
-X_{i, \text{rate}} + \epsilon_i \]</span></p>
+<h3>Simple linear model: 1 slope</h3>
+<p>This is the same model that we fit in the
+<a href="./06_1_puromycin.html">Chapter 6 exercise</a>:</p>
+<p><span class="math display">\[ Y_i = \beta_0 + \beta_{\text{rate}} X_{i, \text{rate}} + \epsilon_i \]</span></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>mod_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(rate <span class="sc">~</span> log10conc, <span class="at">data =</span> Puromycin)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>mod_simple</span></code></pre></div>
 <pre><code>## 
@@ -759,11 +731,10 @@ X_{i, \text{rate}} + \epsilon_i \]</span></p>
 <span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;The simple linear model&quot;</span>)</span></code></pre></div>
 <p><img src="08_3_puromycin_sol_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
-<div id="additive-model-2-parallel-slopes"
-class="section level3 unnumbered">
-<h3 class="unnumbered">Additive model: 2 parallel slopes</h3>
-<p>We add an additional term for the state of the reactin (treated or
-untreated). Note that this variable is <strong>categorical</strong>.</p>
+<div id="additive-model-2-parallel-slopes" class="section level3 unnumbered">
+<h3>Additive model: 2 parallel slopes</h3>
+<p>We add an additional term for the state of the reactin (treated or untreated).
+Note that this variable is <strong>categorical</strong>.</p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_{\text{rate}} X_{i, \text{rate}} +
   \beta_{\text{state}} X_{i, \text{state}} + \epsilon_i
@@ -795,9 +766,8 @@ Y_i = \beta_0 + \beta_{\text{rate}} X_{i, \text{rate}} +
 <span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;The additive linear model with parallel slopes&quot;</span>)</span></code></pre></div>
 <p><img src="08_3_puromycin_sol_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
-<div id="the-interaction-model-2-non-parallel-slopes"
-class="section level3 unnumbered">
-<h3 class="unnumbered">The interaction model: 2 non-parallel slopes</h3>
+<div id="the-interaction-model-2-non-parallel-slopes" class="section level3 unnumbered">
+<h3>The interaction model: 2 non-parallel slopes</h3>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_{\text{rate}} X_{i, \text{rate}} +
   \beta_{\text{state}} X_{i, \text{state}} +
@@ -836,8 +806,7 @@ Y_i = \beta_0 + \beta_{\text{rate}} X_{i, \text{rate}} +
 </div>
 <div id="inference" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Inference</h2>
-<p>We first do an omnibus test to assess is there is an effect of the
-log10 concentration on the velocity.</p>
+<p>We first do an omnibus test to assess is there is an effect of the log10 concentration on the velocity.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(rate <span class="sc">~</span> state, <span class="at">data =</span> Puromycin)</span>
 <span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1)</span></code></pre></div>
 <div data-pagedtable="false">
@@ -853,33 +822,26 @@ log10 concentration on the velocity.</p>
   </script>
 </div>
 <p>We cannot remove the interaction of the model.</p>
-<p>Hence, we cannot study the effect of the concentration without
-accounting for the treatment and have to assess following research
-questions.</p>
+<p>Hence, we cannot study the effect of the concentration without accounting for the treatment and have to assess following research questions.</p>
 <ol style="list-style-type: decimal">
-<li>the association between velocity and the concentration is
-significant in the untreated group</li>
+<li>the association between velocity and the concentration is significant in the untreated group</li>
 </ol>
 <p><span class="math display">\[
 H_0: \beta_c = 0 \text{ vs } H_1: \beta_c \neq 0
 \]</span></p>
 <ol start="2" style="list-style-type: decimal">
-<li>the association between velocity and the concentration is
-significant in the treated group</li>
+<li>the association between velocity and the concentration is significant in the treated group</li>
 </ol>
 <p><span class="math display">\[
-H_0: \beta_c + \beta_{c:s}= 0 \text { vs } H_1: \beta_c +
-\beta_{c:s}\neq 0
+H_0: \beta_c + \beta_{c:s}= 0 \text { vs } H_1: \beta_c + \beta_{c:s}\neq 0
 \]</span></p>
 <ol start="3" style="list-style-type: decimal">
-<li>the association between velocity and the concentration is different
-between treated and untreated group</li>
+<li>the association between velocity and the concentration is different between treated and untreated group</li>
 </ol>
 <p><span class="math display">\[
 H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 \]</span></p>
-<p>We can assess all these hypotheses using multcomp while correcting
-for multiple testing.</p>
+<p>We can assess all these hypotheses using multcomp while correcting for multiple testing.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span></code></pre></div>
 <pre><code>## Loading required package: mvtnorm</code></pre>
 <pre><code>## Loading required package: survival</code></pre>
@@ -912,7 +874,7 @@ for multiple testing.</p>
 ##                                         Estimate Std. Error t value Pr(&gt;|t|)
 ## log10conc == 0                            62.129      5.020  12.375  &lt; 0.001
 ## log10conc + log10conc:statetreated == 0   85.450      4.531  18.858  &lt; 0.001
-## log10conc:statetreated == 0               23.321      6.763   3.448  0.00645
+## log10conc:statetreated == 0               23.321      6.763   3.448  0.00665
 ##                                            
 ## log10conc == 0                          ***
 ## log10conc + log10conc:statetreated == 0 ***
@@ -926,37 +888,22 @@ for multiple testing.</p>
 ## 
 ## Fit: lm(formula = rate ~ log10conc * state, data = Puromycin)
 ## 
-## Quantile = 2.5115
+## Quantile = 2.5119
 ## 95% family-wise confidence level
 ##  
 ## 
 ## Linear Hypotheses:
 ##                                         Estimate lwr     upr    
-## log10conc == 0                          62.1285  49.5194 74.7376
-## log10conc + log10conc:statetreated == 0 85.4499  74.0697 96.8302
-## log10conc:statetreated == 0             23.3214   6.3362 40.3067</code></pre>
+## log10conc == 0                          62.1285  49.5175 74.7395
+## log10conc + log10conc:statetreated == 0 85.4499  74.0679 96.8320
+## log10conc:statetreated == 0             23.3214   6.3335 40.3093</code></pre>
 </div>
 <div id="conclusion" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Conclusion</h2>
-<p>There is an extremely significant effect of the substrate
-concentration on the reaction rate (p&lt;&lt;0.001). The effect of the
-substrate concentration on the reaction rate is extremely significant
-for reactions catalysed with untreated enzymes. A reaction at a
-substrate concentration that is 10 times higher will have a reaction
-speed that is on average 62.1 counts/min higher (95% CI [49.5, 74.7]
-counts/min) (p &lt;&lt; 0.001). The effect of the substrate
-concentration on the reaction rate is extremely significant for
-reactions catalysed puromycin treated enzymes (p &lt;&lt; 0.001). A
-reaction at a substrate concentration that is 10 times higher will have
-a reaction speed that is on average 85.4 counts/min higher (95% CI
-[74.1, 96.8] counts/min). The effect of the substrate concentration on
-the reaction rate is very significantly higher for reactions catalysed
-with Puromycin treated enzymes than when catalysed with non-treated
-enzymes (p = 0.007). A reaction at a substrate concentration that is 10
-times higher will have a reaction speed that is on average 23.3
-counts/min higher for reactions that are catalysed with Puromycin
-treated enzymes than with untreated enzymes (95% CI [6.3, 40.3]
-counts/min).</p>
+<p>There is an extremely significant effect of the substrate concentration on the reaction rate (p&lt;&lt;0.001).
+The effect of the substrate concentration on the reaction rate is extremely significant for reactions catalysed with untreated enzymes. A reaction at a substrate concentration that is 10 times higher will have a reaction speed that is on average 62.1 counts/min higher (95% CI [49.5, 74.7] counts/min) (p &lt;&lt; 0.001).
+The effect of the substrate concentration on the reaction rate is extremely significant for reactions catalysed puromycin treated enzymes (p &lt;&lt; 0.001). A reaction at a substrate concentration that is 10 times higher will have a reaction speed that is on average 85.4 counts/min higher (95% CI [74.1, 96.8] counts/min).
+The effect of the substrate concentration on the reaction rate is very significantly higher for reactions catalysed with Puromycin treated enzymes than when catalysed with non-treated enzymes (p = 0.007). A reaction at a substrate concentration that is 10 times higher will have a reaction speed that is on average 23.3 counts/min higher for reactions that are catalysed with Puromycin treated enzymes than with untreated enzymes (95% CI [6.4, 40.3] counts/min).</p>
 </div>
 </div>
 
