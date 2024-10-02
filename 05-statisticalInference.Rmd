@@ -302,7 +302,7 @@ nSim <- 50 # number of simulations
 
 femSamp <- matrix(nrow = n, ncol = nSim)
 for (j in 1:nSim) {
-  femSamp[, j] <- sample(fem$DirectChol, 15)
+  femSamp[, j] <- sample(fem$DirectChol, n)
   if (j < 4) {
     p <- data.frame(log2(femSamp)) %>%
       gather(key = "sample", value = "log2cholesterol") %>%
@@ -1637,6 +1637,7 @@ pSim %>%
   geom_histogram() +
   xlim(0, 1)
 ```
+
 - We observe that a power of `r mean(pSim<alpha)` or a type II error of `r 1-mean(pSim<alpha)`.
 
 ---
