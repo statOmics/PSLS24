@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 library(tidyverse)
 ```
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gghS0czPKGY?si=VsPkue-f7GgVeILc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 # Smelly armpit example
 
 - Smelly armpits are not caused by sweat, itself. The smell is caused by specific micro-organisms belonging to the group of *Corynebacterium spp.* that metabolise sweat.
