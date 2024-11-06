@@ -831,7 +831,9 @@ brca %>% ggplot(aes(x = node %>% as.factor(), y = age)) +
 ```{r out.width='100%', fig.asp=.8, fig.align='center'}
 par(mfrow = c(3, 3))
 set.seed(354)
-for (i in 1:9) plot(rnorm(32) ~ node, brca, ylab = "iid N(0,1)")
+mu0 <- brca %>% pull(age) %>% mean
+Sp <- sigma(lm3)
+for (i in 1:9) plot(rnorm(32, mean=mu0, sd=Sp) ~ node, brca, ylab = "iid N(0,1)")
 ```
 
 
