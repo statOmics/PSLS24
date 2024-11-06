@@ -628,7 +628,7 @@ And that the interval becomes much wider! This is particularly important here fo
 ## Total sum of squares
 $$\text{SSTot} = \sum_{i=1}^n (Y_i-\bar{Y})^2.$$
 
-- SStot can be used to estimate the variance of the **marginal distribution** of the response.
+- SStot can be used to estimate the variance of the **marginal distribution** of the response $f(Y)$.
 
 - In this chapter we focused on the **conditional distribution** $f(Y\vert X=x)$.
 
@@ -652,7 +652,7 @@ $$\text{SSR} = \sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2 = \sum_{i=1}^n (\hat{g}(x_i)
 - Another interpretation: difference between two models
 
     - Estimated model $\hat{g}(x)=\hat\beta_0+\hat\beta_1x$
-    - Estimated model without predictor (only intercept): $g(x)=\beta_0$ $\rightarrow$ $\beta_0$ will be equal to $\bar{Y}$.
+    - Estimated model without predictor (only intercept): $\hat{g}(x)=\hat{\beta}_0$ $\rightarrow$ $\hat{\beta}_0$ will be equal to $\bar{Y}$.
 
 - SSR measures the size of the effect of the predictor
 

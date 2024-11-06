@@ -874,6 +874,7 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 <p>We can assess all these hypotheses using multcomp while correcting for multiple testing.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span></code></pre></div>
 <pre><code>## Loading required package: mvtnorm</code></pre>
+<pre><code>## Warning: package &#39;mvtnorm&#39; was built under R version 4.4.1</code></pre>
 <pre><code>## Loading required package: survival</code></pre>
 <pre><code>## Loading required package: TH.data</code></pre>
 <pre><code>## Loading required package: MASS</code></pre>
@@ -887,14 +888,14 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 <pre><code>## The following object is masked from &#39;package:MASS&#39;:
 ## 
 ##     geyser</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>mcp1 <span class="ot">&lt;-</span> <span class="fu">glht</span>(mod1,</span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>  <span class="at">linfct =</span> <span class="fu">c</span>(</span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>    <span class="st">&quot;log10conc = 0&quot;</span>,</span>
-<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>    <span class="st">&quot;log10conc + log10conc:statetreated = 0&quot;</span>,</span>
-<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a>    <span class="st">&quot;log10conc:statetreated = 0&quot;</span></span>
-<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>  )</span>
-<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a>)</span>
-<span id="cb35-8"><a href="#cb35-8" tabindex="-1"></a><span class="fu">summary</span>(mcp1)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>mcp1 <span class="ot">&lt;-</span> <span class="fu">glht</span>(mod1,</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>  <span class="at">linfct =</span> <span class="fu">c</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>    <span class="st">&quot;log10conc = 0&quot;</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>    <span class="st">&quot;log10conc + log10conc:statetreated = 0&quot;</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>    <span class="st">&quot;log10conc:statetreated = 0&quot;</span></span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>  )</span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a>)</span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="fu">summary</span>(mcp1)</span></code></pre></div>
 <pre><code>## 
 ##   Simultaneous Tests for General Linear Hypotheses
 ## 
@@ -904,7 +905,7 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 ##                                         Estimate Std. Error t value Pr(&gt;|t|)
 ## log10conc == 0                            62.129      5.020  12.375  &lt; 0.001
 ## log10conc + log10conc:statetreated == 0   85.450      4.531  18.858  &lt; 0.001
-## log10conc:statetreated == 0               23.321      6.763   3.448  0.00664
+## log10conc:statetreated == 0               23.321      6.763   3.448  0.00674
 ##                                            
 ## log10conc == 0                          ***
 ## log10conc + log10conc:statetreated == 0 ***
@@ -912,28 +913,28 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- single-step method)</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">confint</span>(mcp1)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">confint</span>(mcp1)</span></code></pre></div>
 <pre><code>## 
 ##   Simultaneous Confidence Intervals
 ## 
 ## Fit: lm(formula = rate ~ log10conc * state, data = Puromycin)
 ## 
-## Quantile = 2.509
+## Quantile = 2.5103
 ## 95% family-wise confidence level
 ##  
 ## 
 ## Linear Hypotheses:
 ##                                         Estimate lwr     upr    
-## log10conc == 0                          62.1285  49.5323 74.7247
-## log10conc + log10conc:statetreated == 0 85.4499  74.0813 96.8186
-## log10conc:statetreated == 0             23.3214   6.3535 40.2893</code></pre>
+## log10conc == 0                          62.1285  49.5256 74.7315
+## log10conc + log10conc:statetreated == 0 85.4499  74.0752 96.8247
+## log10conc:statetreated == 0             23.3214   6.3444 40.2985</code></pre>
 </div>
 <div id="conclusion" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Conclusion</h2>
 <p>There is an extremely significant effect of the substrate concentration on the reaction rate (p&lt;&lt;0.001).
 The effect of the substrate concentration on the reaction rate is extremely significant for reactions catalysed with untreated enzymes. A reaction at a substrate concentration that is 10 times higher will have a reaction speed that is on average 62.1 counts/min higher (95% CI [49.5, 74.7] counts/min) (p &lt;&lt; 0.001).
 The effect of the substrate concentration on the reaction rate is extremely significant for reactions catalysed puromycin treated enzymes (p &lt;&lt; 0.001). A reaction at a substrate concentration that is 10 times higher will have a reaction speed that is on average 85.4 counts/min higher (95% CI [74.1, 96.8] counts/min).
-The effect of the substrate concentration on the reaction rate is very significantly higher for reactions catalysed with Puromycin treated enzymes than when catalysed with non-treated enzymes (p = 0.007). A reaction at a substrate concentration that is 10 times higher will have a reaction speed that is on average 23.3 counts/min higher for reactions that are catalysed with Puromycin treated enzymes than with untreated enzymes (95% CI [6.3, 40.3] counts/min).</p>
+The effect of the substrate concentration on the reaction rate is very significantly higher for reactions catalysed with Puromycin treated enzymes than when catalysed with non-treated enzymes (p = 0.007). A reaction at a substrate concentration that is 10 times higher will have a reaction speed that is on average 23.3 counts/min higher for reactions that are catalysed with Puromycin treated enzymes than with untreated enzymes (95% CI [6.4, 40.3] counts/min).</p>
 </div>
 </div>
 <div id="additional-concepts" class="section level1" number="5">
@@ -958,14 +959,14 @@ E(Y | X_v=x_v +1, X_w=x_w, X_s=x_s) - E(Y | X_v=x_v, X_w=x_w, X_s=x_s) \\
 <li><p>We can do the same for the lweight. Slope for lweight depends on lcavol of prostate!</p></li>
 </ul>
 <hr />
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>lmVWS_IntVW <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  lpsa <span class="sc">~</span> lcavol <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>    lweight <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>    svi <span class="sc">+</span></span>
-<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>    lcavol<span class="sc">:</span>lweight,</span>
-<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>  prostate)</span>
-<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="fu">summary</span>(lmVWS_IntVW)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>lmVWS_IntVW <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  lpsa <span class="sc">~</span> lcavol <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>    lweight <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>    svi <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>    lcavol<span class="sc">:</span>lweight,</span>
+<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a>  prostate)</span>
+<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a><span class="fu">summary</span>(lmVWS_IntVW)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = lpsa ~ lcavol + lweight + svi + lcavol:lweight, 
@@ -992,7 +993,7 @@ E(Y | X_v=x_v +1, X_w=x_w, X_s=x_s) - E(Y | X_v=x_v, X_w=x_w, X_s=x_s) \\
 </div>
 <div id="interaction-between-two-factors" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Interaction between two factors?</h2>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>kpna2 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;https://raw.githubusercontent.com/statOmics/SGA21/master/data/kpna2.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>kpna2 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;https://raw.githubusercontent.com/statOmics/SGA21/master/data/kpna2.txt&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 24 Columns: 3
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;\t&quot;
@@ -1000,33 +1001,33 @@ E(Y | X_v=x_v +1, X_w=x_w, X_s=x_s) - E(Y | X_v=x_v, X_w=x_w, X_s=x_s) \\
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>kpna2 <span class="ot">&lt;-</span> kpna2 <span class="sc">%&gt;%</span></span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>    <span class="at">grade =</span> <span class="fu">as.factor</span>(grade),</span>
-<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>    <span class="at">node =</span> <span class="fu">as.factor</span>(node),</span>
-<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a>    <span class="at">node =</span> <span class="fu">fct_recode</span>(node, <span class="at">Unaffected =</span> <span class="st">&quot;0&quot;</span>, <span class="at">Removed =</span> <span class="st">&quot;1&quot;</span>),</span>
-<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>    <span class="at">log2gene =</span> <span class="fu">log2</span>(gene)</span>
-<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>(kpna2, <span class="fu">aes</span>(<span class="at">x =</span> grade, <span class="at">y =</span> gene, <span class="at">fill =</span> node)) <span class="sc">+</span></span>
-<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitterdodge</span>(), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Histologic grade&quot;</span>, <span class="at">y =</span> <span class="st">&quot;KPNA2 expression&quot;</span>,</span>
-<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Lymph node status&quot;</span></span>
-<span id="cb44-7"><a href="#cb44-7" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb44-8"><a href="#cb44-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;KPNA2 gene expression in breast cancer patients&quot;</span>)</span></code></pre></div>
-<p><img src="08-wrapup-puromycin_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">ggplot</span>(kpna2, <span class="fu">aes</span>(<span class="at">x =</span> grade, <span class="at">y =</span> log2gene, <span class="at">fill =</span> node)) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>kpna2 <span class="ot">&lt;-</span> kpna2 <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>    <span class="at">grade =</span> <span class="fu">as.factor</span>(grade),</span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>    <span class="at">node =</span> <span class="fu">as.factor</span>(node),</span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>    <span class="at">node =</span> <span class="fu">fct_recode</span>(node, <span class="at">Unaffected =</span> <span class="st">&quot;0&quot;</span>, <span class="at">Removed =</span> <span class="st">&quot;1&quot;</span>),</span>
+<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>    <span class="at">log2gene =</span> <span class="fu">log2</span>(gene)</span>
+<span id="cb44-7"><a href="#cb44-7" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">ggplot</span>(kpna2, <span class="fu">aes</span>(<span class="at">x =</span> grade, <span class="at">y =</span> gene, <span class="at">fill =</span> node)) <span class="sc">+</span></span>
 <span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitterdodge</span>(), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Histologic grade&quot;</span>, <span class="at">y =</span> <span class="st">&quot;KPNA2 log2 expression&quot;</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Histologic grade&quot;</span>, <span class="at">y =</span> <span class="st">&quot;KPNA2 expression&quot;</span>,</span>
 <span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Lymph node status&quot;</span></span>
 <span id="cb45-7"><a href="#cb45-7" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb45-8"><a href="#cb45-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;KPNA2 gene expression in breast cancer patients&quot;</span>)</span></code></pre></div>
+<p><img src="08-wrapup-puromycin_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="fu">ggplot</span>(kpna2, <span class="fu">aes</span>(<span class="at">x =</span> grade, <span class="at">y =</span> log2gene, <span class="at">fill =</span> node)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitterdodge</span>(), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Histologic grade&quot;</span>, <span class="at">y =</span> <span class="st">&quot;KPNA2 log2 expression&quot;</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Lymph node status&quot;</span></span>
+<span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;KPNA2 gene expression in breast cancer patients&quot;</span>)</span></code></pre></div>
 <p><img src="08-wrapup-puromycin_files/figure-html/unnamed-chunk-21-2.png" width="672" /></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log2</span>(gene) <span class="sc">~</span> grade <span class="sc">*</span> node, <span class="at">data =</span> kpna2)</span>
-<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>ExploreModelMatrix<span class="sc">::</span><span class="fu">VisualizeDesign</span>(kpna2, <span class="sc">~</span> grade <span class="sc">*</span> node)<span class="sc">$</span>plotlist[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log2</span>(gene) <span class="sc">~</span> grade <span class="sc">*</span> node, <span class="at">data =</span> kpna2)</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>ExploreModelMatrix<span class="sc">::</span><span class="fu">VisualizeDesign</span>(kpna2, <span class="sc">~</span> grade <span class="sc">*</span> node)<span class="sc">$</span>plotlist[[<span class="dv">1</span>]]</span></code></pre></div>
 <p><img src="08-wrapup-puromycin_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 </div>

@@ -51,6 +51,24 @@ prostacyclin %>%
   facet_grid(~dose)
 ```
 
+```{r}
+prostacSum <- prostacyclin %>% 
+  group_by(dose) %>% 
+  summarize(
+    mean = mean(prostac, na.rm = TRUE),
+    sd = sd(prostac, na.rm = TRUE),
+    n = n()
+  )
+prostacSum
+```
+
+```{r}
+mean0 <- prostacyclin %>% pull(prostac) %>% mean
+Sp = prostacSum$sd^2*(prostacSum$n-1)/sum(prostacSum$n-1)
+par(mfrow = c(3, 3))
+set.seed(354)
+for (i in 1:9) plot(rnorm(mean0,Sp,n=sum(prostacSum$n)) ~ dose, prostacyclin, ylab = "iid N(0,1)")
+```
 
 The data in the three groups is approximately Normally distributed with equal variance:
 \[Y_i \vert \text{group j} \sim N(\mu_j,\sigma^2),\]

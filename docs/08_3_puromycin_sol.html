@@ -844,6 +844,7 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 <p>We can assess all these hypotheses using multcomp while correcting for multiple testing.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span></code></pre></div>
 <pre><code>## Loading required package: mvtnorm</code></pre>
+<pre><code>## Warning: package &#39;mvtnorm&#39; was built under R version 4.4.1</code></pre>
 <pre><code>## Loading required package: survival</code></pre>
 <pre><code>## Loading required package: TH.data</code></pre>
 <pre><code>## Loading required package: MASS</code></pre>
@@ -857,14 +858,14 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 <pre><code>## The following object is masked from &#39;package:MASS&#39;:
 ## 
 ##     geyser</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>mcp1 <span class="ot">&lt;-</span> <span class="fu">glht</span>(mod1,</span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="at">linfct =</span> <span class="fu">c</span>(</span>
-<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>    <span class="st">&quot;log10conc = 0&quot;</span>,</span>
-<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>    <span class="st">&quot;log10conc + log10conc:statetreated = 0&quot;</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>    <span class="st">&quot;log10conc:statetreated = 0&quot;</span></span>
-<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>  )</span>
-<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>)</span>
-<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a><span class="fu">summary</span>(mcp1)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>mcp1 <span class="ot">&lt;-</span> <span class="fu">glht</span>(mod1,</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  <span class="at">linfct =</span> <span class="fu">c</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>    <span class="st">&quot;log10conc = 0&quot;</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>    <span class="st">&quot;log10conc + log10conc:statetreated = 0&quot;</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>    <span class="st">&quot;log10conc:statetreated = 0&quot;</span></span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>  )</span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>)</span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a><span class="fu">summary</span>(mcp1)</span></code></pre></div>
 <pre><code>## 
 ##   Simultaneous Tests for General Linear Hypotheses
 ## 
@@ -874,7 +875,7 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 ##                                         Estimate Std. Error t value Pr(&gt;|t|)
 ## log10conc == 0                            62.129      5.020  12.375  &lt; 0.001
 ## log10conc + log10conc:statetreated == 0   85.450      4.531  18.858  &lt; 0.001
-## log10conc:statetreated == 0               23.321      6.763   3.448  0.00665
+## log10conc:statetreated == 0               23.321      6.763   3.448  0.00672
 ##                                            
 ## log10conc == 0                          ***
 ## log10conc + log10conc:statetreated == 0 ***
@@ -882,21 +883,21 @@ H_0: \beta_{c:s}= 0\text{ vs }H_1: \beta_{c:s}\neq 0
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- single-step method)</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">confint</span>(mcp1)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">confint</span>(mcp1)</span></code></pre></div>
 <pre><code>## 
 ##   Simultaneous Confidence Intervals
 ## 
 ## Fit: lm(formula = rate ~ log10conc * state, data = Puromycin)
 ## 
-## Quantile = 2.5119
+## Quantile = 2.5105
 ## 95% family-wise confidence level
 ##  
 ## 
 ## Linear Hypotheses:
 ##                                         Estimate lwr     upr    
-## log10conc == 0                          62.1285  49.5175 74.7395
-## log10conc + log10conc:statetreated == 0 85.4499  74.0679 96.8320
-## log10conc:statetreated == 0             23.3214   6.3335 40.3093</code></pre>
+## log10conc == 0                          62.1285  49.5245 74.7326
+## log10conc + log10conc:statetreated == 0 85.4499  74.0742 96.8257
+## log10conc:statetreated == 0             23.3214   6.3429 40.2999</code></pre>
 </div>
 <div id="conclusion" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Conclusion</h2>
