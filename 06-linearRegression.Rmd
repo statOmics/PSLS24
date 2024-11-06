@@ -833,7 +833,7 @@ par(mfrow = c(3, 3))
 set.seed(354)
 mu0 <- brca %>% pull(age) %>% mean
 Sp <- sigma(lm3)
-for (i in 1:9) plot(rnorm(32, mean=mu0, sd=Sp) ~ node, brca, ylab = "iid N(0,1)")
+for (i in 1:9) plot(rnorm(32, mean=mu0, sd=Sp) ~ node, brca, ylab = "Age under H0")
 ```
 
 
