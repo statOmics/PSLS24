@@ -63,11 +63,12 @@ prostacSum
 ```
 
 ```{r}
+set.seed(1123)
 mean0 <- prostacyclin %>% pull(prostac) %>% mean
-Sp = prostacSum$sd^2*(prostacSum$n-1)/sum(prostacSum$n-1)
+Sp = sqrt(sum(prostacSum$sd^2*(prostacSum$n-1))/sum(prostacSum$n-1))
 par(mfrow = c(3, 3))
 set.seed(354)
-for (i in 1:9) plot(rnorm(mean0,Sp,n=sum(prostacSum$n)) ~ dose, prostacyclin, ylab = "iid N(0,1)")
+for (i in 1:9) plot(rnorm(mean0,Sp,n=sum(prostacSum$n)) ~ dose, prostacyclin, ylab = paste0("iid N(",round(mean0,1),",",round(Sp,1),")"))
 ```
 
 The data in the three groups is approximately Normally distributed with equal variance:
