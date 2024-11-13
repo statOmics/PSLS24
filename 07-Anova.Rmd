@@ -63,7 +63,7 @@ prostacSum
 ```
 
 ```{r}
-set.seed(1123)
+set.seed(112)
 mean0 <- prostacyclin %>% pull(prostac) %>% mean
 Sp = sqrt(sum(prostacSum$sd^2*(prostacSum$n-1))/sum(prostacSum$n-1))
 par(mfrow = c(3, 3))
@@ -409,7 +409,7 @@ In ANOVA context we assume that the variance of **all** $g$ groups is equal, i.e
 $$\text{MSE}= \sum_{j=1}^g \frac{(n_j-1)S_j^2}{n-g}$$
 
 - The $t$-tests are thus best based on
-$$T_{jk} = \frac{\bar{Y}_j-\bar{Y}_k}{\text{MSE}\sqrt{\frac{1}{n_j}+\frac{1}{n_k}}} \sim t_{n-g}.$$
+$$T_{jk} = \frac{\bar{Y}_j-\bar{Y}_k}{\sqrt{\text{MSE}\left(\frac{1}{n_j}+\frac{1}{n_k}\right)}} \sim t_{n-g}.$$
 
 ---
 
