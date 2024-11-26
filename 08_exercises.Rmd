@@ -54,6 +54,7 @@ weight of the fish, **and including an interaction between dose and weight.**
 - Data path:
 
   `https://raw.githubusercontent.com/statOmics/PSLSData/main/poison.csv`
+  
 <!--
 - Solution2: [Solution2](./08_2_poison2_sol.html)
 <!---->
