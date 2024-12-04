@@ -101,7 +101,7 @@ not affected (0) or surgically removed (1).
 
   `https://raw.githubusercontent.com/statOmics/SGA21/master/data/kpna2.txt`
 
-<!--
+
 - Solution: [Solution4](./08_4_kpna2_sol.html)
 <!---->
 

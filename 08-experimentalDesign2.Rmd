@@ -245,7 +245,7 @@ Note, that the RCB also has to sacrifice a number of degrees of freedom to estim
 
 Hence, the power gain of the RCB is a trade-off between the variability that can be explained by the block effect and the loss in DF.
 
-
+<!--
 If you remember the equation of variance covariance matrix of the parameter estimators
 $$
 \hat{\boldsymbol{\Sigma}}^2_{\hat{\boldsymbol{\beta}}}
@@ -256,6 +256,7 @@ you can see that the randomized complete block will have an impact on
 
 - $\left(\mathbf{X}^T\mathbf{X}\right)^{-1}$ as well as
 - on $\sigma^2$ of the residuals!
+-->
 
 $\rightarrow$ We were able to isolate the variance in expression between animals/blocks from our analysis!
 
