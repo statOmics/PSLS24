@@ -678,9 +678,9 @@ The lymph nodes were not affected (0) or chirugically removed (1).</p>
 ##                            Estimate Std. Error t value Pr(&gt;|t|)    
 ## grade3 == 0                  1.6675     0.1827   9.127  &lt; 0.001 ***
 ## grade3 + grade3:node1 == 0   0.8928     0.1827   4.886  &lt; 0.001 ***
-## node1 == 0                   0.6577     0.1827   3.600  0.00699 ** 
-## node1 + grade3:node1 == 0   -0.1170     0.1827  -0.640  0.89817    
-## grade3:node1 == 0           -0.7748     0.2584  -2.998  0.02685 *  
+## node1 == 0                   0.6577     0.1827   3.600  0.00706 ** 
+## node1 + grade3:node1 == 0   -0.1170     0.1827  -0.640  0.89816    
+## grade3:node1 == 0           -0.7748     0.2584  -2.998  0.02650 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- single-step method)</code></pre>
@@ -733,7 +733,7 @@ The lymph nodes were not affected (0) or chirugically removed (1).</p>
 <span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a>power1 <span class="ot">&lt;-</span> <span class="fu">simFastMultipleContrasts</span>(form, kpna2, betas, sd, contrasts, <span class="at">nSim =</span> nSim)</span>
 <span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a>power1</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     1.00000     0.99000     0.84085     0.08515     0.70060</code></pre>
+##     1.00000     0.99035     0.84165     0.08975     0.70350</code></pre>
 <p>We observe large powers for all contrasts, exept for contrast nodeg3, which has a small effect size.</p>
 </div>
 <div id="power-for-increasing-sample-size" class="section level2" number="3.3">
@@ -772,15 +772,15 @@ The lymph nodes were not affected (0) or chirugically removed (1).</p>
 <span id="cb31-32"><a href="#cb31-32" tabindex="-1"></a>}</span>
 <span id="cb31-33"><a href="#cb31-33" tabindex="-1"></a>powers</span></code></pre></div>
 <pre><code>##        n graden0 graden1  nodeg1  nodeg3 interaction
-##  [1,]  2 0.70485 0.26725 0.15035 0.03185     0.11555
-##  [2,]  3 0.99260 0.64200 0.38055 0.04545     0.27565
-##  [3,]  4 0.99975 0.87060 0.58315 0.05920     0.44620
-##  [4,]  5 1.00000 0.96105 0.73340 0.07410     0.58265
-##  [5,]  6 1.00000 0.99130 0.84410 0.08490     0.70465
-##  [6,]  7 1.00000 0.99730 0.90385 0.09585     0.78510
-##  [7,]  8 1.00000 0.99925 0.94375 0.10415     0.84975
-##  [8,]  9 1.00000 0.99980 0.96810 0.11300     0.89650
-##  [9,] 10 1.00000 0.99985 0.98460 0.12315     0.92975</code></pre>
+##  [1,]  2 0.70880 0.26840 0.15510 0.02970     0.11705
+##  [2,]  3 0.99145 0.64640 0.37505 0.04445     0.27750
+##  [3,]  4 0.99990 0.86605 0.58500 0.05820     0.44365
+##  [4,]  5 1.00000 0.96155 0.73830 0.07215     0.58975
+##  [5,]  6 1.00000 0.98980 0.83980 0.08665     0.69880
+##  [6,]  7 1.00000 0.99705 0.90355 0.09730     0.78755
+##  [7,]  8 1.00000 0.99905 0.94940 0.10885     0.85225
+##  [8,]  9 1.00000 1.00000 0.96885 0.11725     0.89605
+##  [9,] 10 1.00000 1.00000 0.98250 0.12440     0.92665</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>powers <span class="sc">%&gt;%</span></span>
 <span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="fu">gather</span>(contrast, power, <span class="sc">-</span>n) <span class="sc">%&gt;%</span></span>
@@ -809,7 +809,7 @@ The lymph nodes were not affected (0) or chirugically removed (1).</p>
 <span id="cb34-17"><a href="#cb34-17" tabindex="-1"></a>power3 <span class="ot">&lt;-</span> <span class="fu">simFastMultipleContrasts</span>(form, kpna2, betas2, sd, contrasts, <span class="at">nSim =</span> nSim)</span>
 <span id="cb34-18"><a href="#cb34-18" tabindex="-1"></a>power3</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     0.68590     0.10505     0.79015     0.06220     0.62705</code></pre>
+##     0.68725     0.11000     0.78995     0.06335     0.62900</code></pre>
 <p>We observe a drop in the power for all the contrasts!?</p>
 <p>We only would expect to loose power for the contrasts assessing the grade effect because both fold changes have been decreased.</p>
 <p>The reason why all powers are affected is because we also do multiple testing and the multiple testing using the pvalue correction using Holm’s method for a particular contrast is also depending on the order of significance of the tests within each simulation.</p>
@@ -818,10 +818,10 @@ The lymph nodes were not affected (0) or chirugically removed (1).</p>
 <span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>power3None <span class="ot">&lt;-</span> <span class="fu">simFastMultipleContrasts</span>(form, kpna2, betas2, sd, contrasts, <span class="at">nSim =</span> nSim, <span class="at">adjust =</span> <span class="st">&quot;none&quot;</span>)</span>
 <span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>power1None</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     1.00000     0.99615     0.92840     0.09545     0.80945</code></pre>
+##     1.00000     0.99640     0.93095     0.09375     0.81495</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>power3None</span></code></pre></div>
 <pre><code>##     graden0     graden1      nodeg1      nodeg3 interaction 
-##     0.86265     0.16650     0.92920     0.09320     0.81585</code></pre>
+##     0.85935     0.16995     0.92960     0.09655     0.81535</code></pre>
 </div>
 </div>
 

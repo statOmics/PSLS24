@@ -774,9 +774,9 @@ Linear Hypotheses:
                                       Estimate Std. Error t value Pr(&gt;|t|)    
 grade3 == 0                             1.6675     0.1827   9.127  &lt; 0.001 ***
 grade3 + grade3:nodeRemoved == 0        0.8928     0.1827   4.886  &lt; 0.001 ***
-nodeRemoved == 0                        0.6577     0.1827   3.600  0.00731 ** 
-nodeRemoved + grade3:nodeRemoved == 0  -0.1170     0.1827  -0.640  0.89816    
-grade3:nodeRemoved == 0                -0.7748     0.2584  -2.998  0.02665 *  
+nodeRemoved == 0                        0.6577     0.1827   3.600  0.00696 ** 
+nodeRemoved + grade3:nodeRemoved == 0  -0.1170     0.1827  -0.640  0.89819    
+grade3:nodeRemoved == 0                -0.7748     0.2584  -2.998  0.02635 *  
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 (Adjusted p values reported -- single-step method)</code></pre>
@@ -786,28 +786,28 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 Fit: lm(formula = log2(gene) ~ grade * node, data = kpna2)
 
-Quantile = 2.6978
+Quantile = 2.6968
 95% family-wise confidence level
  
 
 Linear Hypotheses:
                                       Estimate lwr      upr     
-grade3 == 0                            1.66754  1.17462  2.16046
-grade3 + grade3:nodeRemoved == 0       0.89279  0.39987  1.38571
-nodeRemoved == 0                       0.65773  0.16481  1.15065
-nodeRemoved + grade3:nodeRemoved == 0 -0.11702 -0.60994  0.37590
-grade3:nodeRemoved == 0               -0.77475 -1.47185 -0.07765</code></pre>
+grade3 == 0                            1.66754  1.17480  2.16027
+grade3 + grade3:nodeRemoved == 0       0.89279  0.40005  1.38552
+nodeRemoved == 0                       0.65773  0.16500  1.15046
+nodeRemoved + grade3:nodeRemoved == 0 -0.11702 -0.60975  0.37571
+grade3:nodeRemoved == 0               -0.77475 -1.47158 -0.07792</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="fu">confint</span>(fitGlht)<span class="sc">$</span>confint</span></code></pre></div>
 <pre><code>                                  Estimate       lwr       upr
-grade3                           3.1767209 2.2566171 4.4719842
-grade3 + grade3:nodeRemoved      1.8567602 1.3189691 2.6138281
-nodeRemoved                      1.5775997 1.1206646 2.2208438
-nodeRemoved + grade3:nodeRemoved 0.9220906 0.6550167 1.2980601
-grade3:nodeRemoved               0.5844896 0.3603596 0.9480199
+grade3                           3.1767209 2.2577775 4.4696857
+grade3 + grade3:nodeRemoved      1.8567602 1.3196474 2.6124847
+nodeRemoved                      1.5775997 1.1212408 2.2197024
+nodeRemoved + grade3:nodeRemoved 0.9220906 0.6553536 1.2973929
+grade3:nodeRemoved               0.5844896 0.3606217 0.9473309
 attr(,&quot;conf.level&quot;)
 [1] 0.95
 attr(,&quot;calpha&quot;)
-[1] 2.700296</code></pre>
+[1] 2.696237</code></pre>
 </div>
 <div id="conclusion" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Conclusion</h1>
@@ -815,7 +815,7 @@ attr(,&quot;calpha&quot;)
 <li><p>There is an extremely significant association between the KPNA2 expression and hystological grade in patients with unaffected as well as in patients with affected lymph nodes (both <span class="math inline">\(p&lt;&lt;0.001\)</span>).
 When lymph nodes are unaffected, the expression is on average 3.18 times higher for patients with histological grade 3 than patients with histological grade 1 (95% CI [2.26, 4.47]).
 For patients with affected lymph nodes the expression is on average 1.86 times higher for patients with histological grade 3 tumors than patients with histological grade 1 tumors (95% CI [1.32, 2.61]).</p></li>
-<li><p>The association between the KPNA2 expression with the lymph node status in grade 1 patients is very significant (<span class="math inline">\(p=\)</span> 0.0072).
+<li><p>The association between the KPNA2 expression with the lymph node status in grade 1 patients is very significant (<span class="math inline">\(p=\)</span> 0.0071).
 The KPNA2 expression in histological grade 1 patients with affected lymph nodes is on average 1.58 times higher than for grade 1 patients with unaffected lymph nodes (95% CI [1.12, 2.22]).
 In grade 3 patients, however, this association is not significant (<span class="math inline">\(p=\)</span> 0.9, 95% CI [0.66, 1.3] ).</p></li>
 <li><p>There is also a significant interaction between the hystological grade and the lymph node status. So the association between the KPNA2 expression and the histological grade depends on the lymph node status and vice versa (<span class="math inline">\(p=\)</span> 0.027). The fold change corresponding to histological grade is on average 1.71 times lower in patients with affected lymph nodes as compared to patients with unaffected lymph node (95% CI [1.06, 2.77]). (Similarly, the fold change corresponding to the node status is on average 1.71 times lower in patients with grade 3 tumors as compared to patients with grade 1 tumors, 95% CI [1.06, 2.77])</p></li>
