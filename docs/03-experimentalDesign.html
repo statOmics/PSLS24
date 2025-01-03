@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lieven Clement" />
+
+
+<title>3. Some concepts on experimental design</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Topics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-intro.html">1. Introduction</a>
+    </li>
+    <li>
+      <a href="02-concepts.html">2. Concepts</a>
+    </li>
+    <li>
+      <a href="03-experimentalDesign.html">3. Experimental Design I</a>
+    </li>
+    <li>
+      <a href="04-dataExploration.html">4. Data Exploration</a>
+    </li>
+    <li>
+      <a href="05-statisticalInference.html">5.1 Statistical Inference 1</a>
+    </li>
+    <li>
+      <a href="05-statisticalInference-twosampleT.html">5.2 Statistical Inference 2</a>
+    </li>
+    <li>
+      <a href="06-linearRegression.html">6. Linear Regression</a>
+    </li>
+    <li>
+      <a href="07-Anova.html">7. Analysis of Variance</a>
+    </li>
+    <li>
+      <a href="08-MultipleRegression.html">8. Multiple Regression</a>
+    </li>
+    <li>
+      <a href="08-MultipleRegression-SpecificDesigns.html">8.2 Multiple Regression: Factorial Designs</a>
+    </li>
+    <li>
+      <a href="08-experimentalDesign2.html">8.3. Experimental Design II</a>
+    </li>
+    <li>
+      <a href="08-experimentalDesign3.html">8.4. Experimental Design III</a>
+    </li>
+    <li>
+      <a href="09-NonparametericStatistics-WilcoxonMannWithney.html">9.1. Nonparametric Statistics 1</a>
+    </li>
+    <li>
+      <a href="09-NonparametericStatistics-KruskalWallis.html">9.2. Nonparametric Statistics 2</a>
+    </li>
+    <li>
+      <a href="10-categoricalDataAnalysis.html">10. Categorical Data Analysis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-laptop"></span>
+     
+    Exercises
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="04_exercises.html">4. Data Exploration</a>
+    </li>
+    <li>
+      <a href="05_exercises.html">5. Statistical inference</a>
+    </li>
+    <li>
+      <a href="06_exercises.html">6. Simple linear regression</a>
+    </li>
+    <li>
+      <a href="07_exercises.html">7. ANOVA</a>
+    </li>
+    <li>
+      <a href="08_exercises.html">8. Multiple linear regression</a>
+    </li>
+    <li>
+      <a href="09_exercises.html">9. Non-parametric statistics</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://statomics.github.io/">statOmics</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">3. Some concepts on experimental design</h1>
+<h4 class="author">Lieven Clement</h4>
+<h4 class="date">statOmics, Ghent University (<a href="https://statomics.github.io" class="uri">https://statomics.github.io</a>)</h4>
+
+</div>
+
+
+<p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Lv6OzYfPa9c?si=5ckUzSKfId1e-hyi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+<p><img src="03-experimentalDesign_files/figure-html/pop2Samp2Pop-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<hr />
+<div id="need-for-a-good-control" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Need for a good control</h1>
+<ul>
+<li><p>A good control group is crucial.</p></li>
+<li><p>To assess the effect of an intervention, we need to compare a test and control group.</p></li>
+<li><p>This is often not possible in a pretest/post-test design: e.g. effect before and after administering a drug without the use of a placebo group.</p></li>
+<li><p>Groups in an observational study are often not comparable: advanced statistical methods are required to draw causal conclusions.</p></li>
+<li><p>Double blinding</p></li>
+<li><p>We have to be aware of confounding!</p></li>
+<li><p>Randomized studies: random assignment of subjects in the study to the different treatment arms <span class="math inline">\(\rightarrow\)</span> comparable groups.</p></li>
+</ul>
+<hr />
+</div>
+<div id="randomization" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Randomization</h1>
+<ul>
+<li>Randomization completely at random (no systematic allocation).</li>
+</ul>
+<div id="simple-randomization" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Simple Randomization</h2>
+<ul>
+<li><p>Can lead to differences in the number of experimental units in each treatment arm</p></li>
+<li><p>in 5% of the cases we might observe an imbalance of</p>
+<ul>
+<li>of at least 60:40 in a study with 100 subjects, and</li>
+<li>of at least 531:469 in a study with 1000 subjects.</li>
+</ul></li>
+<li><p>This imbalance is not problematic, but causes a loss in precision.</p></li>
+</ul>
+<hr />
+</div>
+<div id="balanced-randomization" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Balanced Randomization</h2>
+<ul>
+<li><p>Equal numbers of each treatment are assigned to a block of 2 or 4 patients.</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>AB, (2) BA</li>
+</ol></li>
+<li><ol style="list-style-type: decimal">
+<li>AABB, (2) ABAB, (3) ABBA, (4) BABA, (5) BAAB, (6) BBAA</li>
+</ol></li>
+</ul></li>
+<li><p>Balanced Randomization ensures <span class="math inline">\(\pm\)</span> the same number of people in the control and the treatment arm of the experiment.</p></li>
+<li><p>Does not make that we have an equal number of males with and without the treatment, etc.</p></li>
+<li><p>In small studies, it is possible that the groups are unbalanced in other characteristics (e.g. gender, race, age …)</p></li>
+<li><p>This is not problematic because it occurs at random, but, again it causes a loss in precision.</p></li>
+</ul>
+<hr />
+</div>
+<div id="stratified-randomization" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Stratified randomization</h2>
+<ul>
+<li>The imbalance according to for instance gender can be avoided using stratified Randomization: balanced randomization per stratum</li>
+</ul>
+<div class="float">
+<img src="figures/stratification.png" style="width:50.0%" alt="Stratified Randomization" />
+<div class="figcaption">Stratified Randomization</div>
+</div>
+<hr />
+</div>
+</div>
+<div id="sample-size" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Sample size</h1>
+<ul>
+<li><p>The sample size and the design are crucial.</p></li>
+<li><p>The larger the sample size, the more precise the results.</p></li>
+</ul>
+</div>
+<div id="bad-design-example" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Bad design example</h1>
+<ul>
+<li><p>dm: diabetic medium, nd: non diabetic medium, co: control</p></li>
+<li><p>4 bio-reps, 2 techreps/biorep
+<img src="figures/qpcrBadDesign1.png" style="width:100.0%" /></p></li>
+<li><p>dm: diabetic medium, nd: non diabetic medium, co: control</p></li>
+<li><p>4 bio-reps, 2 techreps/biorep, 2 plates A &amp; B</p></li>
+<li><p>Treatment and plate almost entirely confounded</p></li>
+</ul>
+<p><img src="figures/qpcrBadDesign2.png" style="width:100.0%" /></p>
+<hr />
+</div>
+<div id="wrap-up" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Wrap-up</h1>
+<ul>
+<li><p>Sample size is very important.</p></li>
+<li><p>To assess the effect of a treatment, we should compare comparable and representative groups of subjects with and without the treatment (a good control!).</p></li>
+<li><p>In observational studies, the researcher cannot choose the treatment. It was the patient or their MD who had chosen it</p></li>
+<li><p>In experimental studies, the researcher assigns the treatment.</p></li>
+<li><p>Confounding can be avoided via randomization.</p></li>
+<li><p>We can also correct for confounding in the statistical analysis for the confounders that have been registered.</p></li>
+</ul>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiMy4gU29tZSBjb25jZXB0cyBvbiBleHBlcmltZW50YWwgZGVzaWduIgphdXRob3I6ICJMaWV2ZW4gQ2xlbWVudCIKZGF0ZTogInN0YXRPbWljcywgR2hlbnQgVW5pdmVyc2l0eSAoaHR0cHM6Ly9zdGF0b21pY3MuZ2l0aHViLmlvKSIKb3V0cHV0OgogIGJvb2tkb3duOjpwZGZfZG9jdW1lbnQyOgogICAgdG9jOiB0cnVlCiAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUKICAgIGxhdGV4X2VuZ2luZTogeGVsYXRleAphbHdheXNfYWxsb3dfaHRtbDogdHJ1ZQotLS0KCjxhIHJlbD0ibGljZW5zZSIgaHJlZj0iaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMCI+PGltZyBhbHQ9IkNyZWF0aXZlIENvbW1vbnMgTGljZW5zZSIgc3R5bGU9ImJvcmRlci13aWR0aDowIiBzcmM9Imh0dHBzOi8vaS5jcmVhdGl2ZWNvbW1vbnMub3JnL2wvYnktbmMtc2EvNC4wLzg4eDMxLnBuZyIgLz48L2E+Cgo8aWZyYW1lIHdpZHRoPSI1NjAiIGhlaWdodD0iMzE1IiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL0x2Nk96WWZQYTljP3NpPTVja1V6U0tmSWQxZS1oeWkiIHRpdGxlPSJZb3VUdWJlIHZpZGVvIHBsYXllciIgZnJhbWVib3JkZXI9IjAiIGFsbG93PSJhY2NlbGVyb21ldGVyOyBhdXRvcGxheTsgY2xpcGJvYXJkLXdyaXRlOyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlOyB3ZWItc2hhcmUiIHJlZmVycmVycG9saWN5PSJzdHJpY3Qtb3JpZ2luLXdoZW4tY3Jvc3Mtb3JpZ2luIiBhbGxvd2Z1bGxzY3JlZW4+PC9pZnJhbWU+CgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRSwgY2FjaGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldCgKICBpbmNsdWRlID0gVFJVRSwgY29tbWVudCA9IE5BLCBlY2hvID0gVFJVRSwKICBtZXNzYWdlID0gRkFMU0UsIHdhcm5pbmcgPSBGQUxTRSwgY2FjaGUgPSBUUlVFCikKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoTkhBTkVTKQpgYGAKCmBgYHtyIHBvcDJTYW1wMlBvcCwgb3V0LndpZHRoPSc4MCUnLGZpZy5hc3A9LjgsIGZpZy5hbGlnbj0nY2VudGVyJyxlY2hvPUZBTFNFfQppZiAoInBpIiAlaW4lIGxzKCkpIHJtKCJwaSIpCmtvcHZvZXRlciA8LSBmdW5jdGlvbih4LCB5LCBhbmdsZSA9IDAsIGwgPSAuMiwgY2V4LmRvdCA9IC41LCBwY2ggPSAxOSwgY29sID0gImJsYWNrIikgewogIGFuZ2xlIDwtIGFuZ2xlIC8gMTgwICogcGkKICBwb2ludHMoeCwgeSwgY2V4ID0gY2V4LmRvdCwgcGNoID0gcGNoLCBjb2wgPSBjb2wpCiAgbGluZXMoYyh4LCB4ICsgbCAqIGNvcygtcGkgLyAyICsgYW5nbGUpKSwgYyh5LCB5ICsgbCAqIHNpbigtcGkgLyAyICsgYW5nbGUpKSwgY29sID0gY29sKQogIGxpbmVzKGMoeCArIGwgLyAyICogY29zKC1waSAvIDIgKyBhbmdsZSksIHggKyBsIC8gMiAqIGNvcygtcGkgLyAyICsgYW5nbGUpICsgbCAvIDQgKiBjb3MoYW5nbGUpKSwgYyh5ICsgbCAvIDIgKiBzaW4oLXBpIC8gMiArIGFuZ2xlKSwgeSArIGwgLyAyICogc2luKC1waSAvIDIgKyBhbmdsZSkgKyBsIC8gNCAqIHNpbihhbmdsZSkpLCBjb2wgPSBjb2wpCiAgbGluZXMoYyh4ICsgbCAvIDIgKiBjb3MoLXBpIC8gMiArIGFuZ2xlKSwgeCArIGwgLyAyICogY29zKC1waSAvIDIgKyBhbmdsZSkgKyBsIC8gNCAqIGNvcyhwaSArIGFuZ2xlKSksIGMoeSArIGwgLyAyICogc2luKC1waSAvIDIgKyBhbmdsZSksIHkgKyBsIC8gMiAqIHNpbigtcGkgLyAyICsgYW5nbGUpICsgbCAvIDQgKiBzaW4ocGkgKyBhbmdsZSkpLCBjb2wgPSBjb2wpCiAgbGluZXMoYyh4ICsgbCAqIGNvcygtcGkgLyAyICsgYW5nbGUpLCB4ICsgbCAqIGNvcygtcGkgLyAyICsgYW5nbGUpICsgbCAvIDIgKiBjb3MoLXBpIC8gMiArIHBpIC8gNCArIGFuZ2xlKSksIGMoeSArIGwgKiBzaW4oLXBpIC8gMiArIGFuZ2xlKSwgeSArIGwgKiBzaW4oLXBpIC8gMiArIGFuZ2xlKSArIGwgLyAyICogc2luKC1waSAvIDIgKyBwaSAvIDQgKyBhbmdsZSkpLCBjb2wgPSBjb2wpCiAgbGluZXMoYyh4ICsgbCAqIGNvcygtcGkgLyAyICsgYW5nbGUpLCB4ICsgbCAqIGNvcygtcGkgLyAyICsgYW5nbGUpICsgbCAvIDIgKiBjb3MoLXBpIC8gMiAtIHBpIC8gNCArIGFuZ2xlKSksIGMoeSArIGwgKiBzaW4oLXBpIC8gMiArIGFuZ2xlKSwgeSArIGwgKiBzaW4oLXBpIC8gMiArIGFuZ2xlKSArIGwgLyAyICogc2luKC1waSAvIDIgLSBwaSAvIDQgKyBhbmdsZSkpLCBjb2wgPSBjb2wpCn0KCnBhcihtYXIgPSBjKDAsIDAsIDAsIDApLCBtYWkgPSBjKDAsIDAsIDAsIDApKQpwbG90KDAsIDAsIHhsYWIgPSAiIiwgeWxhYiA9ICIiLCB4bGltID0gYygwLCAxMCksIHlsaW0gPSBjKDAsIDEwKSwgY29sID0gMCwgeGF4dCA9ICJub25lIiwgeWF4dCA9ICJub25lIiwgYXhlcyA9IEZBTFNFKQpyZWN0KDAsIDYsIDEwLCAxMCwgYm9yZGVyID0gInJlZCIsIGx3ZCA9IDIpCnRleHQoLjUsIDgsICJwb3B1bGF0aW9uIiwgc3J0ID0gOTAsIGNvbCA9ICJyZWQiLCBjZXggPSAyKQpzeW1ib2xzKDMsIDgsIGNpcmNsZXMgPSAxLjUsIGNvbCA9ICJyZWQiLCBhZGQgPSBUUlVFLCBmZyA9ICJyZWQiLCBpbmNoZXMgPSBGQUxTRSwgbHdkID0gMikKc2V0LnNlZWQoMzMwKQpncmlkIDwtIHNlcSgwLCAxLjMsIC4wMSkKCmZvciAoaSBpbiAxOjUwKQp7CiAgYW5nbGUxIDwtIHJ1bmlmKG4gPSAxLCBtaW4gPSAwLCBtYXggPSAzNjApCiAgYW5nbGUyIDwtIHJ1bmlmKG4gPSAxLCBtaW4gPSAwLCBtYXggPSAzNjApCiAgcmFkaXVzIDwtIHNhbXBsZShncmlkLCBwcm9iID0gZ3JpZF4yICogcGkgLyBzdW0oZ3JpZF4yICogcGkpLCBzaXplID0gMSkKICBrb3B2b2V0ZXIoMyArIHJhZGl1cyAqIGNvcyhhbmdsZTEgLyAxODAgKiBwaSksIDggKyByYWRpdXMgKiBzaW4oYW5nbGUxIC8gMTgwICogcGkpLCBhbmdsZSA9IGFuZ2xlMikKfQp0ZXh0KDcuNSwgOCwgIkNob2xlc3Rlcm9sIGluIHBvcHVsYXRpb24iLCBjb2wgPSAicmVkIiwgY2V4ID0gMS4yKQoKcmVjdCgwLCAwLCAxMCwgNCwgYm9yZGVyID0gImJsdWUiLCBsd2QgPSAyKQp0ZXh0KC41LCAyLCAic2FtcGxlIiwgc3J0ID0gOTAsIGNvbCA9ICJibHVlIiwgY2V4ID0gMikKc3ltYm9scygzLCAyLCBjaXJjbGVzID0gMS41LCBjb2wgPSAicmVkIiwgYWRkID0gVFJVRSwgZmcgPSAiYmx1ZSIsIGluY2hlcyA9IEZBTFNFLCBsd2QgPSAyKQpmb3IgKGkgaW4gMDoyKSB7CiAgZm9yIChqIGluIDA6NCkKICB7CiAgICBrb3B2b2V0ZXIoMi4xICsgaiAqICgzLjkgLSAyLjEpIC8gNCwgMS4xICsgaSkKICB9Cn0KdGV4dCg3LjUsIDIsICJDaG9sZXN0ZXJvbCBpbiBzYW1wbGUiLCBjb2wgPSAiYmx1ZSIsIGNleCA9IDEuMikKCmFycm93cygzLCA1LjksIDMsIDQuMSwgY29sID0gImJsYWNrIiwgbHdkID0gMykKYXJyb3dzKDcsIDQuMSwgNywgNS45LCBjb2wgPSAiYmxhY2siLCBsd2QgPSAzKQp0ZXh0KDEuNSwgNSwgIkVYUC4gREVTSUdOICgxKSIsIGNvbCA9ICJibGFjayIsIGNleCA9IDEuMikKdGV4dCg4LjUsIDUsICJFU1RJTUFUSU9OICZcbklORkVSRU5DRSAoMykiLCBjb2wgPSAiYmxhY2siLCBjZXggPSAxLjIpCnRleHQoNy41LCAuNSwgIkRBVEEgRVhQTE9SQVRJT04gJlxuREVTQ1JJUFRJVkUgU1RBVElTVElDUyAoMikiLCBjb2wgPSAiYmxhY2siLCBjZXggPSAxLjIpCmBgYAoKLS0tCgojIE5lZWQgZm9yIGEgZ29vZCBjb250cm9sCgotIEEgZ29vZCBjb250cm9sIGdyb3VwIGlzIGNydWNpYWwuCgotIFRvIGFzc2VzcyB0aGUgZWZmZWN0IG9mIGFuIGludGVydmVudGlvbiwgd2UgbmVlZCB0byBjb21wYXJlIGEgdGVzdCBhbmQgY29udHJvbCBncm91cC4KCi0gVGhpcyBpcyBvZnRlbiBub3QgcG9zc2libGUgaW4gYSBwcmV0ZXN0L3Bvc3QtdGVzdCBkZXNpZ246IGUuZy4gZWZmZWN0IGJlZm9yZSBhbmQgYWZ0ZXIgYWRtaW5pc3RlcmluZyBhIGRydWcgd2l0aG91dCB0aGUgdXNlIG9mIGEgcGxhY2VibyBncm91cC4KCi0gR3JvdXBzIGluIGFuIG9ic2VydmF0aW9uYWwgc3R1ZHkgYXJlIG9mdGVuIG5vdCBjb21wYXJhYmxlOiBhZHZhbmNlZCBzdGF0aXN0aWNhbCBtZXRob2RzIGFyZSByZXF1aXJlZCB0byBkcmF3IGNhdXNhbCBjb25jbHVzaW9ucy4KCi0gRG91YmxlIGJsaW5kaW5nCgotIFdlIGhhdmUgdG8gYmUgYXdhcmUgb2YgY29uZm91bmRpbmchCgotIFJhbmRvbWl6ZWQgc3R1ZGllczogcmFuZG9tIGFzc2lnbm1lbnQgb2Ygc3ViamVjdHMgaW4gdGhlIHN0dWR5IHRvIHRoZSBkaWZmZXJlbnQgdHJlYXRtZW50IGFybXMgJFxyaWdodGFycm93JCBjb21wYXJhYmxlIGdyb3Vwcy4KCi0tLQoKIyBSYW5kb21pemF0aW9uCgotIFJhbmRvbWl6YXRpb24gY29tcGxldGVseSBhdCByYW5kb20gKG5vIHN5c3RlbWF0aWMgYWxsb2NhdGlvbikuCgojIyBTaW1wbGUgUmFuZG9taXphdGlvbgoKLSBDYW4gbGVhZCB0byBkaWZmZXJlbmNlcyBpbiB0aGUgbnVtYmVyIG9mIGV4cGVyaW1lbnRhbCB1bml0cyBpbiBlYWNoIHRyZWF0bWVudCBhcm0KCi0gaW4gNSUgb2YgdGhlIGNhc2VzIHdlIG1pZ2h0IG9ic2VydmUgYW4gaW1iYWxhbmNlIG9mCiAgICAtIG9mIGF0IGxlYXN0IDYwOjQwIGluIGEgc3R1ZHkgd2l0aCAxMDAgc3ViamVjdHMsIGFuZAogICAgLSBvZiBhdCBsZWFzdCA1MzE6NDY5IGluIGEgc3R1ZHkgd2l0aCAxMDAwIHN1YmplY3RzLgoKLSBUaGlzIGltYmFsYW5jZSBpcyBub3QgcHJvYmxlbWF0aWMsIGJ1dCBjYXVzZXMgYSBsb3NzIGluIHByZWNpc2lvbi4KCi0tLQoKIyMgQmFsYW5jZWQgUmFuZG9taXphdGlvbgoKLSBFcXVhbCBudW1iZXJzIG9mIGVhY2ggdHJlYXRtZW50IGFyZSBhc3NpZ25lZCB0byBhIGJsb2NrIG9mIDIgb3IgNCBwYXRpZW50cy4KICAgIC0gKDEpIEFCLCAoMikgQkEKICAgIC0gKDEpIEFBQkIsICgyKSBBQkFCLCAoMykgQUJCQSwgKDQpIEJBQkEsICg1KSBCQUFCLCAoNikgQkJBQQoKLSBCYWxhbmNlZCBSYW5kb21pemF0aW9uIGVuc3VyZXMgJFxwbSQgdGhlIHNhbWUgbnVtYmVyIG9mIHBlb3BsZSBpbiB0aGUgY29udHJvbCBhbmQgdGhlIHRyZWF0bWVudCBhcm0gb2YgdGhlIGV4cGVyaW1lbnQuCgotIERvZXMgbm90IG1ha2UgdGhhdCB3ZSBoYXZlIGFuIGVxdWFsIG51bWJlciBvZiBtYWxlcyB3aXRoIGFuZCB3aXRob3V0IHRoZSB0cmVhdG1lbnQsIGV0Yy4KCi0gSW4gc21hbGwgc3R1ZGllcywgaXQgaXMgcG9zc2libGUgdGhhdCB0aGUgZ3JvdXBzIGFyZSB1bmJhbGFuY2VkIGluIG90aGVyIGNoYXJhY3RlcmlzdGljcyAoZS5nLiBnZW5kZXIsIHJhY2UsIGFnZSAuLi4pCgotIFRoaXMgaXMgbm90IHByb2JsZW1hdGljIGJlY2F1c2UgaXQgb2NjdXJzIGF0IHJhbmRvbSwgYnV0LCBhZ2FpbiBpdCBjYXVzZXMgYSBsb3NzIGluIHByZWNpc2lvbi4KCi0tLQoKIyMgU3RyYXRpZmllZCByYW5kb21pemF0aW9uCgotIFRoZSBpbWJhbGFuY2UgYWNjb3JkaW5nIHRvIGZvciBpbnN0YW5jZSBnZW5kZXIgY2FuIGJlIGF2b2lkZWQgdXNpbmcgc3RyYXRpZmllZCBSYW5kb21pemF0aW9uOiBiYWxhbmNlZCByYW5kb21pemF0aW9uIHBlciBzdHJhdHVtCgohW1N0cmF0aWZpZWQgUmFuZG9taXphdGlvbl0oLi9maWd1cmVzL3N0cmF0aWZpY2F0aW9uLnBuZyl7IHdpZHRoPTUwJSB9CgotLS0KCiMgU2FtcGxlIHNpemUKCi0gVGhlIHNhbXBsZSBzaXplIGFuZCB0aGUgZGVzaWduIGFyZSBjcnVjaWFsLgoKLSBUaGUgbGFyZ2VyIHRoZSBzYW1wbGUgc2l6ZSwgdGhlIG1vcmUgcHJlY2lzZSB0aGUgcmVzdWx0cy4KCgojIEJhZCBkZXNpZ24gZXhhbXBsZQoKLSBkbTogZGlhYmV0aWMgbWVkaXVtLCBuZDogbm9uIGRpYWJldGljIG1lZGl1bSwgY286IGNvbnRyb2wKLSA0IGJpby1yZXBzLCAyIHRlY2hyZXBzL2Jpb3JlcAohW10oLi9maWd1cmVzL3FwY3JCYWREZXNpZ24xLnBuZyl7IHdpZHRoPTEwMCUgfQoKLSBkbTogZGlhYmV0aWMgbWVkaXVtLCBuZDogbm9uIGRpYWJldGljIG1lZGl1bSwgY286IGNvbnRyb2wKLSA0IGJpby1yZXBzLCAyIHRlY2hyZXBzL2Jpb3JlcCwgMiBwbGF0ZXMgQSAmIEIKLSBUcmVhdG1lbnQgYW5kIHBsYXRlIGFsbW9zdCBlbnRpcmVseSBjb25mb3VuZGVkCgohW10oLi9maWd1cmVzL3FwY3JCYWREZXNpZ24yLnBuZyl7IHdpZHRoPTEwMCUgfQoKLS0tCgoKIyBXcmFwLXVwCgotIFNhbXBsZSBzaXplIGlzIHZlcnkgaW1wb3J0YW50LgoKLSBUbyBhc3Nlc3MgdGhlIGVmZmVjdCBvZiBhIHRyZWF0bWVudCwgd2Ugc2hvdWxkIGNvbXBhcmUgY29tcGFyYWJsZSBhbmQgcmVwcmVzZW50YXRpdmUgZ3JvdXBzIG9mIHN1YmplY3RzIHdpdGggYW5kIHdpdGhvdXQgdGhlIHRyZWF0bWVudCAoYSBnb29kIGNvbnRyb2whKS4KCi0gSW4gb2JzZXJ2YXRpb25hbCBzdHVkaWVzLCB0aGUgcmVzZWFyY2hlciBjYW5ub3QgY2hvb3NlIHRoZSB0cmVhdG1lbnQuIEl0IHdhcyB0aGUgcGF0aWVudCBvciB0aGVpciBNRCB3aG8gaGFkIGNob3NlbiBpdAoKLSBJbiBleHBlcmltZW50YWwgc3R1ZGllcywgdGhlIHJlc2VhcmNoZXIgYXNzaWducyB0aGUgdHJlYXRtZW50LgoKLSBDb25mb3VuZGluZyBjYW4gYmUgYXZvaWRlZCB2aWEgcmFuZG9taXphdGlvbi4KCi0gV2UgY2FuIGFsc28gY29ycmVjdCBmb3IgY29uZm91bmRpbmcgaW4gdGhlIHN0YXRpc3RpY2FsIGFuYWx5c2lzIGZvciB0aGUgY29uZm91bmRlcnMgdGhhdCBoYXZlIGJlZW4gcmVnaXN0ZXJlZC4K</div>
+<div class="footer">
+    <hr>
+    This work is licensed under the <a href= "https://creativecommons.org/licenses/by-nc-sa/4.0">
+    CC BY-NC-SA 4.0</a> licence.
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("03-experimentalDesign.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
